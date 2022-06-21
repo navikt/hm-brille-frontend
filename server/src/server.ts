@@ -10,6 +10,7 @@ server.engine('html', mustacheExpress())
 server.set('trust proxy', 1)
 
 const router = express.Router()
+router.use('/', routes.internal())
 router.use('/', routes.public(server))
 
 server.use(config.basePath(), router)
