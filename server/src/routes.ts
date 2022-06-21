@@ -33,6 +33,7 @@ const spaHandler: RequestHandler = async (req, res) => {
     const decorator = await fetchDecoratorHtml({
       env: config.isProduction() ? 'prod' : 'dev',
       context: 'samarbeidspartner',
+      chatbot: false,
     })
     res.render('index.html', decorator)
   } catch (err: unknown) {
