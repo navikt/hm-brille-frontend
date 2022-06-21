@@ -1,7 +1,7 @@
 import { Search } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
-import { http } from './http'
-import { HentPersonRequest, Person } from './types'
+import { http } from '../http'
+import { HentPersonRequest, Person } from '../types'
 
 interface HentPersonFormData {
   fnr: string
@@ -18,13 +18,13 @@ export function HentPersonForm(props: HentPersonFormProps) {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        console.log(data.fnr)
         const { fnr } = data
         const { data: person, error } = await http.post<HentPersonRequest, Person>('/hent-person', { fnr })
+        if (error) {
+          // feilhåndtering
+        }
         if (person) {
           onPersonHentet(person)
-        } else {
-          // feilhåndter
         }
       })}
     >

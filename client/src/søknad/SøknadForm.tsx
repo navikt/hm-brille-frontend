@@ -1,48 +1,34 @@
 import { Delete } from '@navikt/ds-icons'
-import { Alert, Button, Heading, Label, Radio, RadioGroup, TextField } from '@navikt/ds-react'
+import { Button, Heading, Radio, RadioGroup, TextField } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { Avstand } from './components/Avstand'
-import { Nullable, Person } from './types'
 
 interface SøknadFormData {
   sats: string
   virksomhet: string
-  referanseNummer: string
+  referansenummer: string
 }
 
-export interface SøknadFormProps {
-  person: Nullable<Person>
-}
+export interface SøknadFormProps {}
 
 export function SøknadForm(props: SøknadFormProps) {
-  const { person } = props
-  const { register, handleSubmit, control } = useForm<SøknadFormData>()
+  const { register, handleSubmit, control } = useForm<SøknadFormData>({
+    defaultValues: {
+      sats: '',
+      virksomhet: '',
+      referansenummer: '',
+    },
+  })
+
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
         console.log(data)
       })}
     >
-      {person && (
-        <Avstand marginTop={5} marginBottom={5}>
-          <Alert variant="success">
-            <Heading level="3" size="small">
-              {`${person.fornavn} ${person.etternavn}`}
-            </Heading>
-            <DataList>
-              <dt>
-                <Label>Fødselsnummer:</Label>
-              </dt>
-              <dd>{person.fnr}</dd>
-            </DataList>
-          </Alert>
-        </Avstand>
-      )}
       <Controller<SøknadFormData>
         name="sats"
         control={control}
-        defaultValue="sats1"
         render={({ field }) => (
           <RadioGroup legend="Synet til barnet" {...field}>
             <Radio value="sats1">Enstyrkebriller med styrker ≤ 4 D</Radio>
@@ -68,7 +54,6 @@ export function SøknadForm(props: SøknadFormProps) {
       <Controller<SøknadFormData>
         name="virksomhet"
         control={control}
-        defaultValue=""
         render={({ field }) => (
           <RadioGroup legend="Hvilken virksomhet representerer du?" {...field}>
             <Radio value="1">Brilleland ANB</Radio>
@@ -77,7 +62,7 @@ export function SøknadForm(props: SøknadFormProps) {
         )}
       />
 
-      <TextField label="Referansenummer/ordrenummer" size="medium" {...register('referanseNummer')} />
+      <TextField label="Referansenummer/ordrenummer" size="medium" {...register('referansenummer')} />
 
       <Knapper>
         <Button variant="primary" type="submit">
@@ -93,13 +78,8 @@ export function SøknadForm(props: SøknadFormProps) {
 }
 
 const Knapper = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-auto-flow: column;
   gap: var(--navds-spacing-3);
   margin-top: var(--navds-spacing-3);
-`
-
-const DataList = styled.dl`
-  display: flex;
-  align-items: center;
 `
