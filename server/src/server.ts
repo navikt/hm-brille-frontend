@@ -1,6 +1,7 @@
 import express from 'express'
 import mustacheExpress from 'mustache-express'
 import { config } from './config'
+import { logger } from './logger'
 import { routes } from './routes'
 
 const server = express()
@@ -16,4 +17,4 @@ router.use('/', routes.public(server))
 server.use(config.basePath(), router)
 
 const PORT = process.env.PORT || 5000
-server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+server.listen(PORT, () => logger.info(`Listening on port ${PORT}`))

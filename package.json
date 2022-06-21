@@ -1,0 +1,10 @@
+{
+  "name": "hm-brille-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run --prefix client dev",
+    "build": "npm run --prefix client build & npm run --prefix server build",
+    "clean": "npm run --prefix client clean & npm run --prefix server clean"
+  }
+}
