@@ -1,28 +1,29 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
-import express, { Express, RequestHandler, Router } from 'express'
+import express, { RequestHandler, Router } from 'express'
 import { config } from './config'
+import { logger } from './logger'
 import { setupMetrics } from './metrics'
 
 export const routes = {
   internal(): Router {
     const router = Router()
     router.get('/isalive', (_, res) => res.send('alive'))
-    router.get('/isready', (_, res) => {
-      res.send('ready')
-    })
+    router.get('/isready', (_, res) => res.send('ready'))
+
     const prometheus = setupMetrics()
     router.get('/metrics', async (req, res) => {
       res.set('Content-Type', prometheus.contentType)
       res.end(await prometheus.metrics())
     })
+
     return router
   },
-  public(server: Express): Router {
+  public(): Router {
     const router = Router()
     router.get('/settings.js', settingsHandler)
     router.get('*', express.static(config.buildPath(), { index: false }))
-    server.get('/', spaHandler)
     router.get('*', spaHandler)
+
     return router
   },
 }
@@ -36,7 +37,7 @@ const spaHandler: RequestHandler = async (req, res) => {
     res.render('index.html', decorator)
   } catch (err: unknown) {
     const error = `Feil under henting av dekoratør: ${err}`
-    console.error(error)
+    logger.error(error)
     res.status(500).send(error)
   }
 }

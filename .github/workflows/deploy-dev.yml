@@ -38,7 +38,7 @@ jobs:
 #          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
 #          CLUSTER: dev-gcp
 #          RESOURCE: .nais/dev.yml
-#          VAR: image=${{ env.IMAGE }}
+#          VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
       - name: post-deploy
         uses: navikt/digihot-deploy/actions/post-deploy@v2
         env:
@@ -59,4 +59,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: labs-gcp
           RESOURCE: .nais/labs.yml
-          VAR: image=${{ env.IMAGE }}
+          VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
