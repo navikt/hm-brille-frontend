@@ -48,4 +48,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   plugins: [htmlPlugin({ development: env.mode === 'development' }), react()],
+  build: {
+    sourcemap: true,
+  },
 }))
