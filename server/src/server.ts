@@ -12,7 +12,7 @@ server.set('trust proxy', 1)
 
 const router = express.Router()
 router.use('/', routes.internal())
-router.use('/', routes.public(server))
+router.use('/', routes.public())
 
 server.use(config.basePath(), router)
 
