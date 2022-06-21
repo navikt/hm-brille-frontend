@@ -1,0 +1,34 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@navikt/ds-css": "^0.18.15",
+    "@navikt/ds-icons": "^0.8.17",
+    "@navikt/ds-react": "^0.19.14",
+    "@navikt/nav-dekoratoren-moduler": "^1.6.9",
+    "@types/styled-components": "^5.1.25",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.32.2",
+    "react-router-dom": "^6.3.0",
+    "styled-components": "^5.3.5",
+    "swr": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/mustache": "^4.1.3",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@vitejs/plugin-react": "^1.3.2",
+    "msw": "^0.42.1",
+    "mustache": "^4.2.0",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12"
+  }
+}
