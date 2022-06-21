@@ -1,7 +1,7 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
 import react from '@vitejs/plugin-react'
 import { render } from 'mustache'
-import { defineConfig, Plugin } from 'vite'
+import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite'
 
 const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
   name: 'html-transform',
@@ -47,7 +47,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
-  plugins: [htmlPlugin({ development: env.mode === 'development' }), react()],
+  plugins: [htmlPlugin({ development: env.mode === 'development' }), react(), splitVendorChunkPlugin()],
   build: {
     sourcemap: true,
   },

@@ -1,7 +1,9 @@
-import { rest, setupWorker } from 'msw'
+import { RequestHandler, rest, setupWorker } from 'msw'
 
-export const worker = setupWorker(
+const handlers: RequestHandler[] = [
   rest.get('/api/foobar', (req, res, ctx) => {
     return res(ctx.status(200))
-  })
-)
+  }),
+]
+
+export const worker = setupWorker(...handlers)
