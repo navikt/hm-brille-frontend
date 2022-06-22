@@ -3,6 +3,7 @@ import express, { RequestHandler, Router } from 'express'
 import { config } from './config'
 import { logger } from './logger'
 import { setupMetrics } from './metrics'
+import { proxyHandlers } from './proxy'
 
 export const routes = {
   internal(): Router {
@@ -16,6 +17,11 @@ export const routes = {
       res.end(await prometheus.metrics())
     })
 
+    return router
+  },
+  api(): Router {
+    const router = Router()
+    router.use(proxyHandlers.api())
     return router
   },
   public(): Router {

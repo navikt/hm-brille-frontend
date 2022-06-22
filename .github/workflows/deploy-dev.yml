@@ -33,16 +33,17 @@ jobs:
           docker push $IMAGE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      - uses: nais/deploy/actions/deploy@v1
-#        env:
-#          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-#          CLUSTER: dev-gcp
-#          RESOURCE: .nais/dev.yml
-#          VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
-      - name: post-deploy
-        uses: navikt/digihot-deploy/actions/post-deploy@v2
+      - name: deploy to dev
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/dev.yml
+          VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
+#      - name: post-deploy
+#        uses: navikt/digihot-deploy/actions/post-deploy@v2
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: draft release
 #        uses: actions/create-release@latest
 #        env:
