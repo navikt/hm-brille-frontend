@@ -6,10 +6,9 @@ function options(options: ProxyOptions = {}): ProxyOptions {
   return {
     parseReqBody: false,
     async proxyReqOptDecorator(options, req) {
-      if (config.cluster !== 'labs-gcp') {
-        const idPortenToken = req.headers['authorization']?.split(' ')[1]
+      if (config.cluster !== 'labs-gcp' && req.bearerToken) {
         const { exchangeToken } = await auth()
-        const { access_token } = await exchangeToken(idPortenToken as string, config.apiAudience || '')
+        const { access_token } = await exchangeToken(req.bearerToken, config.apiAudience || '')
         if (options.headers) {
           options.headers.Authorization = `Bearer ${access_token}`
         }

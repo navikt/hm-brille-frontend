@@ -38,15 +38,16 @@ async function createClientAssertion() {
 }
 
 export async function auth() {
+  const idPortenJWKSet = createRemoteJWKSet(new URL(config.auth.idPorten.jwks_uri || ''))
   const tokenXClient = await createClient(config.auth.tokenX)
   return {
     async verifyToken(token?: string): Promise<boolean> {
-      if (!token) {
-        return false
-      }
       try {
-        const jwkSet = createRemoteJWKSet(new URL(config.auth.idPorten.jwks_uri || ''))
-        const result = await jwtVerify(token, jwkSet, {
+        if (!token) {
+          return false
+        }
+
+        const result = await jwtVerify(token, idPortenJWKSet, {
           algorithms: ['RS256'],
         })
 
@@ -56,12 +57,13 @@ export async function auth() {
         }
 
         if (result.payload.acr === 'Level4') {
-          logger.warn('acr er ikke Level4')
+          logger.warn('acr er ikke riktig')
           return false
         }
 
         return true
       } catch (err: unknown) {
+        logger.warn(err)
         return false
       }
     },
