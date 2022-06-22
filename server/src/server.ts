@@ -17,9 +17,12 @@ router.use((req, res, next) => {
   next()
 })
 router.use(async (req, res, next) => {
+  if (config.cluster === 'labs-gcp' || req.path.startsWith('/internal/')) {
+    next()
+    return
+  }
   const { verifyToken } = await auth()
-  const verified = await verifyToken(req.bearerToken)
-  if (verified || config.cluster === 'labs-gcp' || req.path.startsWith('/internal/')) {
+  if (await verifyToken(req.bearerToken)) {
     next()
   } else {
     res.sendStatus(401)
