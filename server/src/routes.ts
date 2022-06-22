@@ -27,7 +27,7 @@ export const routes = {
   public(): Router {
     const router = Router()
     router.get('/settings.js', settingsHandler)
-    router.get('*', express.static(config.buildPath(), { index: false }))
+    router.get('*', express.static(config.buildPath, { index: false }))
     router.get('*', spaHandler)
 
     return router
@@ -37,7 +37,7 @@ export const routes = {
 const spaHandler: RequestHandler = async (req, res) => {
   try {
     const decorator = await fetchDecoratorHtml({
-      env: config.isProduction() ? 'prod' : 'dev',
+      env: config.cluster === 'prod-gcp' ? 'prod' : 'dev',
       context: 'samarbeidspartner',
       chatbot: false,
     })
