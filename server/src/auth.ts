@@ -50,7 +50,7 @@ export async function auth() {
           algorithms: ['RS256'],
         })
 
-        if (result.payload.x !== config.auth.idPorten.client_id) {
+        if (result.payload.client_id !== config.auth.idPorten.client_id) {
           logger.warn('client_id er ikke riktig')
           return false
         }
