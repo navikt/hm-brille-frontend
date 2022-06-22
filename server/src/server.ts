@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express'
+import express from 'express'
 import mustacheExpress from 'mustache-express'
 import { auth } from './auth'
 import { config } from './config'
@@ -11,24 +11,23 @@ server.set('view engine', 'mustache')
 server.engine('html', mustacheExpress())
 server.set('trust proxy', 1)
 
-const requireToken: RequestHandler = async (req, res, next) => {
-  const { verifyToken } = await auth()
-  const verified = await verifyToken(req.bearerToken)
-  if (verified || config.cluster === 'labs-gcp') {
-    next()
-  } else {
-    res.sendStatus(401)
-  }
-}
-
 const router = express.Router()
 router.use((req, res, next) => {
   req.bearerToken = req.headers['authorization']?.split(' ')[1]
   next()
 })
-router.use('/api/', requireToken, routes.api())
-router.use('/', routes.internal())
-router.use('/', requireToken, routes.public())
+router.use(async (req, res, next) => {
+  const { verifyToken } = await auth()
+  const verified = await verifyToken(req.bearerToken)
+  if (verified || config.cluster === 'labs-gcp' || req.path.startsWith('/internal/')) {
+    next()
+  } else {
+    res.sendStatus(401)
+  }
+})
+router.use('/api/', routes.api())
+router.use('/internal/', routes.internal())
+router.use('/', routes.public())
 
 server.use(config.basePath, router)
 

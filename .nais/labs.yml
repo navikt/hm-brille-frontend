@@ -13,12 +13,12 @@ spec:
   ingresses:
     - https://brille.labs.nais.io
   liveness:
-    path: /isalive
+    path: /internal/isalive
   readiness:
-    path: /isready
+    path: /internal/isready
   prometheus:
     enabled: true
-    path: /metrics
+    path: /internal/metrics
   replicas:
     max: 1
     min: 1
