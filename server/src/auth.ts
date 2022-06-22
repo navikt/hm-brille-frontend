@@ -56,7 +56,7 @@ export async function auth() {
           return false
         }
 
-        if (result.payload.acr === 'Level4') {
+        if (result.payload.acr !== 'Level4') {
           logger.warn(`acr er ikke riktig, acr: ${result.payload.acr}`)
           return false
         }
