@@ -9,14 +9,14 @@ export interface OIDCClientConfiguration extends ClientMetadata {
 }
 
 const idPorten: OIDCClientConfiguration = {
-  issuer: process.env.IDPORTEN_ISSUER || 'http://localhost:8080/default',
+  issuer: process.env.IDPORTEN_WELL_KNOWN_URL || 'http://localhost:8080/default',
   token_endpoint: process.env.IDPORTEN_TOKEN_ENDPOINT || '',
   jwks_uri: process.env.IDPORTEN_JWKS_URI,
   client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
 }
 
 const tokenX: OIDCClientConfiguration = {
-  issuer: process.env.TOKEN_X_ISSUER || 'http://localhost:8080/default',
+  issuer: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
   token_endpoint: process.env.TOKEN_X_TOKEN_ENDPOINT || '',
   private_jwk: process.env.TOKEN_X_PRIVATE_JWK,
   client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
