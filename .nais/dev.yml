@@ -31,6 +31,15 @@ spec:
       memory: 512Mi
   secureLogs:
     enabled: true
+  idporten:
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: true
+      errorPath: ""
+  tokenx:
+    enabled: true
   env:
     - name: API_URL
       value: 'http://hm-brille-api.teamdigihot.svc.cluster.local'
