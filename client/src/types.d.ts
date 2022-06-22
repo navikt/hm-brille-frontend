@@ -2,8 +2,9 @@ export type Nullable<T> = T | null
 
 export interface Person {
   fnr: string
-  fornavn: string
-  etternavn: string
+  navn: string
+  alder: number
+  kanSøke: boolean
 }
 
 export interface HentPersonRequest {

@@ -4,7 +4,9 @@ import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { Nullable, Person } from '../types'
+import { Barn } from './Barn'
 import { HentPersonForm } from './HentPersonForm'
+import { IkkeRettighet } from './IkkeRettighet'
 import { SøknadForm } from './SøknadForm'
 
 export interface SøknadProps {}
@@ -14,26 +16,23 @@ export function Søknad(props: SøknadProps) {
   const [person, setPerson] = useState<Nullable<Person>>(null)
   return (
     <Panel>
-      <Heading level="1" size="xlarge" spacing>
-        Søknad om direkteoppgjør til barnebriller
-      </Heading>
+     
       <Heading level="2" size="large" spacing>
         Informasjon om barnet
       </Heading>
       <HentPersonForm onPersonHentet={(person) => setPerson(person)} />
       {person && (
         <Avstand marginTop={5} marginBottom={5}>
-          <Alert variant="success">
-            <Heading level="3" size="small">
-              {`${person.fornavn} ${person.etternavn}`}
-            </Heading>
-            <Data>
-              <Datum label="Fødselsnummer:">{person.fnr}</Datum>
-            </Data>
-          </Alert>
+          <Barn person={person}/>
+          {!person.kanSøke ? (
+            <Avstand marginTop={5} marginBottom={5}>
+              <IkkeRettighet />
+            </Avstand>
+          ) : (
+            <SøknadForm />
+          )}
         </Avstand>
       )}
-      <SøknadForm />
     </Panel>
   )
 }

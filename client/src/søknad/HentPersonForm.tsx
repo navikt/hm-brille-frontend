@@ -19,7 +19,7 @@ export function HentPersonForm(props: HentPersonFormProps) {
     <form
       onSubmit={handleSubmit(async (data) => {
         const { fnr } = data
-        const { data: person, error } = await http.post<HentPersonRequest, Person>('/hent-person', { fnr })
+        const { data: person, error } = await http.post<HentPersonRequest, Person>('/sjekk-kan-soke', { fnr })
         if (error) {
           // feilhåndtering
         }
