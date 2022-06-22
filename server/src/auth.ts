@@ -52,12 +52,12 @@ export async function auth() {
         })
 
         if (result.payload.client_id !== config.auth.idPorten.client_id) {
-          logger.warn('client_id er ikke riktig')
+          logger.warn(`client_id er ikke riktig, client_id: ${result.payload.client_id}`)
           return false
         }
 
         if (result.payload.acr === 'Level4') {
-          logger.warn('acr er ikke riktig')
+          logger.warn(`acr er ikke riktig, acr: ${result.payload.acr}`)
           return false
         }
 
