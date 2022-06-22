@@ -32,6 +32,7 @@ spec:
   secureLogs:
     enabled: true
   idporten:
+    enabled: true
     sidecar:
       enabled: true
       level: Level4
