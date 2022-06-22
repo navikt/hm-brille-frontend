@@ -3,14 +3,13 @@ import { auth } from './auth'
 import { config } from './config'
 
 function options(options: ProxyOptions = {}): ProxyOptions {
-  const targetAudience = ''
   return {
     parseReqBody: false,
     async proxyReqOptDecorator(options, req) {
-      const { exchangeToken } = await auth()
       if (config.cluster !== 'labs-gcp') {
         const idPortenToken = req.headers['authorization']?.split(' ')[1]
-        const { access_token } = await exchangeToken(idPortenToken as string, targetAudience)
+        const { exchangeToken } = await auth()
+        const { access_token } = await exchangeToken(idPortenToken as string, config.apiAudience || '')
         if (options.headers) {
           options.headers.Authorization = `Bearer ${access_token}`
         }
