@@ -11,10 +11,10 @@ server.set('view engine', 'mustache')
 server.engine('html', mustacheExpress())
 server.set('trust proxy', 1)
 
-const authMiddleware: RequestHandler = async (req, res, next) => {
+const requireToken: RequestHandler = async (req, res, next) => {
   const { verifyToken } = await auth()
-  const valid = await verifyToken(req.bearerToken)
-  if (valid || config.cluster === 'labs-gcp') {
+  const verified = await verifyToken(req.bearerToken)
+  if (verified || config.cluster === 'labs-gcp') {
     next()
   } else {
     res.sendStatus(401)
@@ -26,9 +26,9 @@ router.use((req, res, next) => {
   req.bearerToken = req.headers['authorization']?.split(' ')[1]
   next()
 })
-router.use('/api/', authMiddleware, routes.api())
-router.use('/', authMiddleware, routes.internal())
-router.use('/', authMiddleware, routes.public())
+router.use('/api/', requireToken, routes.api())
+router.use('/', routes.internal())
+router.use('/', requireToken, routes.public())
 
 server.use(config.basePath, router)
 
