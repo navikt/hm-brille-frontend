@@ -1,48 +1,23 @@
-import type { ClientMetadata } from 'openid-client'
 import path from 'path'
 
-export interface OIDCClientConfiguration {
-  issuer: string
-  private_jwk?: string
-  metadata: ClientMetadata
-}
-
-const idPorten: OIDCClientConfiguration = {
-  issuer: process.env.IDPORTEN_WELL_KNOWN_URL || 'http://localhost:8080/default',
-  metadata: {
-    client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
-  },
-}
-
-const tokenX: OIDCClientConfiguration = {
-  issuer: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
-  private_jwk: process.env.TOKEN_X_PRIVATE_JWK,
-  metadata: {
-    client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
-    token_endpoint_auth_method: 'none',
-  },
-}
-
-export interface APIConfiguration {
-  baseUrl: string
-  targetAudience: string
-}
-
-const brille: APIConfiguration = {
-  baseUrl: process.env.BRILLE_API_BASE_URL || 'http://localhost:9090',
-  targetAudience: process.env.BRILLE_API_TARGET_AUDIENCE || 'local:hm-brille-api',
-}
-
 export const config = {
-  env: process.env.NODE_ENV,
-  cluster: process.env.NAIS_CLUSTER_NAME,
-  basePath: '/',
-  buildPath: path.join(__dirname, '../../client/dist'),
+  base_path: '/',
+  build_path: path.join(__dirname, '../../client/dist'),
+  port: process.env.PORT || 5000,
+  node_env: process.env.NODE_ENV || 'production',
+  nais_cluster_name: process.env.NAIS_CLUSTER_NAME || 'labs-gcp',
+  use_msw: process.env.USE_MSW === 'true',
+  git_commit: process.env.GIT_COMMIT || 'Ukjent',
   api: {
-    brille,
+    brille_api_base_url: process.env.BRILLE_API_BASE_URL || 'http://localhost:9090',
+    brille_api_target_audience: process.env.BRILLE_API_TARGET_AUDIENCE || 'local:hm-brille-api',
   },
   auth: {
-    idPorten,
-    tokenX,
+    idporten_jwks_uri: process.env.IDPORTEN_JWKS_URI || 'http://localhost:8080/default/jwks',
+    idporten_client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
+    tokenx_well_known_url: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
+    tokenx_token_endpoint: process.env.TOKEN_X_TOKEN_ENDPOINT || 'http://localhost:8080/default/token',
+    tokenx_client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
+    tokenx_private_jwk: process.env.TOKEN_X_PRIVATE_JWK || '',
   },
 }

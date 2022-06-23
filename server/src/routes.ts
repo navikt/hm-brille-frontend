@@ -1,5 +1,6 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
 import express, { RequestHandler, Router } from 'express'
+import type { Auth } from './auth'
 import { config } from './config'
 import { logger } from './logger'
 import { setupMetrics } from './metrics'
@@ -19,15 +20,15 @@ export const routes = {
 
     return router
   },
-  api(): Router {
+  api(auth: Auth): Router {
     const router = Router()
-    router.use(proxyHandlers.api())
+    router.use(proxyHandlers.api(auth))
     return router
   },
   public(): Router {
     const router = Router()
     router.get('/settings.js', settingsHandler)
-    router.get('*', express.static(config.buildPath, { index: false }))
+    router.get('*', express.static(config.build_path, { index: false }))
     router.get('*', spaHandler)
 
     return router
@@ -37,7 +38,7 @@ export const routes = {
 const spaHandler: RequestHandler = async (req, res) => {
   try {
     const decorator = await fetchDecoratorHtml({
-      env: config.cluster === 'prod-gcp' ? 'prod' : 'dev',
+      env: config.nais_cluster_name === 'prod-gcp' ? 'prod' : 'dev',
       context: 'samarbeidspartner',
       chatbot: false,
     })
@@ -51,9 +52,9 @@ const spaHandler: RequestHandler = async (req, res) => {
 
 const settingsHandler: RequestHandler = (req, res) => {
   const appSettings = {
-    GIT_COMMIT: process.env.GIT_COMMIT,
-    MILJO: process.env.NAIS_CLUSTER_NAME,
-    USE_MSW: process.env.USE_MSW === 'true',
+    GIT_COMMIT: config.git_commit,
+    MILJO: config.nais_cluster_name,
+    USE_MSW: config.use_msw,
   }
   res.type('.js')
   res.send(`window.appSettings = ${JSON.stringify(appSettings)}`)

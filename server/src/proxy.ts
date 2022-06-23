@@ -1,17 +1,12 @@
 import proxy, { ProxyOptions } from 'express-http-proxy'
-import { auth } from './auth'
-import { APIConfiguration, config } from './config'
+import type { Auth } from './auth'
+import { config } from './config'
 
-function createProxy(apiConfig: APIConfiguration, options: ProxyOptions) {
-  return proxy(apiConfig.baseUrl, {
+function createProxy(host: string, targetAudience: string, auth: Auth, options: ProxyOptions) {
+  return proxy(host, {
     parseReqBody: false,
     async proxyReqOptDecorator(requestOptions, req) {
-      const bearerToken = req.bearerToken()
-      if (config.cluster === 'labs-gcp' || !bearerToken) {
-        return requestOptions
-      }
-      const { exchangeToken } = await auth()
-      const { access_token } = await exchangeToken(bearerToken, apiConfig.targetAudience)
+      const { access_token } = await auth.exchangeToken(req, targetAudience)
       requestOptions.headers = {
         ...requestOptions.headers,
         Authorization: `Bearer ${access_token}`,
@@ -23,8 +18,8 @@ function createProxy(apiConfig: APIConfiguration, options: ProxyOptions) {
 }
 
 export const proxyHandlers = {
-  api() {
-    return createProxy(config.api.brille, {
+  api(auth: Auth) {
+    return createProxy(config.api.brille_api_base_url, config.api.brille_api_target_audience, auth, {
       proxyReqPathResolver(req) {
         return req.originalUrl.replace('/api/', '/')
       },
