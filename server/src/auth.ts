@@ -55,7 +55,7 @@ export async function setupAuth(): Promise<Auth> {
         }
         if (result.payload.acr !== 'Level4') {
           logger.warn(`acr er ikke riktig, payload.acr: ${result.payload.acr}`)
-          res.sendStatus(401)
+          res.sendStatus(403)
           return
         }
 

@@ -12,10 +12,10 @@ export const routes = {
     router.get('/isalive', (_, res) => res.send('alive'))
     router.get('/isready', (_, res) => res.send('ready'))
 
-    const prometheus = setupMetrics()
+    const metrics = setupMetrics()
     router.get('/metrics', async (req, res) => {
-      res.set('Content-Type', prometheus.contentType)
-      res.end(await prometheus.metrics())
+      res.set('Content-Type', metrics.contentType)
+      res.end(await metrics.metrics())
     })
 
     return router
@@ -30,7 +30,6 @@ export const routes = {
     router.get('/settings.js', settingsHandler)
     router.get('*', express.static(config.build_path, { index: false }))
     router.get('*', spaHandler)
-
     return router
   },
 }
