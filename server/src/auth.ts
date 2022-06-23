@@ -7,12 +7,11 @@ import { URL } from 'url'
 import { config, OIDCClientConfiguration } from './config'
 import { logger } from './logger'
 
-async function createClient(config: OIDCClientConfiguration) {
-  const { issuer: _, private_jwk, ...metadata } = config
-  const issuer = await Issuer.discover(config.issuer)
+async function createClient(clientConfig: OIDCClientConfiguration) {
+  const issuer = await Issuer.discover(clientConfig.issuer)
   return {
     metadata: issuer.metadata,
-    client: new issuer.Client(metadata),
+    client: new issuer.Client(clientConfig.metadata),
   }
 }
 
@@ -21,16 +20,17 @@ async function privateKeyToPem(jwk: string) {
   return key.toPEM(true)
 }
 
-async function createClientAssertion(clientConfig: OIDCClientConfiguration, metadata: IssuerMetadata) {
+async function createClientAssertion(clientConfig: OIDCClientConfiguration, issuerMetadata: IssuerMetadata) {
+  const { metadata: clientMetadata } = clientConfig
   if (!clientConfig.private_jwk) {
     return Promise.reject(new Error('clientConfig.private_jwk er ikke satt'))
   }
   const now = Math.floor(Date.now() / 1000)
   return jwt.sign(
     {
-      sub: clientConfig.client_id,
-      aud: metadata.token_endpoint,
-      iss: clientConfig.client_id,
+      sub: clientMetadata.client_id,
+      aud: issuerMetadata.token_endpoint,
+      iss: clientMetadata.client_id,
       exp: now + 60, // max 120
       iat: now,
       jti: ulid(),
@@ -41,11 +41,11 @@ async function createClientAssertion(clientConfig: OIDCClientConfiguration, meta
   )
 }
 
-function lagJWKSet(metadata: IssuerMetadata) {
-  if (!metadata.jwks_uri) {
-    throw new Error('metadata.jwks_uri er ikke satt')
+function lagJWKSet(issuerMetadata: IssuerMetadata) {
+  if (!issuerMetadata.jwks_uri) {
+    throw new Error('issuerMetadata.jwks_uri er ikke satt')
   }
-  return createRemoteJWKSet(new URL(metadata.jwks_uri))
+  return createRemoteJWKSet(new URL(issuerMetadata.jwks_uri))
 }
 
 export async function auth() {
@@ -53,18 +53,17 @@ export async function auth() {
   const { metadata: tokenXMetadata, client: tokenXClient } = await createClient(config.auth.tokenX)
   const idPortenJWKSet = lagJWKSet(idPortenMetadata)
   return {
-    idPortenJWKSet,
-    async verifyToken(token?: string): Promise<boolean> {
+    async verifyIDPortenToken(idPortenToken?: string): Promise<boolean> {
       try {
-        if (!token) {
+        if (!idPortenToken) {
           return false
         }
 
-        const result = await jwtVerify(token, idPortenJWKSet, {
+        const result = await jwtVerify(idPortenToken, idPortenJWKSet, {
           algorithms: ['RS256'],
         })
 
-        if (result.payload.client_id !== config.auth.idPorten.client_id) {
+        if (result.payload.client_id !== config.auth.idPorten.metadata.client_id) {
           logger.warn(`client_id er ikke riktig, payload.client_id: ${result.payload.client_id}`)
           return false
         }
@@ -80,7 +79,7 @@ export async function auth() {
         return false
       }
     },
-    async exchangeToken(subjectToken: string, targetAudience: string): Promise<TokenSet> {
+    async exchangeToken(idPortenToken: string, targetAudience: string): Promise<TokenSet> {
       const clientAssertion = await createClientAssertion(config.auth.tokenX, tokenXMetadata)
       try {
         return tokenXClient.grant({
@@ -90,7 +89,7 @@ export async function auth() {
           subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
           client_assertion: clientAssertion,
           audience: targetAudience,
-          subject_token: subjectToken,
+          subject_token: idPortenToken,
         })
       } catch (err: unknown) {
         logger.error(`Feil under token exchange: ${err}`)

@@ -21,8 +21,8 @@ router.use(async (req, res, next) => {
     next()
     return
   }
-  const { verifyToken } = await auth()
-  if (await verifyToken(req.bearerToken())) {
+  const { verifyIDPortenToken } = await auth()
+  if (await verifyIDPortenToken(req.bearerToken())) {
     next()
   } else {
     res.sendStatus(401)

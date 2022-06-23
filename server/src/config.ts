@@ -1,21 +1,26 @@
 import type { ClientMetadata } from 'openid-client'
 import path from 'path'
 
-export interface OIDCClientConfiguration extends ClientMetadata {
+export interface OIDCClientConfiguration {
   issuer: string
   private_jwk?: string
+  metadata: ClientMetadata
 }
 
 const idPorten: OIDCClientConfiguration = {
   issuer: process.env.IDPORTEN_WELL_KNOWN_URL || 'http://localhost:8080/default',
-  client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
+  metadata: {
+    client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
+  },
 }
 
 const tokenX: OIDCClientConfiguration = {
   issuer: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
   private_jwk: process.env.TOKEN_X_PRIVATE_JWK,
-  client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
-  token_endpoint_auth_method: 'private_key_jwt',
+  metadata: {
+    client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
+    token_endpoint_auth_method: 'none',
+  },
 }
 
 export interface APIConfiguration {
