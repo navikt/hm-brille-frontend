@@ -7,17 +7,16 @@ const handlers: RequestHandler[] = [
     if (fnr === '404') {
       return res(ctx.status(404))
     }
-
-    if(fnr === '123') {
-        return res(
-            ctx.status(200),
-            ctx.json({
-              fnr,
-              navn: 'Pippi Langstrømpe',
-              kanSøke: false,
-              alder: 9
-            })
-          )
+    if (fnr === '123') {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          fnr,
+          navn: 'Pippi Langstrømpe',
+          kanSøke: false,
+          alder: 9,
+        })
+      )
     }
     return res(
       ctx.status(200),
@@ -25,7 +24,7 @@ const handlers: RequestHandler[] = [
         fnr,
         navn: 'Albert Åberg',
         kanSøke: true,
-        alder: 12
+        alder: 12,
       })
     )
   }),

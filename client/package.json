@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prettier": "prettier -w src"
   },
   "dependencies": {
     "@navikt/ds-css": "^0.18.15",

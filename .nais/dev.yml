@@ -42,9 +42,9 @@ spec:
   tokenx:
     enabled: true
   env:
-    - name: API_URL
+    - name: BRILLE_API_URL
       value: 'http://hm-brille-api.teamdigihot.svc.cluster.local'
-    - name: API_AUDIENCE
+    - name: BRILLE_API_AUDIENCE
       value: dev-gcp:teamdigihot:hm-brille-api
     - name: PORT
       value: '5000'

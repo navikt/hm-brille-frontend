@@ -52,22 +52,22 @@ export async function auth() {
         })
 
         if (result.payload.client_id !== config.auth.idPorten.client_id) {
-          logger.warn(`client_id er ikke riktig, client_id: ${result.payload.client_id}`)
+          logger.warn(`client_id er ikke riktig, payload.client_id: ${result.payload.client_id}`)
           return false
         }
 
         if (result.payload.acr !== 'Level4') {
-          logger.warn(`acr er ikke riktig, acr: ${result.payload.acr}`)
+          logger.warn(`acr er ikke riktig, payload.acr: ${result.payload.acr}`)
           return false
         }
 
         return true
       } catch (err: unknown) {
-        logger.warn(err)
+        logger.error(`Verifisering av token feilet: ${err}`)
         return false
       }
     },
-    async exchangeToken(idPortenToken: string, targetAudience: string): Promise<TokenSet> {
+    async exchangeToken(subjectToken: string, targetAudience: string): Promise<TokenSet> {
       const clientAssertion = await createClientAssertion()
       try {
         return tokenXClient.grant({
@@ -77,10 +77,10 @@ export async function auth() {
           subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
           client_assertion: clientAssertion,
           audience: targetAudience,
-          subject_token: idPortenToken,
+          subject_token: subjectToken,
         })
       } catch (err: unknown) {
-        logger.error(`Error while exchanging token: ${err}`)
+        logger.error(`Feil under token exchange: ${err}`)
         return Promise.reject(err)
       }
     },

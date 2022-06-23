@@ -1,33 +1,33 @@
 import proxy, { ProxyOptions } from 'express-http-proxy'
 import { auth } from './auth'
-import { config } from './config'
+import { APIConfiguration, config } from './config'
 
-function options(options: ProxyOptions = {}): ProxyOptions {
-  return {
+function createProxy(apiConfig: APIConfiguration, options: ProxyOptions) {
+  return proxy(apiConfig.baseUrl, {
     parseReqBody: false,
-    async proxyReqOptDecorator(options, req) {
-      if (config.cluster !== 'labs-gcp' && req.bearerToken) {
-        const { exchangeToken } = await auth()
-        const { access_token } = await exchangeToken(req.bearerToken, config.apiAudience || '')
-        if (options.headers) {
-          options.headers.Authorization = `Bearer ${access_token}`
-        }
+    async proxyReqOptDecorator(requestOptions, req) {
+      const bearerToken = req.bearerToken()
+      if (config.cluster === 'labs-gcp' || !bearerToken) {
+        return requestOptions
       }
-      return options
+      const { exchangeToken } = await auth()
+      const { access_token } = await exchangeToken(bearerToken, apiConfig.audience)
+      requestOptions.headers = {
+        ...requestOptions.headers,
+        Authorization: `Bearer ${access_token}`,
+      }
+      return requestOptions
     },
     ...options,
-  }
+  })
 }
 
 export const proxyHandlers = {
   api() {
-    return proxy(
-      process.env.API_URL || 'http://localhost:9090',
-      options({
-        proxyReqPathResolver(req) {
-          return req.originalUrl.replace('/api/', '/')
-        },
-      })
-    )
+    return createProxy(config.api.brille, {
+      proxyReqPathResolver(req) {
+        return req.originalUrl.replace('/api/', '/')
+      },
+    })
   },
 }

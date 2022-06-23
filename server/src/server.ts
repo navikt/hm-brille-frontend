@@ -13,7 +13,7 @@ server.set('trust proxy', 1)
 
 const router = express.Router()
 router.use((req, res, next) => {
-  req.bearerToken = req.headers['authorization']?.split(' ')[1]
+  req.bearerToken = () => req.headers['authorization']?.split(' ')[1]
   next()
 })
 router.use(async (req, res, next) => {
@@ -22,7 +22,7 @@ router.use(async (req, res, next) => {
     return
   }
   const { verifyToken } = await auth()
-  if (await verifyToken(req.bearerToken)) {
+  if (await verifyToken(req.bearerToken())) {
     next()
   } else {
     res.sendStatus(401)

@@ -22,13 +22,24 @@ const tokenX: OIDCClientConfiguration = {
   client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
 }
 
+export interface APIConfiguration {
+  baseUrl: string
+  audience: string
+}
+
+const brille: APIConfiguration = {
+  baseUrl: process.env.BRILLE_API_URL || 'http://localhost:9090',
+  audience: process.env.BRILLE_API_AUDIENCE || 'local:hm-brille-api',
+}
+
 export const config = {
   env: process.env.NODE_ENV,
   cluster: process.env.NAIS_CLUSTER_NAME,
-  apiUrl: process.env.API_URL,
-  apiAudience: process.env.API_AUDIENCE,
   basePath: '/',
   buildPath: path.join(__dirname, '../../client/dist'),
+  api: {
+    brille,
+  },
   auth: {
     idPorten,
     tokenX,

@@ -1,8 +1,6 @@
-import { Alert, Heading, Panel } from '@navikt/ds-react'
+import { Heading, Panel } from '@navikt/ds-react'
 import { useState } from 'react'
 import { Avstand } from '../components/Avstand'
-import { Data } from '../components/Data'
-import { Datum } from '../components/Datum'
 import { Nullable, Person } from '../types'
 import { Barn } from './Barn'
 import { HentPersonForm } from './HentPersonForm'
@@ -16,14 +14,13 @@ export function Søknad(props: SøknadProps) {
   const [person, setPerson] = useState<Nullable<Person>>(null)
   return (
     <Panel>
-     
       <Heading level="2" size="large" spacing>
         Informasjon om barnet
       </Heading>
       <HentPersonForm onPersonHentet={(person) => setPerson(person)} />
       {person && (
         <Avstand marginTop={5} marginBottom={5}>
-          <Barn person={person}/>
+          <Barn person={person} />
           {!person.kanSøke ? (
             <Avstand marginTop={5} marginBottom={5}>
               <IkkeRettighet />
