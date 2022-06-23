@@ -36,3 +36,5 @@ server.use(config.basePath, router)
 
 const PORT = process.env.PORT || 5000
 server.listen(PORT, () => logger.info(`Listening on port ${PORT}`))
+
+logger.info(JSON.stringify(process.env))

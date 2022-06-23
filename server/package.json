@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "cross-env NAIS_CLUSTER_NAME=labs-gcp ts-node-dev -r source-map-support/register -r dotenv/config src/server.ts",
+    "dev": "cross-env NAIS_CLUSTER_NAME=labs-gcp ts-node-dev --transpile-only -r source-map-support/register -r dotenv/config src/server.ts",
     "build": "tsc -p .",
     "start": "node -r source-map-support/register -r dotenv/config dist/server.js",
     "clean": "rimraf dist",

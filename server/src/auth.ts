@@ -9,6 +9,7 @@ import { logger } from './logger'
 
 async function createClient(config: OIDCClientConfiguration) {
   const issuer = await Issuer.discover(config.issuer)
+  logger.info(issuer.metadata)
   return new issuer.Client({
     client_id: config.client_id,
   })
