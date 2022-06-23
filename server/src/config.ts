@@ -15,6 +15,7 @@ const tokenX: OIDCClientConfiguration = {
   issuer: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
   private_jwk: process.env.TOKEN_X_PRIVATE_JWK,
   client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
+  token_endpoint_auth_method: 'private_key_jwt',
 }
 
 export interface APIConfiguration {

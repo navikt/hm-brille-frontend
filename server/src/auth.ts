@@ -8,12 +8,11 @@ import { config, OIDCClientConfiguration } from './config'
 import { logger } from './logger'
 
 async function createClient(config: OIDCClientConfiguration) {
+  const { issuer: _, private_jwk, ...metadata } = config
   const issuer = await Issuer.discover(config.issuer)
   return {
     metadata: issuer.metadata,
-    client: new issuer.Client({
-      client_id: config.client_id,
-    }),
+    client: new issuer.Client(metadata),
   }
 }
 
@@ -42,13 +41,17 @@ async function createClientAssertion(clientConfig: OIDCClientConfiguration, meta
   )
 }
 
+function lagJWKSet(metadata: IssuerMetadata) {
+  if (!metadata.jwks_uri) {
+    throw new Error('metadata.jwks_uri er ikke satt')
+  }
+  return createRemoteJWKSet(new URL(metadata.jwks_uri))
+}
+
 export async function auth() {
   const { metadata: idPortenMetadata, client: idPortenClient } = await createClient(config.auth.idPorten)
   const { metadata: tokenXMetadata, client: tokenXClient } = await createClient(config.auth.tokenX)
-  if (!idPortenMetadata.jwks_uri) {
-    return Promise.reject(new Error('idPortenMetadata.jwks_uri er ikke satt'))
-  }
-  const idPortenJWKSet = createRemoteJWKSet(new URL(idPortenMetadata.jwks_uri))
+  const idPortenJWKSet = lagJWKSet(idPortenMetadata)
   return {
     idPortenJWKSet,
     async verifyToken(token?: string): Promise<boolean> {
