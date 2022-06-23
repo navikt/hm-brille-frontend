@@ -44,7 +44,7 @@ spec:
   env:
     - name: BRILLE_API_BASE_URL
       value: 'http://hm-brille-api.teamdigihot.svc.cluster.local'
-    - name: BRILLE_API_AUDIENCE
+    - name: BRILLE_API_TARGET_AUDIENCE
       value: dev-gcp:teamdigihot:hm-brille-api
     - name: PORT
       value: '5000'
