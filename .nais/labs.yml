@@ -32,9 +32,9 @@ spec:
   secureLogs:
     enabled: true
   env:
-    - name: BRILLE_API_URL
+    - name: BRILLE_API_BASE_URL
       value: ''
-    - name: BRILLE_API_AUDIENCE
+    - name: BRILLE_API_TARGET_AUDIENCE
       value: ''
     - name: PORT
       value: '5000'

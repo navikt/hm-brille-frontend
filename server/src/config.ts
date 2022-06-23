@@ -19,12 +19,12 @@ const tokenX: OIDCClientConfiguration = {
 
 export interface APIConfiguration {
   baseUrl: string
-  audience: string
+  targetAudience: string
 }
 
 const brille: APIConfiguration = {
-  baseUrl: process.env.BRILLE_API_URL || 'http://localhost:9090',
-  audience: process.env.BRILLE_API_AUDIENCE || 'local:hm-brille-api',
+  baseUrl: process.env.BRILLE_API_BASE_URL || 'http://localhost:9090',
+  targetAudience: process.env.BRILLE_API_TARGET_AUDIENCE || 'local:hm-brille-api',
 }
 
 export const config = {

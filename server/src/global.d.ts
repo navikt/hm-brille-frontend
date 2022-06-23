@@ -3,8 +3,8 @@ declare namespace NodeJS {
     NODE_ENV?: 'development' | 'production'
     NAIS_CLUSTER_NAME?: 'labs-gcp' | 'dev-gcp' | 'prod-gcp'
 
-    BRILLE_API_URL?: string
-    BRILLE_API_AUDIENCE?: string
+    BRILLE_API_BASE_URL?: string
+    BRILLE_API_TARGET_AUDIENCE?: string
 
     IDPORTEN_ISSUER?: string
     IDPORTEN_CLIENT_ID?: string

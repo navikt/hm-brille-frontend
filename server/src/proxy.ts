@@ -11,7 +11,7 @@ function createProxy(apiConfig: APIConfiguration, options: ProxyOptions) {
         return requestOptions
       }
       const { exchangeToken } = await auth()
-      const { access_token } = await exchangeToken(bearerToken, apiConfig.audience)
+      const { access_token } = await exchangeToken(bearerToken, apiConfig.targetAudience)
       requestOptions.headers = {
         ...requestOptions.headers,
         Authorization: `Bearer ${access_token}`,
