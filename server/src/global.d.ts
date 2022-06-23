@@ -8,12 +8,9 @@ declare namespace NodeJS {
 
     IDPORTEN_ISSUER?: string
     IDPORTEN_CLIENT_ID?: string
-    IDPORTEN_TOKEN_ENDPOINT?: string
-    IDPORTEN_JWKS_URI?: string
 
     TOKEN_X_ISSUER?: string
     TOKEN_X_CLIENT_ID?: string
-    TOKEN_X_TOKEN_ENDPOINT?: string
     TOKEN_X_PRIVATE_JWK?: string
 
     PORT?: string

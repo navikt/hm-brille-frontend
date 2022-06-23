@@ -1,7 +1,7 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose'
 import jwt from 'jsonwebtoken'
 import { JWK } from 'node-jose'
-import { Issuer, TokenSet } from 'openid-client'
+import { Issuer, IssuerMetadata, TokenSet } from 'openid-client'
 import { ulid } from 'ulid'
 import { URL } from 'url'
 import { config, OIDCClientConfiguration } from './config'
@@ -9,10 +9,12 @@ import { logger } from './logger'
 
 async function createClient(config: OIDCClientConfiguration) {
   const issuer = await Issuer.discover(config.issuer)
-  logger.info(issuer.metadata)
-  return new issuer.Client({
-    client_id: config.client_id,
-  })
+  return {
+    metadata: issuer.metadata,
+    client: new issuer.Client({
+      client_id: config.client_id,
+    }),
+  }
 }
 
 async function privateKeyToPem(jwk: string) {
@@ -20,28 +22,35 @@ async function privateKeyToPem(jwk: string) {
   return key.toPEM(true)
 }
 
-async function createClientAssertion() {
+async function createClientAssertion(clientConfig: OIDCClientConfiguration, metadata: IssuerMetadata) {
+  if (!clientConfig.private_jwk) {
+    return Promise.reject(new Error('clientConfig.private_jwk er ikke satt'))
+  }
   const now = Math.floor(Date.now() / 1000)
-  const tokenXConfig = config.auth.tokenX
   return jwt.sign(
     {
-      sub: tokenXConfig.client_id,
-      aud: tokenXConfig.token_endpoint,
-      iss: tokenXConfig.client_id,
+      sub: clientConfig.client_id,
+      aud: metadata.token_endpoint,
+      iss: clientConfig.client_id,
       exp: now + 60, // max 120
       iat: now,
       jti: ulid(),
       nbf: now,
     },
-    await privateKeyToPem(tokenXConfig.private_jwk || ''),
+    await privateKeyToPem(clientConfig.private_jwk),
     { algorithm: 'RS256' }
   )
 }
 
 export async function auth() {
-  const idPortenJWKSet = createRemoteJWKSet(new URL(config.auth.idPorten.jwks_uri || ''))
-  const tokenXClient = await createClient(config.auth.tokenX)
+  const { metadata: idPortenMetadata, client: idPortenClient } = await createClient(config.auth.idPorten)
+  const { metadata: tokenXMetadata, client: tokenXClient } = await createClient(config.auth.tokenX)
+  if (!idPortenMetadata.jwks_uri) {
+    return Promise.reject(new Error('idPortenMetadata.jwks_uri er ikke satt'))
+  }
+  const idPortenJWKSet = createRemoteJWKSet(new URL(idPortenMetadata.jwks_uri))
   return {
+    idPortenJWKSet,
     async verifyToken(token?: string): Promise<boolean> {
       try {
         if (!token) {
@@ -69,7 +78,7 @@ export async function auth() {
       }
     },
     async exchangeToken(subjectToken: string, targetAudience: string): Promise<TokenSet> {
-      const clientAssertion = await createClientAssertion()
+      const clientAssertion = await createClientAssertion(config.auth.tokenX, tokenXMetadata)
       try {
         return tokenXClient.grant({
           grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
