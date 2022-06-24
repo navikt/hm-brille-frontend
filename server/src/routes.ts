@@ -8,13 +8,13 @@ import { proxyHandlers } from './proxy'
 
 export const routes = {
   internal(): Router {
-    const { contentType, metrics } = createMetrics()
+    const metrics = createMetrics()
     return Router()
       .get('/isalive', (_, res) => res.send('alive'))
       .get('/isready', (_, res) => res.send('ready'))
       .get('/metrics', async (req, res) => {
-        res.set('Content-Type', contentType)
-        res.end(await metrics())
+        res.set('Content-Type', metrics.contentType)
+        res.end(await metrics.metrics())
       })
   },
   api(exchangeIDPortenToken: ExchangeToken): Router {
