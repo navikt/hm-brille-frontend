@@ -1,6 +1,6 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
 import express, { RequestHandler, Router } from 'express'
-import { ExchangeToken } from './auth'
+import type { ExchangeToken } from './auth'
 import { config } from './config'
 import { logger } from './logger'
 import { createMetrics } from './metrics'
@@ -8,29 +8,23 @@ import { proxyHandlers } from './proxy'
 
 export const routes = {
   internal(): Router {
-    const router = Router()
-    router.get('/isalive', (_, res) => res.send('alive'))
-    router.get('/isready', (_, res) => res.send('ready'))
-
-    const metrics = createMetrics()
-    router.get('/metrics', async (req, res) => {
-      res.set('Content-Type', metrics.contentType)
-      res.end(await metrics.metrics())
-    })
-
-    return router
+    const { contentType, metrics } = createMetrics()
+    return Router()
+      .get('/isalive', (_, res) => res.send('alive'))
+      .get('/isready', (_, res) => res.send('ready'))
+      .get('/metrics', async (req, res) => {
+        res.set('Content-Type', contentType)
+        res.end(await metrics())
+      })
   },
   api(exchangeToken: ExchangeToken): Router {
-    const router = Router()
-    router.use(proxyHandlers.api(exchangeToken))
-    return router
+    return Router().use(proxyHandlers.api(exchangeToken))
   },
   public(): Router {
-    const router = Router()
-    router.get('/settings.js', settingsHandler)
-    router.get('*', express.static(config.build_path, { index: false }))
-    router.get('*', spaHandler)
-    return router
+    return Router()
+      .get('/settings.js', settingsHandler)
+      .get('*', express.static(config.build_path, { index: false }))
+      .get('*', spaHandler)
   },
 }
 
