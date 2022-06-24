@@ -8,7 +8,7 @@ const server = () =>
       verifyIDPortenToken(req, res, next) {
         next()
       },
-      exchangeToken() {
+      exchangeIDPortenToken() {
         return Promise.resolve(new TokenSet({}))
       },
     })

@@ -14,7 +14,7 @@ export interface ExchangeToken {
 
 export interface Auth {
   verifyIDPortenToken: RequestHandler
-  exchangeToken: ExchangeToken
+  exchangeIDPortenToken: ExchangeToken
 }
 
 export async function createAuth(): Promise<Auth> {
@@ -24,7 +24,7 @@ export async function createAuth(): Promise<Auth> {
       verifyIDPortenToken(req, res, next) {
         next()
       },
-      exchangeToken() {
+      exchangeIDPortenToken() {
         return Promise.resolve(new TokenSet({ access_token: 'access_token' }))
       },
     }
@@ -68,7 +68,7 @@ export async function createAuth(): Promise<Auth> {
         res.sendStatus(401)
       }
     },
-    async exchangeToken(req, targetAudience) {
+    async exchangeIDPortenToken(req, targetAudience) {
       const idPortenToken = getBearerToken(req)
       const clientAssertion = await createClientAssertion()
       try {

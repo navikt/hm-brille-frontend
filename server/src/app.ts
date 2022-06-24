@@ -7,7 +7,7 @@ import { routes } from './routes'
 export function createApp(auth: Auth): Express {
   const router = express.Router()
   router.use(auth.verifyIDPortenToken)
-  router.use('/api/', routes.api(auth.exchangeToken))
+  router.use('/api/', routes.api(auth.exchangeIDPortenToken))
   router.use('/internal/', routes.internal())
   router.use('/', routes.public())
 

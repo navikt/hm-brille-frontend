@@ -17,8 +17,8 @@ export const routes = {
         res.end(await metrics())
       })
   },
-  api(exchangeToken: ExchangeToken): Router {
-    return Router().use(proxyHandlers.api(exchangeToken))
+  api(exchangeIDPortenToken: ExchangeToken): Router {
+    return Router().use(proxyHandlers.api(exchangeIDPortenToken))
   },
   public(): Router {
     return Router()
