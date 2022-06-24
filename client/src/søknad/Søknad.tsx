@@ -1,35 +1,59 @@
 import { Heading, Panel } from '@navikt/ds-react'
-import { useState } from 'react'
+import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import { Nullable, Person } from '../types'
+import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
+import { usePost } from '../usePost'
 import { Barn } from './Barn'
-import { HentPersonForm } from './HentPersonForm'
+import { IkkeFunnet } from './IkkeFunnet'
 import { IkkeRettighet } from './IkkeRettighet'
+import { SjekkKanSøkeForm } from './SjekkKanSøkeForm'
 import { SøknadForm } from './SøknadForm'
 
-export interface SøknadProps {}
-
-export function Søknad(props: SøknadProps) {
-  const {} = props
-  const [person, setPerson] = useState<Nullable<Person>>(null)
+export function Søknad() {
+  const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
   return (
-    <Panel>
-      <Heading level="2" size="large" spacing>
-        Informasjon om barnet
-      </Heading>
-      <HentPersonForm onPersonHentet={(person) => setPerson(person)} />
-      {person && (
-        <Avstand marginTop={5} marginBottom={5}>
-          <Barn person={person} />
-          {!person.kanSøke ? (
+    <>
+      <header>
+        <Banner>
+          <Heading level="1" size="large">
+            Søknad om direkteoppgjør for barnebriller
+          </Heading>
+        </Banner>
+      </header>
+      <main>
+        <Panel>
+          <Heading level="2" size="large" spacing>
+            Informasjon om barnet
+          </Heading>
+          <SjekkKanSøkeForm
+            onValid={async ({ fnr }) => {
+              await http.post({ fnr })
+            }}
+          />
+          {!sjekkKanSøke && (
             <Avstand marginTop={5} marginBottom={5}>
-              <IkkeRettighet />
+              <IkkeFunnet />
             </Avstand>
-          ) : (
-            <SøknadForm />
           )}
-        </Avstand>
-      )}
-    </Panel>
+          {sjekkKanSøke && (
+            <Avstand marginTop={5} marginBottom={5}>
+              <Barn sjekkKanSøke={sjekkKanSøke} />
+              {sjekkKanSøke.kanSøke ? (
+                <SøknadForm />
+              ) : (
+                <Avstand marginTop={5} marginBottom={5}>
+                  <IkkeRettighet />
+                </Avstand>
+              )}
+            </Avstand>
+          )}
+        </Panel>
+      </main>
+    </>
   )
 }
+
+const Banner = styled(Panel)`
+  background-color: var(--navds-global-color-gray-50);
+  text-align: center;
+`

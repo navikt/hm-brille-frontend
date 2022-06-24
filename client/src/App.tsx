@@ -1,28 +1,24 @@
-import { Heading, Panel } from '@navikt/ds-react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Routes } from 'react-router-dom'
-import styled from 'styled-components'
+import { isHttpError } from './error'
+import { Feilside } from './Feilside'
 import { Søknad } from './søknad/Søknad'
-
-const Banner = styled(Panel)`
-  background-color: var(--navds-global-color-gray-50);
-  text-align: center;
-`
 
 export function App() {
   return (
-    <>
-      <header>
-        <Banner>
-          <Heading level="1" size="large">
-            Søknad om direkteoppgjør for barnebriler
-          </Heading>
-        </Banner>
-      </header>
-      <main>
-        <Routes>
-          <Route path="/" element={<Søknad />} />
-        </Routes>
-      </main>
-    </>
+    <ErrorBoundary
+      fallbackRender={({ error }) => {
+        if (isHttpError(error)) {
+          return <Feilside status={error.status} error={error} />
+        } else {
+          return <Feilside status={500} error={error} />
+        }
+      }}
+    >
+      <Routes>
+        <Route path="/" element={<Søknad />} />
+        <Route path="*" element={<Feilside status={404} />} />
+      </Routes>
+    </ErrorBoundary>
   )
 }

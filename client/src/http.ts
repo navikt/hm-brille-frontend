@@ -1,6 +1,16 @@
-import { Resultat } from './types'
+import { HttpError } from './error'
+import type { Resultat } from './types'
 
 export const BASE_URL = '/api'
+export const CONTENT_TYPE_APPLICATION_JSON = 'application/json'
+
+async function handleResponse<T>(url: string, response: Response): Promise<Resultat<T>> {
+  if (response.ok) {
+    const data = await response.json()
+    return { data }
+  }
+  return HttpError.kallFeilet(url, response)
+}
 
 export const http = {
   async get<T>(url: string): Promise<Resultat<T>> {
@@ -8,18 +18,12 @@ export const http = {
       const response = await fetch(BASE_URL + url, {
         method: 'get',
         headers: {
-          Accept: 'application/json',
+          Accept: CONTENT_TYPE_APPLICATION_JSON,
         },
       })
-      if (response.ok) {
-        const data = await response.json()
-        return { data }
-      }
-      return {
-        error: new Error(`Kall mot url: ${url} feilet, status: ${response.status}`),
-      }
+      return handleResponse(url, response)
     } catch (error: unknown) {
-      return { error: wrapError(error) }
+      return HttpError.wrap(error)
     }
   },
   async post<B, T>(url: string, body: B): Promise<Resultat<T>> {
@@ -27,30 +31,14 @@ export const http = {
       const response = await fetch(BASE_URL + url, {
         method: 'post',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: CONTENT_TYPE_APPLICATION_JSON,
+          'Content-Type': CONTENT_TYPE_APPLICATION_JSON,
         },
         body: JSON.stringify(body),
       })
-      if (response.ok) {
-        const data = await response.json()
-        return { data }
-      }
-      return {
-        error: new Error(`Kall mot url: ${url} feilet, status: ${response.status}`),
-      }
+      return handleResponse(url, response)
     } catch (error: unknown) {
-      return { error: wrapError(error) }
+      return HttpError.wrap(error)
     }
   },
-}
-
-function wrapError(error: unknown): Error {
-  if (error instanceof Error) {
-    return error
-  }
-  if (typeof error === 'string') {
-    return new Error(error)
-  }
-  return new Error('Ukjent feil')
 }

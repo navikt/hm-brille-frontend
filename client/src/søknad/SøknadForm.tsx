@@ -3,23 +3,25 @@ import { Button, Heading, Radio, RadioGroup, TextField } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 
-interface SøknadFormData {
+export interface SøknadFormData {
   sats: string
   virksomhet: string
   referansenummer: string
 }
 
-export interface SøknadFormProps {}
-
-export function SøknadForm(props: SøknadFormProps) {
-  const { register, handleSubmit, control } = useForm<SøknadFormData>({
+export function SøknadForm() {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SøknadFormData>({
     defaultValues: {
       sats: '',
       virksomhet: '',
       referansenummer: '',
     },
   })
-
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
@@ -48,7 +50,7 @@ export function SøknadForm(props: SøknadFormProps) {
       />
 
       <Heading level="2" size="large" spacing>
-        Informajon om optiker/virksomhet
+        Informasjon om optiker/virksomhet
       </Heading>
 
       <Controller<SøknadFormData>
@@ -56,8 +58,8 @@ export function SøknadForm(props: SøknadFormProps) {
         control={control}
         render={({ field }) => (
           <RadioGroup legend="Hvilken virksomhet representerer du?" {...field}>
-            <Radio value="1">Brilleland ANB</Radio>
-            <Radio value="2">Briller 123</Radio>
+            <Radio value="1">Brilleland</Radio>
+            <Radio value="2">Synsam</Radio>
           </RadioGroup>
         )}
       />
@@ -65,7 +67,7 @@ export function SøknadForm(props: SøknadFormProps) {
       <TextField label="Referansenummer/ordrenummer" size="medium" {...register('referansenummer')} />
 
       <Knapper>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" loading={isSubmitting}>
           Send inn
         </Button>
         <Button variant="secondary">
