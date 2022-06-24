@@ -8,13 +8,16 @@ import { URL } from 'url'
 import { config } from './config'
 import { logger } from './logger'
 
-export interface Auth {
-  verifyIDPortenToken: RequestHandler
-
-  exchangeToken(req: Request, targetAudience: string): Promise<TokenSet>
+export interface ExchangeToken {
+  (req: Request, targetAudience: string): Promise<TokenSet>
 }
 
-export async function setupAuth(): Promise<Auth> {
+export interface Auth {
+  verifyIDPortenToken: RequestHandler
+  exchangeToken: ExchangeToken
+}
+
+export async function createAuth(): Promise<Auth> {
   if (config.nais_cluster_name === 'labs-gcp') {
     logger.warn('Bruker authStub!')
     return {

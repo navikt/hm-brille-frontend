@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
+    "test": "echo TODO",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",

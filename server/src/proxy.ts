@@ -1,12 +1,12 @@
 import proxy, { ProxyOptions } from 'express-http-proxy'
-import type { Auth } from './auth'
+import type { ExchangeToken } from './auth'
 import { config } from './config'
 
-function createProxy(host: string, targetAudience: string, auth: Auth, options: ProxyOptions) {
+function createProxy(host: string, targetAudience: string, exchangeToken: ExchangeToken, options: ProxyOptions) {
   return proxy(host, {
     parseReqBody: false,
     async proxyReqOptDecorator(requestOptions, req) {
-      const { access_token } = await auth.exchangeToken(req, targetAudience)
+      const { access_token } = await exchangeToken(req, targetAudience)
       requestOptions.headers = {
         ...requestOptions.headers,
         Authorization: `Bearer ${access_token}`,
@@ -21,8 +21,8 @@ function createProxy(host: string, targetAudience: string, auth: Auth, options: 
 }
 
 export const proxyHandlers = {
-  api(auth: Auth) {
-    return createProxy(config.api.brille_api_base_url, config.api.brille_api_target_audience, auth, {
+  api(exchangeToken: ExchangeToken) {
+    return createProxy(config.api.brille_api_base_url, config.api.brille_api_target_audience, exchangeToken, {
       proxyReqPathResolver(req) {
         return req.originalUrl.replace('/api/', '/')
       },

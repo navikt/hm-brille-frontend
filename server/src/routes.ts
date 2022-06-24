@@ -1,9 +1,9 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
 import express, { RequestHandler, Router } from 'express'
-import type { Auth } from './auth'
+import { ExchangeToken } from './auth'
 import { config } from './config'
 import { logger } from './logger'
-import { setupMetrics } from './metrics'
+import { createMetrics } from './metrics'
 import { proxyHandlers } from './proxy'
 
 export const routes = {
@@ -12,7 +12,7 @@ export const routes = {
     router.get('/isalive', (_, res) => res.send('alive'))
     router.get('/isready', (_, res) => res.send('ready'))
 
-    const metrics = setupMetrics()
+    const metrics = createMetrics()
     router.get('/metrics', async (req, res) => {
       res.set('Content-Type', metrics.contentType)
       res.end(await metrics.metrics())
@@ -20,9 +20,9 @@ export const routes = {
 
     return router
   },
-  api(auth: Auth): Router {
+  api(exchangeToken: ExchangeToken): Router {
     const router = Router()
-    router.use(proxyHandlers.api(auth))
+    router.use(proxyHandlers.api(exchangeToken))
     return router
   },
   public(): Router {
