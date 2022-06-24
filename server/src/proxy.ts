@@ -17,7 +17,7 @@ function createProxy(
         Authorization: `Bearer ${access_token}`,
       }
       if (config.nais_cluster_name === 'dev-gcp') {
-        requestOptions.headers['x-optiker-fnr'] = '01117302624'
+        // requestOptions.headers['x-optiker-fnr'] = '01117302624'
       }
       return requestOptions
     },
