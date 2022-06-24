@@ -30,7 +30,7 @@ export function Søknad() {
               await http.post({ fnr })
             }}
           />
-          {!sjekkKanSøke && (
+          {sjekkKanSøke === null && (
             <Avstand marginTop={5} marginBottom={5}>
               <IkkeFunnet />
             </Avstand>

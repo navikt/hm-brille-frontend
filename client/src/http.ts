@@ -9,6 +9,9 @@ async function handleResponse<T>(url: string, response: Response): Promise<Resul
     const data = await response.json()
     return { data }
   }
+  if (response.status === 404) {
+    return { data: null }
+  }
   return HttpError.kallFeilet(url, response)
 }
 
