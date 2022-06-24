@@ -25,8 +25,8 @@ export const http = {
         },
       })
       return handleResponse(url, response)
-    } catch (error: unknown) {
-      return HttpError.wrap(error)
+    } catch (err: unknown) {
+      return HttpError.wrap(err)
     }
   },
   async post<B, T>(url: string, body: B): Promise<Resultat<T>> {
@@ -40,8 +40,8 @@ export const http = {
         body: JSON.stringify(body),
       })
       return handleResponse(url, response)
-    } catch (error: unknown) {
-      return HttpError.wrap(error)
+    } catch (err: unknown) {
+      return HttpError.wrap(err)
     }
   },
 }

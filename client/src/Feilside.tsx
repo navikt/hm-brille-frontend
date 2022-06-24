@@ -57,7 +57,7 @@ function IkkeFunnet() {
         Beklager, siden kan være slettet eller flyttet, eller det var en feil i lenken som førte deg hit.
       </BodyShort>
       <BodyShort spacing>
-        <Link href="/">Gå til innloggingssiden</Link>.
+        <Link href="/">Gå til forsiden</Link>.
       </BodyShort>
     </>
   )
@@ -68,7 +68,7 @@ function TekniskFeil() {
     <>
       <BodyShort spacing>Beklager, det har skjedd en teknisk feil.</BodyShort>
       <BodyShort spacing>
-        <Link href="/">Gå til innloggingssiden</Link>.
+        <Link href="/">Gå til forsiden</Link>.
       </BodyShort>
     </>
   )
