@@ -12,9 +12,9 @@ export interface SjekkKanSøkeFormProps {
 
 export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
   const { onValid, onInvalid } = props
-  const { handleSubmit, control } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
+  const { control, handleSubmit } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
   return (
-    <form onSubmit={handleSubmit(onValid, onInvalid)}>
+    <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
       <Controller<SjekkKanSøkeFormData>
         name="fnr"
         control={control}

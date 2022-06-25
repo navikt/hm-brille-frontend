@@ -19,15 +19,8 @@ export interface Auth {
 
 export async function createAuth(): Promise<Auth> {
   if (config.nais_cluster_name === 'labs-gcp') {
-    logger.warn('Bruker authStub!')
-    return {
-      verifyIDPortenToken(req, res, next) {
-        next()
-      },
-      exchangeIDPortenToken() {
-        return Promise.resolve(new TokenSet({ access_token: 'access_token' }))
-      },
-    }
+    logger.warn('Bruker auth-stub!')
+    return createAuthStub()
   }
   const idPortenJWKSet = createRemoteJWKSet(new URL(config.auth.idporten_jwks_uri))
   const tokenXIssuer = await Issuer.discover(config.auth.tokenx_well_known_url)
@@ -44,7 +37,7 @@ export async function createAuth(): Promise<Auth> {
       try {
         const idPortenToken = getBearerToken(req)
         if (!idPortenToken) {
-          logger.warn('bearer token mangler')
+          logger.warn('Bearer token mangler')
           res.sendStatus(401)
           return
         }
@@ -85,6 +78,21 @@ export async function createAuth(): Promise<Auth> {
         logger.error(`Feil under token exchange: ${err}`)
         return Promise.reject(err)
       }
+    },
+  }
+}
+
+export function createAuthStub(expectedToken?: string): Auth {
+  return {
+    verifyIDPortenToken(req, res, next) {
+      if (expectedToken == null || expectedToken === getBearerToken(req)) {
+        next()
+      } else {
+        res.sendStatus(401)
+      }
+    },
+    exchangeIDPortenToken() {
+      return Promise.resolve(new TokenSet({ access_token: 'access_token' }))
     },
   }
 }
