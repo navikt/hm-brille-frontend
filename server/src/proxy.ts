@@ -12,6 +12,7 @@ function createProxy(
     parseReqBody: false,
     async proxyReqOptDecorator(requestOptions, req) {
       const { access_token } = await exchangeIDPortenToken(req, targetAudience)
+      console.log(`DEBUG: DEBUG: token generated through exchange: ${access_token}`)
       requestOptions.headers = {
         ...requestOptions.headers,
         Authorization: `Bearer ${access_token}`,
