@@ -11,7 +11,7 @@
     "prettier": "prettier -w src"
   },
   "dependencies": {
-    "@navikt/ds-css": "^0.18.15",
+    "@navikt/ds-css": "^0.18.16",
     "@navikt/ds-icons": "^0.8.17",
     "@navikt/ds-react": "^0.19.14",
     "@navikt/fnrvalidator": "^1.3.0",
@@ -19,7 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
-    "react-hook-form": "^7.32.2",
+    "react-hook-form": "^7.33.0",
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.5",
     "swr": "^1.3.0"
@@ -34,13 +34,13 @@
     "@types/react-dom": "^18.0.5",
     "@types/styled-components": "^5.1.25",
     "@vitejs/plugin-react": "^1.3.2",
-    "msw": "^0.42.1",
+    "msw": "^0.42.3",
     "mustache": "^4.2.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.4",
-    "vite": "^2.9.12",
-    "vitest": "^0.15.2"
+    "vite": "^2.9.13",
+    "vitest": "^0.16.0"
   },
   "msw": {
     "workerDirectory": "public"
