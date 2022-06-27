@@ -91,8 +91,8 @@ export function createAuthStub(expectedToken?: string): Auth {
         res.sendStatus(401)
       }
     },
-    exchangeIDPortenToken() {
-      return Promise.resolve(new TokenSet({ access_token: 'access_token' }))
+    exchangeIDPortenToken(req) {
+      return Promise.resolve(new TokenSet({ access_token: getBearerToken(req) }))
     },
   }
 }
