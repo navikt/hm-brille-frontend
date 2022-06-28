@@ -1,7 +1,17 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
-import { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
+import { SjekkKanSøkeRequest, SjekkKanSøkeResponse, BeregnSatsRequest, BeregnSatsResponse } from '../types'
 
 const handlers: RequestHandler[] = [
+  rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/beregn-sats', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        sats: '3',
+        satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D',
+        beløp: '2375',
+      })
+    )
+  }),
   rest.post<SjekkKanSøkeRequest, {}, SjekkKanSøkeResponse>('/api/sjekk-kan-soke', (req, res, ctx) => {
     const { fnr } = req.body
     if (fnr === '400') {

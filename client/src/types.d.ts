@@ -11,10 +11,22 @@ export interface Resultat<T> {
 export interface SjekkKanSøkeRequest {
   fnr: string
 }
-
 export interface SjekkKanSøkeResponse {
   fnr: string
   navn: string
   alder: number
   kanSøke: boolean
+}
+
+export interface BeregnSatsRequest {
+    høyreSfære: string
+    høyreSylinder: string
+    venstreSfære: string
+    venstreSylinder: string
+}
+
+export interface BeregnSatsResponse {
+    sats: string
+    satsBeskrivelse: string
+    beløp: string
 }
