@@ -8,6 +8,7 @@
     "prettier": "^2.7.1"
   },
   "scripts": {
+    "postinstall": "npm --prefix client install && npm --prefix server install",
     "dev": "npm run --prefix client dev",
     "start": "npm run --prefix server start",
     "test:client": "npm run --prefix client test",
