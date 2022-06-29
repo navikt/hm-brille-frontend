@@ -44,32 +44,18 @@ export function BrillestyrkeForm() {
       })}
     >
       <Avstand paddingBottom={5} paddingTop={5}>
-        <Heading level="2" size="large">
+        <Heading level="2" size="medium">
           Brillestyrke
         </Heading>
-        <BodyLong>
-          Info til optiker om hvorfor vi spør om kun styrke og sylinder. Trenger ikke å oppgi akse eller sette
-          plus/minus foran tallene
-        </BodyLong>
-        <Heading level="3" size="large">
-          Høyre øye
-          <Øye type="høyre" control={control} />
-        </Heading>
+        <BodyLong>Du trenger kun å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
+        <Øye type="høyre" control={control} />
 
-        <Heading level="3" size="large">
-          Venstre øye
-        </Heading>
         <Øye type="venstre" control={control} />
       </Avstand>
 
-      <Knapper>
-        <Button variant="secondary" size="medium">
-          <SaveFile /> Lagre styrke
-        </Button>
-        <Button variant="tertiary" size="medium">
-          <Cancel onClick={() => setEditMode(false)} /> Avbryt
-        </Button>
-      </Knapper>
+      <Button variant="secondary" size="medium">
+        <SaveFile /> Lagre styrke
+      </Button>
     </form>
   )
 }

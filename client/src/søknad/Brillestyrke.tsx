@@ -67,8 +67,8 @@ export function Brillestyrke(props: BrillestyrkeProps) {
       </Avstand>
 
       <Avstand paddingBottom={5} paddingTop={5}>
-        <Alert variant="info">
-          <Heading level="2" size="medium">{`Brillestøtte på ${sats.beløp} kroner`}</Heading>
+        <Alert variant="info" >
+          <Heading level="2" spacing size="small">{`Brillestøtte på ${sats.beløp} kroner`}</Heading>
           <BodyLong>{`Barnet kan få støtte fra sats ${sats.sats}: ${sats.satsBeskrivelse}`}</BodyLong>
           <BodyLong>{`Brillestøtten er på ${sats.beløp} kr.`} </BodyLong>
         </Alert>

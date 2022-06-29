@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react'
+import { Alert, Heading, Panel } from '@navikt/ds-react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
@@ -22,8 +22,8 @@ export function Søknad() {
       </header>
       <main>
         <Panel>
-          <Heading level="2" size="large" spacing>
-            Informasjon om barnet
+          <Heading level="2" size="medium" spacing>
+            Om barnet
           </Heading>
           <SjekkKanSøkeForm
             onValid={async ({ fnr }) => {
@@ -39,7 +39,12 @@ export function Søknad() {
             <Avstand marginTop={5} marginBottom={5}>
               <Barn sjekkKanSøke={sjekkKanSøke} />
               {sjekkKanSøke.kanSøke ? (
-                <SøknadForm />
+                <>
+                  <Avstand marginTop={5}>
+                    <Alert variant="info">Barnet har rett til å få brillestøtte</Alert>
+                    <SøknadForm />
+                  </Avstand>
+                </>
               ) : (
                 <Avstand marginTop={5} marginBottom={5}>
                   <IkkeRettighet />

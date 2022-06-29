@@ -1,5 +1,7 @@
-import { Search } from '@navikt/ds-react'
+import { Button, Search, TextField } from '@navikt/ds-react'
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
+import styled from 'styled-components'
+import { Tekstfelt } from '../components/Tekstfelt'
 
 export interface SjekkKanSøkeFormData {
   fnr: string
@@ -15,19 +17,32 @@ export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
   const { control, handleSubmit } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
   return (
     <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
-      <Controller<SjekkKanSøkeFormData>
-        name="fnr"
-        control={control}
-        render={({ field }) => (
-          <Search
-            label="Barnets fødselsnummer (11 siffer)"
-            size="medium"
-            variant="primary"
-            hideLabel={false}
-            {...field}
-          />
-        )}
-      />
+      <SøkContainer>
+        <Controller<SjekkKanSøkeFormData>
+          name="fnr"
+          control={control}
+          render={({ field }) => (
+            <Tekstfelt
+              label="Barnets fødselsnummer (11 siffer)"
+              size="medium"
+              hideLabel={false}
+              {...field}
+              maxLength={11}
+            />
+          )}
+        />
+
+        <Button type="submit" variant="secondary">
+          Slå opp
+        </Button>
+      </SøkContainer>
     </form>
   )
 }
+
+const SøkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: var(--navds-spacing-3);
+  align-items: flex-end;
+`

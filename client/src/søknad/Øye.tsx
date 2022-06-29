@@ -1,13 +1,25 @@
-import { Select } from '@navikt/ds-react'
+import { Heading, Select } from '@navikt/ds-react'
 import { Control, Controller } from 'react-hook-form'
 import styled from 'styled-components'
+import { capitalize } from '../common/stringFormating'
+import { Avstand } from '../components/Avstand'
 import { FormatertTall } from '../components/FormatertTall'
 import { BrillestyrkeFormData } from './BrillestyrkeForm'
+
+const ØyeEtikett = styled.div`
+  justify-items: auto;
+  align-self: center;
+`
 
 export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'venstre' | 'høyre' }) {
   const { control, type } = props
   return (
     <Grid>
+      <ØyeEtikett>
+        <Heading level="3" size="small">
+          {`${capitalize(type)} øye`}
+        </Heading>
+      </ØyeEtikett>
       <Controller
         name={`${type}Sfære`}
         control={control}
@@ -41,8 +53,10 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--navds-spacing-3);
+  padding-top: var(--navds-spacing-3);
+  padding-bottom: var(--navds-spacing-3);
 `
 
 const range = (start: number, stop: number, step: number = 0.25) => {
