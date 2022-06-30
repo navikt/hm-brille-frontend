@@ -1,13 +1,13 @@
-import { Cancel, SaveFile } from '@navikt/ds-icons'
+import { SaveFile } from '@navikt/ds-icons'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { Øye } from './Øye'
-import { usePost } from '../usePost'
-import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
-import { useState } from 'react'
-import { Brillestyrke } from './Brillestyrke'
 import { Avstand } from '../components/Avstand'
+import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
+import { usePost } from '../usePost'
+import { Brillestyrke } from './Brillestyrke'
+import { Øye } from './Øye'
 
 export interface BrillestyrkeFormData {
   høyreSfære: string
@@ -16,7 +16,7 @@ export interface BrillestyrkeFormData {
   venstreSylinder: string
 }
 
-const defaultBrillestyrke = { høyreSfære: '1', høyreSylinder: '-1', venstreSfære: '1', venstreSylinder: '-1' }
+const defaultBrillestyrke = { høyreSfære: '1', høyreSylinder: '1', venstreSfære: '1', venstreSylinder: '1' }
 
 export function BrillestyrkeForm() {
   const {
@@ -49,7 +49,6 @@ export function BrillestyrkeForm() {
         </Heading>
         <BodyLong>Du trenger kun å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
         <Øye type="høyre" control={control} />
-
         <Øye type="venstre" control={control} />
       </Avstand>
 

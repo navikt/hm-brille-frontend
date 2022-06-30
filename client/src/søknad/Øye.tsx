@@ -2,14 +2,8 @@ import { Heading, Select } from '@navikt/ds-react'
 import { Control, Controller } from 'react-hook-form'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
-import { Avstand } from '../components/Avstand'
 import { FormatertTall } from '../components/FormatertTall'
 import { BrillestyrkeFormData } from './BrillestyrkeForm'
-
-const ØyeEtikett = styled.div`
-  justify-items: auto;
-  align-self: center;
-`
 
 export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'venstre' | 'høyre' }) {
   const { control, type } = props
@@ -33,14 +27,13 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
           </Select>
         )}
       />
-
       <Controller
         name={`${type}Sylinder`}
         control={control}
         render={({ field }) => (
           <Select label="Sylinder (CYL)" size="medium" {...field}>
             {range(1, 10).map((it) => (
-              <option key={it} value={-it}>
+              <option key={it} value={it}>
                 <FormatertTall verdi={-it} />
               </option>
             ))}
@@ -50,6 +43,11 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
     </Grid>
   )
 }
+
+const ØyeEtikett = styled.div`
+  justify-items: auto;
+  align-self: center;
+`
 
 const Grid = styled.div`
   display: grid;
