@@ -41,7 +41,7 @@ export function Søknad() {
               {sjekkKanSøke.kanSøke ? (
                 <>
                   <Avstand marginTop={5}>
-                    <Alert variant="info">Barnet har rett til å få brillestøtte</Alert>
+                    <Alert variant="info">Barnet kan ha rett til å få brillestøtte</Alert>
                     <SøknadForm />
                   </Avstand>
                 </>

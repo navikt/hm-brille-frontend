@@ -55,6 +55,9 @@ export function SøknadForm() {
             />
           </Avstand>
           <Avstand marginBottom={3}>
+            <TextField label="Pris på brille (glass og innfatning inkl. mva)" {...register('brillepris')} />
+          </Avstand>
+          <Avstand marginBottom={3}>
             <TextField label="Bestillingsreferanse" {...register('referansenummer')} />
           </Avstand>
 

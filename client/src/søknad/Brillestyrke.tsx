@@ -73,7 +73,7 @@ export function Brillestyrke(props: BrillestyrkeProps) {
           </Alert>
         ) : (
           <Alert variant="info">
-            <Heading level="2" spacing size="small">{`Brillestøtte på ${sats.beløp} kroner`}</Heading>
+            <Heading level="2" spacing size="small">{`Brillestøtte på opp til ${sats.beløp} kroner`}</Heading>
             <BodyLong>{`Barnet kan få støtte fra sats ${sats.sats.replace('SATS_', '')}: ${
               sats.satsBeskrivelse
             }`}</BodyLong>
