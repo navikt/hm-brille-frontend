@@ -19,9 +19,9 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         control={control}
         render={({ field }) => (
           <Select label="Sfære (SPH)" size="medium" {...field}>
-            {range(1, 15).map((it) => (
+            {range(1, 10).map((it) => (
               <option key={it} value={it}>
-                <FormatertTall verdi={it} />
+                {it === MIN ? 'Under 1,00' : it === MAX ? 'Over 10,00' : <FormatertTall verdi={it} />}
               </option>
             ))}
           </Select>
@@ -32,9 +32,9 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         control={control}
         render={({ field }) => (
           <Select label="Sylinder (CYL)" size="medium" {...field}>
-            {range(1, 10).map((it) => (
+            {range(1, 6).map((it) => (
               <option key={it} value={it}>
-                <FormatertTall verdi={-it} />
+                {it === MIN ? 'Under -1,00' : it === MAX ? 'Over -6,00' : <FormatertTall verdi={-it} />}
               </option>
             ))}
           </Select>
@@ -43,6 +43,9 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
     </Grid>
   )
 }
+
+const MIN = 0
+const MAX = 99.99
 
 const ØyeEtikett = styled.div`
   justify-items: auto;
@@ -60,10 +63,9 @@ const Grid = styled.div`
 const range = (start: number, stop: number, step: number = 0.25) => {
   const størrelse = (stop - start) * 4 + 1
   const padding = 1 / step
-  const a = Array(størrelse + padding)
+  const valg = Array(størrelse + padding)
     .fill(step)
     .map((x, y) => x * y)
     .slice(padding)
-
-  return a
+  return [MIN, ...valg, MAX]
 }
