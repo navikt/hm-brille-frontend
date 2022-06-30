@@ -2,8 +2,9 @@ import { Heading, Select } from '@navikt/ds-react'
 import { Control, Controller } from 'react-hook-form'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
-import { FormatertTall } from '../components/FormatertTall'
 import { BrillestyrkeFormData } from './BrillestyrkeForm'
+import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
+import { FormatertStyrke } from './FormatertStyrke'
 
 export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'venstre' | 'høyre' }) {
   const { control, type } = props
@@ -19,9 +20,9 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         control={control}
         render={({ field }) => (
           <Select label="Sfære (SPH)" size="medium" {...field}>
-            {range(1, 10).map((it) => (
+            {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
-                {it === MIN ? 'Under 1,00' : it === MAX ? 'Over 10,00' : <FormatertTall verdi={it} />}
+                <FormatertStyrke verdi={it} max={MAX_SFÆRE} />
               </option>
             ))}
           </Select>
@@ -32,9 +33,9 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         control={control}
         render={({ field }) => (
           <Select label="Sylinder (CYL)" size="medium" {...field}>
-            {range(1, 6).map((it) => (
+            {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
-                {it === MIN ? 'Under -1,00' : it === MAX ? 'Over -6,00' : <FormatertTall verdi={-it} />}
+                <FormatertStyrke verdi={-it} max={MAX_SYLINDER} />
               </option>
             ))}
           </Select>
@@ -43,9 +44,6 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
     </Grid>
   )
 }
-
-const MIN = 0
-const MAX = 99.99
 
 const ØyeEtikett = styled.div`
   justify-items: auto;
@@ -67,5 +65,5 @@ const range = (start: number, stop: number, step: number = 0.25) => {
     .fill(step)
     .map((x, y) => x * y)
     .slice(padding)
-  return [MIN, ...valg, MAX]
+  return [MIN_STYRKE, ...valg, MAX_STYRKE]
 }

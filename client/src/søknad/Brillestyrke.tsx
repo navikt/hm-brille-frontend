@@ -2,8 +2,9 @@ import { Edit } from '@navikt/ds-icons'
 import { Alert, BodyLong, Button, Heading, Label } from '@navikt/ds-react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import { FormatertTall } from '../components/FormatertTall'
 import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
+import { MAX_SFÆRE, MAX_SYLINDER } from './config'
+import { FormatertStyrke } from './FormatertStyrke'
 
 export interface BrillestyrkeFormData {
   høyreSfære: string
@@ -34,13 +35,13 @@ export function Brillestyrke(props: BrillestyrkeProps) {
         <div>
           <Label>Sfære (SPH) </Label>
           <BodyLong>
-            <FormatertTall verdi={brillestyrke.høyreSfære} />
+            <FormatertStyrke verdi={brillestyrke.høyreSfære} max={MAX_SFÆRE} />
           </BodyLong>
         </div>
         <div>
           <Label>Sylinder (CYL) </Label>
           <BodyLong>
-            <FormatertTall verdi={brillestyrke.høyreSylinder} />
+            <FormatertStyrke verdi={brillestyrke.høyreSylinder} max={MAX_SYLINDER} />
           </BodyLong>
         </div>
 
@@ -50,13 +51,13 @@ export function Brillestyrke(props: BrillestyrkeProps) {
         <div>
           <Label>Sfære (SPH) </Label>
           <BodyLong>
-            <FormatertTall verdi={brillestyrke.venstreSfære} />
+            <FormatertStyrke verdi={brillestyrke.venstreSfære} max={MAX_SFÆRE} />
           </BodyLong>
         </div>
         <div>
           <Label>Sylinder (CYL) </Label>
           <BodyLong>
-            <FormatertTall verdi={brillestyrke.venstreSylinder} />
+            <FormatertStyrke verdi={brillestyrke.venstreSylinder} max={MAX_SYLINDER} />
           </BodyLong>
         </div>
       </Grid>
@@ -67,10 +68,11 @@ export function Brillestyrke(props: BrillestyrkeProps) {
       </Avstand>
 
       <Avstand paddingBottom={5} paddingTop={5}>
-        <Alert variant="info" >
+        <Alert variant="info">
           <Heading level="2" spacing size="small">{`Brillestøtte på ${sats.beløp} kroner`}</Heading>
-          <BodyLong>{`Barnet kan få støtte fra sats ${sats.sats}: ${sats.satsBeskrivelse}`}</BodyLong>
-          <BodyLong>{`Brillestøtten er på ${sats.beløp} kr.`} </BodyLong>
+          <BodyLong>{`Barnet kan få støtte fra sats ${sats.sats.replace('SATS_', '')}: ${
+            sats.satsBeskrivelse
+          }`}</BodyLong>
         </Alert>
       </Avstand>
     </>

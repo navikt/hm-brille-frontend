@@ -11,6 +11,7 @@ export interface Resultat<T> {
 export interface SjekkKanSøkeRequest {
   fnr: string
 }
+
 export interface SjekkKanSøkeResponse {
   fnr: string
   navn: string
@@ -19,14 +20,23 @@ export interface SjekkKanSøkeResponse {
 }
 
 export interface BeregnSatsRequest {
-    høyreSfære: string
-    høyreSylinder: string
-    venstreSfære: string
-    venstreSylinder: string
+  høyreSfære: string
+  høyreSylinder: string
+  venstreSfære: string
+  venstreSylinder: string
 }
 
 export interface BeregnSatsResponse {
-    sats: string
-    satsBeskrivelse: string
-    beløp: string
+  sats: SatsType
+  satsBeskrivelse: string
+  beløp: string
+}
+
+export enum SatsType {
+  SATS_1 = 'SATS_1',
+  SATS_2 = 'SATS_2',
+  SATS_3 = 'SATS_3',
+  SATS_4 = 'SATS_4',
+  SATS_5 = 'SATS_5',
+  INGEN = 'INGEN',
 }
