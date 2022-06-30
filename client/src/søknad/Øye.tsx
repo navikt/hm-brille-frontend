@@ -35,7 +35,7 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
           <Select label="Sylinder (CYL)" size="medium" {...field}>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
-                <FormatertStyrke verdi={-it} max={MAX_SYLINDER} />
+                <FormatertStyrke verdi={-it} max={MAX_SYLINDER} minus />
               </option>
             ))}
           </Select>

@@ -3,11 +3,12 @@ import { MAX_STYRKE, MIN_STYRKE } from './config'
 interface FormatertStyrkeProps {
   verdi?: number | string
   max: number
+  minus?: boolean
 }
 
 export function FormatertStyrke(props: FormatertStyrkeProps) {
   const tall = Number(props.verdi)
-  const minus = tall <= 0 ? '-' : ''
+  const minus = props.minus ? '-' : ''
   if (Math.abs(tall) === MIN_STYRKE) {
     return (
       <>
