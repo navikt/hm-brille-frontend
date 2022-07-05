@@ -131,8 +131,8 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.status(200),
       ctx.json({
-        sisteBrukteOrg: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
-        tidligereBrukeOrg: [{ orgnummer: '123456', navn: 'Brillehuset Kristiansand' }],
+        sistBrukteOrganisasjon: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
+        tidligereBrukteOrganisasjoner: [{ orgnummer: '123456', navn: 'Brillehuset Kristiansand' }],
       })
     )
   }),

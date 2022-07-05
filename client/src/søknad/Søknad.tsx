@@ -9,7 +9,6 @@ import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
-import { IkkeRettighetGenerisk, IkkeRettighetAlder } from './IkkeRettighet'
 import { SjekkKanSøkeForm } from './SjekkKanSøkeForm'
 import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
@@ -20,7 +19,7 @@ export function Søknad() {
   const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
   const { data: virksomhet } = useSWR(organisasjonsnummer ? `/enhetsregisteret/enheter/${organisasjonsnummer}` : null)
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sisteBrukteOrg || {})
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {})
 
   return (
     <>
@@ -32,8 +31,8 @@ export function Søknad() {
         </Banner>
       </header>
       <main>
-        {tidligereBrukteVirksomheter?.data?.tidligereBrukeOrg?.length == 0 ||
-        !tidligereBrukteVirksomheter?.data?.sisteBrukteOrg ? (
+        {tidligereBrukteVirksomheter?.data?.tidligereBrukteOrganisasjoner?.length == 0 ||
+        !tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon ? (
           <Panel>
             <Heading level="2" size="medium" spacing>
               Foretak som skal ha direkteoppgjør
@@ -54,7 +53,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sisteBrukteOrg?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sisteBrukteOrg?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>
