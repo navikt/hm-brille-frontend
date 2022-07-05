@@ -101,7 +101,7 @@ const handlers: RequestHandler[] = [
           navn: 'Pippi Langstrømpe',
           kanSøke: false,
           alder: 9,
-          begrunnelse: AvvisningsType.ALDER,
+          begrunnelse: AvvisningsType.ANNET,
         })
       )
     }
@@ -113,7 +113,7 @@ const handlers: RequestHandler[] = [
           navn: 'Ole Brumm',
           kanSøke: false,
           alder: 18,
-          begrunnelse: AvvisningsType.ANNET,
+          begrunnelse: AvvisningsType.ALDER,
         })
       )
     }
