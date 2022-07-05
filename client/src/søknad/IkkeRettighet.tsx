@@ -12,8 +12,8 @@ export function IkkeRettighetGenerisk() {
 export function IkkeRettighetAlder() {
   return (
     <Alert variant="warning">
-      Barnet har ikke rett til å få brillestøtte fordi barnet er over 18 år. Du kan ikke sende inn direkteoppgjør for
-      barnebriller til dette barnet.
+      Personen har ikke rett til å få brillestøtte fordi personen er over 18 år. Du kan ikke sende inn direkteoppgjør
+      for barnebriller til denne personen.
     </Alert>
   )
 }
