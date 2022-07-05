@@ -34,8 +34,8 @@ export interface VirksomhetResponse {
 }
 
 export interface TidligereBrukteVirksomhetResponse {
-  sisteBrukteOrg: TidligereBruktVirksomhet
-  tidligereBrukeOrg: TidligereBruktVirksomhet[]
+  sistBrukteOrganisasjon: TidligereBruktVirksomhet
+  tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[]
 }
 
 export interface TidligereBruktVirksomhet {

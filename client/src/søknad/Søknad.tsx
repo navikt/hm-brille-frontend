@@ -18,7 +18,7 @@ export function Søknad() {
   const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
   const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sisteBrukteOrg || {})
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {})
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter?.data) {
@@ -37,8 +37,8 @@ export function Søknad() {
         </Banner>
       </header>
       <main>
-        {tidligereBrukteVirksomheter?.data?.tidligereBrukeOrg?.length == 0 ||
-        !tidligereBrukteVirksomheter?.data?.sisteBrukteOrg ? (
+        {tidligereBrukteVirksomheter?.data?.tidligereBrukteOrganisasjoner?.length == 0 ||
+        !tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon ? (
           <Panel>
             <Heading level="2" size="medium" spacing>
               Foretak som skal ha direkteoppgjør
@@ -60,7 +60,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sisteBrukteOrg?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sisteBrukteOrg?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>
