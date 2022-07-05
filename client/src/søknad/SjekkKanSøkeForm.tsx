@@ -14,7 +14,7 @@ export interface SjekkKanSøkeFormProps {
 
 export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
   const { onValid, onInvalid } = props
-  const { control, handleSubmit } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
+  const { control, handleSubmit, formState } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
   return (
     <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
       <SøkContainer>
@@ -32,7 +32,7 @@ export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
           )}
         />
 
-        <Button type="submit" variant="secondary">
+        <Button type="submit" variant="secondary" loading={formState.isSubmitting}>
           Slå opp
         </Button>
       </SøkContainer>

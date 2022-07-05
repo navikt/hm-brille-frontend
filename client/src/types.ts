@@ -17,6 +17,12 @@ export interface SjekkKanSøkeResponse {
   navn: string
   alder: number
   kanSøke: boolean
+  begrunnelse?: AvvisningsType
+}
+
+export enum AvvisningsType {
+  ALDER = 'ALDER',
+  ANNET = 'ANNET',
 }
 
 export interface VirksomhetResponse {
