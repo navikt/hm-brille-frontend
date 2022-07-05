@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { Feilside } from './Feilside'
 import { Søknad } from './søknad/Søknad'
+import { Vilkårsgrunnlag } from './vilkårsgrunnlag/Vilkårsgrunnlag'
+import { ApplicationProvider } from './state/ApplicationContext'
 
 export function App() {
   return (
@@ -15,10 +17,13 @@ export function App() {
         }
       }}
     >
-      <Routes>
-        <Route path="/" element={<Søknad />} />
-        <Route path="*" element={<Feilside status={404} />} />
-      </Routes>
+      <ApplicationProvider>
+        <Routes>
+          <Route path="/" element={<Søknad />} />
+          <Route path="/vilkarsgrunnlag" element={<Vilkårsgrunnlag />} />
+          <Route path="*" element={<Feilside status={404} />} />
+        </Routes>
+      </ApplicationProvider>
     </ErrorBoundary>
   )
 }

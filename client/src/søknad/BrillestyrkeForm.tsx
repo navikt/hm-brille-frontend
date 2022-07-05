@@ -1,7 +1,7 @@
 import { SaveFile } from '@navikt/ds-icons'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
@@ -16,46 +16,37 @@ export interface BrillestyrkeFormData {
   venstreSylinder: string
 }
 
-const defaultBrillestyrke = { høyreSfære: '1', høyreSylinder: '1', venstreSfære: '1', venstreSylinder: '1' }
-
 export function BrillestyrkeForm() {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<BrillestyrkeFormData>({
-    defaultValues: defaultBrillestyrke,
-  })
-  const [brillestyrke, setBrillestyrke] = useState<BeregnSatsRequest>(defaultBrillestyrke)
+  const { getValues } = useFormContext()
+
   const { post, data } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/beregn-sats')
   const [editMode, setEditMode] = useState(true)
 
   // Spinner og lokal feilhåndtering?
 
+  const beregnSats = async () => {
+    const brillestyrke = getValues('brillestyrke')
+    await post(brillestyrke)
+    setEditMode(false)
+  }
+
   return !editMode && data ? (
-    <Brillestyrke brillestyrke={brillestyrke} sats={data} onSetEditMode={setEditMode} />
+    <Brillestyrke sats={data} onSetEditMode={setEditMode} />
   ) : (
-    <form
-      onSubmit={handleSubmit(async (data) => {
-        await post(data)
-        setBrillestyrke(data)
-        setEditMode(false)
-      })}
-    >
+    <>
       <Avstand paddingBottom={5} paddingTop={5}>
         <Heading level="2" size="medium">
           Brillestyrke
         </Heading>
         <BodyLong>Du trenger kun å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
-        <Øye type="høyre" control={control} />
-        <Øye type="venstre" control={control} />
+        <Øye type="høyre" />
+        <Øye type="venstre" />
       </Avstand>
 
-      <Button variant="secondary" size="medium">
+      <Button type="button" variant="secondary" size="medium" onClick={beregnSats}>
         <SaveFile /> Lagre styrke
       </Button>
-    </form>
+    </>
   )
 }
 

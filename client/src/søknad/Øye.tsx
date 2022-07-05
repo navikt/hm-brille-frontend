@@ -1,13 +1,14 @@
 import { Heading, Select } from '@navikt/ds-react'
-import { Control, Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
-import { BrillestyrkeFormData } from './BrillestyrkeForm'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
 
-export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'venstre' | 'høyre' }) {
-  const { control, type } = props
+export function Øye(props: { type: 'venstre' | 'høyre' }) {
+  const { type } = props
+  const { control } = useFormContext()
+
   return (
     <Grid>
       <ØyeEtikett>
@@ -16,7 +17,7 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         </Heading>
       </ØyeEtikett>
       <Controller
-        name={`${type}Sfære`}
+        name={`brillestyrke.${type}Sfære`}
         control={control}
         render={({ field }) => (
           <Select label="Sfære (SPH)" size="medium" {...field}>
@@ -29,7 +30,7 @@ export function Øye(props: { control: Control<BrillestyrkeFormData>; type: 'ven
         )}
       />
       <Controller
-        name={`${type}Sylinder`}
+        name={`brillestyrke.${type}Sylinder`}
         control={control}
         render={({ field }) => (
           <Select label="Sylinder (CYL)" size="medium" {...field}>

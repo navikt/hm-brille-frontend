@@ -1,4 +1,5 @@
 import type { HttpError } from './error'
+import { AppState } from './state/ApplicationContext'
 
 export type Nullable<T> = T | null
 export type Maybe<T> = T | undefined
@@ -54,6 +55,14 @@ export interface BeregnSatsResponse {
   satsBeskrivelse: string
   beløp: string
 }
+
+export interface VilkårsgrunnlagRequest extends AppState {}
+export interface VilkårsgrunnlagResponse {
+  kanSøke: boolean
+}
+
+export interface SøknadRequest extends AppState {}
+export interface SøknadResponse {}
 
 export enum SatsType {
   SATS_1 = 'SATS_1',

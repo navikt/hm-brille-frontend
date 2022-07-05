@@ -1,4 +1,5 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
+import { AppState } from '../state/ApplicationContext'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
@@ -6,6 +7,8 @@ import {
   SjekkKanSøkeRequest,
   SjekkKanSøkeResponse,
   AvvisningsType,
+  SøknadRequest,
+  SøknadResponse,
 } from '../types'
 
 const handlers: RequestHandler[] = [
@@ -159,6 +162,20 @@ const handlers: RequestHandler[] = [
         harNavAvtale: true,
       })
     )
+  }),
+  rest.post<SøknadRequest, {}, SøknadResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
+    const body = req.body
+
+    // TODO: returner kanSøke: false for noen caser
+
+    return res(
+      ctx.json({
+        kanSøke: true,
+      })
+    )
+  }),
+  rest.post<AppState, {}, {}>('/api/soknad', (req, res, ctx) => {
+    return res(ctx.delay(2000), ctx.status(201), ctx.json({}))
   }),
 ]
 

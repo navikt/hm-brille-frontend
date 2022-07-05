@@ -1,26 +1,31 @@
-import { Data } from '@navikt/ds-icons'
-import { Alert, BodyLong, Heading, Panel } from '@navikt/ds-react'
-import { useState } from 'react'
+import { BodyLong, Heading, Panel } from '@navikt/ds-react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
 import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
-import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
-import { IkkeRettighetGenerisk, IkkeRettighetAlder } from './IkkeRettighet'
 import { SjekkKanSøkeForm } from './SjekkKanSøkeForm'
 import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
+import { useApplicationContext } from '../state/ApplicationContext'
 
 export function Søknad() {
-  const [organisasjonsnummer, setOrganisasjonsnummer] = useState<string | null>(null)
+  const { appState, setAppState } = useApplicationContext()
   const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
-  const { data: virksomhet } = useSWR(organisasjonsnummer ? `/enhetsregisteret/enheter/${organisasjonsnummer}` : null)
+  const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sisteBrukteOrg || {})
+
+  useEffect(() => {
+    if (tidligereBrukteVirksomheter?.data) {
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data.sisteBrukteOrg?.orgnummer || null
+      setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
+    }
+  }, [tidligereBrukteVirksomheter])
 
   return (
     <>
@@ -40,7 +45,8 @@ export function Søknad() {
             </Heading>
             <VirksomhetForm
               onValid={({ orgnummer }) => {
-                setOrganisasjonsnummer(orgnummer)
+                // setOrganisasjonsnummer(orgnummer)
+                setAppState((prev) => ({ ...prev, orgnummer }))
               }}
             />
             {virksomhet?.data && (
@@ -64,6 +70,7 @@ export function Søknad() {
               <SjekkKanSøkeForm
                 onValid={async ({ fnr }) => {
                   await http.post({ fnr })
+                  setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
                 }}
               />
               {sjekkKanSøke === null && (

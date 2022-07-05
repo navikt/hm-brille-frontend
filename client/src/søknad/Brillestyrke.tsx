@@ -2,9 +2,10 @@ import { Edit } from '@navikt/ds-icons'
 import { Alert, BodyLong, Button, Heading, Label } from '@navikt/ds-react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import { BeregnSatsRequest, BeregnSatsResponse, SatsType } from '../types'
+import { BeregnSatsResponse, SatsType } from '../types'
 import { MAX_SFÆRE, MAX_SYLINDER } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
+import { useFormContext } from 'react-hook-form'
 
 export interface BrillestyrkeFormData {
   høyreSfære: string
@@ -14,13 +15,15 @@ export interface BrillestyrkeFormData {
 }
 
 interface BrillestyrkeProps {
-  brillestyrke: BeregnSatsRequest
   sats: BeregnSatsResponse
   onSetEditMode: Function
 }
 
 export function Brillestyrke(props: BrillestyrkeProps) {
-  const { brillestyrke, sats, onSetEditMode } = props
+  const { getValues } = useFormContext()
+  const { sats, onSetEditMode } = props
+
+  const brillestyrke = getValues('brillestyrke')
 
   return (
     <>
