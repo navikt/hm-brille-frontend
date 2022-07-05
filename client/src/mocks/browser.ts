@@ -107,6 +107,39 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+  rest.get('/api/orgnr', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        sisteBrukteOrg: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
+        tidligereBrukeOrg: [{ orgnummer: '123456', navn: 'Brillehuset Kristiansand' }],
+      })
+    )
+  }),
+  rest.get('/api/enhetsregisteret/enheter/:organisasjonsnummer', (req, res, ctx) => {
+    const orgnummer = req.params.organisasjonsnummer
+
+    if (orgnummer === '404') {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          organisasjonsnummer: '404404',
+          navn: 'Manglerud Avtale',
+          adresse: 'Mangerudveien 6, 0942 Oslo',
+          harNavAvtale: false,
+        })
+      )
+    }
+    return res(
+      ctx.status(200),
+      ctx.json({
+        organisasjonsnummer: '111222333',
+        navn: 'Mitt Brille Land',
+        adresse: 'Brillestangen 34, 4269 Brillestad',
+        harNavAvtale: true,
+      })
+    )
+  }),
 ]
 
 export const worker = setupWorker(...handlers)

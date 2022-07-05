@@ -3,31 +3,31 @@ import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-ho
 import styled from 'styled-components'
 import { Tekstfelt } from '../components/Tekstfelt'
 
-export interface SjekkKanSøkeFormData {
-  fnr: string
+export interface VirksomhetFormData {
+  orgnummer: string
 }
 
-export interface SjekkKanSøkeFormProps {
-  onValid: SubmitHandler<SjekkKanSøkeFormData>
-  onInvalid?: SubmitErrorHandler<SjekkKanSøkeFormData>
+export interface VirksomhetFormProps {
+  onValid: SubmitHandler<VirksomhetFormData>
+  onInvalid?: SubmitErrorHandler<VirksomhetFormData>
 }
 
-export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
+export function VirksomhetForm(props: VirksomhetFormProps) {
   const { onValid, onInvalid } = props
-  const { control, handleSubmit } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
+  const { control, handleSubmit } = useForm<VirksomhetFormData>({ defaultValues: { orgnummer: '' } })
   return (
     <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
       <SøkContainer>
-        <Controller<SjekkKanSøkeFormData>
-          name="fnr"
+        <Controller<VirksomhetFormData>
+          name="orgnummer"
           control={control}
           render={({ field }) => (
             <Tekstfelt
-              label="Barnets fødselsnummer (11 siffer)"
+              label="Organisasjonsnummer"
               size="medium"
               hideLabel={false}
               {...field}
-              maxLength={11}
+              maxLength={9}
             />
           )}
         />

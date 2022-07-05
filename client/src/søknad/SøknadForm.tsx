@@ -48,13 +48,6 @@ export function SøknadForm() {
             <TextField label="Hvilken dato ble brillen bestilt?" description="DD.MM.ÅÅÅÅ" {...register('kjøpsdato')} />
           </Avstand>
           <Avstand marginBottom={3}>
-            <TextField
-              label="Hvilken dato ble synsundersøkelse gjennomført?"
-              description="DD.MM.ÅÅÅÅ"
-              {...register('kjøpsdato')}
-            />
-          </Avstand>
-          <Avstand marginBottom={3}>
             <TextField label="Pris på brille (glass og innfatning inkl. mva)" {...register('brillepris')} />
           </Avstand>
           <Avstand marginBottom={3}>
@@ -65,23 +58,9 @@ export function SøknadForm() {
             Informasjon om optiker/virksomhet
           </Heading>
 
-          <Controller<SøknadFormData>
-            name="virksomhet"
-            control={control}
-            render={({ field }) => (
-              <RadioGroup legend="Hvilken virksomhet representerer du?" {...field}>
-                <Radio value="1" checked={true}>
-                  Brilleland Sandaker
-                </Radio>
-                <Radio value="Annen">Annen</Radio>
-              </RadioGroup>
-            )}
-          />
-          <TextField label="Annet org. nummer" {...register('nyVirksomhet')} />
-
           <Knapper>
             <Button variant="primary" type="submit" loading={isSubmitting}>
-              Send inn
+              Beregn
             </Button>
             <Button variant="secondary">
               <Delete />

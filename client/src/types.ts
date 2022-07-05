@@ -19,6 +19,23 @@ export interface SjekkKanSøkeResponse {
   kanSøke: boolean
 }
 
+export interface VirksomhetResponse {
+  organisasjonsnummer: string
+  navn: string
+  adresse: string
+  harNavAvtale: boolean
+}
+
+export interface TidligereBrukteVirksomhetResponse {
+  sisteBrukteOrg: TidligereBruktVirksomhet
+  tidligereBrukeOrg: TidligereBruktVirksomhet[]
+}
+
+export interface TidligereBruktVirksomhet {
+  orgnummer: string
+  navn: string
+}
+
 export interface BeregnSatsRequest {
   høyreSfære: string
   høyreSylinder: string
