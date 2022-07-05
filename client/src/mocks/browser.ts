@@ -1,5 +1,12 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
-import { BeregnSatsRequest, BeregnSatsResponse, SatsType, SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
+import {
+  BeregnSatsRequest,
+  BeregnSatsResponse,
+  SatsType,
+  SjekkKanSøkeRequest,
+  SjekkKanSøkeResponse,
+  AvvisningsType,
+} from '../types'
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/beregn-sats', (req, res, ctx) => {
@@ -94,6 +101,19 @@ const handlers: RequestHandler[] = [
           navn: 'Pippi Langstrømpe',
           kanSøke: false,
           alder: 9,
+          begrunnelse: AvvisningsType.ALDER,
+        })
+      )
+    }
+    if (fnr === '456') {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          fnr,
+          navn: 'Ole Brumm',
+          kanSøke: false,
+          alder: 18,
+          begrunnelse: AvvisningsType.ANNET,
         })
       )
     }

@@ -1,11 +1,11 @@
 import { Alert, Heading, Panel } from '@navikt/ds-react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
+import { AvvisningsType, SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
-import { IkkeRettighet } from './IkkeRettighet'
+import { IkkeRettighetGenerisk, IkkeRettighetAlder } from './IkkeRettighet'
 import { SjekkKanSøkeForm } from './SjekkKanSøkeForm'
 import { SøknadForm } from './SøknadForm'
 
@@ -47,7 +47,11 @@ export function Søknad() {
                 </>
               ) : (
                 <Avstand marginTop={5} marginBottom={5}>
-                  <IkkeRettighet />
+                  {sjekkKanSøke.begrunnelse === AvvisningsType.ALDER ? (
+                    <IkkeRettighetAlder />
+                  ) : (
+                    <IkkeRettighetGenerisk />
+                  )}
                 </Avstand>
               )}
             </Avstand>
