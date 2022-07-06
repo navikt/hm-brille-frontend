@@ -10,16 +10,14 @@ export interface Resultat<T> {
   loading?: boolean
 }
 
-export interface SjekkKanSøkeRequest {
+export interface HentBrukerRequest {
   fnr: string
 }
 
-export interface SjekkKanSøkeResponse {
+export interface HentBrukerResponse {
   fnr: string
   navn: string
   alder: number
-  kanSøke: boolean
-  begrunnelse?: AvvisningsType
 }
 
 export enum AvvisningsType {
@@ -83,6 +81,7 @@ export enum VilkårsgrunnlagResultat {
 export interface SøknadRequest extends VilkårsgrunnlagRequest {
   bestillingsreferanse: string
 }
+
 export interface SøknadResponse {
   vedtakId: string
 }

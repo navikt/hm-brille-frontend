@@ -3,15 +3,15 @@ import styled from 'styled-components'
 import { Data } from '../components/Data'
 import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
-import { SjekkKanSøkeResponse } from '../types'
+import { HentBrukerResponse } from '../types'
 
 export interface BarnProps {
-  sjekkKanSøke: SjekkKanSøkeResponse
+  data: HentBrukerResponse
 }
 
 export function Barn(props: BarnProps) {
-  const { sjekkKanSøke } = props
-  const { fnr, navn, alder } = sjekkKanSøke
+  const { fnr, navn, alder } = props.data
+
   return (
     <DataPanel>
       <Heading level="3" size="small">
@@ -23,5 +23,3 @@ export function Barn(props: BarnProps) {
     </DataPanel>
   )
 }
-
-

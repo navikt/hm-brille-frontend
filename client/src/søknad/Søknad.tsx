@@ -2,7 +2,7 @@ import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
-import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
+import type { HentBrukerRequest, HentBrukerResponse } from '../types'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
@@ -15,9 +15,10 @@ import { Banner } from '../components/Banner'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
-  const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
+  const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
   const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
+
   const [valgtVirksomhet, setValgtVirksomhet] = useState(
     tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {}
   )
@@ -70,18 +71,18 @@ export function Søknad() {
               </Heading>
               <SjekkKanSøkeForm
                 onValid={async ({ fnr }) => {
-                  await http.post({ fnr })
+                  await hentBruker({ fnr })
                   setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
                 }}
               />
-              {sjekkKanSøke === null && (
+              {hentBrukerData === null && (
                 <Avstand marginTop={5} marginBottom={5}>
                   <IkkeFunnet />
                 </Avstand>
               )}
-              {sjekkKanSøke && (
+              {hentBrukerData && (
                 <Avstand marginTop={5} marginBottom={5}>
-                  <Barn sjekkKanSøke={sjekkKanSøke} />
+                  <Barn data={hentBrukerData} />
                   <Avstand marginTop={5}>
                     <SøknadForm />
                   </Avstand>

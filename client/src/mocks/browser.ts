@@ -3,8 +3,8 @@ import {
   BeregnSatsRequest,
   BeregnSatsResponse,
   SatsType,
-  SjekkKanSøkeRequest,
-  SjekkKanSøkeResponse,
+  HentBrukerRequest,
+  HentBrukerResponse,
   AvvisningsType,
   SøknadRequest,
   SøknadResponse,
@@ -84,7 +84,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.post<SjekkKanSøkeRequest, {}, SjekkKanSøkeResponse>('/api/sjekk-kan-soke', (req, res, ctx) => {
+  rest.post<HentBrukerRequest, {}, HentBrukerResponse>('/api/hent-bruker', (req, res, ctx) => {
     const { fnr } = req.body
     if (fnr === '400') {
       return res(ctx.status(400))
@@ -100,34 +100,26 @@ const handlers: RequestHandler[] = [
     }
     if (fnr === '123') {
       return res(
-        ctx.status(200),
         ctx.json({
           fnr,
           navn: 'Pippi Langstrømpe',
-          kanSøke: false,
           alder: 9,
-          begrunnelse: AvvisningsType.ANNET,
         })
       )
     }
     if (fnr === '456') {
       return res(
-        ctx.status(200),
         ctx.json({
           fnr,
           navn: 'Ole Brumm',
-          kanSøke: false,
           alder: 18,
-          begrunnelse: AvvisningsType.ALDER,
         })
       )
     }
     return res(
-      ctx.status(200),
       ctx.json({
         fnr,
         navn: 'Albert Åberg',
-        kanSøke: true,
         alder: 12,
       })
     )
@@ -170,6 +162,7 @@ const handlers: RequestHandler[] = [
 
     if (body.fnrBruker === '123') {
       return res(
+        ctx.delay(1000),
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
         })
