@@ -7,6 +7,7 @@ export type Maybe<T> = T | undefined
 export interface Resultat<T> {
   data?: Nullable<T>
   error?: HttpError
+  loading?: boolean
 }
 
 export interface SjekkKanSøkeRequest {

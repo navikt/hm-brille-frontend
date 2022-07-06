@@ -176,6 +176,7 @@ const handlers: RequestHandler[] = [
     }
 
     return res(
+      ctx.delay(1000),
       ctx.json({
         resultat: VilkårsgrunnlagResultat.JA,
       })
