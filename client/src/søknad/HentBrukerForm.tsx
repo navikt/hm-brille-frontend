@@ -3,22 +3,22 @@ import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-ho
 import styled from 'styled-components'
 import { Tekstfelt } from '../components/Tekstfelt'
 
-export interface SjekkKanSøkeFormData {
+export interface HentBrukerData {
   fnr: string
 }
 
-export interface SjekkKanSøkeFormProps {
-  onValid: SubmitHandler<SjekkKanSøkeFormData>
-  onInvalid?: SubmitErrorHandler<SjekkKanSøkeFormData>
+export interface HentBrukerProps {
+  onValid: SubmitHandler<HentBrukerData>
+  onInvalid?: SubmitErrorHandler<HentBrukerData>
 }
 
-export function SjekkKanSøkeForm(props: SjekkKanSøkeFormProps) {
+export function HentBrukerForm(props: HentBrukerProps) {
   const { onValid, onInvalid } = props
-  const { control, handleSubmit, formState } = useForm<SjekkKanSøkeFormData>({ defaultValues: { fnr: '' } })
+  const { control, handleSubmit, formState } = useForm<HentBrukerData>({ defaultValues: { fnr: '' } })
   return (
     <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
       <SøkContainer>
-        <Controller<SjekkKanSøkeFormData>
+        <Controller<HentBrukerData>
           name="fnr"
           control={control}
           render={({ field }) => (

@@ -6,7 +6,7 @@ import type { HentBrukerRequest, HentBrukerResponse } from '../types'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
-import { SjekkKanSøkeForm } from './SjekkKanSøkeForm'
+import { HentBrukerForm } from './HentBrukerForm'
 import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
@@ -69,7 +69,7 @@ export function Søknad() {
               <Heading level="2" size="medium" spacing>
                 Om barnet
               </Heading>
-              <SjekkKanSøkeForm
+              <HentBrukerForm
                 onValid={async ({ fnr }) => {
                   await hentBruker({ fnr })
                   setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
