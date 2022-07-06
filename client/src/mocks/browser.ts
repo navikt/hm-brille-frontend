@@ -174,7 +174,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.post<AppState, {}, {}>('/api/soknad', (req, res, ctx) => {
+  rest.post<SøknadRequest, {}, {}>('/api/soknad', (req, res, ctx) => {
     return res(ctx.delay(2000), ctx.status(201), ctx.json({}))
   }),
 ]
