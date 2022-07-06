@@ -19,15 +19,17 @@ export const Vilkårsgrunnlag = () => {
     loading: sendInnSøknadLoading,
   } = usePost<SøknadRequest, {}>('/soknad')
 
+  const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
+    orgnr: appState.orgnummer,
+    fnrBruker: appState.fodselsnummer,
+    beregnSats: appState.brillestyrke,
+    bestillingsdato: appState.bestillingsdato,
+    brillepris: appState.brillepris,
+  }
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
-    sjekkVilkårsgrunnlag({
-      orgnr: appState.orgnummer,
-      fnrBruker: appState.fodselsnummer,
-      beregnSats: appState.brillestyrke,
-      bestillingsdato: appState.bestillingsdato,
-      brillepris: appState.brillepris,
-    })
+    sjekkVilkårsgrunnlag(vilkårsgrunnlag)
   }, [])
 
   return (
@@ -41,7 +43,7 @@ export const Vilkårsgrunnlag = () => {
       </header>
       <main>
         <div>
-          <pre>{JSON.stringify(appState, null, 2)}</pre>
+          <pre>{JSON.stringify(vilkårsgrunnlag, null, 2)}</pre>
         </div>
         {!vilkårsgrunnlagData && vilkårsgrunnlagLoading ? (
           <Loader />
@@ -56,11 +58,7 @@ export const Vilkårsgrunnlag = () => {
                       loading={sendInnSøknadLoading}
                       onClick={async () => {
                         await sendInnSøknad({
-                          orgnr: appState.orgnummer,
-                          fnrBruker: appState.fodselsnummer,
-                          beregnSats: appState.brillestyrke,
-                          bestillingsdato: appState.bestillingsdato,
-                          brillepris: appState.brillepris,
+                          ...vilkårsgrunnlag,
                           bestillingsreferanse: appState.bestillingsreferanse,
                         })
                         console.log('sendInnSøknadData:', sendInnSøknadData)
