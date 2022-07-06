@@ -47,7 +47,6 @@ export function SøknadForm() {
   }, [methods.formState.isSubmitted, methods.watch])
 
   const valider = (data: SøknadFormData): boolean => {
-    console.log('validerer data:', data)
     const errors: ValideringError[] = []
 
     if (!data.bestillingsdato) {
@@ -65,6 +64,7 @@ export function SøknadForm() {
         errors.push({ id: 'brillepris', melding: 'Ugyldig brillepris' })
       }
     }
+
     if (!data.bestillingsreferanse) {
       errors.push({ id: 'bestillingsreferanse', melding: 'Du må oppgi en bestillingsreferanse' })
     }
@@ -133,7 +133,7 @@ export function SøknadForm() {
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
                 Beregn
               </Button>
-              <Button variant="secondary">
+              <Button variant="secondary" type="button">
                 <Delete />
                 Slett utkast
               </Button>

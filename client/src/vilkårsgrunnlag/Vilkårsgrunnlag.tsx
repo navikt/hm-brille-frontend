@@ -23,8 +23,6 @@ export const Vilkårsgrunnlag = () => {
     })
   }, [])
 
-  console.log('vilkårsgrunnlagData:', vilkårsgrunnlagData)
-
   return (
     <>
       <h1>Vilkårsgrunnlag</h1>

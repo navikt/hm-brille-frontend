@@ -1,5 +1,4 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
-import { AppState } from '../state/ApplicationContext'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
