@@ -25,7 +25,6 @@ const handlers: RequestHandler[] = [
 
     if (sfære >= 10.25 || sylinder >= 6.25) {
       return res(
-        ctx.status(200),
         ctx.json({
           sats: SatsType.SATS_5,
           satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 10,25D og/eller cylinderstyrke ≥ 6,25D',
@@ -35,7 +34,6 @@ const handlers: RequestHandler[] = [
     }
     if (sfære >= 8.25 && sfære <= 10 && sylinder <= 6) {
       return res(
-        ctx.status(200),
         ctx.json({
           sats: SatsType.SATS_4,
           satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 8,25D ≤ 10,00D og cylinderstyrke ≤ 6,00D',
@@ -45,7 +43,6 @@ const handlers: RequestHandler[] = [
     }
     if ((sfære >= 6.25 && sfære <= 8) || (sylinder >= 4.25 && sylinder <= 6)) {
       return res(
-        ctx.status(200),
         ctx.json({
           sats: SatsType.SATS_3,
           satsBeskrivelse:
@@ -56,7 +53,6 @@ const handlers: RequestHandler[] = [
     }
     if (sfære >= 4.25 && sfære <= 6 && sylinder <= 4) {
       return res(
-        ctx.status(200),
         ctx.json({
           sats: SatsType.SATS_2,
           satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 4,25D ≤ 6,00D og cylinderstyrke ≤ 4,00D',
@@ -66,7 +62,6 @@ const handlers: RequestHandler[] = [
     }
     if ((sfære >= 1 && sfære <= 4) || (sylinder >= 1 && sylinder <= 4)) {
       return res(
-        ctx.status(200),
         ctx.json({
           sats: SatsType.SATS_1,
           satsBeskrivelse:
@@ -76,7 +71,6 @@ const handlers: RequestHandler[] = [
       )
     }
     return res(
-      ctx.status(200),
       ctx.json({
         sats: SatsType.INGEN,
         satsBeskrivelse: 'N/A',
@@ -126,7 +120,6 @@ const handlers: RequestHandler[] = [
   }),
   rest.get('/api/orgnr', (req, res, ctx) => {
     return res(
-      ctx.status(200),
       ctx.json({
         sistBrukteOrganisasjon: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
         tidligereBrukteOrganisasjoner: [{ orgnummer: '123456', navn: 'Brillehuset Kristiansand' }],
@@ -138,7 +131,6 @@ const handlers: RequestHandler[] = [
 
     if (orgnummer === '404') {
       return res(
-        ctx.status(200),
         ctx.json({
           organisasjonsnummer: '404404',
           navn: 'Manglerud Avtale',
@@ -148,7 +140,6 @@ const handlers: RequestHandler[] = [
       )
     }
     return res(
-      ctx.status(200),
       ctx.json({
         organisasjonsnummer: '111222333',
         navn: 'Mitt Brille Land',
