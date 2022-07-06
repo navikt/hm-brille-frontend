@@ -1,7 +1,7 @@
 import { Button, Alert, Heading, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
+import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat, SøknadRequest } from '../types'
 import { usePost } from '../usePost'
 import { Banner } from '../components/Banner'
 
@@ -10,12 +10,14 @@ export const Vilkårsgrunnlag = () => {
   const {
     post: sjekkVilkårsgrunnlag,
     data: vilkårsgrunnlagData,
-    loading,
+    loading: vilkårsgrunnlagLoading,
   } = usePost<VilkårsgrunnlagRequest, VilkårsgrunnlagResponse>('/vilkarsgrunnlag')
 
-  console.log('loading:', loading)
-
-  const { post: sendInnSøknad, data: sendInnSøknadData } = usePost<VilkårsgrunnlagRequest, {}>('/soknad')
+  const {
+    post: sendInnSøknad,
+    data: sendInnSøknadData,
+    loading: sendInnSøknadLoading,
+  } = usePost<SøknadRequest, {}>('/soknad')
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -41,7 +43,7 @@ export const Vilkårsgrunnlag = () => {
         <div>
           <pre>{JSON.stringify(appState, null, 2)}</pre>
         </div>
-        {!vilkårsgrunnlagData && loading ? (
+        {!vilkårsgrunnlagData && vilkårsgrunnlagLoading ? (
           <Loader />
         ) : (
           <>
@@ -51,8 +53,17 @@ export const Vilkårsgrunnlag = () => {
                   <>
                     <Alert variant="info">Du kan søke!</Alert>
                     <Button
+                      loading={sendInnSøknadLoading}
                       onClick={async () => {
-                        // await sendInnSøknad(appState)
+                        await sendInnSøknad({
+                          orgnr: appState.orgnummer,
+                          fnrBruker: appState.fodselsnummer,
+                          beregnSats: appState.brillestyrke,
+                          bestillingsdato: appState.bestillingsdato,
+                          brillepris: appState.brillepris,
+                          bestillingsreferanse: appState.bestillingsreferanse,
+                        })
+                        console.log('sendInnSøknadData:', sendInnSøknadData)
                         // TODO: redirect til /kvittering e.l.
                       }}
                     >

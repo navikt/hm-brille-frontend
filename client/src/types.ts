@@ -80,9 +80,12 @@ export enum VilkårsgrunnlagResultat {
   KANSKJE = 'KANSKJE',
 }
 
-// TODO: modeller etter hm-brille-api
-export interface SøknadRequest extends AppState {}
-export interface SøknadResponse {}
+export interface SøknadRequest extends VilkårsgrunnlagRequest {
+  bestillingsreferanse: string
+}
+export interface SøknadResponse {
+  vedtakId: string
+}
 
 export enum SatsType {
   SATS_1 = 'SATS_1',
