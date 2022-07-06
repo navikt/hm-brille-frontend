@@ -18,6 +18,7 @@ export const Vilkårsgrunnlag = () => {
   const { post: sendInnSøknad, data: sendInnSøknadData } = usePost<VilkårsgrunnlagRequest, {}>('/soknad')
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
     sjekkVilkårsgrunnlag({
       orgnr: appState.orgnummer,
       fnrBruker: appState.fodselsnummer,
