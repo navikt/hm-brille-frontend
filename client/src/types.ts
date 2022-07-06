@@ -64,7 +64,7 @@ export interface VilkårsgrunnlagRequest {
     venstreSfære: string
     venstreSylinder: string
   }
-  bestillingsdato: Date
+  bestillingsdato: string
   brillepris: number
 }
 

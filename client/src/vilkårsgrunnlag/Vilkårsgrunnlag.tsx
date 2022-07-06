@@ -25,18 +25,16 @@ export const Vilkårsgrunnlag = () => {
     loading: sendInnSøknadLoading,
   } = usePost<SøknadRequest, SøknadResponse>('/soknad')
 
-  //dd.mm.yyyy
-  const dateStringTiLDate = (dateString: string): Date => {
-    const [day, month, year] = dateString.split('.')
-    const date = new Date(+year, parseInt(month) - 1, +day)
-    return date
+  const formaterDato = (datoString: string): string => {
+    const [day, month, year] = datoString.split('.')
+    return `${year}-${month}-${day}`
   }
 
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
     orgnr: appState.orgnummer,
     fnrBruker: appState.fodselsnummer,
     beregnSats: appState.brillestyrke,
-    bestillingsdato: dateStringTiLDate(appState.bestillingsdato),
+    bestillingsdato: formaterDato(appState.bestillingsdato),
     brillepris: parseFloat(appState.brillepris),
   }
 
