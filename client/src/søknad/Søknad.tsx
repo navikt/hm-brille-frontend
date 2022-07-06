@@ -18,11 +18,13 @@ export function Søknad() {
   const { data: sjekkKanSøke, ...http } = usePost<SjekkKanSøkeRequest, SjekkKanSøkeResponse>('/sjekk-kan-soke')
   const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {})
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(
+    tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {}
+  )
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter?.data) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data.sisteBrukteOrg?.orgnummer || null
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data.sistBrukteOrganisasjon?.orgnummer || null
       setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
     }
   }, [tidligereBrukteVirksomheter])
@@ -45,7 +47,6 @@ export function Søknad() {
             </Heading>
             <VirksomhetForm
               onValid={({ orgnummer }) => {
-                // setOrganisasjonsnummer(orgnummer)
                 setAppState((prev) => ({ ...prev, orgnummer }))
               }}
             />
