@@ -1,4 +1,4 @@
-import { SaveFile } from '@navikt/ds-icons'
+import { Calculator } from '@navikt/ds-icons'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -44,7 +44,7 @@ export function BrillestyrkeForm() {
       </Avstand>
 
       <Button type="button" variant="secondary" size="medium" onClick={beregnSats}>
-        <SaveFile /> Lagre styrke
+        <Calculator /> Beregn sats
       </Button>
     </>
   )
