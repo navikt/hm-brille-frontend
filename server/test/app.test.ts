@@ -6,7 +6,7 @@ describe('app', () => {
   describe('/api', () => {
     test('/api/foobar skal svare med 200', async () => {
       const scope = nock(config.api.brille_api_base_url)
-      scope.get('/foobar').reply(200, { foo: 'bar' })
+      scope.get('/api/foobar').reply(200, { foo: 'bar' })
       const response = await testApp.get('/api/foobar')
       expect(response.statusCode).toBe(200)
       expect(response.body).toEqual({ foo: 'bar' })
