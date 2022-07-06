@@ -165,9 +165,15 @@ const handlers: RequestHandler[] = [
     )
   }),
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
-    const body = req.body
+    const { body } = req
 
-    // TODO: returner kan ikke søke for noen caser
+    if (body.fnrBruker === '123') {
+      return res(
+        ctx.json({
+          resultat: VilkårsgrunnlagResultat.NEI,
+        })
+      )
+    }
 
     return res(
       ctx.json({

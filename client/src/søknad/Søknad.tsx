@@ -1,6 +1,5 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
 import type { SjekkKanSøkeRequest, SjekkKanSøkeResponse } from '../types'
@@ -12,6 +11,7 @@ import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
 import { useApplicationContext } from '../state/ApplicationContext'
+import { Banner } from '../components/Banner'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
@@ -94,8 +94,3 @@ export function Søknad() {
     </>
   )
 }
-
-const Banner = styled(Panel)`
-  background-color: var(--navds-global-color-gray-50);
-  text-align: center;
-`
