@@ -125,9 +125,15 @@ export function SøknadForm() {
               />
             </Avstand>
 
-            <Heading level="2" size="large" spacing>
-              Informasjon om optiker/virksomhet
-            </Heading>
+            {valideringErrors.length > 0 && (
+              <ErrorSummary heading="Før å kunne gå videre må du rette opp i følgende:">
+                {valideringErrors.map((error, i) => (
+                  <ErrorSummary.Item key={`${error.id}_${i}`} href={`#${error.id}`}>
+                    {error.melding}
+                  </ErrorSummary.Item>
+                ))}
+              </ErrorSummary>
+            )}
 
             <Knapper>
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
@@ -141,15 +147,6 @@ export function SøknadForm() {
           </Avstand>
         </form>
       </FormProvider>
-      {valideringErrors.length > 0 && (
-        <ErrorSummary>
-          {valideringErrors.map((error, i) => (
-            <ErrorSummary.Item key={`${error.id}_${i}`} href={`#${error.id}`}>
-              {error.melding}
-            </ErrorSummary.Item>
-          ))}
-        </ErrorSummary>
-      )}
     </>
   )
 }
