@@ -1,7 +1,13 @@
 import { Button, Alert, Heading, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat, SøknadRequest } from '../types'
+import {
+  VilkårsgrunnlagRequest,
+  VilkårsgrunnlagResponse,
+  VilkårsgrunnlagResultat,
+  SøknadRequest,
+  SøknadResponse,
+} from '../types'
 import { usePost } from '../usePost'
 import { Banner } from '../components/Banner'
 
@@ -17,7 +23,7 @@ export const Vilkårsgrunnlag = () => {
     post: sendInnSøknad,
     data: sendInnSøknadData,
     loading: sendInnSøknadLoading,
-  } = usePost<SøknadRequest, {}>('/soknad')
+  } = usePost<SøknadRequest, SøknadResponse>('/soknad')
 
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
     orgnr: appState.orgnummer,
