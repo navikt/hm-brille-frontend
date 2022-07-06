@@ -1,7 +1,7 @@
 import { Button, Alert } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse } from '../types'
+import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
 import { usePost } from '../usePost'
 
 export const Vilkårsgrunnlag = () => {
@@ -14,7 +14,13 @@ export const Vilkårsgrunnlag = () => {
   const { post: sendInnSøknad, data: sendInnSøknadData } = usePost<VilkårsgrunnlagRequest, {}>('/soknad')
 
   useEffect(() => {
-    sjekkVilkårsgrunnlag(appState)
+    sjekkVilkårsgrunnlag({
+      orgnr: appState.orgnummer,
+      fnrBruker: appState.fodselsnummer,
+      beregnSats: appState.brillestyrke,
+      bestillingsdato: appState.bestillingsdato,
+      brillepris: appState.brillepris,
+    })
   }, [])
 
   console.log('vilkårsgrunnlagData:', vilkårsgrunnlagData)
@@ -27,21 +33,24 @@ export const Vilkårsgrunnlag = () => {
       </div>
       {vilkårsgrunnlagData && (
         <>
-          {vilkårsgrunnlagData.kanSøke ? (
+          {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.JA && (
             <>
               <Alert variant="info">Du kan søke!</Alert>
               <Button
                 onClick={async () => {
-                  await sendInnSøknad(appState)
+                  // await sendInnSøknad(appState)
                   // TODO: redirect til /kvittering e.l.
                 }}
               >
                 Send inn søknad
               </Button>
             </>
-          ) : (
-            <Alert variant="error">Denne søknaden oppfyller ikke de følgende vilkårene:</Alert>
-            // TODO: add vilkår
+          )}
+          {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.KANSKJE && (
+            <Alert variant="warning">Du kan kanskje søke!</Alert>
+          )}
+          {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.NEI && (
+            <Alert variant="error">Du kan ikke søke :(</Alert>
           )}
         </>
       )}

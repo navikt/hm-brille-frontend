@@ -56,11 +56,30 @@ export interface BeregnSatsResponse {
   beløp: string
 }
 
-export interface VilkårsgrunnlagRequest extends AppState {}
-export interface VilkårsgrunnlagResponse {
-  kanSøke: boolean
+export interface VilkårsgrunnlagRequest {
+  orgnr: string
+  fnrBruker: string
+  beregnSats: {
+    høyreSfære: string
+    høyreSylinder: string
+    venstreSfære: string
+    venstreSylinder: string
+  }
+  bestillingsdato: string
+  brillepris: string
 }
 
+export interface VilkårsgrunnlagResponse {
+  resultat: VilkårsgrunnlagResultat
+}
+
+export enum VilkårsgrunnlagResultat {
+  JA = 'JA',
+  NEI = 'NEI',
+  KANSKJE = 'KANSKJE',
+}
+
+// TODO: modeller etter hm-brille-api
 export interface SøknadRequest extends AppState {}
 export interface SøknadResponse {}
 

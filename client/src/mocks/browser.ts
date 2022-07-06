@@ -8,7 +8,9 @@ import {
   SjekkKanSøkeResponse,
   AvvisningsType,
   SøknadRequest,
-  SøknadResponse,
+  VilkårsgrunnlagRequest,
+  VilkårsgrunnlagResponse,
+  VilkårsgrunnlagResultat,
 } from '../types'
 
 const handlers: RequestHandler[] = [
@@ -163,14 +165,14 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.post<SøknadRequest, {}, SøknadResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
+  rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const body = req.body
 
-    // TODO: returner kanSøke: false for noen caser
+    // TODO: returner kan ikke søke for noen caser
 
     return res(
       ctx.json({
-        kanSøke: true,
+        resultat: VilkårsgrunnlagResultat.JA,
       })
     )
   }),
