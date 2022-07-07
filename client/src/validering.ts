@@ -21,5 +21,7 @@ export function validerPris(prisString: string): boolean {
     return false
   }
 
-  return !Number.isNaN(Number(prisString))
+  const num = Number(prisString)
+
+  return !Number.isNaN(num) && num > 0
 }
