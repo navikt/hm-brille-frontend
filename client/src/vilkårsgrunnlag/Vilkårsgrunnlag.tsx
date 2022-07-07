@@ -1,15 +1,15 @@
-import { Button, Alert, Heading, Loader } from '@navikt/ds-react'
+import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { Banner } from '../components/Banner'
 import { useApplicationContext } from '../state/ApplicationContext'
 import {
+  SøknadRequest,
+  SøknadResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
   VilkårsgrunnlagResultat,
-  SøknadRequest,
-  SøknadResponse,
 } from '../types'
 import { usePost } from '../usePost'
-import { Banner } from '../components/Banner'
 
 export const Vilkårsgrunnlag = () => {
   const { appState } = useApplicationContext()
@@ -33,7 +33,7 @@ export const Vilkårsgrunnlag = () => {
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
     orgnr: appState.orgnummer,
     fnrBruker: appState.fodselsnummer,
-    beregnSats: appState.brillestyrke,
+    brilleseddel: appState.brillestyrke,
     bestillingsdato: formaterDato(appState.bestillingsdato),
     brillepris: parseFloat(appState.brillepris),
   }
@@ -69,7 +69,7 @@ export const Vilkårsgrunnlag = () => {
                       loading={sendInnSøknadLoading}
                       onClick={async () => {
                         await sendInnSøknad({
-                          ...vilkårsgrunnlag,
+                          vilkårsgrunnlag,
                           bestillingsreferanse: appState.bestillingsreferanse,
                         })
                         console.log('sendInnSøknadData:', sendInnSøknadData)

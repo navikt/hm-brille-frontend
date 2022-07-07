@@ -2,11 +2,12 @@ import { RequestHandler, rest, setupWorker } from 'msw'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
-  SatsType,
   HentBrukerRequest,
   HentBrukerResponse,
+  SatsType,
   SøknadRequest,
   SøknadResponse,
+  TidligereBrukteVirksomheterResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
   VilkårsgrunnlagResultat,
@@ -118,7 +119,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get('/api/orgnr', (req, res, ctx) => {
+  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
     return res(
       ctx.json({
         sistBrukteOrganisasjon: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
@@ -126,8 +127,8 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
-    const orgnummer = req.params.orgnr
+  rest.get<{}, { orgnummer: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
+    const orgnummer = req.params.orgnummer
 
     if (orgnummer === '404') {
       return res(
@@ -141,26 +142,27 @@ const handlers: RequestHandler[] = [
             poststed: 'Oslo',
           },
           harNavAvtale: false,
-          erOptikerVirksomet: true,
+          erOptikerVirksomhet: true,
         })
       )
     }
 
     return res(
       ctx.json({
-        organisasjonsnummer: '111222333',
+        organisasjonsnummer: '958573',
         kontonr: '12345678910',
-        orgnavn: 'Mitt Brille Land',
+        orgnavn: 'Brilleland',
         forretningsadresse: {
-          adresse: ['Brillestangen 34, 4269 Brillestad'],
+          adresse: ['Osloveien 1, 0942 Oslo'],
           postnummer: '0001',
           poststed: 'Oslo',
         },
         harNavAvtale: true,
-        erOptikerVirksomet: true,
+        erOptikerVirksomhet: true,
       })
     )
   }),
+
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const { body } = req
 

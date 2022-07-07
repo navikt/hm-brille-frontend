@@ -1,33 +1,38 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
-import type { HentBrukerRequest, HentBrukerResponse, VirksomhetResponse } from '../types'
+import { Banner } from '../components/Banner'
+import { useApplicationContext } from '../state/ApplicationContext'
+import type {
+  HentBrukerRequest,
+  HentBrukerResponse,
+  TidligereBrukteVirksomheterResponse,
+  VirksomhetResponse,
+} from '../types'
+import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
-import { IkkeFunnet } from './IkkeFunnet'
 import { HentBrukerForm } from './HentBrukerForm'
+import { IkkeFunnet } from './IkkeFunnet'
 import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
-import { useApplicationContext } from '../state/ApplicationContext'
-import { Banner } from '../components/Banner'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useSWR<{ data: VirksomhetResponse }>(
+  const { data: virksomhet } = useGet<{ data: VirksomhetResponse }>(
     appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
   )
-  const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
+  const { data: tidligereBrukteVirksomheter } = useGet<{ data: TidligereBrukteVirksomheterResponse }>('/orgnr')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(
     tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {}
   )
 
   useEffect(() => {
-    if (tidligereBrukteVirksomheter?.data) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data.sistBrukteOrganisasjon?.orgnummer || null
+    if (tidligereBrukteVirksomheter) {
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data?.sistBrukteOrganisasjon?.orgnummer || ''
       setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
     }
   }, [tidligereBrukteVirksomheter])
@@ -53,9 +58,9 @@ export function Søknad() {
                 setAppState((prev) => ({ ...prev, orgnummer }))
               }}
             />
-            {virksomhet?.data && (
+            {virksomhet && (
               <Avstand paddingTop={5}>
-                <Virksomhet data={virksomhet.data} onLagre={setValgtVirksomhet} />
+                <Virksomhet virksomhet={virksomhet.data} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>

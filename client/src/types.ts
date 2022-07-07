@@ -24,7 +24,22 @@ export enum AvvisningsType {
   ANNET = 'ANNET',
 }
 
-export interface TidligereBrukteVirksomhetResponse {
+export interface VirksomhetResponse {
+  organisasjonsnummer: string
+  kontonr: string
+  harNavAvtale: boolean
+  orgnavn: string
+  forretningsadresse?: Postadresse
+  erOptikerVirksomhet: Boolean
+}
+
+export interface Postadresse {
+  postnummer: string
+  poststed: string
+  adresse: string[]
+}
+
+export interface TidligereBrukteVirksomheterResponse {
   sistBrukteOrganisasjon: TidligereBruktVirksomhet
   tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[]
 }
@@ -34,12 +49,14 @@ export interface TidligereBruktVirksomhet {
   navn: string
 }
 
-export interface BeregnSatsRequest {
+export interface Brilleseddel {
   høyreSfære: string
   høyreSylinder: string
   venstreSfære: string
   venstreSylinder: string
 }
+
+export interface BeregnSatsRequest extends Brilleseddel {}
 
 export interface BeregnSatsResponse {
   sats: SatsType
@@ -47,18 +64,15 @@ export interface BeregnSatsResponse {
   beløp: string
 }
 
-export interface VilkårsgrunnlagRequest {
+export interface Vilkårsgrunnlag {
   orgnr: string
   fnrBruker: string
-  beregnSats: {
-    høyreSfære: string
-    høyreSylinder: string
-    venstreSfære: string
-    venstreSylinder: string
-  }
+  brilleseddel: Brilleseddel
   bestillingsdato: string
   brillepris: number
 }
+
+export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
 
 export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
@@ -70,7 +84,8 @@ export enum VilkårsgrunnlagResultat {
   KANSKJE = 'KANSKJE',
 }
 
-export interface SøknadRequest extends VilkårsgrunnlagRequest {
+export interface SøknadRequest {
+  vilkårsgrunnlag: Vilkårsgrunnlag
   bestillingsreferanse: string
 }
 
@@ -84,7 +99,7 @@ export interface VirksomhetResponse {
   harNavAvtale: boolean
   orgnavn: string
   forretningsadresse?: Postadresse
-  erOptikerVirksomet: Boolean
+  erOptikerVirksomhet: Boolean
 }
 
 export interface Postadresse {

@@ -7,7 +7,7 @@ import { Datum } from '../components/Datum'
 import { VirksomhetResponse } from '../types'
 
 export interface VirksomhetProps {
-  data: VirksomhetResponse
+  virksomhet: VirksomhetResponse
   onLagre: Function
 }
 
@@ -16,8 +16,8 @@ const IkonContainer = styled.div`
 `
 
 export function Virksomhet(props: VirksomhetProps) {
-  const { data, onLagre } = props
-  const { organisasjonsnummer, orgnavn, forretningsadresse, harNavAvtale } = data
+  const { virksomhet, onLagre } = props
+  const { organisasjonsnummer, orgnavn, forretningsadresse, harNavAvtale } = virksomhet
 
   if (!harNavAvtale) {
     return (
