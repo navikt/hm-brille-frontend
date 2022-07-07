@@ -35,9 +35,6 @@ export function Søknad() {
     }
   }, [tidligereBrukteVirksomheter])
 
-  console.log('Tid')
-  console.log(tidligereBrukteVirksomheter)
-
   return (
     <>
       <header>
@@ -67,12 +64,10 @@ export function Søknad() {
           </Panel>
         ) : (
           <>
-            <Panel>
-              <Panel>
-                <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
+            <Panel border>
+                <Heading size="small" spacing>Foretaket som skal ha direkteoppgjør</Heading>
                 <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
-            </Panel>
             <Panel>
               <Heading level="2" size="medium" spacing>
                 Om barnet
