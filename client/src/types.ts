@@ -26,9 +26,17 @@ export enum AvvisningsType {
 
 export interface VirksomhetResponse {
   organisasjonsnummer: string
-  navn: string
-  adresse: string
+  kontonr: string
   harNavAvtale: boolean
+  orgnavn: string
+  forretningsadresse?: Postadresse
+  erOptikerVirksomhet: Boolean
+}
+
+export interface Postadresse {
+  postnummer: string
+  poststed: string
+  adresse: string[]
 }
 
 export interface TidligereBrukteVirksomheterResponse {
@@ -83,6 +91,21 @@ export interface SøknadRequest {
 
 export interface SøknadResponse {
   vedtakId: string
+}
+
+export interface VirksomhetResponse {
+  organisasjonsnummer: string
+  kontonr: string
+  harNavAvtale: boolean
+  orgnavn: string
+  forretningsadresse?: Postadresse
+  erOptikerVirksomhet: Boolean
+}
+
+export interface Postadresse {
+  postnummer: string
+  poststed: string
+  adresse: string[]
 }
 
 export enum SatsType {

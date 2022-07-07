@@ -1,14 +1,13 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
-import { SWRResponse } from 'swr'
 import { Avstand } from '../components/Avstand'
 import { Banner } from '../components/Banner'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
-  HentBrukerRequest,
-  HentBrukerResponse,
-  TidligereBrukteVirksomheterResponse,
-  VirksomhetResponse,
+    HentBrukerRequest,
+    HentBrukerResponse,
+    TidligereBrukteVirksomheterResponse,
+    VirksomhetResponse
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
@@ -22,12 +21,14 @@ import { VirksomhetForm } from './VirksomhetForm'
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useGet<VirksomhetResponse>(
-    appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null
+  const { data: virksomhet } = useGet<{ data: VirksomhetResponse }>(
+    appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
   )
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(
+    tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {}
+  )
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
@@ -62,7 +63,7 @@ export function Søknad() {
             />
             {virksomhet && (
               <Avstand paddingTop={5}>
-                <Virksomhet data={virksomhet} onLagre={setValgtVirksomhet} />
+                <Virksomhet virksomhet={virksomhet.data} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>
@@ -71,7 +72,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>
