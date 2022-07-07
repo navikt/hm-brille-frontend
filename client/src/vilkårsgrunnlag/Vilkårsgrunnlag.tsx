@@ -1,14 +1,9 @@
-import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
+import { Alert, Heading, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { Banner } from '../components/Banner'
+import { SendInnSøknad } from '../components/SendInnSøknad'
 import { useApplicationContext } from '../state/ApplicationContext'
-import {
-  SøknadRequest,
-  SøknadResponse,
-  VilkårsgrunnlagRequest,
-  VilkårsgrunnlagResponse,
-  VilkårsgrunnlagResultat,
-} from '../types'
+import { VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
 import { usePost } from '../usePost'
 
 export const Vilkårsgrunnlag = () => {
@@ -18,12 +13,6 @@ export const Vilkårsgrunnlag = () => {
     data: vilkårsgrunnlagData,
     loading: vilkårsgrunnlagLoading,
   } = usePost<VilkårsgrunnlagRequest, VilkårsgrunnlagResponse>('/vilkarsgrunnlag')
-
-  const {
-    post: sendInnSøknad,
-    data: sendInnSøknadData,
-    loading: sendInnSøknadLoading,
-  } = usePost<SøknadRequest, SøknadResponse>('/soknad')
 
   const formaterDato = (datoString: string): string => {
     const [day, month, year] = datoString.split('.')
@@ -43,6 +32,8 @@ export const Vilkårsgrunnlag = () => {
     sjekkVilkårsgrunnlag(vilkårsgrunnlag)
   }, [])
 
+  const erProd = window.appSettings.MILJO === 'prod-gcp'
+
   return (
     <>
       <header>
@@ -60,31 +51,29 @@ export const Vilkårsgrunnlag = () => {
           <Loader />
         ) : (
           <>
-            {vilkårsgrunnlagData && (
+            {/* Vis send inn-knapp uavhengig av svar fra vilkårssjekk i alt annet enn prod  */}
+            {!erProd ? (
               <>
-                {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.JA && (
+                <Alert variant="info">Du kan søke!</Alert>
+                <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />
+              </>
+            ) : (
+              <>
+                {vilkårsgrunnlagData && (
                   <>
-                    <Alert variant="info">Du kan søke!</Alert>
-                    <Button
-                      loading={sendInnSøknadLoading}
-                      onClick={async () => {
-                        await sendInnSøknad({
-                          vilkårsgrunnlag,
-                          bestillingsreferanse: appState.bestillingsreferanse,
-                        })
-                        console.log('sendInnSøknadData:', sendInnSøknadData)
-                        // TODO: redirect til /kvittering e.l.
-                      }}
-                    >
-                      Send inn søknad
-                    </Button>
+                    {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.JA && (
+                      <>
+                        <Alert variant="info">Du kan søke!</Alert>
+                        <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />
+                      </>
+                    )}
+                    {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.KANSKJE && (
+                      <Alert variant="warning">Du kan kanskje søke!</Alert>
+                    )}
+                    {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.NEI && (
+                      <Alert variant="error">Du kan ikke søke :(</Alert>
+                    )}
                   </>
-                )}
-                {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.KANSKJE && (
-                  <Alert variant="warning">Du kan kanskje søke!</Alert>
-                )}
-                {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.NEI && (
-                  <Alert variant="error">Du kan ikke søke :(</Alert>
                 )}
               </>
             )}
