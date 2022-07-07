@@ -24,18 +24,19 @@ export function Søknad() {
   const { data: virksomhet } = useGet<{ data: VirksomhetResponse }>(
     appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
   )
-  const { data: tidligereBrukteVirksomheter } = useGet<{ data: TidligereBrukteVirksomheterResponse }>('/orgnr')
+  const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(
-    tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {}
-  )
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data?.sistBrukteOrganisasjon?.orgnummer || ''
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer || ''
       setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
     }
   }, [tidligereBrukteVirksomheter])
+
+  console.log('Tid')
+  console.log(tidligereBrukteVirksomheter)
 
   return (
     <>
@@ -47,8 +48,8 @@ export function Søknad() {
         </Banner>
       </header>
       <main>
-        {tidligereBrukteVirksomheter?.data?.tidligereBrukteOrganisasjoner?.length == 0 ||
-        !tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon ? (
+        {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
+        !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
           <Panel>
             <Heading level="2" size="medium" spacing>
               Foretak som skal ha direkteoppgjør
@@ -69,7 +70,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>

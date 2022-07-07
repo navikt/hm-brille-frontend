@@ -3,19 +3,8 @@ import type { Resultat } from './types'
 
 export const BASE_API_URL = '/api'
 
-async function handleResponse<T>(url: string, response: Response): Promise<Resultat<T>> {
-  if (response.ok) {
-    const data = await response.json()
-    return { data }
-  }
-  if (response.status === 404) {
-    return { data: null }
-  }
-  return HttpError.kallFeilet(url, response)
-}
-
 export const http = {
-  async get<T>(url: string): Promise<Resultat<T>> {
+  async get<T>(url: string): Promise<T> {
     try {
       const response = await fetch(BASE_API_URL + url, {
         method: 'get',
@@ -24,9 +13,12 @@ export const http = {
           Accept: 'application/json',
         },
       })
-      return handleResponse(url, response)
+      if (response.ok) {
+        return response.json()
+      }
+      return Promise.reject(HttpError.kallFeilet(url, response))
     } catch (err: unknown) {
-      return HttpError.wrap(err)
+      return Promise.reject(HttpError.wrap(err))
     }
   },
   async post<B, T>(url: string, body: B): Promise<Resultat<T>> {
@@ -40,9 +32,17 @@ export const http = {
         },
         body: JSON.stringify(body),
       })
-      return handleResponse(url, response)
+      if (response.ok) {
+        const data = await response.json()
+        return { data }
+      }
+      return {
+        error: HttpError.kallFeilet(url, response),
+      }
     } catch (err: unknown) {
-      return HttpError.wrap(err)
+      return {
+        error: HttpError.wrap(err),
+      }
     }
   },
 }
