@@ -1,31 +1,36 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
-import type { HentBrukerRequest, HentBrukerResponse } from '../types'
+import { Banner } from '../components/Banner'
+import { useApplicationContext } from '../state/ApplicationContext'
+import type {
+  HentBrukerRequest,
+  HentBrukerResponse,
+  TidligereBrukteVirksomheterResponse,
+  VirksomhetResponse,
+} from '../types'
+import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
-import { IkkeFunnet } from './IkkeFunnet'
 import { HentBrukerForm } from './HentBrukerForm'
+import { IkkeFunnet } from './IkkeFunnet'
 import { SøknadForm } from './SøknadForm'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
-import { useApplicationContext } from '../state/ApplicationContext'
-import { Banner } from '../components/Banner'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
-  const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
-
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(
-    tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon || {}
+  const { data: virksomhet } = useGet<VirksomhetResponse>(
+    appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null
   )
+  const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
+
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 
   useEffect(() => {
-    if (tidligereBrukteVirksomheter?.data) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter.data.sistBrukteOrganisasjon?.orgnummer || null
+    if (tidligereBrukteVirksomheter) {
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter.sistBrukteOrganisasjon?.orgnummer || ''
       setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
     }
   }, [tidligereBrukteVirksomheter])
@@ -40,8 +45,8 @@ export function Søknad() {
         </Banner>
       </header>
       <main>
-        {tidligereBrukteVirksomheter?.data?.tidligereBrukteOrganisasjoner?.length == 0 ||
-        !tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon ? (
+        {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
+        !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
           <Panel>
             <Heading level="2" size="medium" spacing>
               Foretak som skal ha direkteoppgjør
@@ -51,9 +56,9 @@ export function Søknad() {
                 setAppState((prev) => ({ ...prev, orgnummer }))
               }}
             />
-            {virksomhet?.data && (
+            {virksomhet && (
               <Avstand paddingTop={5}>
-                <Virksomhet data={virksomhet?.data} onLagre={setValgtVirksomhet} />
+                <Virksomhet data={virksomhet} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>
@@ -62,7 +67,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>

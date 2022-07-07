@@ -7,9 +7,11 @@ import {
   SatsType,
   SøknadRequest,
   SøknadResponse,
+  TidligereBrukteVirksomheterResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
   VilkårsgrunnlagResultat,
+  VirksomhetResponse,
 } from '../types'
 
 const handlers: RequestHandler[] = [
@@ -117,7 +119,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get('/api/orgnr', (req, res, ctx) => {
+  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
     return res(
       ctx.json({
         sistBrukteOrganisasjon: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
@@ -125,28 +127,31 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get('/api/enhetsregisteret/enheter/:organisasjonsnummer', (req, res, ctx) => {
-    const orgnummer = req.params.organisasjonsnummer
+  rest.get<{}, { organisasjonsnummer: string }, VirksomhetResponse>(
+    '/api/enhetsregisteret/enheter/:organisasjonsnummer',
+    (req, res, ctx) => {
+      const orgnummer = req.params.organisasjonsnummer
 
-    if (orgnummer === '404') {
+      if (orgnummer === '404') {
+        return res(
+          ctx.json({
+            organisasjonsnummer: '404404',
+            navn: 'Manglerud Avtale',
+            adresse: 'Mangerudveien 6, 0942 Oslo',
+            harNavAvtale: false,
+          })
+        )
+      }
       return res(
         ctx.json({
-          organisasjonsnummer: '404404',
-          navn: 'Manglerud Avtale',
-          adresse: 'Mangerudveien 6, 0942 Oslo',
-          harNavAvtale: false,
+          organisasjonsnummer: '111222333',
+          navn: 'Mitt Brille Land',
+          adresse: 'Brillestangen 34, 4269 Brillestad',
+          harNavAvtale: true,
         })
       )
     }
-    return res(
-      ctx.json({
-        organisasjonsnummer: '111222333',
-        navn: 'Mitt Brille Land',
-        adresse: 'Brillestangen 34, 4269 Brillestad',
-        harNavAvtale: true,
-      })
-    )
-  }),
+  ),
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const { body } = req
 
