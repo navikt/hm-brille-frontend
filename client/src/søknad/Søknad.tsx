@@ -1,5 +1,6 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
+import { SWRResponse } from 'swr'
 import { Avstand } from '../components/Avstand'
 import { Banner } from '../components/Banner'
 import { useApplicationContext } from '../state/ApplicationContext'
@@ -30,10 +31,13 @@ export function Søknad() {
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter.sistBrukteOrganisasjon?.orgnummer || ''
+      const sistBruktOrgnummer = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer || ''
       setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
     }
   }, [tidligereBrukteVirksomheter])
+
+  console.log('Tid')
+  console.log(tidligereBrukteVirksomheter)
 
   return (
     <>

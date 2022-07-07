@@ -1,13 +1,11 @@
 import type { Resultat } from './types'
 
 export class HttpError extends Error {
-  static kallFeilet<T>(url: string, response: Response): Resultat<T> {
-    return {
-      error: new HttpError(`Kall mot url: '${url}' feilet, status: ${response.status}`, response.status),
-    }
+  static kallFeilet<T>(url: string, response: Response): HttpError {
+    return new HttpError(`Kall mot url: '${url}' feilet, status: ${response.status}`, response.status)
   }
 
-  static wrap<T>(err: unknown): Resultat<T> {
+  static wrap<T>(err: unknown): HttpError {
     let error: HttpError
     if (err instanceof Error) {
       error = new HttpError(err.message, 500, { cause: err })
@@ -16,9 +14,7 @@ export class HttpError extends Error {
     } else {
       error = new HttpError('Ukjent feil', 500)
     }
-    return {
-      error,
-    }
+    return error
   }
 
   constructor(message: string, readonly status: number, options?: ErrorOptions) {
