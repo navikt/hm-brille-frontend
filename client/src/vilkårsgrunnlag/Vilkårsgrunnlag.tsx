@@ -56,7 +56,10 @@ export const Vilkårsgrunnlag = () => {
                 {/* Vis send inn-knapp uavhengig av svar fra vilkårssjekk i alt annet enn prod  */}
                 {!erProd ? (
                   <>
-                    <Alert variant="info">Du kan søke!</Alert>
+                    <Alert variant="info">
+                      Respons fra vilkårssjekk var {vilkårsgrunnlagData.resultat}. Du kan søke uansett siden du ikke er
+                      i prod.
+                    </Alert>
                     <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />
                   </>
                 ) : (
