@@ -4,10 +4,10 @@ import { Avstand } from '../components/Avstand'
 import { Banner } from '../components/Banner'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
-    HentBrukerRequest,
-    HentBrukerResponse,
-    TidligereBrukteVirksomheterResponse,
-    VirksomhetResponse
+  HentBrukerRequest,
+  HentBrukerResponse,
+  TidligereBrukteVirksomheterResponse,
+  VirksomhetResponse,
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
@@ -26,9 +26,7 @@ export function Søknad() {
   )
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(
-    tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {}
-  )
+  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
@@ -72,7 +70,7 @@ export function Søknad() {
             <Panel>
               <Panel>
                 <Heading size="small">Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.data?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
               </Panel>
             </Panel>
             <Panel>
