@@ -51,15 +51,15 @@ export const Vilkårsgrunnlag = () => {
           <Loader />
         ) : (
           <>
-            {/* Vis send inn-knapp uavhengig av svar fra vilkårssjekk i alt annet enn prod  */}
-            {!erProd ? (
+            {vilkårsgrunnlagData && (
               <>
-                <Alert variant="info">Du kan søke!</Alert>
-                <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />
-              </>
-            ) : (
-              <>
-                {vilkårsgrunnlagData && (
+                {/* Vis send inn-knapp uavhengig av svar fra vilkårssjekk i alt annet enn prod  */}
+                {!erProd ? (
+                  <>
+                    <Alert variant="info">Du kan søke!</Alert>
+                    <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />
+                  </>
+                ) : (
                   <>
                     {vilkårsgrunnlagData.resultat === VilkårsgrunnlagResultat.JA && (
                       <>
