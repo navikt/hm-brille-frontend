@@ -1,5 +1,4 @@
 import type { HttpError } from './error'
-import { AppState } from './state/ApplicationContext'
 
 export type Nullable<T> = T | null
 export type Maybe<T> = T | undefined
@@ -32,7 +31,7 @@ export interface VirksomhetResponse {
   harNavAvtale: boolean
 }
 
-export interface TidligereBrukteVirksomhetResponse {
+export interface TidligereBrukteVirksomheterResponse {
   sistBrukteOrganisasjon: TidligereBruktVirksomhet
   tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[]
 }
@@ -42,12 +41,14 @@ export interface TidligereBruktVirksomhet {
   navn: string
 }
 
-export interface BeregnSatsRequest {
+export interface Brilleseddel {
   høyreSfære: string
   høyreSylinder: string
   venstreSfære: string
   venstreSylinder: string
 }
+
+export interface BeregnSatsRequest extends Brilleseddel {}
 
 export interface BeregnSatsResponse {
   sats: SatsType
@@ -55,18 +56,15 @@ export interface BeregnSatsResponse {
   beløp: string
 }
 
-export interface VilkårsgrunnlagRequest {
+export interface Vilkårsgrunnlag {
   orgnr: string
   fnrBruker: string
-  beregnSats: {
-    høyreSfære: string
-    høyreSylinder: string
-    venstreSfære: string
-    venstreSylinder: string
-  }
+  brilleseddel: Brilleseddel
   bestillingsdato: string
   brillepris: number
 }
+
+export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
 
 export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
@@ -78,7 +76,8 @@ export enum VilkårsgrunnlagResultat {
   KANSKJE = 'KANSKJE',
 }
 
-export interface SøknadRequest extends VilkårsgrunnlagRequest {
+export interface SøknadRequest {
+  vilkårsgrunnlag: Vilkårsgrunnlag
   bestillingsreferanse: string
 }
 

@@ -2,10 +2,9 @@ import { RequestHandler, rest, setupWorker } from 'msw'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
-  SatsType,
   HentBrukerRequest,
   HentBrukerResponse,
-  AvvisningsType,
+  SatsType,
   SøknadRequest,
   SøknadResponse,
   VilkårsgrunnlagRequest,
