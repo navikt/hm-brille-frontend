@@ -1,5 +1,4 @@
 import type { HttpError } from './error'
-import { AppState } from './state/ApplicationContext'
 
 export type Nullable<T> = T | null
 export type Maybe<T> = T | undefined
@@ -23,13 +22,6 @@ export interface HentBrukerResponse {
 export enum AvvisningsType {
   ALDER = 'ALDER',
   ANNET = 'ANNET',
-}
-
-export interface VirksomhetResponse {
-  organisasjonsnummer: string
-  navn: string
-  adresse: string
-  harNavAvtale: boolean
 }
 
 export interface TidligereBrukteVirksomhetResponse {
@@ -84,6 +76,21 @@ export interface SøknadRequest extends VilkårsgrunnlagRequest {
 
 export interface SøknadResponse {
   vedtakId: string
+}
+
+export interface VirksomhetResponse {
+  organisasjonsnummer: string
+  kontonr: string
+  harNavAvtale: boolean
+  orgnavn: string
+  forretningsadresse?: Postadresse
+  erOptikerVirksomet: Boolean
+}
+
+export interface Postadresse {
+  postnummer: string
+  poststed: string
+  adresse: string[]
 }
 
 export enum SatsType {

@@ -5,12 +5,12 @@ import {
   SatsType,
   HentBrukerRequest,
   HentBrukerResponse,
-  AvvisningsType,
   SøknadRequest,
   SøknadResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
   VilkårsgrunnlagResultat,
+  VirksomhetResponse,
 } from '../types'
 
 const handlers: RequestHandler[] = [
@@ -126,25 +126,38 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get('/api/enhetsregisteret/enheter/:organisasjonsnummer', (req, res, ctx) => {
-    const orgnummer = req.params.organisasjonsnummer
+  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
+    const orgnummer = req.params.orgnr
 
     if (orgnummer === '404') {
       return res(
         ctx.json({
           organisasjonsnummer: '404404',
-          navn: 'Manglerud Avtale',
-          adresse: 'Mangerudveien 6, 0942 Oslo',
+          kontonr: '12345678910',
+          orgnavn: 'Manglerud Avtale',
+          forretningsadresse: {
+            adresse: ['Mangerudveien 6, 0942 Oslo'],
+            postnummer: '0001',
+            poststed: 'Oslo',
+          },
           harNavAvtale: false,
+          erOptikerVirksomet: true,
         })
       )
     }
+
     return res(
       ctx.json({
         organisasjonsnummer: '111222333',
-        navn: 'Mitt Brille Land',
-        adresse: 'Brillestangen 34, 4269 Brillestad',
+        kontonr: '12345678910',
+        orgnavn: 'Mitt Brille Land',
+        forretningsadresse: {
+          adresse: ['Brillestangen 34, 4269 Brillestad'],
+          postnummer: '0001',
+          poststed: 'Oslo',
+        },
         harNavAvtale: true,
+        erOptikerVirksomet: true,
       })
     )
   }),

@@ -2,7 +2,7 @@ import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { Avstand } from '../components/Avstand'
-import type { HentBrukerRequest, HentBrukerResponse } from '../types'
+import type { HentBrukerRequest, HentBrukerResponse, VirksomhetResponse } from '../types'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { IkkeFunnet } from './IkkeFunnet'
@@ -16,7 +16,9 @@ import { Banner } from '../components/Banner'
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useSWR(appState.orgnummer ? `/enhetsregisteret/enheter/${appState.orgnummer}` : null)
+  const { data: virksomhet } = useSWR<{ data: VirksomhetResponse }>(
+    appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
+  )
   const { data: tidligereBrukteVirksomheter } = useSWR('/orgnr')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(
@@ -53,7 +55,7 @@ export function Søknad() {
             />
             {virksomhet?.data && (
               <Avstand paddingTop={5}>
-                <Virksomhet data={virksomhet?.data} onLagre={setValgtVirksomhet} />
+                <Virksomhet data={virksomhet.data} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>
