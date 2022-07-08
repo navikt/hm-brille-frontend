@@ -79,6 +79,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+
   rest.post<HentBrukerRequest, {}, HentBrukerResponse>('/api/hent-bruker', (req, res, ctx) => {
     const { fnr } = req.body
     if (fnr === '400') {
@@ -119,14 +120,28 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+
   rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
     return res(
       ctx.json({
-        sistBrukteOrganisasjon: { orgnummer: '123456', navn: 'Brillehuset Kristiansand' },
-        tidligereBrukteOrganisasjoner: [{ orgnummer: '123456', navn: 'Brillehuset Kristiansand' }],
+        sistBrukteOrganisasjon: {
+          orgnummer: '123456',
+          navn: 'Brillehuset Kristiansand',
+          beliggenhetsadresse: 'Kristiansandveien 123',
+          forretningsadresse: 'Kristiansandveien 123',
+        },
+        tidligereBrukteOrganisasjoner: [
+          {
+            orgnummer: '123456',
+            navn: 'Brillehuset Kristiansand',
+            beliggenhetsadresse: 'Kristiansandveien 123',
+            forretningsadresse: 'Kristiansandveien 123',
+          },
+        ],
       })
     )
   }),
+
   rest.get<{}, { orgnummer: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
     const orgnummer = req.params.orgnummer
 
@@ -182,6 +197,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+
   rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknad', (req, res, ctx) => {
     return res(ctx.delay(2000), ctx.status(201), ctx.json({ vedtakId: '1' }))
   }),

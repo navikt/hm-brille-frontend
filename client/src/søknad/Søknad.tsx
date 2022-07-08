@@ -21,22 +21,39 @@ import { VirksomhetForm } from './VirksomhetForm'
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useGet<{ data: VirksomhetResponse }>(
+  const { data: virksomhet } = useGet<VirksomhetResponse>(
     appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
   )
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 
+  // TODO: kan nok rydde opp i hvordan vi gjør requests og oppdaterer appState
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer || ''
-      setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
+      const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
+      if (sistBrukteOrg) {
+        setAppState((prev) => ({
+          ...prev,
+          orgnummer: sistBrukteOrg.orgnummer,
+          orgNavn: sistBrukteOrg.navn,
+          orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!, // vi vet at en av disse alltid vil være satt
+        }))
+      }
     }
   }, [tidligereBrukteVirksomheter])
 
-  console.log('Tid')
-  console.log(tidligereBrukteVirksomheter)
+  useEffect(() => {
+    if (virksomhet) {
+      setAppState((prev) => ({ ...prev, orgNavn: virksomhet.orgnavn }))
+    }
+  }, [virksomhet])
+
+  useEffect(() => {
+    if (hentBrukerData) {
+      setAppState((prev) => ({ ...prev, brukersNavn: hentBrukerData.navn, fodselsnummer: hentBrukerData.fnr }))
+    }
+  }, [hentBrukerData])
 
   return (
     <>
@@ -61,7 +78,7 @@ export function Søknad() {
             />
             {virksomhet && (
               <Avstand paddingTop={5}>
-                <Virksomhet virksomhet={virksomhet.data} onLagre={setValgtVirksomhet} />
+                <Virksomhet virksomhet={virksomhet} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>
@@ -80,7 +97,7 @@ export function Søknad() {
               <HentBrukerForm
                 onValid={async ({ fnr }) => {
                   await hentBruker({ fnr })
-                  setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
+                  // setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
                 }}
               />
               {hentBrukerData === null && (
