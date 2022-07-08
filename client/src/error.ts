@@ -1,5 +1,3 @@
-import type { Resultat } from './types'
-
 export class HttpError extends Error {
   static kallFeilet<T>(url: string, response: Response): HttpError {
     return new HttpError(`Kall mot url: '${url}' feilet, status: ${response.status}`, response.status)
