@@ -89,7 +89,12 @@ const handlers: RequestHandler[] = [
       return res(ctx.status(401))
     }
     if (fnr === '404') {
-      return res(ctx.status(404))
+      return res(
+        ctx.json({
+          fnr: '',
+          navn: '',
+        })
+      )
     }
     if (fnr === '500') {
       return res(ctx.status(500))

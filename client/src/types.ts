@@ -16,7 +16,7 @@ export interface HentBrukerRequest {
 export interface HentBrukerResponse {
   fnr: string
   navn: string
-  alder: number
+  alder?: number
 }
 
 export enum AvvisningsType {

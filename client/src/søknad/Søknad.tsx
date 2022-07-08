@@ -100,19 +100,19 @@ export function Søknad() {
                   // setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
                 }}
               />
-              {hentBrukerData === null && (
-                <Avstand marginTop={5} marginBottom={5}>
-                  <IkkeFunnet />
-                </Avstand>
-              )}
-              {hentBrukerData && (
-                <Avstand marginTop={5} marginBottom={5}>
-                  <Barn data={hentBrukerData} />
-                  <Avstand marginTop={5}>
-                    <SøknadForm />
+              {hentBrukerData &&
+                (hentBrukerData.fnr ? (
+                  <Avstand marginTop={5} marginBottom={5}>
+                    <Barn data={hentBrukerData} />
+                    <Avstand marginTop={5}>
+                      <SøknadForm />
+                    </Avstand>
                   </Avstand>
-                </Avstand>
-              )}
+                ) : (
+                  <Avstand marginTop={5} marginBottom={5}>
+                    <IkkeFunnet />
+                  </Avstand>
+                ))}
             </Panel>
           </>
         )}

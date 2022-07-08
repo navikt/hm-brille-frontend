@@ -1,5 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react'
-import styled from 'styled-components'
+import { Heading } from '@navikt/ds-react'
 import { Data } from '../components/Data'
 import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
@@ -11,11 +10,11 @@ export interface BarnProps {
 
 export function Barn(props: BarnProps) {
   const { fnr, navn, alder } = props.data
-
+  let alderTekst = typeof alder === 'number' ? ` (${alder} år)` : ''
   return (
     <DataPanel>
       <Heading level="3" size="small">
-        {`${navn} (${alder} år)`}
+        {`${navn}${alderTekst}`}
       </Heading>
       <Data>
         <Datum label="Fødselsnummer:">{fnr}</Datum>
