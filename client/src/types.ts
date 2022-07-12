@@ -16,21 +16,12 @@ export interface HentBrukerRequest {
 export interface HentBrukerResponse {
   fnr: string
   navn: string
-  alder: number
+  alder?: number
 }
 
 export enum AvvisningsType {
   ALDER = 'ALDER',
   ANNET = 'ANNET',
-}
-
-export interface VirksomhetResponse {
-  organisasjonsnummer: string
-  kontonr: string
-  harNavAvtale: boolean
-  orgnavn: string
-  forretningsadresse?: Postadresse
-  erOptikerVirksomhet: Boolean
 }
 
 export interface Postadresse {
@@ -40,13 +31,15 @@ export interface Postadresse {
 }
 
 export interface TidligereBrukteVirksomheterResponse {
-  sistBrukteOrganisasjon: TidligereBruktVirksomhet
-  tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[]
+  sistBrukteOrganisasjon: TidligereBruktVirksomhet | undefined
+  tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[] | undefined
 }
 
 export interface TidligereBruktVirksomhet {
   orgnummer: string
   navn: string
+  forretningsadresse: string | undefined
+  beliggenhetsadresse: string | undefined
 }
 
 export interface Brilleseddel {
@@ -87,6 +80,9 @@ export enum VilkårsgrunnlagResultat {
 export interface SøknadRequest {
   vilkårsgrunnlag: Vilkårsgrunnlag
   bestillingsreferanse: string
+  brukersNavn: string
+  orgAdresse: string
+  orgNavn: string
 }
 
 export interface SøknadResponse {
@@ -99,7 +95,7 @@ export interface VirksomhetResponse {
   harNavAvtale: boolean
   orgnavn: string
   forretningsadresse?: Postadresse
-  erOptikerVirksomhet: Boolean
+  erOptikerVirksomhet: boolean
 }
 
 export interface Postadresse {

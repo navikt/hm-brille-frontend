@@ -23,6 +23,9 @@ export const SendInnSøknad = (props: Props) => {
         await sendInnSøknad({
           vilkårsgrunnlag: props.vilkårsgrunnlag,
           bestillingsreferanse: appState.bestillingsreferanse,
+          brukersNavn: appState.brukersNavn,
+          orgNavn: appState.orgNavn,
+          orgAdresse: appState.orgAdresse,
         })
         console.log('sendInnSøknadData:', sendInnSøknadData)
         // TODO: redirect til /kvittering e.l.

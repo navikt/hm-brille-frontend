@@ -21,19 +21,39 @@ import { VirksomhetForm } from './VirksomhetForm'
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useGet<{ data: VirksomhetResponse }>(
+  const { data: virksomhet } = useGet<VirksomhetResponse>(
     appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
   )
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 
+  // TODO: kan nok rydde opp i hvordan vi gjør requests og oppdaterer appState
   useEffect(() => {
     if (tidligereBrukteVirksomheter) {
-      const sistBruktOrgnummer = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer || ''
-      setAppState((prev) => ({ ...prev, orgnummer: sistBruktOrgnummer }))
+      const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
+      if (sistBrukteOrg) {
+        setAppState((prev) => ({
+          ...prev,
+          orgnummer: sistBrukteOrg.orgnummer,
+          orgNavn: sistBrukteOrg.navn,
+          orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!, // vi vet at en av disse alltid vil være satt
+        }))
+      }
     }
   }, [tidligereBrukteVirksomheter])
+
+  useEffect(() => {
+    if (virksomhet) {
+      setAppState((prev) => ({ ...prev, orgNavn: virksomhet.orgnavn }))
+    }
+  }, [virksomhet])
+
+  useEffect(() => {
+    if (hentBrukerData) {
+      setAppState((prev) => ({ ...prev, brukersNavn: hentBrukerData.navn, fodselsnummer: hentBrukerData.fnr }))
+    }
+  }, [hentBrukerData])
 
   return (
     <>
@@ -58,18 +78,18 @@ export function Søknad() {
             />
             {virksomhet && (
               <Avstand paddingTop={5}>
-                  
-                <Virksomhet virksomhet={virksomhet.data} onLagre={setValgtVirksomhet} />
+                <Virksomhet virksomhet={virksomhet} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
           </Panel>
         ) : (
           <>
             <Panel border>
-                <Heading size="small" spacing>Foretaket som skal ha direkteoppgjør</Heading>
-                <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
-                <Button variant="tertiary">Jeg skal søke for et annet foretak</Button>
-              </Panel>
+              <Heading size="small" spacing>
+                Foretaket som skal ha direkteoppgjør
+              </Heading>
+              <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+            </Panel>
             <Panel>
               <Heading level="2" size="medium" spacing>
                 Om barnet
@@ -77,22 +97,22 @@ export function Søknad() {
               <HentBrukerForm
                 onValid={async ({ fnr }) => {
                   await hentBruker({ fnr })
-                  setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
+                  // setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
                 }}
               />
-              {hentBrukerData === null && (
-                <Avstand marginTop={5} marginBottom={5}>
-                  <IkkeFunnet />
-                </Avstand>
-              )}
-              {hentBrukerData && (
-                <Avstand marginTop={5} marginBottom={5}>
-                  <Barn data={hentBrukerData} />
-                  <Avstand marginTop={5}>
-                    <SøknadForm />
+              {hentBrukerData &&
+                (hentBrukerData.fnr ? (
+                  <Avstand marginTop={5} marginBottom={5}>
+                    <Barn data={hentBrukerData} />
+                    <Avstand marginTop={5}>
+                      <SøknadForm />
+                    </Avstand>
                   </Avstand>
-                </Avstand>
-              )}
+                ) : (
+                  <Avstand marginTop={5} marginBottom={5}>
+                    <IkkeFunnet />
+                  </Avstand>
+                ))}
             </Panel>
           </>
         )}

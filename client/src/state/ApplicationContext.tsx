@@ -3,7 +3,10 @@ import { BrillestyrkeFormData } from '../søknad/Brillestyrke'
 
 export interface AppState {
   orgnummer: string
+  orgNavn: string
+  orgAdresse: string
   fodselsnummer: string
+  brukersNavn: string
   brillestyrke: BrillestyrkeFormData
   bestillingsdato: string
   bestillingsreferanse: string
@@ -15,9 +18,12 @@ interface IApplicationContext {
   setAppState: Dispatch<SetStateAction<AppState>>
 }
 
-const initialAppState: AppState = {
+export const initialAppState: AppState = {
   orgnummer: '',
+  orgNavn: '',
+  orgAdresse: '',
   fodselsnummer: '',
+  brukersNavn: '',
   bestillingsreferanse: '',
   brillestyrke: {
     høyreSfære: '1',

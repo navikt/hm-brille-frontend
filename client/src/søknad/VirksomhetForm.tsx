@@ -5,6 +5,7 @@ import { Tekstfelt } from '../components/Tekstfelt'
 
 export interface VirksomhetFormData {
   orgnummer: string
+  orgnavn: string
 }
 
 export interface VirksomhetFormProps {
@@ -22,13 +23,7 @@ export function VirksomhetForm(props: VirksomhetFormProps) {
           name="orgnummer"
           control={control}
           render={({ field }) => (
-            <Tekstfelt
-              label="Organisasjonsnummer"
-              size="medium"
-              hideLabel={false}
-              {...field}
-              maxLength={9}
-            />
+            <Tekstfelt label="Organisasjonsnummer" size="medium" hideLabel={false} {...field} maxLength={9} />
           )}
         />
 
