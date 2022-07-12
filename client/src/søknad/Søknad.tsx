@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
 import { Banner } from '../components/Banner'
@@ -58,6 +58,7 @@ export function Søknad() {
             />
             {virksomhet && (
               <Avstand paddingTop={5}>
+                  
                 <Virksomhet virksomhet={virksomhet.data} onLagre={setValgtVirksomhet} />
               </Avstand>
             )}
@@ -67,6 +68,7 @@ export function Søknad() {
             <Panel border>
                 <Heading size="small" spacing>Foretaket som skal ha direkteoppgjør</Heading>
                 <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+                <Button variant="tertiary">Jeg skal søke for et annet foretak</Button>
               </Panel>
             <Panel>
               <Heading level="2" size="medium" spacing>
