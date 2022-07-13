@@ -1,12 +1,9 @@
-import { Calculator } from '@navikt/ds-icons'
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
-import { useState } from 'react'
+import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
+import { BeregnSatsRequest, BeregnSatsResponse, SatsType } from '../types'
 import { usePost } from '../usePost'
-import { Brillestyrke } from './Brillestyrke'
 import { Øye } from './Øye'
 
 export interface BrillestyrkeFormData {
@@ -17,22 +14,36 @@ export interface BrillestyrkeFormData {
 }
 
 export function BrillestyrkeForm() {
-  const { getValues } = useFormContext()
+  const { watch } = useFormContext<{ brillestyrke: BrillestyrkeFormData }>()
+  const høyreSfære = watch('brillestyrke.høyreSfære')
+  const høyreSylinder = watch('brillestyrke.høyreSylinder')
+  const venstreSfære = watch('brillestyrke.venstreSfære')
+  const venstreSylinder = watch('brillestyrke.venstreSylinder')
 
-  const { post, data } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/beregn-sats')
-  const [editMode, setEditMode] = useState(true)
+  const { post: beregnSats, data: beregning } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/beregn-sats')
+  const [visBeregning, setVisBeregning] = useState(false)
 
-  // Spinner og lokal feilhåndtering?
+  useEffect(() => {
+    if (høyreSfære && høyreSylinder && venstreSfære && venstreSylinder) {
+      beregnSats({
+        høyreSfære,
+        høyreSylinder,
+        venstreSfære,
+        venstreSylinder,
+      })
+        .then(() => {
+          setVisBeregning(true)
+        })
+        .catch((err: unknown) => {
+          console.error(err)
+          setVisBeregning(false)
+        })
+    } else if (visBeregning) {
+      setVisBeregning(false)
+    }
+  }, [høyreSfære, høyreSylinder, venstreSfære, venstreSylinder])
 
-  const beregnSats = async () => {
-    const brillestyrke = getValues('brillestyrke')
-    await post(brillestyrke)
-    setEditMode(false)
-  }
-
-  return !editMode && data ? (
-    <Brillestyrke sats={data} onSetEditMode={setEditMode} />
-  ) : (
+  return (
     <>
       <Avstand paddingBottom={5} paddingTop={5}>
         <Heading level="2" size="medium">
@@ -42,17 +53,22 @@ export function BrillestyrkeForm() {
         <Øye type="høyre" />
         <Øye type="venstre" />
       </Avstand>
-
-      <Button type="button" variant="secondary" size="medium" onClick={beregnSats}>
-        <Calculator /> Beregn sats
-      </Button>
+      {visBeregning && beregning && (
+        <Avstand paddingBottom={5} paddingTop={5}>
+          {beregning.sats === SatsType.INGEN ? (
+            <Alert variant="warning">
+              <BodyLong>Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt</BodyLong>
+            </Alert>
+          ) : (
+            <Alert variant="info">
+              <Heading level="2" spacing size="small">{`Brillestøtte på opp til ${beregning.beløp} kroner`}</Heading>
+              <BodyLong>
+                {`Barnet kan få støtte fra sats ${beregning.sats.replace('SATS_', '')}: ${beregning.satsBeskrivelse}`}
+              </BodyLong>
+            </Alert>
+          )}
+        </Avstand>
+      )}
     </>
   )
 }
-
-const Knapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--navds-spacing-3);
-  margin-top: var(--navds-spacing-3);
-`

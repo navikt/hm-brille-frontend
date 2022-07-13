@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Delete } from '@navikt/ds-icons'
 import { Button, ErrorSummary, Heading, TextField } from '@navikt/ds-react'
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
-import styled from 'styled-components'
-import { Avstand } from '../components/Avstand'
-import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
-import { useApplicationContext } from '../state/ApplicationContext'
+import React, { useEffect, useState } from 'react'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { Avstand } from '../components/Avstand'
+import { Knapper } from '../components/Knapper'
+import { useApplicationContext } from '../state/ApplicationContext'
 import { validerDato, validerPris } from '../validering'
+import { AvbrytSøknad } from './AvbrytSøknad'
+import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
 
 export interface SøknadFormData {
   brillestyrke: BrillestyrkeFormData
@@ -75,8 +75,6 @@ export function SøknadForm() {
   }
 
   const onSubmit: SubmitHandler<SøknadFormData> = (data) => {
-    console.log('onSubmit SøknadForm:', data)
-
     const erGyldig = valider(data)
 
     if (erGyldig) {
@@ -87,7 +85,7 @@ export function SøknadForm() {
         brillestyrke: data.brillestyrke,
         bestillingsreferanse: data.bestillingsreferanse,
       }))
-      navigate('/vilkarsgrunnlag') // TODO: bedre navn? Oppsummering el.?
+      navigate('/soknad/oppsummering')
     }
   }
 
@@ -124,7 +122,6 @@ export function SøknadForm() {
                 {...methods.register('bestillingsreferanse')}
               />
             </Avstand>
-
             {valideringErrors.length > 0 && (
               <ErrorSummary heading="Før å kunne gå videre må du rette opp i følgende:">
                 {valideringErrors.map((error, i) => (
@@ -134,15 +131,11 @@ export function SøknadForm() {
                 ))}
               </ErrorSummary>
             )}
-
             <Knapper>
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
                 Beregn
               </Button>
-              <Button variant="secondary" type="button">
-                <Delete />
-                Slett utkast
-              </Button>
+              <AvbrytSøknad />
             </Knapper>
           </Avstand>
         </form>
@@ -150,10 +143,3 @@ export function SøknadForm() {
     </>
   )
 }
-
-const Knapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--navds-spacing-3);
-  margin-top: var(--navds-spacing-3);
-`

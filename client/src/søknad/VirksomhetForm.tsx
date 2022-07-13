@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { Tekstfelt } from '../components/Tekstfelt'
 
 export interface VirksomhetFormData {
-  orgnummer: string
-  orgnavn: string
+  orgnr: string
+  orgNavn: string
 }
 
 export interface VirksomhetFormProps {
@@ -15,18 +15,17 @@ export interface VirksomhetFormProps {
 
 export function VirksomhetForm(props: VirksomhetFormProps) {
   const { onValid, onInvalid } = props
-  const { control, handleSubmit } = useForm<VirksomhetFormData>({ defaultValues: { orgnummer: '' } })
+  const { control, handleSubmit } = useForm<VirksomhetFormData>({ defaultValues: { orgnr: '' } })
   return (
     <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
       <SøkContainer>
         <Controller<VirksomhetFormData>
-          name="orgnummer"
+          name="orgnr"
           control={control}
           render={({ field }) => (
             <Tekstfelt label="Organisasjonsnummer" size="medium" hideLabel={false} {...field} maxLength={9} />
           )}
         />
-
         <Button type="submit" variant="secondary">
           Slå opp
         </Button>

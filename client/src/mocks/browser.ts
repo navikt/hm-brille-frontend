@@ -4,7 +4,6 @@ import {
   BeregnSatsResponse,
   HentBrukerRequest,
   HentBrukerResponse,
-  SatsType,
   SøknadRequest,
   SøknadResponse,
   TidligereBrukteVirksomheterResponse,
@@ -13,70 +12,19 @@ import {
   VilkårsgrunnlagResultat,
   VirksomhetResponse,
 } from '../types'
+import { beregnSats } from './beregnSats'
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/beregn-sats', (req, res, ctx) => {
-    const høyreSfære = Number(req.body.høyreSfære)
-    const høyreSylinder = Number(req.body.høyreSylinder)
-    const venstreSfære = Number(req.body.venstreSfære)
-    const venstreSylinder = Number(req.body.venstreSylinder)
-
-    const sfære = Math.max(høyreSfære, venstreSfære)
-    const sylinder = Math.max(høyreSylinder, venstreSylinder)
-
-    if (sfære >= 10.25 || sylinder >= 6.25) {
-      return res(
-        ctx.json({
-          sats: SatsType.SATS_5,
-          satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 10,25D og/eller cylinderstyrke ≥ 6,25D',
-          beløp: '3975',
-        })
-      )
-    }
-    if (sfære >= 8.25 && sfære <= 10 && sylinder <= 6) {
-      return res(
-        ctx.json({
-          sats: SatsType.SATS_4,
-          satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 8,25D ≤ 10,00D og cylinderstyrke ≤ 6,00D',
-          beløp: '2700',
-        })
-      )
-    }
-    if ((sfære >= 6.25 && sfære <= 8) || (sylinder >= 4.25 && sylinder <= 6)) {
-      return res(
-        ctx.json({
-          sats: SatsType.SATS_3,
-          satsBeskrivelse:
-            'Briller med sfærisk styrke på minst ett glass ≥ 6,25D ≤ 8,00D og/eller cylinderstyrke ≥ 4,25D ≤ 6,00D',
-          beløp: '2325',
-        })
-      )
-    }
-    if (sfære >= 4.25 && sfære <= 6 && sylinder <= 4) {
-      return res(
-        ctx.json({
-          sats: SatsType.SATS_2,
-          satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 4,25D ≤ 6,00D og cylinderstyrke ≤ 4,00D',
-          beløp: '1800',
-        })
-      )
-    }
-    if ((sfære >= 1 && sfære <= 4) || (sylinder >= 1 && sylinder <= 4)) {
-      return res(
-        ctx.json({
-          sats: SatsType.SATS_1,
-          satsBeskrivelse:
-            'Briller med sfærisk styrke på minst ett glass ≥ 1,00D ≤ 4,00D og/eller cylinderstyrke ≥ 1,00D ≤ 4,00D',
-          beløp: '900',
-        })
-      )
-    }
     return res(
-      ctx.json({
-        sats: SatsType.INGEN,
-        satsBeskrivelse: 'N/A',
-        beløp: 'N/A',
-      })
+      ctx.json(
+        beregnSats({
+          høyreSfære: req.body.høyreSfære,
+          høyreSylinder: req.body.høyreSylinder,
+          venstreSfære: req.body.venstreSfære,
+          venstreSylinder: req.body.venstreSylinder,
+        })
+      )
     )
   }),
 
@@ -129,41 +77,39 @@ const handlers: RequestHandler[] = [
   rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
     return res(
       ctx.json({
-        /*sistBrukteOrganisasjon: {
-          orgnummer: '123456',
+        sistBrukteOrganisasjon: {
+          orgnr: '123456789',
           navn: 'Brillehuset Kristiansand',
           beliggenhetsadresse: 'Kristiansandveien 123',
           forretningsadresse: 'Kristiansandveien 123',
         },
         tidligereBrukteOrganisasjoner: [
           {
-            orgnummer: '123456',
+            orgnr: '123456789',
             navn: 'Brillehuset Kristiansand',
             beliggenhetsadresse: 'Kristiansandveien 123',
             forretningsadresse: 'Kristiansandveien 123',
           },
-        ],*/
-        sistBrukteOrganisasjon: undefined,
-        tidligereBrukteOrganisasjoner: [],
+        ]
       })
     )
   }),
 
-  rest.get<{}, { orgnummer: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
-    const orgnummer = req.params.orgnummer
+  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomhet/:orgnr', (req, res, ctx) => {
+    const orgnr = req.params.orgnr
 
-    if (orgnummer === '404') {
+    if (orgnr === '404') {
       return res(
         ctx.json({
-          organisasjonsnummer: '404404',
-          kontonr: '12345678910',
-          orgnavn: 'Manglerud Avtale',
+          orgNavn: 'Manglerud Avtale',
+          orgnr: '123456789',
+          kontonr: '11111111113',
+          harNavAvtale: false,
           forretningsadresse: {
             adresse: ['Mangerudveien 6, 0942 Oslo'],
             postnummer: '0001',
             poststed: 'Oslo',
           },
-          harNavAvtale: false,
           erOptikerVirksomhet: true,
         })
       )
@@ -171,15 +117,15 @@ const handlers: RequestHandler[] = [
 
     return res(
       ctx.json({
-        organisasjonsnummer: '958573',
-        kontonr: '12345678910',
-        orgnavn: 'Brilleland',
+        orgnr: '987654321',
+        orgNavn: 'Brillesjø AS',
+        kontonr: '11111111113',
+        harNavAvtale: true,
         forretningsadresse: {
           adresse: ['Osloveien 1, 0942 Oslo'],
           postnummer: '0001',
           poststed: 'Oslo',
         },
-        harNavAvtale: true,
         erOptikerVirksomhet: true,
       })
     )
@@ -188,25 +134,27 @@ const handlers: RequestHandler[] = [
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const { body } = req
 
+    const beregnSatsResponse = beregnSats(body.brilleseddel)
+
     if (body.fnrBruker === '123') {
       return res(
-        ctx.delay(1000),
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
+          ...beregnSatsResponse,
         })
       )
     }
 
     return res(
-      ctx.delay(1000),
       ctx.json({
         resultat: VilkårsgrunnlagResultat.JA,
+        ...beregnSatsResponse,
       })
     )
   }),
 
   rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknad', (req, res, ctx) => {
-    return res(ctx.delay(2000), ctx.status(201), ctx.json({ vedtakId: '1' }))
+    return res(ctx.status(201), ctx.json({ vedtakId: '1337' }))
   }),
 ]
 

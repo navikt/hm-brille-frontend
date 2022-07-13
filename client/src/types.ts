@@ -36,7 +36,7 @@ export interface TidligereBrukteVirksomheterResponse {
 }
 
 export interface TidligereBruktVirksomhet {
-  orgnummer: string
+  orgnr: string
   navn: string
   forretningsadresse: string | undefined
   beliggenhetsadresse: string | undefined
@@ -69,6 +69,9 @@ export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
 
 export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
+  sats: SatsType
+  satsBeskrivelse: string
+  beløp: string
 }
 
 export enum VilkårsgrunnlagResultat {
@@ -90,10 +93,10 @@ export interface SøknadResponse {
 }
 
 export interface VirksomhetResponse {
-  organisasjonsnummer: string
+  orgnr: string
+  orgNavn: string
   kontonr: string
   harNavAvtale: boolean
-  orgnavn: string
   forretningsadresse?: Postadresse
   erOptikerVirksomhet: boolean
 }

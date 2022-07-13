@@ -1,12 +1,13 @@
-import React, { useContext, useState, Dispatch, SetStateAction, useEffect } from 'react'
-import { BrillestyrkeFormData } from '../søknad/Brillestyrke'
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
+import { BrillestyrkeFormData } from '../søknad/BrillestyrkeForm'
 
 export interface AppState {
-  orgnummer: string
+  orgnr: string
   orgNavn: string
   orgAdresse: string
-  fodselsnummer: string
-  brukersNavn: string
+  innbyggerFnr: string
+  innbyggerNavn: string
+  innbyggerAlder?: number
   brillestyrke: BrillestyrkeFormData
   bestillingsdato: string
   bestillingsreferanse: string
@@ -16,20 +17,22 @@ export interface AppState {
 interface IApplicationContext {
   appState: AppState
   setAppState: Dispatch<SetStateAction<AppState>>
+
+  resetAppState(): void
 }
 
 export const initialAppState: AppState = {
-  orgnummer: '',
+  orgnr: '',
   orgNavn: '',
   orgAdresse: '',
-  fodselsnummer: '',
-  brukersNavn: '',
+  innbyggerFnr: '',
+  innbyggerNavn: '',
   bestillingsreferanse: '',
   brillestyrke: {
-    høyreSfære: '1',
-    høyreSylinder: '1',
-    venstreSfære: '1',
-    venstreSylinder: '1',
+    høyreSfære: '',
+    høyreSylinder: '',
+    venstreSfære: '',
+    venstreSylinder: '',
   },
   bestillingsdato: '',
   brillepris: '',
@@ -37,17 +40,27 @@ export const initialAppState: AppState = {
 
 const ApplicationContext = React.createContext<IApplicationContext>({
   appState: initialAppState,
-  setAppState: () => {},
+  setAppState() {},
+  resetAppState() {},
 })
 
-export const ApplicationProvider = ({ children }: { children: React.ReactNode }) => {
+export function ApplicationProvider({ children }: { children: React.ReactNode }) {
   const [appState, setAppState] = useState(initialAppState)
-
-  useEffect(() => {
-    // TODO: gjør initielle sjekker som trengs
-  }, [])
-
-  return <ApplicationContext.Provider value={{ appState, setAppState }}>{children}</ApplicationContext.Provider>
+  return (
+    <ApplicationContext.Provider
+      value={{
+        appState,
+        setAppState,
+        resetAppState() {
+          setAppState(initialAppState)
+        },
+      }}
+    >
+      {children}
+    </ApplicationContext.Provider>
+  )
 }
 
-export const useApplicationContext = (): IApplicationContext => useContext(ApplicationContext)
+export function useApplicationContext(): IApplicationContext {
+  return useContext(ApplicationContext)
+}
