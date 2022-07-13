@@ -60,7 +60,7 @@ export function Søknad() {
       <header>
         <Banner>
           <Heading level="1" size="large">
-            Søknad om direkteoppgjør for barnebriller
+            Søknad om direkte oppgjør av briller for barn
           </Heading>
         </Banner>
       </header>
@@ -69,7 +69,7 @@ export function Søknad() {
         !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
           <Panel>
             <Heading level="2" size="medium" spacing>
-              Foretak som skal ha direkteoppgjør
+              Foretak som skal ha direkte oppgjør
             </Heading>
             <VirksomhetForm
               onValid={({ orgnummer }) => {
@@ -86,7 +86,7 @@ export function Søknad() {
           <>
             <Panel border>
               <Heading size="small" spacing>
-                Foretaket som skal ha direkteoppgjør
+                Foretaket som skal ha direkte oppgjør
               </Heading>
               <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
             </Panel>

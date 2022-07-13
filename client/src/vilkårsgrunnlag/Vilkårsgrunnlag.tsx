@@ -39,7 +39,7 @@ export const Vilkårsgrunnlag = () => {
       <header>
         <Banner>
           <Heading level="1" size="large">
-            Søknad om direkteoppgjør for barnebriller
+            Søknad om direkte oppgjør av briller for barn
           </Heading>
         </Banner>
       </header>

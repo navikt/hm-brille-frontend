@@ -129,7 +129,7 @@ const handlers: RequestHandler[] = [
   rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
     return res(
       ctx.json({
-        sistBrukteOrganisasjon: {
+        /*sistBrukteOrganisasjon: {
           orgnummer: '123456',
           navn: 'Brillehuset Kristiansand',
           beliggenhetsadresse: 'Kristiansandveien 123',
@@ -142,7 +142,9 @@ const handlers: RequestHandler[] = [
             beliggenhetsadresse: 'Kristiansandveien 123',
             forretningsadresse: 'Kristiansandveien 123',
           },
-        ],
+        ],*/
+        sistBrukteOrganisasjon: undefined,
+        tidligereBrukteOrganisasjoner: [],
       })
     )
   }),
