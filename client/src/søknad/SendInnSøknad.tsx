@@ -1,11 +1,14 @@
 import { Button } from '@navikt/ds-react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { SøknadRequest, SøknadResponse, VilkårsgrunnlagRequest } from '../types'
+import { SøknadRequest, SøknadResponse, Vilkårsgrunnlag } from '../types'
 import { usePost } from '../usePost'
+import { AvbrytSøknad } from './AvbrytSøknad'
 
 export interface SendInnSøknadProps {
-  vilkårsgrunnlag: VilkårsgrunnlagRequest
+  vilkårsgrunnlag: Vilkårsgrunnlag
 }
 
 export function SendInnSøknad(props: SendInnSøknadProps) {
@@ -18,21 +21,31 @@ export function SendInnSøknad(props: SendInnSøknadProps) {
     loading: sendInnSøknadLoading,
   } = usePost<SøknadRequest, SøknadResponse>('/soknad')
 
+  useEffect(() => {
+    if (sendInnSøknadData) {
+      navigate(`/soknad/kvittering`, {
+        state: sendInnSøknadData,
+      })
+    }
+  }, [sendInnSøknadData])
+
   return (
-    <Button
-      loading={sendInnSøknadLoading}
-      onClick={async () => {
-        await sendInnSøknad({
-          vilkårsgrunnlag: props.vilkårsgrunnlag,
-          bestillingsreferanse: appState.bestillingsreferanse,
-          brukersNavn: appState.brukersNavn,
-          orgNavn: appState.orgNavn,
-          orgAdresse: appState.orgAdresse,
-        })
-        return navigate('/soknad/kvittering')
-      }}
-    >
-      Send inn søknad
-    </Button>
+    <Knapper>
+      <Button
+        loading={sendInnSøknadLoading}
+        onClick={async () => {
+          return await sendInnSøknad({
+            vilkårsgrunnlag: props.vilkårsgrunnlag,
+            bestillingsreferanse: appState.bestillingsreferanse,
+            brukersNavn: appState.innbyggerNavn,
+            orgNavn: appState.orgNavn,
+            orgAdresse: appState.orgAdresse,
+          })
+        }}
+      >
+        Send inn søknad
+      </Button>
+      <AvbrytSøknad />
+    </Knapper>
   )
 }

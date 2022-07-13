@@ -21,6 +21,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         control={control}
         render={({ field }) => (
           <Select label="Sfære (SPH)" size="medium" {...field}>
+            <option value="">Velg sfære</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
                 <FormatertStyrke verdi={it} max={MAX_SFÆRE} />
@@ -34,6 +35,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         control={control}
         render={({ field }) => (
           <Select label="Sylinder (CYL)" size="medium" {...field}>
+            <option value="">Velg sylinder</option>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
                 <FormatertStyrke verdi={-it} max={MAX_SYLINDER} minus />
@@ -59,10 +61,10 @@ const Grid = styled.div`
   padding-bottom: var(--navds-spacing-3);
 `
 
-const range = (start: number, stop: number, step: number = 0.25) => {
-  const størrelse = (stop - start) * 4 + 1
+function range(start: number, stop: number, step: number = 0.25): number[] {
+  const size = (stop - start) * 4 + 1
   const padding = 1 / step
-  const valg = Array(størrelse + padding)
+  const valg = Array(size + padding)
     .fill(step)
     .map((x, y) => x * y)
     .slice(padding)

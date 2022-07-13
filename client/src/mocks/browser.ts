@@ -78,14 +78,14 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.json({
         sistBrukteOrganisasjon: {
-          orgnummer: '123456',
+          orgnr: '123456789',
           navn: 'Brillehuset Kristiansand',
           beliggenhetsadresse: 'Kristiansandveien 123',
           forretningsadresse: 'Kristiansandveien 123',
         },
         tidligereBrukteOrganisasjoner: [
           {
-            orgnummer: '123456',
+            orgnr: '123456789',
             navn: 'Brillehuset Kristiansand',
             beliggenhetsadresse: 'Kristiansandveien 123',
             forretningsadresse: 'Kristiansandveien 123',
@@ -95,21 +95,21 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.get<{}, { orgnummer: string }, VirksomhetResponse>('/api/virksomhet/:orgnummer', (req, res, ctx) => {
-    const orgnummer = req.params.orgnummer
+  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomhet/:orgnr', (req, res, ctx) => {
+    const orgnr = req.params.orgnr
 
-    if (orgnummer === '404') {
+    if (orgnr === '404') {
       return res(
         ctx.json({
-          organisasjonsnummer: '404404',
-          kontonr: '12345678910',
-          orgnavn: 'Manglerud Avtale',
+          orgNavn: 'Manglerud Avtale',
+          orgnr: '123456789',
+          kontonr: '11111111113',
+          harNavAvtale: false,
           forretningsadresse: {
             adresse: ['Mangerudveien 6, 0942 Oslo'],
             postnummer: '0001',
             poststed: 'Oslo',
           },
-          harNavAvtale: false,
           erOptikerVirksomhet: true,
         })
       )
@@ -117,15 +117,15 @@ const handlers: RequestHandler[] = [
 
     return res(
       ctx.json({
-        organisasjonsnummer: '958573',
-        kontonr: '12345678910',
-        orgnavn: 'Brilleland',
+        orgnr: '987654321',
+        orgNavn: 'Brillesjø AS',
+        kontonr: '11111111113',
+        harNavAvtale: true,
         forretningsadresse: {
           adresse: ['Osloveien 1, 0942 Oslo'],
           postnummer: '0001',
           poststed: 'Oslo',
         },
-        harNavAvtale: true,
         erOptikerVirksomhet: true,
       })
     )
@@ -154,7 +154,7 @@ const handlers: RequestHandler[] = [
   }),
 
   rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknad', (req, res, ctx) => {
-    return res(ctx.status(201), ctx.json({ vedtakId: '1' }))
+    return res(ctx.status(201), ctx.json({ vedtakId: '1337' }))
   }),
 ]
 

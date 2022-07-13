@@ -21,9 +21,7 @@ import { VirksomhetForm } from './VirksomhetForm'
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useGet<VirksomhetResponse>(
-    appState.orgnummer ? `/virksomhet/${appState.orgnummer}` : null
-  )
+  const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomhet/${appState.orgnr}` : null)
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
@@ -35,7 +33,7 @@ export function Søknad() {
       if (sistBrukteOrg) {
         setAppState((prev) => ({
           ...prev,
-          orgnummer: sistBrukteOrg.orgnummer,
+          orgnr: sistBrukteOrg.orgnr,
           orgNavn: sistBrukteOrg.navn,
           orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!, // vi vet at en av disse alltid vil være satt
         }))
@@ -45,7 +43,7 @@ export function Søknad() {
 
   useEffect(() => {
     if (virksomhet) {
-      setAppState((prev) => ({ ...prev, orgNavn: virksomhet.orgnavn }))
+      setAppState((prev) => ({ ...prev, orgNavn: virksomhet.orgNavn }))
     }
   }, [virksomhet])
 
@@ -53,9 +51,9 @@ export function Søknad() {
     if (hentBrukerData) {
       setAppState((prev) => ({
         ...prev,
-        brukersNavn: hentBrukerData.navn,
-        brukersAlder: hentBrukerData.alder,
-        fodselsnummer: hentBrukerData.fnr,
+        innbyggerNavn: hentBrukerData.navn,
+        innbyggerAlder: hentBrukerData.alder,
+        innbyggerFnr: hentBrukerData.fnr,
       }))
     }
   }, [hentBrukerData])
@@ -69,8 +67,8 @@ export function Søknad() {
             Foretak som skal ha direkteoppgjør
           </Heading>
           <VirksomhetForm
-            onValid={({ orgnummer }) => {
-              setAppState((prev) => ({ ...prev, orgnummer }))
+            onValid={({ orgnr }) => {
+              setAppState((prev) => ({ ...prev, orgnr }))
             }}
           />
           {virksomhet && (
@@ -85,7 +83,7 @@ export function Søknad() {
             <Heading size="small" spacing>
               Foretaket som skal ha direkteoppgjør
             </Heading>
-            <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnummer}`}</BodyLong>
+            <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnr}`}</BodyLong>
           </Panel>
           <Panel>
             <Heading level="2" size="medium" spacing>

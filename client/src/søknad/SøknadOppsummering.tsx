@@ -25,8 +25,8 @@ export function SøknadOppsummering() {
   }
 
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
-    orgnr: appState.orgnummer,
-    fnrBruker: appState.fodselsnummer,
+    orgnr: appState.orgnr,
+    fnrBruker: appState.innbyggerFnr,
     brilleseddel: appState.brillestyrke,
     bestillingsdato: formaterDato(appState.bestillingsdato),
     brillepris: parseFloat(appState.brillepris),
@@ -49,9 +49,9 @@ export function SøknadOppsummering() {
         Barn
       </Heading>
       <Data>
-        <Datum label="Fødselsnummer">{appState.fodselsnummer}</Datum>
-        <Datum label="Navn">{appState.brukersNavn}</Datum>
-        <Datum label="Alder">{appState.brukersAlder}</Datum>
+        <Datum label="Fødselsnummer">{appState.innbyggerFnr}</Datum>
+        <Datum label="Navn">{appState.innbyggerNavn}</Datum>
+        <Datum label="Alder">{appState.innbyggerAlder}</Datum>
       </Data>
       <Heading level="2" size="medium">
         Brillestyrke
@@ -74,7 +74,7 @@ export function SøknadOppsummering() {
         Annet
       </Heading>
       <Data>
-        <Datum label="Organisasjonsnummer">{appState.orgnummer}</Datum>
+        <Datum label="Organisasjonsnummer">{appState.orgnr}</Datum>
         <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
         <Datum label="Pris på brille">{vilkårsgrunnlag.brillepris}</Datum>
         <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>

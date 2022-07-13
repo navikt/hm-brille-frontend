@@ -17,13 +17,13 @@ const IkonContainer = styled.div`
 
 export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
-  const { organisasjonsnummer, orgnavn, forretningsadresse, harNavAvtale } = virksomhet
+  const { orgnr, orgNavn, forretningsadresse, harNavAvtale } = virksomhet
 
   if (!harNavAvtale) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>
-        <BodyLong>{`"${orgnavn}" har ikke ingått avtale med NAV om direkteoppgjør enda. Det er ikke mulig å søke om direkteoppgjør enda.`}</BodyLong>
+        <BodyLong>{`"${orgNavn}" har ikke ingått avtale med NAV om direkteoppgjør enda. Det er ikke mulig å søke om direkteoppgjør enda.`}</BodyLong>
       </Alert>
     )
   }
@@ -32,10 +32,10 @@ export function Virksomhet(props: VirksomhetProps) {
     <>
       <DataPanel>
         <Heading level="3" size="small">
-          <Office1 /> {`${orgnavn}`}
+          <Office1 /> {`${orgNavn}`}
         </Heading>
         <Data>
-          <Datum label="Org. nummer:">{organisasjonsnummer}</Datum>
+          <Datum label="Org. nummer:">{orgnr}</Datum>
           {forretningsadresse && (
             <Datum label="forretningsadresse:">
               {forretningsadresse.adresse.map((a) => a)}, {forretningsadresse.postnummer} {forretningsadresse.poststed}
@@ -43,7 +43,7 @@ export function Virksomhet(props: VirksomhetProps) {
           )}
         </Data>
       </DataPanel>
-      <Button variant="tertiary" size="medium" onClick={() => onLagre({ organisasjonsnummer, orgnavn })}>
+      <Button variant="tertiary" size="medium" onClick={() => onLagre({ orgnr, orgNavn })}>
         <SaveFile />
         Lagre
       </Button>
