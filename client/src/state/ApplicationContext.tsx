@@ -1,5 +1,5 @@
-import React, { useContext, useState, Dispatch, SetStateAction, useEffect } from 'react'
-import { BrillestyrkeFormData } from '../søknad/Brillestyrke'
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
+import { BrillestyrkeFormData } from '../søknad/BrillestyrkeForm'
 
 export interface AppState {
   orgnummer: string
@@ -7,6 +7,7 @@ export interface AppState {
   orgAdresse: string
   fodselsnummer: string
   brukersNavn: string
+  brukersAlder?: number
   brillestyrke: BrillestyrkeFormData
   bestillingsdato: string
   bestillingsreferanse: string

@@ -2,14 +2,15 @@ import { Heading } from '@navikt/ds-react'
 import { Data } from '../components/Data'
 import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
-import { HentBrukerResponse } from '../types'
 
 export interface BarnProps {
-  data: HentBrukerResponse
+  fnr: string
+  navn: string
+  alder?: number
 }
 
 export function Barn(props: BarnProps) {
-  const { fnr, navn, alder } = props.data
+  const { fnr, navn, alder } = props
   let alderTekst = typeof alder === 'number' ? ` (${alder} år)` : ''
   return (
     <DataPanel>

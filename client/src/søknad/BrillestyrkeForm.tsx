@@ -2,11 +2,11 @@ import { Calculator } from '@navikt/ds-icons'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import { BeregnSatsRequest, BeregnSatsResponse } from '../types'
 import { usePost } from '../usePost'
 import { Brillestyrke } from './Brillestyrke'
+import { SøknadFormData } from './SøknadForm'
 import { Øye } from './Øye'
 
 export interface BrillestyrkeFormData {
@@ -17,7 +17,7 @@ export interface BrillestyrkeFormData {
 }
 
 export function BrillestyrkeForm() {
-  const { getValues } = useFormContext()
+  const { getValues } = useFormContext<SøknadFormData>()
 
   const { post, data } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/beregn-sats')
   const [editMode, setEditMode] = useState(true)
@@ -30,8 +30,10 @@ export function BrillestyrkeForm() {
     setEditMode(false)
   }
 
+  const brillestyrke = getValues('brillestyrke')
+
   return !editMode && data ? (
-    <Brillestyrke sats={data} onSetEditMode={setEditMode} />
+    <Brillestyrke {...brillestyrke} sats={data} onSetEditMode={setEditMode} />
   ) : (
     <>
       <Avstand paddingBottom={5} paddingTop={5}>
@@ -49,10 +51,3 @@ export function BrillestyrkeForm() {
     </>
   )
 }
-
-const Knapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--navds-spacing-3);
-  margin-top: var(--navds-spacing-3);
-`

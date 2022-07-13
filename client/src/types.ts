@@ -69,6 +69,9 @@ export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
 
 export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
+  sats: SatsType
+  satsBeskrivelse: string
+  beløp: string
 }
 
 export enum VilkårsgrunnlagResultat {

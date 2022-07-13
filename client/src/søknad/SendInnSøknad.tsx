@@ -1,14 +1,16 @@
 import { Button } from '@navikt/ds-react'
+import { useNavigate } from 'react-router-dom'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SøknadRequest, SøknadResponse, VilkårsgrunnlagRequest } from '../types'
 import { usePost } from '../usePost'
 
-interface Props {
+export interface SendInnSøknadProps {
   vilkårsgrunnlag: VilkårsgrunnlagRequest
 }
 
-export const SendInnSøknad = (props: Props) => {
+export function SendInnSøknad(props: SendInnSøknadProps) {
   const { appState } = useApplicationContext()
+  const navigate = useNavigate()
 
   const {
     post: sendInnSøknad,
@@ -27,8 +29,7 @@ export const SendInnSøknad = (props: Props) => {
           orgNavn: appState.orgNavn,
           orgAdresse: appState.orgAdresse,
         })
-        console.log('sendInnSøknadData:', sendInnSøknadData)
-        // TODO: redirect til /kvittering e.l.
+        return navigate('/soknad/kvittering')
       }}
     >
       Send inn søknad

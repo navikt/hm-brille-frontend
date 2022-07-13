@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Delete } from '@navikt/ds-icons'
 import { Button, ErrorSummary, Heading, TextField } from '@navikt/ds-react'
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
-import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { useNavigate } from 'react-router-dom'
 import { validerDato, validerPris } from '../validering'
+import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
 
 export interface SøknadFormData {
   brillestyrke: BrillestyrkeFormData
@@ -75,8 +74,6 @@ export function SøknadForm() {
   }
 
   const onSubmit: SubmitHandler<SøknadFormData> = (data) => {
-    console.log('onSubmit SøknadForm:', data)
-
     const erGyldig = valider(data)
 
     if (erGyldig) {
@@ -87,7 +84,7 @@ export function SøknadForm() {
         brillestyrke: data.brillestyrke,
         bestillingsreferanse: data.bestillingsreferanse,
       }))
-      navigate('/vilkarsgrunnlag') // TODO: bedre navn? Oppsummering el.?
+      navigate('/soknad/oppsummering')
     }
   }
 
@@ -140,8 +137,7 @@ export function SøknadForm() {
                 Beregn
               </Button>
               <Button variant="secondary" type="button">
-                <Delete />
-                Slett utkast
+                Avbryt
               </Button>
             </Knapper>
           </Avstand>
