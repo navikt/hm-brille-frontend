@@ -11,9 +11,7 @@ export function Datum(props: DatumProps) {
   const { label, children } = props
   return (
     <>
-      <dt>
-        <Label>{label}</Label>
-      </dt>
+      <Label as="dt">{label}</Label>
       <dd>{children}</dd>
     </>
   )
