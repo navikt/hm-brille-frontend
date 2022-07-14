@@ -1,5 +1,6 @@
-import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
@@ -75,6 +76,7 @@ export function SøknadOppsummering() {
       </Heading>
       <Data>
         <Datum label="Organisasjonsnummer">{appState.orgnr}</Datum>
+        <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
         <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
         <Datum label="Pris på brille">{vilkårsgrunnlag.brillepris}</Datum>
         <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
@@ -82,18 +84,20 @@ export function SøknadOppsummering() {
       <Avstand paddingBottom={5} paddingTop={5}>
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
-            <BodyLong>Vilkårene er ikke oppfylt</BodyLong>
+            <BodyLong>Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn søknad om direkte oppgjør. </BodyLong>
+            <BodyLong>Det er alikevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
+
           </Alert>
         ) : (
           <Alert variant="info">
-            <Heading
-              level="2"
-              spacing
-              size="small"
-            >{`Brillestøtte på opp til ${vilkårsvurdering.beløp} kroner`}</Heading>
-            <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${
-              vilkårsvurdering.satsBeskrivelse
-            }`}</BodyLong>
+            <Heading level="2" spacing size="small">{`Brillestøtte på ${vilkårsvurdering.beløp} kroner`}</Heading>
+            {vilkårsvurdering.beløp < vilkårsvurdering.satsBeløp ? (
+              <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
+            ) : (
+              <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${
+                vilkårsvurdering.satsBeskrivelse
+              }`}</BodyLong>
+            )}
           </Alert>
         )}
       </Avstand>

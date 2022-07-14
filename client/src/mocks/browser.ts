@@ -123,6 +123,7 @@ const handlers: RequestHandler[] = [
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
+          beløp: '0',
           ...beregnSatsResponse,
         })
       )
@@ -131,6 +132,7 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.json({
         resultat: VilkårsgrunnlagResultat.JA,
+        beløp: beregnSatsResponse.satsBeløp,
         ...beregnSatsResponse,
       })
     )
