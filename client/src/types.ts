@@ -54,7 +54,7 @@ export interface BeregnSatsRequest extends Brilleseddel {}
 export interface BeregnSatsResponse {
   sats: SatsType
   satsBeskrivelse: string
-  beløp: string
+  satsBeløp: string
 }
 
 export interface Vilkårsgrunnlag {
@@ -71,6 +71,7 @@ export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
   sats: SatsType
   satsBeskrivelse: string
+  satsBeløp: string
   beløp: string
 }
 

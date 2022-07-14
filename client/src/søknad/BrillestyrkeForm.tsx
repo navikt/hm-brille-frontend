@@ -61,7 +61,7 @@ export function BrillestyrkeForm() {
             </Alert>
           ) : (
             <Alert variant="info">
-              <Heading level="2" spacing size="small">{`Brillestøtte på opp til ${beregning.beløp} kroner`}</Heading>
+              <Heading level="2" spacing size="small">{`Brillestøtte på opp til ${beregning.satsBeløp} kroner`}</Heading>
               <BodyLong>
                 {`Barnet kan få støtte fra sats ${beregning.sats.replace('SATS_', '')}: ${beregning.satsBeskrivelse}`}
               </BodyLong>
