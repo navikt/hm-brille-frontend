@@ -19,7 +19,7 @@ export function SendInnSøknad(props: SendInnSøknadProps) {
     post: sendInnSøknad,
     data: sendInnSøknadData,
     loading: sendInnSøknadLoading,
-  } = usePost<SøknadRequest, SøknadResponse>('/soknad')
+  } = usePost<SøknadRequest, SøknadResponse>('/soknader')
 
   useEffect(() => {
     if (sendInnSøknadData) {

@@ -15,7 +15,7 @@ import {
 import { beregnSats } from './beregnSats'
 
 const handlers: RequestHandler[] = [
-  rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/beregn-sats', (req, res, ctx) => {
+  rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
     return res(
       ctx.json(
         beregnSats({
@@ -28,25 +28,8 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<HentBrukerRequest, {}, HentBrukerResponse>('/api/hent-bruker', (req, res, ctx) => {
+  rest.post<HentBrukerRequest, {}, HentBrukerResponse>('/api/innbyggere/sok', (req, res, ctx) => {
     const { fnr } = req.body
-    if (fnr === '400') {
-      return res(ctx.status(400))
-    }
-    if (fnr === '401') {
-      return res(ctx.status(401))
-    }
-    if (fnr === '404') {
-      return res(
-        ctx.json({
-          fnr: '',
-          navn: '',
-        })
-      )
-    }
-    if (fnr === '500') {
-      return res(ctx.status(500))
-    }
     if (fnr === '123') {
       return res(
         ctx.json({
@@ -74,7 +57,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/orgnr', (req, res, ctx) => {
+  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/virksomheter', (req, res, ctx) => {
     return res(
       ctx.json({
         sistBrukteOrganisasjon: {
@@ -90,12 +73,12 @@ const handlers: RequestHandler[] = [
             beliggenhetsadresse: 'Kristiansandveien 123',
             forretningsadresse: 'Kristiansandveien 123',
           },
-        ]
+        ],
       })
     )
   }),
 
-  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomhet/:orgnr', (req, res, ctx) => {
+  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomheter/:orgnr', (req, res, ctx) => {
     const orgnr = req.params.orgnr
 
     if (orgnr === '404') {
@@ -153,7 +136,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknad', (req, res, ctx) => {
+  rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknader', (req, res, ctx) => {
     return res(ctx.status(201), ctx.json({ vedtakId: '1337' }))
   }),
 ]

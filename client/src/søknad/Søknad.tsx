@@ -1,4 +1,4 @@
-import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
+import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
 import { useApplicationContext } from '../state/ApplicationContext'
@@ -20,9 +20,9 @@ import { VirksomhetForm } from './VirksomhetForm'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
-  const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/hent-bruker')
-  const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomhet/${appState.orgnr}` : null)
-  const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/orgnr')
+  const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/innbyggere/sok')
+  const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomheter/${appState.orgnr}` : null)
+  const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/virksomheter')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
 

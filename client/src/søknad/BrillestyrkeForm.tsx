@@ -20,7 +20,7 @@ export function BrillestyrkeForm() {
   const venstreSfære = watch('brillestyrke.venstreSfære')
   const venstreSylinder = watch('brillestyrke.venstreSylinder')
 
-  const { post: beregnSats, data: beregning } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/beregn-sats')
+  const { post: beregnSats, data: beregning } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/brillesedler')
   const [visBeregning, setVisBeregning] = useState(false)
 
   useEffect(() => {
