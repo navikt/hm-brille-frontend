@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
+  HarLestOgGodtattVilkårResponse,
   HentBrukerRequest,
   HentBrukerResponse,
   TidligereBrukteVirksomheterResponse,
@@ -11,6 +12,7 @@ import type {
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
+import { Brukervilkår } from './Brukervilkår'
 import { HentBrukerForm } from './HentBrukerForm'
 import { IkkeFunnet } from './IkkeFunnet'
 import { SøknadForm } from './SøknadForm'
@@ -22,6 +24,9 @@ export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/innbyggere/sok')
   const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomheter/${appState.orgnr}` : null)
+  const { data: lestOgGodtattVilkår, isValidating: brukerVilkårLoading, mutate } =
+    useGet<HarLestOgGodtattVilkårResponse>('/innsendere')
+  const { post: godtaBrukervilkår } = usePost('/innsendere')
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/virksomheter')
 
   const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
@@ -57,6 +62,18 @@ export function Søknad() {
       }))
     }
   }, [hentBrukerData])
+
+  if (!lestOgGodtattVilkår || !lestOgGodtattVilkår.godtatt) {
+    return (
+      <Brukervilkår
+        loading={brukerVilkårLoading}
+        onGodta={() => {
+          godtaBrukervilkår({})
+          mutate()
+        }}
+      />
+    )
+  }
 
   return (
     <SøknadSteg>
