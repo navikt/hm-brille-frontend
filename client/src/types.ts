@@ -36,7 +36,7 @@ export interface TidligereBrukteVirksomheterResponse {
 }
 
 export interface HarLestOgGodtattVilkårResponse {
-    godtatt: boolean
+  godtatt: boolean
 }
 
 export interface TidligereBruktVirksomhet {
@@ -94,7 +94,17 @@ export interface SøknadRequest {
 }
 
 export interface SøknadResponse {
-  vedtakId: string
+  id: string
+  orgnr: string
+  bestillingsdato: string
+  brillepris: string
+  bestillingsreferanse: string
+  behandlingsresultat: string
+  sats: string
+  satsBeløp: string
+  satsBeskrivelse: string
+  beløp: string
+  opprettet: string
 }
 
 export interface VirksomhetResponse {
