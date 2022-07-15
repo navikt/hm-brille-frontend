@@ -35,6 +35,10 @@ export interface TidligereBrukteVirksomheterResponse {
   tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[] | undefined
 }
 
+export interface HarLestOgGodtattVilkårResponse {
+    godtatt: boolean
+}
+
 export interface TidligereBruktVirksomhet {
   orgnr: string
   navn: string

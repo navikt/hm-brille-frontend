@@ -2,6 +2,7 @@ import { RequestHandler, rest, setupWorker } from 'msw'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
+  HarLestOgGodtattVilkårResponse,
   HentBrukerRequest,
   HentBrukerResponse,
   SøknadRequest,
@@ -13,6 +14,8 @@ import {
   VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
+
+var godtattVilkår : boolean = false
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
@@ -113,7 +116,13 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-
+  rest.get<{}, {}, HarLestOgGodtattVilkårResponse>('/api/innsendere', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ godtatt: godtattVilkår }))
+  }),
+  rest.post<{}, {}, {}>('/api/innsendere', (req, res, ctx) => {
+      godtattVilkår = true
+    return res(ctx.status(200), ctx.json({}))
+  }),
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const { body } = req
 
