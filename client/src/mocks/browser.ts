@@ -5,6 +5,7 @@ import {
   HarLestOgGodtattVilkårResponse,
   HentBrukerRequest,
   HentBrukerResponse,
+  SatsType,
   SøknadRequest,
   SøknadResponse,
   TidligereBrukteVirksomheterResponse,
@@ -15,7 +16,7 @@ import {
 } from '../types'
 import { beregnSats } from './beregnSats'
 
-var godtattVilkår : boolean = false
+var godtattVilkår: boolean = false
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
@@ -120,7 +121,7 @@ const handlers: RequestHandler[] = [
     return res(ctx.status(200), ctx.json({ godtatt: godtattVilkår }))
   }),
   rest.post<{}, {}, {}>('/api/innsendere', (req, res, ctx) => {
-      godtattVilkår = true
+    godtattVilkår = true
     return res(ctx.status(200), ctx.json({}))
   }),
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
@@ -148,7 +149,22 @@ const handlers: RequestHandler[] = [
   }),
 
   rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknader', (req, res, ctx) => {
-    return res(ctx.status(201), ctx.json({ vedtakId: '1337' }))
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: '6429',
+        orgnr: '987654321',
+        bestillingsdato: new Date().toISOString(),
+        brillepris: '4200',
+        bestillingsreferanse: '694296',
+        behandlingsresultat: 'innvilget',
+        sats: SatsType.SATS_2,
+        satsBeløp: '1800',
+        satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 4,25D ≤ 6,00D og cylinderstyrke ≤ 4,00D',
+        beløp: '1800',
+        opprettet: new Date().toISOString(),
+      })
+    )
   }),
 ]
 
