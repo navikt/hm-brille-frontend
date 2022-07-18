@@ -49,7 +49,7 @@ export function BrillestyrkeForm() {
         <Heading level="2" size="medium">
           Brillestyrke
         </Heading>
-        <BodyLong>Du trenger kun å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
+        <BodyLong>Du trenger bare å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
         <Øye type="høyre" />
         <Øye type="venstre" />
       </Avstand>
