@@ -85,7 +85,7 @@ export function SøknadOppsummering() {
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
             <BodyLong>Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn søknad om direkte oppgjør. </BodyLong>
-            <BodyLong>Det er alikevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
+            <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
 
           </Alert>
         ) : (
