@@ -17,6 +17,7 @@ import { IkkeFunnet } from './IkkeFunnet'
 import { SøknadForm } from './SøknadForm'
 import { SøknadSteg } from './SøknadSteg'
 import { VirksomhetForm } from './VirksomhetForm'
+import ScrollToTop from '../components/ScrollToTop'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
@@ -70,6 +71,7 @@ export function Søknad() {
 
   return (
     <SøknadSteg>
+      <ScrollToTop />
       {!harValgtVirksomhet ? (
         <Panel>
           <Heading level="2" size="medium" spacing>

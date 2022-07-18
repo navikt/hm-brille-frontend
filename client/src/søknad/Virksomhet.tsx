@@ -17,13 +17,15 @@ const IkonContainer = styled.div`
 
 export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
-  const { orgnr, orgNavn, forretningsadresse, harNavAvtale } = virksomhet
+  const { orgnr, orgNavn, forretningsadresse, aktiv } = virksomhet
 
-  if (!harNavAvtale) {
+  console.log('VV', virksomhet)
+
+  if (!aktiv) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>
-        <BodyLong>{`"${orgNavn}" har ikke ingått avtale med NAV om direkte oppgjør enda. Det er ikke mulig å sende inn krav før avtalen er inngått.`}</BodyLong>
+        <BodyLong>{`"${orgNavn}" har ikke inngått avtale med NAV om direkte oppgjør ennå. Det er ikke mulig å søke om direkte oppgjør ennå.`}</BodyLong>
       </Alert>
     )
   }

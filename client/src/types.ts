@@ -63,7 +63,7 @@ export interface BeregnSatsResponse {
 
 export interface Vilkårsgrunnlag {
   orgnr: string
-  fnrBruker: string
+  fnrBarn: string
   brilleseddel: Brilleseddel
   bestillingsdato: string
   brillepris: number
@@ -111,7 +111,7 @@ export interface VirksomhetResponse {
   orgnr: string
   orgNavn: string
   kontonr: string
-  harNavAvtale: boolean
+  aktiv: boolean
   forretningsadresse?: string
   erOptikerVirksomhet: boolean
 }

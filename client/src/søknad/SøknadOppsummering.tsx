@@ -27,7 +27,7 @@ export function SøknadOppsummering() {
 
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
     orgnr: appState.orgnr,
-    fnrBruker: appState.innbyggerFnr,
+    fnrBarn: appState.innbyggerFnr,
     brilleseddel: appState.brillestyrke,
     bestillingsdato: formaterDato(appState.bestillingsdato),
     brillepris: parseFloat(appState.brillepris),

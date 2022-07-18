@@ -92,7 +92,7 @@ const handlers: RequestHandler[] = [
           orgNavn: 'Manglerud Avtale',
           orgnr: '123456789',
           kontonr: '11111111113',
-          harNavAvtale: false,
+          aktiv: false,
           forretningsadresse: 'Mangerudveien 6, 0942 Oslo',
           erOptikerVirksomhet: true,
         })
@@ -104,7 +104,7 @@ const handlers: RequestHandler[] = [
         orgnr: '987654321',
         orgNavn: 'Brillesjø AS',
         kontonr: '11111111113',
-        harNavAvtale: true,
+        aktiv: true,
         forretningsadresse: 'Osloveien 1, 0942 Oslo',
         erOptikerVirksomhet: true,
       })
@@ -122,7 +122,7 @@ const handlers: RequestHandler[] = [
 
     const beregnSatsResponse = beregnSats(body.brilleseddel)
 
-    if (body.fnrBruker === '123') {
+    if (body.fnrBarn === '123') {
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
