@@ -13,7 +13,7 @@ export function SøknadSteg(props: SøknadStegProps) {
       <header>
         <Banner>
           <Heading level="1" size="large">
-            Søknad om direkte oppgjør av briller for barn
+            Krav om direkte oppgjør av briller for barn
           </Heading>
         </Banner>
       </header>

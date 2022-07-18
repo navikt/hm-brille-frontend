@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
 import { useApplicationContext } from '../state/ApplicationContext'
@@ -7,7 +7,6 @@ import type {
   HentBrukerRequest,
   HentBrukerResponse,
   TidligereBrukteVirksomheterResponse,
-  VirksomhetResponse,
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
@@ -17,40 +16,34 @@ import { HentBrukerForm } from './HentBrukerForm'
 import { IkkeFunnet } from './IkkeFunnet'
 import { SøknadForm } from './SøknadForm'
 import { SøknadSteg } from './SøknadSteg'
-import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/innbyggere/sok')
-  const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomheter/${appState.orgnr}` : null)
-  const { data: lestOgGodtattVilkår, isValidating: brukerVilkårLoading, mutate } =
-    useGet<HarLestOgGodtattVilkårResponse>('/innsendere')
+
+  const {
+    data: lestOgGodtattVilkår,
+    isValidating: brukerVilkårLoading,
+    mutate,
+  } = useGet<HarLestOgGodtattVilkårResponse>('/innsendere')
   const { post: godtaBrukervilkår } = usePost('/innsendere')
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/virksomheter')
 
-  const [valgtVirksomhet, setValgtVirksomhet] = useState(tidligereBrukteVirksomheter?.sistBrukteOrganisasjon || {})
+  const harValgtVirksomhet = appState.orgnr !== ''
 
-  // TODO: kan nok rydde opp i hvordan vi gjør requests og oppdaterer appState
   useEffect(() => {
-    if (tidligereBrukteVirksomheter) {
-      const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
-      if (sistBrukteOrg) {
-        setAppState((prev) => ({
-          ...prev,
-          orgnr: sistBrukteOrg.orgnr,
-          orgNavn: sistBrukteOrg.navn,
-          orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!, // vi vet at en av disse alltid vil være satt
-        }))
-      }
+    const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
+
+    if (sistBrukteOrg) {
+      setAppState((prev) => ({
+        ...prev,
+        orgnr: sistBrukteOrg.orgnr,
+        orgNavn: sistBrukteOrg.navn,
+        orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!,
+      }))
     }
   }, [tidligereBrukteVirksomheter])
-
-  useEffect(() => {
-    if (virksomhet) {
-      setAppState((prev) => ({ ...prev, orgNavn: virksomhet.orgNavn }))
-    }
-  }, [virksomhet])
 
   useEffect(() => {
     if (hentBrukerData) {
@@ -77,22 +70,12 @@ export function Søknad() {
 
   return (
     <SøknadSteg>
-      {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
-      !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
+      {!harValgtVirksomhet ? (
         <Panel>
           <Heading level="2" size="medium" spacing>
             Foretak som skal ha direkte oppgjør
           </Heading>
-          <VirksomhetForm
-            onValid={({ orgnr }) => {
-              setAppState((prev) => ({ ...prev, orgnr }))
-            }}
-          />
-          {virksomhet && (
-            <Avstand paddingTop={5}>
-              <Virksomhet virksomhet={virksomhet} onLagre={setValgtVirksomhet} />
-            </Avstand>
-          )}
+          <VirksomhetForm />
         </Panel>
       ) : (
         <>
@@ -100,7 +83,20 @@ export function Søknad() {
             <Heading size="small" spacing>
               Foretaket som skal ha direkte oppgjør
             </Heading>
-            <BodyLong>{`${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.navn}, org. nr. ${tidligereBrukteVirksomheter?.sistBrukteOrganisasjon?.orgnr}`}</BodyLong>
+            <BodyLong>{`${appState?.orgNavn}, org. nr. ${appState?.orgnr}`}</BodyLong>
+            <Button
+              variant="tertiary"
+              onClick={() => {
+                setAppState((prev) => ({
+                  ...prev,
+                  orgnr: '',
+                  orgNavn: '',
+                  orgAdresse: '',
+                }))
+              }}
+            >
+              Velg annen virksomhet
+            </Button>
           </Panel>
           <Panel>
             <Heading level="2" size="medium" spacing>
@@ -109,7 +105,6 @@ export function Søknad() {
             <HentBrukerForm
               onValid={async ({ fnr }) => {
                 await hentBruker({ fnr })
-                // setAppState((prev) => ({ ...prev, fodselsnummer: fnr }))
               }}
             />
             {hentBrukerData &&

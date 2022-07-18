@@ -1,36 +1,56 @@
 import { Button } from '@navikt/ds-react'
-import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { Avstand } from '../components/Avstand'
 import { Tekstfelt } from '../components/Tekstfelt'
+import { useApplicationContext } from '../state/ApplicationContext'
+import { VirksomhetResponse } from '../types'
+import { useGet } from '../useGet'
+import { Virksomhet } from './Virksomhet'
 
 export interface VirksomhetFormData {
   orgnr: string
   orgNavn: string
 }
 
-export interface VirksomhetFormProps {
-  onValid: SubmitHandler<VirksomhetFormData>
-  onInvalid?: SubmitErrorHandler<VirksomhetFormData>
-}
 
-export function VirksomhetForm(props: VirksomhetFormProps) {
-  const { onValid, onInvalid } = props
-  const { control, handleSubmit } = useForm<VirksomhetFormData>({ defaultValues: { orgnr: '' } })
+
+export function VirksomhetForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [orgnummer, setOrgnummer] = useState('')
+  const { data: virksomhet } = useGet<VirksomhetResponse>(isSubmitting ? `/virksomheter/${orgnummer}` : null)
+  const { setAppState, appState } = useApplicationContext()
+  
+  const velgVirksomhet = (virksomhet: VirksomhetResponse) =>
+  setAppState((prev) => ({
+    ...prev,
+    orgnr: virksomhet.orgnr,
+    orgNavn: virksomhet.orgNavn,
+  }))
+
+ 
   return (
-    <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
-      <SøkContainer>
-        <Controller<VirksomhetFormData>
-          name="orgnr"
-          control={control}
-          render={({ field }) => (
-            <Tekstfelt label="Organisasjonsnummer" size="medium" hideLabel={false} {...field} maxLength={9} />
-          )}
-        />
-        <Button type="submit" variant="secondary">
-          Slå opp
-        </Button>
-      </SøkContainer>
-    </form>
+    <>
+      <form role="search" onSubmit={(e) => e.preventDefault()}>
+        <SøkContainer>
+          <Tekstfelt
+            label="Organisasjonsnummer"
+            size="medium"
+            hideLabel={false}
+            value={orgnummer}
+            onChange={(e) => setOrgnummer(e.target.value)}
+          />
+          <Button onClick={() => setIsSubmitting(true)} variant="secondary">
+            Slå opp
+          </Button>
+        </SøkContainer>
+      </form>
+      {virksomhet && (
+        <Avstand paddingTop={5}>
+          <Virksomhet virksomhet={virksomhet} onLagre={velgVirksomhet} />
+        </Avstand>
+      )}
+    </>
   )
 }
 

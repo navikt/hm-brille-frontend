@@ -16,7 +16,7 @@ import {
 } from '../types'
 import { beregnSats } from './beregnSats'
 
-var godtattVilkår: boolean = false
+var godtattVilkår: boolean = true
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
@@ -64,12 +64,13 @@ const handlers: RequestHandler[] = [
   rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/virksomheter', (req, res, ctx) => {
     return res(
       ctx.json({
+         // sistBrukteOrganisasjon: undefined,
         sistBrukteOrganisasjon: {
-          orgnr: '123456789',
-          navn: 'Brillehuset Kristiansand',
+         orgnr: '123456789',
+         navn: 'Brillehuset Kristiansand',
           beliggenhetsadresse: 'Kristiansandveien 123',
-          forretningsadresse: 'Kristiansandveien 123',
-        },
+         forretningsadresse: 'Kristiansandveien 123',
+         }, 
         tidligereBrukteOrganisasjoner: [
           {
             orgnr: '123456789',
@@ -92,11 +93,7 @@ const handlers: RequestHandler[] = [
           orgnr: '123456789',
           kontonr: '11111111113',
           harNavAvtale: false,
-          forretningsadresse: {
-            adresse: ['Mangerudveien 6, 0942 Oslo'],
-            postnummer: '0001',
-            poststed: 'Oslo',
-          },
+          forretningsadresse: 'Mangerudveien 6, 0942 Oslo',
           erOptikerVirksomhet: true,
         })
       )
@@ -108,11 +105,7 @@ const handlers: RequestHandler[] = [
         orgNavn: 'Brillesjø AS',
         kontonr: '11111111113',
         harNavAvtale: true,
-        forretningsadresse: {
-          adresse: ['Osloveien 1, 0942 Oslo'],
-          postnummer: '0001',
-          poststed: 'Oslo',
-        },
+        forretningsadresse: 'Osloveien 1, 0942 Oslo',
         erOptikerVirksomhet: true,
       })
     )

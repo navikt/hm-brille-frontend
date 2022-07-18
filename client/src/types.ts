@@ -31,7 +31,7 @@ export interface Postadresse {
 }
 
 export interface TidligereBrukteVirksomheterResponse {
-  sistBrukteOrganisasjon: TidligereBruktVirksomhet | undefined
+  sistBrukteOrganisasjon?: TidligereBruktVirksomhet | undefined
   tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[] | undefined
 }
 
@@ -112,7 +112,7 @@ export interface VirksomhetResponse {
   orgNavn: string
   kontonr: string
   harNavAvtale: boolean
-  forretningsadresse?: Postadresse
+  forretningsadresse?: string
   erOptikerVirksomhet: boolean
 }
 

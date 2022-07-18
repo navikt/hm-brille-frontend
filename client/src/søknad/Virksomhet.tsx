@@ -19,13 +19,11 @@ export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
   const { orgnr, orgNavn, forretningsadresse, harNavAvtale } = virksomhet
 
-  console.log("VV", virksomhet);
-  
   if (!harNavAvtale) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>
-        <BodyLong>{`"${orgNavn}" har ikke ingått avtale med NAV om direkte oppgjør enda. Det er ikke mulig å søke om direkte oppgjør enda.`}</BodyLong>
+        <BodyLong>{`"${orgNavn}" har ikke ingått avtale med NAV om direkte oppgjør enda. Det er ikke mulig å sende inn krav før avtalen er inngått.`}</BodyLong>
       </Alert>
     )
   }
@@ -38,16 +36,13 @@ export function Virksomhet(props: VirksomhetProps) {
         </Heading>
         <Data>
           <Datum label="Org. nummer:">{orgnr}</Datum>
-          {forretningsadresse && (
-            <Datum label="forretningsadresse:">
-              {forretningsadresse.adresse.map((a) => a)}, {forretningsadresse.postnummer} {forretningsadresse.poststed}
-            </Datum>
-          )}
+          {forretningsadresse && <Datum label="forretningsadresse:">{forretningsadresse}</Datum>}
         </Data>
       </DataPanel>
-      <Button variant="tertiary" size="medium" onClick={() => onLagre({ orgnr, orgNavn })}>
+
+      <Button variant="primary" onClick={() => onLagre({ orgnr, orgNavn })}>
         <SaveFile />
-        Lagre
+        Bruk
       </Button>
     </>
   )

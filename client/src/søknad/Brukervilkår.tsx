@@ -32,7 +32,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
       <Heading level="2" size="medium">
         Brukervilkår
       </Heading>
-      <BodyLong>
+      <BodyLong spacing>
         Her registrerer du krav om stønad til briller til barn, slik at firmaet du jobber i, får riktig utbetaling. Du
         kan lese mer om støtte til briller til barn på <Link href="todo">nav.no</Link>
       </BodyLong>
@@ -55,7 +55,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
           render={({ field }) => (
             <ConfirmationPanel
               error={errors.godtatt?.message}
-              label="Jeg har lest og forstått vilkårene ovenfor."
+              label="Jeg har lest og forstått vilkårene."
               checked={field.value}
               {...field}
             />
