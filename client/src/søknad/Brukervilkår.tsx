@@ -36,15 +36,13 @@ export function Brukervilkår(props: BrukervilkårProps) {
         Her registrerer du krav om stønad til briller til barn, slik at firmaet du jobber i, får riktig utbetaling. Du
         kan lese mer om støtte til briller til barn på <Link href="todo">nav.no</Link>
       </BodyLong>
-      For å legge inn krav må firmaet du jobber i
+      Vilkår for å legge inn krav:
       <ul>
-        <li>ha inngått avtale om direkte oppgjør med NAV</li>
-        <li>tilby briller til barn under 18 år</li>
-        <li>tilby tilpasning av briller til barn under 18 år</li>
+        <li>Firmaet du jobber må ha inngått avtale om direkte oppgjør med NAV.</li>
+        <li>Brillen må være bestilt.</li>
+        <li>Opplysningene du legger inn må være riktige. </li>
       </ul>
-      <BodyLong spacing>
-        Første gangen du skal sende inn et krav, inngår du en avtale med NAV om bruk av løsningen.
-      </BodyLong>
+      
       <form onSubmit={handleSubmit( async (data) => await onGodta())}>
         <Controller
           control={control}
@@ -57,7 +55,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
           render={({ field }) => (
             <ConfirmationPanel
               error={errors.godtatt?.message}
-              label="Jeg har lest og forstått."
+              label="Jeg har lest og forstått vilkårene ovenfor."
               checked={field.value}
               {...field}
             />
