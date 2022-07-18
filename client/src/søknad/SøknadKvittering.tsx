@@ -7,6 +7,7 @@ import { Datum } from '../components/Datum'
 import { SøknadResponse } from '../types'
 import { useLocationState } from '../useLocationState'
 import { SøknadSteg } from './SøknadSteg'
+import ScrollToTop from "../components/ScrollToTop";
 
 export interface SøknadKvitteringProps {}
 
@@ -15,6 +16,7 @@ export function SøknadKvittering(props: SøknadKvitteringProps) {
   const { id, orgnr, bestillingsreferanse, beløp, opprettet } = useLocationState<SøknadResponse>()
   return (
     <SøknadSteg>
+      <ScrollToTop/>
       <Alert variant="success">Søknaden er godkjent</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>

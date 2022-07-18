@@ -19,6 +19,7 @@ import { SøknadForm } from './SøknadForm'
 import { SøknadSteg } from './SøknadSteg'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
+import ScrollToTop from "../components/ScrollToTop";
 
 export function Søknad() {
   const { appState, setAppState } = useApplicationContext()
@@ -77,6 +78,7 @@ export function Søknad() {
 
   return (
     <SøknadSteg>
+      <ScrollToTop/>
       {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
       !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon  ? (
         <Panel>
