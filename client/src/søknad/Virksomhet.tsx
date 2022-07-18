@@ -17,11 +17,11 @@ const IkonContainer = styled.div`
 
 export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
-  const { orgnr, orgNavn, forretningsadresse, harNavAvtale } = virksomhet
+  const { orgnr, orgNavn, forretningsadresse, aktiv } = virksomhet
 
   console.log('VV', virksomhet)
 
-  if (!harNavAvtale) {
+  if (!aktiv) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>

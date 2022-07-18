@@ -91,7 +91,7 @@ const handlers: RequestHandler[] = [
           orgNavn: 'Manglerud Avtale',
           orgnr: '123456789',
           kontonr: '11111111113',
-          harNavAvtale: false,
+          aktiv: false,
           forretningsadresse: {
             adresse: ['Mangerudveien 6, 0942 Oslo'],
             postnummer: '0001',
@@ -107,7 +107,7 @@ const handlers: RequestHandler[] = [
         orgnr: '987654321',
         orgNavn: 'Brillesjø AS',
         kontonr: '11111111113',
-        harNavAvtale: true,
+        aktiv: true,
         forretningsadresse: {
           adresse: ['Osloveien 1, 0942 Oslo'],
           postnummer: '0001',
