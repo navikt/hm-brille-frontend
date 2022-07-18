@@ -78,7 +78,7 @@ export function Søknad() {
   return (
     <SøknadSteg>
       {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
-      !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
+      !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon  ? (
         <Panel>
           <Heading level="2" size="medium" spacing>
             Foretak som skal ha direkte oppgjør

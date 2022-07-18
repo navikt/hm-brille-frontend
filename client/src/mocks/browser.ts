@@ -129,7 +129,7 @@ const handlers: RequestHandler[] = [
 
     const beregnSatsResponse = beregnSats(body.brilleseddel)
 
-    if (body.fnrBruker === '123') {
+    if (body.fnrBarn === '123') {
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
