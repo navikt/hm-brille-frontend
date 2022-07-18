@@ -111,7 +111,7 @@ export interface VirksomhetResponse {
   orgnr: string
   orgNavn: string
   kontonr: string
-  harNavAvtale: boolean
+  aktiv: boolean
   forretningsadresse?: Postadresse
   erOptikerVirksomhet: boolean
 }
