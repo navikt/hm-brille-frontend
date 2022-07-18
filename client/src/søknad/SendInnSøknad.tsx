@@ -43,7 +43,7 @@ export function SendInnSøknad(props: SendInnSøknadProps) {
           })
         }}
       >
-        Send inn søknad
+        Registrer krav
       </Button>
       <AvbrytSøknad />
     </Knapper>

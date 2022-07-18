@@ -17,10 +17,10 @@ export function SøknadKvittering(props: SøknadKvitteringProps) {
   return (
     <SøknadSteg>
       <ScrollToTop/>
-      <Alert variant="success">Søknaden er godkjent</Alert>
+      <Alert variant="success">Kravet er registrert</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        Søknaden om direkte oppgjør er automatisk godkjent. NAV vil utbetale bølpet til din virksomhet innen 30 dager.
+        Kravet om direkte oppgjør er automatisk registrert. NAV utbetaler stønaden til firmaets kontonummer senest 30 dager etter at kravet er registrert.
       </BodyLong>
       <Heading level="2" size="medium">
         Kvittering
