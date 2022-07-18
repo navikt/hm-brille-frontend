@@ -33,13 +33,13 @@ jobs:
           docker push $IMAGE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: deploy to dev
-      #   uses: nais/deploy/actions/deploy@v1
-      #   env:
-      #     APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-      #     CLUSTER: dev-gcp
-      #     RESOURCE: .nais/dev.yml
-      #     VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
+       - name: deploy to dev
+         uses: nais/deploy/actions/deploy@v1
+         env:
+           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+           CLUSTER: dev-gcp
+           RESOURCE: .nais/dev.yml
+           VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
 #      - name: post-deploy
 #        uses: navikt/digihot-deploy/actions/post-deploy@v2
 #        env:
