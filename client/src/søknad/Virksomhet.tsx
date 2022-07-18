@@ -19,13 +19,13 @@ export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
   const { orgnr, orgNavn, forretningsadresse, harNavAvtale } = virksomhet
 
-  console.log("VV", virksomhet);
-  
+  console.log('VV', virksomhet)
+
   if (!harNavAvtale) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>
-        <BodyLong>{`"${orgNavn}" har ikke ingått avtale med NAV om direkte oppgjør enda. Det er ikke mulig å søke om direkte oppgjør enda.`}</BodyLong>
+        <BodyLong>{`"${orgNavn}" har ikke inngått avtale med NAV om direkte oppgjør ennå. Det er ikke mulig å søke om direkte oppgjør ennå.`}</BodyLong>
       </Alert>
     )
   }
