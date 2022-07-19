@@ -7,7 +7,6 @@ import {
   HentInnbyggerResponse,
   OpprettKravRequest,
   OpprettKravResponse,
-  SatsType,
   TidligereBrukteVirksomheterResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
@@ -65,11 +64,11 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.json({
         //  sistBrukteOrganisasjon: undefined,
-       sistBrukteOrganisasjon: {
-         orgnr: '123456789',
-         navn: 'Brillehuset Kristiansand',
+        sistBrukteOrganisasjon: {
+          orgnr: '123456789',
+          navn: 'Brillehuset Kristiansand',
           adresse: 'Kristiansandveien 123',
-         },
+        },
         tidligereBrukteOrganisasjoner: [
           {
             orgnr: '123456789',
@@ -118,13 +117,12 @@ const handlers: RequestHandler[] = [
   rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
     const { body } = req
 
-    const beregnSatsResponse = beregnSats(body.brilleseddel)
+    const beregnSatsResponse = beregnSats(body.brilleseddel, body.brillepris)
 
     if (body.fnrBarn === '123') {
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
-          beløp: '0',
           ...beregnSatsResponse,
         })
       )
@@ -133,27 +131,25 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.json({
         resultat: VilkårsgrunnlagResultat.JA,
-        beløp: beregnSatsResponse.satsBeløp,
         ...beregnSatsResponse,
       })
     )
   }),
 
   rest.post<OpprettKravRequest, {}, OpprettKravResponse>('/api/krav', (req, res, ctx) => {
+    const { bestillingsreferanse, vilkårsgrunnlag } = req.body
+    const beregnSatsResponse = beregnSats(vilkårsgrunnlag.brilleseddel, vilkårsgrunnlag.brillepris)
     return res(
       ctx.status(201),
       ctx.json({
         id: '6429',
-        orgnr: '987654321',
-        bestillingsdato: new Date().toISOString(),
-        brillepris: '4200',
-        bestillingsreferanse: '694296',
-        behandlingsresultat: 'innvilget',
-        sats: SatsType.SATS_2,
-        satsBeløp: '1800',
-        satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 4,25D ≤ 6,00D og cylinderstyrke ≤ 4,00D',
-        beløp: '1800',
+        orgnr: vilkårsgrunnlag.orgnr,
+        bestillingsdato: vilkårsgrunnlag.bestillingsdato,
+        brillepris: vilkårsgrunnlag.brillepris.toString(),
+        bestillingsreferanse,
+        behandlingsresultat: 'INNVILGET',
         opprettet: new Date().toISOString(),
+        ...beregnSatsResponse,
       })
     )
   }),
