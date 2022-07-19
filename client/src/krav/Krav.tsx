@@ -1,5 +1,5 @@
 import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Avstand } from '../components/Avstand'
 import ScrollToTop from '../components/ScrollToTop'
 import { useApplicationContext } from '../state/ApplicationContext'
@@ -8,6 +8,7 @@ import type {
   HentInnbyggerRequest,
   HentInnbyggerResponse,
   TidligereBrukteVirksomheterResponse,
+  VirksomhetResponse,
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
@@ -17,7 +18,6 @@ import { HentBrukerForm } from './HentBrukerForm'
 import { IkkeFunnet } from './IkkeFunnet'
 import { KravForm } from './KravForm'
 import { KravSteg } from './KravSteg'
-import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
 
 export function Krav() {
