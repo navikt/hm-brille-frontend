@@ -42,8 +42,7 @@ export interface HarLestOgGodtattVilkårResponse {
 export interface TidligereBruktVirksomhet {
   orgnr: string
   navn: string
-  forretningsadresse: string | undefined
-  beliggenhetsadresse: string | undefined
+  adresse: string | undefined
 }
 
 export interface Brilleseddel {
@@ -112,7 +111,7 @@ export interface VirksomhetResponse {
   orgNavn: string
   kontonr: string
   aktiv: boolean
-  forretningsadresse?: string
+  adresse?: string
   erOptikerVirksomhet: boolean
 }
 

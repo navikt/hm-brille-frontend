@@ -17,9 +17,7 @@ const IkonContainer = styled.div`
 
 export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
-  const { orgnr, orgNavn, forretningsadresse, aktiv } = virksomhet
-
-  console.log('VV', virksomhet)
+  const { orgnr, orgNavn, adresse, aktiv } = virksomhet
 
   if (!aktiv) {
     return (
@@ -38,7 +36,7 @@ export function Virksomhet(props: VirksomhetProps) {
         </Heading>
         <Data>
           <Datum label="Org. nummer:">{orgnr}</Datum>
-          {forretningsadresse && <Datum label="forretningsadresse:">{forretningsadresse}</Datum>}
+          {adresse && <Datum label="Adresse:">{adresse}</Datum>}
         </Data>
       </DataPanel>
 

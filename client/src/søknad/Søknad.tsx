@@ -41,7 +41,7 @@ export function Søknad() {
         ...prev,
         orgnr: sistBrukteOrg.orgnr,
         orgNavn: sistBrukteOrg.navn,
-        orgAdresse: sistBrukteOrg.beliggenhetsadresse || sistBrukteOrg.forretningsadresse!,
+        orgAdresse: sistBrukteOrg.adresse || '',
       }))
     }
   }, [tidligereBrukteVirksomheter])
