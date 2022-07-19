@@ -3,8 +3,7 @@ import { Alert } from '@navikt/ds-react'
 export function IkkeRettighetGenerisk() {
   return (
     <Alert variant="warning">
-      Barnet har ikke rett til å få brillestøtte. Du kan ikke sende inn direkte oppgjør av briller til dette
-      barnet.
+      Barnet har ikke rett til å få brillestøtte. Du kan ikke sende inn direkte oppgjør av briller til dette barnet.
     </Alert>
   )
 }
