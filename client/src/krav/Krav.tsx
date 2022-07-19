@@ -1,11 +1,12 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
+import ScrollToTop from '../components/ScrollToTop'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
   HarLestOgGodtattVilkårResponse,
-  HentBrukerRequest,
-  HentBrukerResponse,
+  HentInnbyggerRequest,
+  HentInnbyggerResponse,
   TidligereBrukteVirksomheterResponse,
   VirksomhetResponse,
 } from '../types'
@@ -15,18 +16,22 @@ import { Barn } from './Barn'
 import { Brukervilkår } from './Brukervilkår'
 import { HentBrukerForm } from './HentBrukerForm'
 import { IkkeFunnet } from './IkkeFunnet'
-import { SøknadForm } from './SøknadForm'
-import { SøknadSteg } from './SøknadSteg'
+import { KravForm } from './KravForm'
+import { KravSteg } from './KravSteg'
 import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
-import ScrollToTop from "../components/ScrollToTop";
 
-export function Søknad() {
+export function Krav() {
   const { appState, setAppState } = useApplicationContext()
-  const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/innbyggere/sok')
+  const { post: hentBruker, data: hentBrukerData } = usePost<HentInnbyggerRequest, HentInnbyggerResponse>(
+    '/innbyggere/sok'
+  )
   const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomheter/${appState.orgnr}` : null)
-  const { data: lestOgGodtattVilkår, isValidating: brukerVilkårLoading, mutate } =
-    useGet<HarLestOgGodtattVilkårResponse>('/innsendere')
+  const {
+    data: lestOgGodtattVilkår,
+    isValidating: brukerVilkårLoading,
+    mutate,
+  } = useGet<HarLestOgGodtattVilkårResponse>('/innsendere')
   const { post: godtaBrukervilkår } = usePost('/innsendere')
   const { data: tidligereBrukteVirksomheter } = useGet<TidligereBrukteVirksomheterResponse>('/virksomheter')
 
@@ -77,10 +82,10 @@ export function Søknad() {
   }
 
   return (
-    <SøknadSteg>
-      <ScrollToTop/>
+    <KravSteg>
+      <ScrollToTop />
       {tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner?.length == 0 ||
-      !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon  ? (
+      !tidligereBrukteVirksomheter?.sistBrukteOrganisasjon ? (
         <Panel>
           <Heading level="2" size="medium" spacing>
             Foretak som skal ha direkte oppgjør
@@ -119,7 +124,7 @@ export function Søknad() {
                 <Avstand marginTop={5} marginBottom={5}>
                   <Barn {...hentBrukerData} />
                   <Avstand marginTop={5}>
-                    <SøknadForm />
+                    <KravForm />
                   </Avstand>
                 </Avstand>
               ) : (
@@ -130,6 +135,6 @@ export function Søknad() {
           </Panel>
         </>
       )}
-    </SøknadSteg>
+    </KravSteg>
   )
 }

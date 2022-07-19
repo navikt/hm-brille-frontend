@@ -4,23 +4,24 @@ import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Dato } from '../components/Dato'
 import { Datum } from '../components/Datum'
-import { SøknadResponse } from '../types'
+import ScrollToTop from '../components/ScrollToTop'
+import { OpprettKravResponse } from '../types'
 import { useLocationState } from '../useLocationState'
-import { SøknadSteg } from './SøknadSteg'
-import ScrollToTop from "../components/ScrollToTop";
+import { KravSteg } from './KravSteg'
 
-export interface SøknadKvitteringProps {}
+export interface KravKvitteringProps {}
 
-export function SøknadKvittering(props: SøknadKvitteringProps) {
+export function KravKvittering(props: KravKvitteringProps) {
   const {} = props
-  const { id, orgnr, bestillingsreferanse, beløp, opprettet } = useLocationState<SøknadResponse>()
+  const { id, orgnr, bestillingsreferanse, beløp, opprettet } = useLocationState<OpprettKravResponse>()
   return (
-    <SøknadSteg>
-      <ScrollToTop/>
+    <KravSteg>
+      <ScrollToTop />
       <Alert variant="success">Kravet er registrert</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        Kravet om direkte oppgjør er automatisk registrert. NAV utbetaler stønaden til firmaets kontonummer senest 30 dager etter at kravet er registrert.
+        Kravet om direkte oppgjør er automatisk registrert. NAV utbetaler stønaden til firmaets kontonummer senest 30
+        dager etter at kravet er registrert.
       </BodyLong>
       <Heading level="2" size="medium">
         Kvittering
@@ -35,6 +36,6 @@ export function SøknadKvittering(props: SøknadKvitteringProps) {
         <Datum label="NAVs referansenr.">{id}</Datum>
       </Data>
       <Link to="/">Til forsiden</Link>
-    </SøknadSteg>
+    </KravSteg>
   )
 }

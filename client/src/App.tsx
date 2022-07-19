@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { Feilside } from './Feilside'
 import { ApplicationProvider } from './state/ApplicationContext'
-import { Søknad } from './søknad/Søknad'
-import { SøknadKvittering } from './søknad/SøknadKvittering'
-import { SøknadOppsummering } from './søknad/SøknadOppsummering'
+import { Krav } from './krav/Krav'
+import { KravKvittering } from './krav/KravKvittering'
+import { KravOppsummering } from './krav/KravOppsummering'
 
 export function App() {
   return (
@@ -20,10 +20,10 @@ export function App() {
     >
       <ApplicationProvider>
         <Routes>
-          <Route path="/" element={<Søknad />} />
-          <Route path="/soknad" element={<Søknad />} />
-          <Route path="/soknad/oppsummering" element={<SøknadOppsummering />} />
-          <Route path="/soknad/kvittering" element={<SøknadKvittering />} />
+          <Route path="/" element={<Krav />} />
+          <Route path="/krav" element={<Krav />} />
+          <Route path="/krav/oppsummering" element={<KravOppsummering />} />
+          <Route path="/krav/kvittering" element={<KravKvittering />} />
           <Route path="*" element={<Feilside status={404} />} />
         </Routes>
       </ApplicationProvider>
