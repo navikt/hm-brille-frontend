@@ -1,11 +1,12 @@
 import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { Avstand } from '../components/Avstand'
+import ScrollToTop from '../components/ScrollToTop'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
   HarLestOgGodtattVilkårResponse,
-  HentBrukerRequest,
-  HentBrukerResponse,
+  HentInnbyggerRequest,
+  HentInnbyggerResponse,
   TidligereBrukteVirksomheterResponse,
 } from '../types'
 import { useGet } from '../useGet'
@@ -14,15 +15,17 @@ import { Barn } from './Barn'
 import { Brukervilkår } from './Brukervilkår'
 import { HentBrukerForm } from './HentBrukerForm'
 import { IkkeFunnet } from './IkkeFunnet'
-import { SøknadForm } from './SøknadForm'
-import { SøknadSteg } from './SøknadSteg'
+import { KravForm } from './KravForm'
+import { KravSteg } from './KravSteg'
+import { Virksomhet } from './Virksomhet'
 import { VirksomhetForm } from './VirksomhetForm'
-import ScrollToTop from '../components/ScrollToTop'
 
-export function Søknad() {
+export function Krav() {
   const { appState, setAppState } = useApplicationContext()
-  const { post: hentBruker, data: hentBrukerData } = usePost<HentBrukerRequest, HentBrukerResponse>('/innbyggere/sok')
-
+  const { post: hentBruker, data: hentBrukerData } = usePost<HentInnbyggerRequest, HentInnbyggerResponse>(
+    '/innbyggere/sok'
+  )
+  const { data: virksomhet } = useGet<VirksomhetResponse>(appState.orgnr ? `/virksomheter/${appState.orgnr}` : null)
   const {
     data: lestOgGodtattVilkår,
     isValidating: brukerVilkårLoading,
@@ -70,7 +73,7 @@ export function Søknad() {
   }
 
   return (
-    <SøknadSteg>
+    <KravSteg>
       <ScrollToTop />
       {!harValgtVirksomhet ? (
         <Panel>
@@ -114,7 +117,7 @@ export function Søknad() {
                 <Avstand marginTop={5} marginBottom={5}>
                   <Barn {...hentBrukerData} />
                   <Avstand marginTop={5}>
-                    <SøknadForm />
+                    <KravForm />
                   </Avstand>
                 </Avstand>
               ) : (
@@ -125,6 +128,6 @@ export function Søknad() {
           </Panel>
         </>
       )}
-    </SøknadSteg>
+    </KravSteg>
   )
 }

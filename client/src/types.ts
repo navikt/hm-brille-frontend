@@ -9,11 +9,11 @@ export interface Resultat<T> {
   loading?: boolean
 }
 
-export interface HentBrukerRequest {
+export interface HentInnbyggerRequest {
   fnr: string
 }
 
-export interface HentBrukerResponse {
+export interface HentInnbyggerResponse {
   fnr: string
   navn: string
   alder?: number
@@ -84,7 +84,7 @@ export enum VilkårsgrunnlagResultat {
   KANSKJE = 'KANSKJE',
 }
 
-export interface SøknadRequest {
+export interface OpprettKravRequest {
   vilkårsgrunnlag: Vilkårsgrunnlag
   bestillingsreferanse: string
   brukersNavn: string
@@ -92,7 +92,7 @@ export interface SøknadRequest {
   orgNavn: string
 }
 
-export interface SøknadResponse {
+export interface OpprettKravResponse {
   id: string
   orgnr: string
   bestillingsdato: string

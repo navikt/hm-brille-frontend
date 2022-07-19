@@ -28,7 +28,7 @@ export function beregnSats(brilleseddel: Brilleseddel): BeregnSatsResponse {
       sats: SatsType.SATS_3,
       satsBeskrivelse:
         'Briller med sfærisk styrke på minst ett glass ≥ 6,25D ≤ 8,00D og/eller cylinderstyrke ≥ 4,25D ≤ 6,00D',
-        satsBeløp: '2325',
+      satsBeløp: '2325',
     }
   }
   if (sfære >= 4.25 && sfære <= 6 && sylinder <= 4) {
@@ -43,7 +43,7 @@ export function beregnSats(brilleseddel: Brilleseddel): BeregnSatsResponse {
       sats: SatsType.SATS_1,
       satsBeskrivelse:
         'Briller med sfærisk styrke på minst ett glass ≥ 1,00D ≤ 4,00D og/eller cylinderstyrke ≥ 1,00D ≤ 4,00D',
-        satsBeløp: '900',
+      satsBeløp: '900',
     }
   }
   return {

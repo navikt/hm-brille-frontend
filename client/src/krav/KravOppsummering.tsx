@@ -1,6 +1,5 @@
 import { Alert, BodyLong, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
@@ -9,10 +8,10 @@ import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, Vilkårsgr
 import { usePost } from '../usePost'
 import { MAX_SFÆRE, MAX_SYLINDER } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
-import { SendInnSøknad } from './SendInnSøknad'
-import { SøknadSteg } from './SøknadSteg'
+import { KravSteg } from './KravSteg'
+import { SendInnKrav } from './SendInnKrav'
 
-export function SøknadOppsummering() {
+export function KravOppsummering() {
   const { appState } = useApplicationContext()
   const {
     post: vurderVilkår,
@@ -45,7 +44,7 @@ export function SøknadOppsummering() {
   const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO !== 'prod-gcp'
 
   return (
-    <SøknadSteg>
+    <KravSteg>
       <Heading level="2" size="medium">
         Barn
       </Heading>
@@ -86,7 +85,6 @@ export function SøknadOppsummering() {
           <Alert variant="warning">
             <BodyLong>Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn krav om direkte oppgjør. </BodyLong>
             <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
-
           </Alert>
         ) : (
           <Alert variant="info">
@@ -101,7 +99,7 @@ export function SøknadOppsummering() {
           </Alert>
         )}
       </Avstand>
-      {kanSøke && <SendInnSøknad vilkårsgrunnlag={vilkårsgrunnlag} />}
-    </SøknadSteg>
+      {kanSøke && <SendInnKrav vilkårsgrunnlag={vilkårsgrunnlag} />}
+    </KravSteg>
   )
 }

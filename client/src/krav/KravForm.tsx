@@ -6,10 +6,10 @@ import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { validerDato, validerPris } from '../validering'
-import { AvbrytSøknad } from './AvbrytSøknad'
+import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
 
-export interface SøknadFormData {
+export interface KravFormData {
   brillestyrke: BrillestyrkeFormData
   bestillingsdato: string
   brillepris: string
@@ -21,12 +21,12 @@ interface ValideringError {
   melding: string
 }
 
-export function SøknadForm() {
+export function KravForm() {
   const [valideringErrors, setValideringErrors] = useState<ValideringError[]>([])
   const { setAppState, appState } = useApplicationContext()
   const navigate = useNavigate()
 
-  const methods = useForm<SøknadFormData>({
+  const methods = useForm<KravFormData>({
     defaultValues: {
       brillestyrke: appState.brillestyrke,
       bestillingsdato: appState.bestillingsdato,
@@ -46,7 +46,7 @@ export function SøknadForm() {
     }
   }, [methods.formState.isSubmitted, methods.watch])
 
-  const valider = (data: SøknadFormData): boolean => {
+  const valider = (data: KravFormData): boolean => {
     const errors: ValideringError[] = []
 
     if (!data.bestillingsdato) {
@@ -74,7 +74,7 @@ export function SøknadForm() {
     return errors.length === 0
   }
 
-  const onSubmit: SubmitHandler<SøknadFormData> = (data) => {
+  const onSubmit: SubmitHandler<KravFormData> = (data) => {
     const erGyldig = valider(data)
 
     if (erGyldig) {
@@ -85,7 +85,7 @@ export function SøknadForm() {
         brillestyrke: data.brillestyrke,
         bestillingsreferanse: data.bestillingsreferanse,
       }))
-      navigate('/soknad/oppsummering')
+      navigate('/krav/oppsummering')
     }
   }
 
@@ -135,7 +135,7 @@ export function SøknadForm() {
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
                 Beregn
               </Button>
-              <AvbrytSøknad />
+              <AvbrytKrav />
             </Knapper>
           </Avstand>
         </form>

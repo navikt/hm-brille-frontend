@@ -3,11 +3,11 @@ import {
   BeregnSatsRequest,
   BeregnSatsResponse,
   HarLestOgGodtattVilkårResponse,
-  HentBrukerRequest,
-  HentBrukerResponse,
+  HentInnbyggerRequest,
+  HentInnbyggerResponse,
+  OpprettKravRequest,
+  OpprettKravResponse,
   SatsType,
-  SøknadRequest,
-  SøknadResponse,
   TidligereBrukteVirksomheterResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
@@ -16,7 +16,7 @@ import {
 } from '../types'
 import { beregnSats } from './beregnSats'
 
-var godtattVilkår: boolean = true
+let godtattVilkår: boolean = false
 
 const handlers: RequestHandler[] = [
   rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
@@ -32,7 +32,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<HentBrukerRequest, {}, HentBrukerResponse>('/api/innbyggere/sok', (req, res, ctx) => {
+  rest.post<HentInnbyggerRequest, {}, HentInnbyggerResponse>('/api/innbyggere/sok', (req, res, ctx) => {
     const { fnr } = req.body
     if (fnr === '123') {
       return res(
@@ -64,7 +64,7 @@ const handlers: RequestHandler[] = [
   rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/virksomheter', (req, res, ctx) => {
     return res(
       ctx.json({
-          //sistBrukteOrganisasjon: undefined,
+        //  sistBrukteOrganisasjon: undefined,
        sistBrukteOrganisasjon: {
          orgnr: '123456789',
          navn: 'Brillehuset Kristiansand',
@@ -139,7 +139,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<SøknadRequest, {}, SøknadResponse>('/api/soknader', (req, res, ctx) => {
+  rest.post<OpprettKravRequest, {}, OpprettKravResponse>('/api/krav', (req, res, ctx) => {
     return res(
       ctx.status(201),
       ctx.json({

@@ -3,38 +3,38 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { SøknadRequest, SøknadResponse, Vilkårsgrunnlag } from '../types'
+import { OpprettKravRequest, OpprettKravResponse, Vilkårsgrunnlag } from '../types'
 import { usePost } from '../usePost'
-import { AvbrytSøknad } from './AvbrytSøknad'
+import { AvbrytKrav } from './AvbrytKrav'
 
-export interface SendInnSøknadProps {
+export interface SendInnKravProps {
   vilkårsgrunnlag: Vilkårsgrunnlag
 }
 
-export function SendInnSøknad(props: SendInnSøknadProps) {
+export function SendInnKrav(props: SendInnKravProps) {
   const { appState } = useApplicationContext()
   const navigate = useNavigate()
 
   const {
-    post: sendInnSøknad,
-    data: sendInnSøknadData,
-    loading: sendInnSøknadLoading,
-  } = usePost<SøknadRequest, SøknadResponse>('/soknader')
+    post: sendInnKrav,
+    data: sendInnKravData,
+    loading: sendInnKravLoading,
+  } = usePost<OpprettKravRequest, OpprettKravResponse>('/krav')
 
   useEffect(() => {
-    if (sendInnSøknadData) {
-      navigate(`/soknad/kvittering`, {
-        state: sendInnSøknadData,
+    if (sendInnKravData) {
+      navigate(`/krav/kvittering`, {
+        state: sendInnKravData,
       })
     }
-  }, [sendInnSøknadData])
+  }, [sendInnKravData])
 
   return (
     <Knapper>
       <Button
-        loading={sendInnSøknadLoading}
+        loading={sendInnKravLoading}
         onClick={async () => {
-          return await sendInnSøknad({
+          return await sendInnKrav({
             vilkårsgrunnlag: props.vilkårsgrunnlag,
             bestillingsreferanse: appState.bestillingsreferanse,
             brukersNavn: appState.innbyggerNavn,
@@ -45,7 +45,7 @@ export function SendInnSøknad(props: SendInnSøknadProps) {
       >
         Send inn kravet
       </Button>
-      <AvbrytSøknad />
+      <AvbrytKrav />
     </Knapper>
   )
 }

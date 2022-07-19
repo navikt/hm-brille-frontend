@@ -1,7 +1,7 @@
 import { BodyLong, Button, ConfirmationPanel, Heading, Link, Loader } from '@navikt/ds-react'
 import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
-import { SøknadSteg } from './SøknadSteg'
+import { KravSteg } from './KravSteg'
 import { Controller, useForm } from 'react-hook-form'
 
 export interface BrukervilkårProps {
@@ -28,7 +28,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
   }
 
   return (
-    <SøknadSteg>
+    <KravSteg>
       <Heading level="2" size="medium">
         Brukervilkår
       </Heading>
@@ -42,8 +42,10 @@ export function Brukervilkår(props: BrukervilkårProps) {
         <li>Brillen må være bestilt.</li>
         <li>Opplysningene du legger inn må være riktige. </li>
       </ul>
-      
-      <form onSubmit={handleSubmit( async (data) => await onGodta())}>
+      <BodyLong spacing>
+        Første gangen du skal sende inn et krav, inngår du en avtale med NAV om bruk av løsningen.
+      </BodyLong>
+      <form onSubmit={handleSubmit(async (data) => await onGodta())}>
         <Controller
           control={control}
           name="godtatt"
@@ -67,6 +69,6 @@ export function Brukervilkår(props: BrukervilkårProps) {
           <Button variant="tertiary">Avbryt</Button>
         </Knapper>
       </form>
-    </SøknadSteg>
+    </KravSteg>
   )
 }

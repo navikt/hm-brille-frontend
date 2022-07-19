@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApplicationContext } from '../state/ApplicationContext'
 
-export function AvbrytSøknad() {
+export function AvbrytKrav() {
   const { resetAppState } = useApplicationContext()
   const navigate = useNavigate()
   return (
