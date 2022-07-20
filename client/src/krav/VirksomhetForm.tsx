@@ -13,22 +13,19 @@ export interface VirksomhetFormData {
   orgNavn: string
 }
 
-
-
 export function VirksomhetForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orgnummer, setOrgnummer] = useState('')
   const { data: virksomhet } = useGet<VirksomhetResponse>(isSubmitting ? `/virksomheter/${orgnummer}` : null)
   const { setAppState, appState } = useApplicationContext()
-  
-  const velgVirksomhet = (virksomhet: VirksomhetResponse) =>
-  setAppState((prev) => ({
-    ...prev,
-    orgnr: virksomhet.orgnr,
-    orgNavn: virksomhet.orgNavn,
-  }))
 
- 
+  const velgVirksomhet = (virksomhet: VirksomhetResponse) =>
+    setAppState((prev) => ({
+      ...prev,
+      orgnr: virksomhet.orgnr,
+      orgNavn: virksomhet.orgNavn,
+    }))
+
   return (
     <>
       <form role="search" onSubmit={(e) => e.preventDefault()}>

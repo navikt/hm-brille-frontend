@@ -31,8 +31,8 @@ export interface Postadresse {
 }
 
 export interface TidligereBrukteVirksomheterResponse {
-  sistBrukteOrganisasjon?: TidligereBruktVirksomhet | undefined
-  tidligereBrukteOrganisasjoner: TidligereBruktVirksomhet[] | undefined
+  sistBrukteOrganisasjon?: TidligereBruktVirksomhet
+  tidligereBrukteOrganisasjoner?: TidligereBruktVirksomhet[]
 }
 
 export interface HarLestOgGodtattVilkårResponse {
@@ -42,7 +42,7 @@ export interface HarLestOgGodtattVilkårResponse {
 export interface TidligereBruktVirksomhet {
   orgnr: string
   navn: string
-  adresse: string | undefined
+  adresse?: string
 }
 
 export interface Brilleseddel {
