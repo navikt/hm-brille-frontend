@@ -3,9 +3,9 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import { Tekstfelt } from '../components/Tekstfelt'
+import { http } from '../http'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { VirksomhetResponse } from '../types'
-import { useGet } from '../useGet'
 import { Virksomhet } from './Virksomhet'
 
 export interface VirksomhetFormData {
@@ -14,16 +14,15 @@ export interface VirksomhetFormData {
 }
 
 export function VirksomhetForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [virksomhet, setVirksomhet] = useState<VirksomhetResponse | null>(null)
   const [orgnummer, setOrgnummer] = useState('')
-  const { data: virksomhet } = useGet<VirksomhetResponse>(isSubmitting ? `/virksomheter/${orgnummer}` : null)
   const { setAppState, appState } = useApplicationContext()
 
   const velgVirksomhet = (virksomhet: VirksomhetResponse) =>
     setAppState((prev) => ({
       ...prev,
       orgnr: virksomhet.orgnr,
-      orgNavn: virksomhet.orgNavn,
+      orgNavn: virksomhet.navn,
     }))
 
   return (
@@ -37,7 +36,15 @@ export function VirksomhetForm() {
             value={orgnummer}
             onChange={(e) => setOrgnummer(e.target.value)}
           />
-          <Button onClick={() => setIsSubmitting(true)} variant="secondary">
+          <Button
+            onClick={async () => {
+              const virksomhet : VirksomhetResponse = await http.get(`/virksomheter/${orgnummer}`)
+              if(virksomhet !== null) {
+                setVirksomhet(virksomhet)
+              }
+            }}
+            variant="secondary"
+          >
             Slå opp
           </Button>
         </SøkContainer>

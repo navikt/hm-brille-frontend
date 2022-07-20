@@ -17,13 +17,13 @@ const IkonContainer = styled.div`
 
 export function Virksomhet(props: VirksomhetProps) {
   const { virksomhet, onLagre } = props
-  const { orgnr, orgNavn, adresse, aktiv } = virksomhet
+  const { orgnr, navn, adresse, aktiv } = virksomhet
 
   if (!aktiv) {
     return (
       <Alert variant="warning">
         <Heading size="small">Mangler avtale med NAV</Heading>
-        <BodyLong>{`"${orgNavn}" har ikke inngått avtale med NAV om direkte oppgjør ennå. Det er ikke mulig å søke om direkte oppgjør ennå.`}</BodyLong>
+        <BodyLong>{`"${navn}" har ikke inngått avtale med NAV om direkte oppgjør ennå. Det er ikke mulig å søke om direkte oppgjør ennå.`}</BodyLong>
       </Alert>
     )
   }
@@ -32,7 +32,7 @@ export function Virksomhet(props: VirksomhetProps) {
     <>
       <DataPanel>
         <Heading level="3" size="small">
-          <Office1 /> {`${orgNavn}`}
+          <Office1 /> {`${navn}`}
         </Heading>
         <Data>
           <Datum label="Org. nummer:">{orgnr}</Datum>
@@ -40,7 +40,7 @@ export function Virksomhet(props: VirksomhetProps) {
         </Data>
       </DataPanel>
 
-      <Button variant="primary" onClick={() => onLagre({ orgnr, orgNavn })}>
+      <Button variant="primary" onClick={() => onLagre({ orgnr, navn })}>
         <SaveFile />
         Bruk
       </Button>
