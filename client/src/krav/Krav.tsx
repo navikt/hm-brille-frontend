@@ -8,6 +8,7 @@ import type {
   HentInnbyggerRequest,
   HentInnbyggerResponse,
   TidligereBrukteVirksomheterResponse,
+  VirksomhetResponse,
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
