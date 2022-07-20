@@ -1,3 +1,5 @@
+import { baseUrl } from '../http'
+
 export async function initMSW(): Promise<ServiceWorkerRegistration | void> {
   if (!window.appSettings.USE_MSW) {
     return
@@ -6,7 +8,7 @@ export async function initMSW(): Promise<ServiceWorkerRegistration | void> {
   return worker.start({
     onUnhandledRequest: 'bypass',
     serviceWorker: {
-      url: '/mockServiceWorker.js',
+      url: baseUrl('/mockServiceWorker.js'),
     },
   })
 }

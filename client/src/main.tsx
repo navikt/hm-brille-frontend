@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { SWRConfig, SWRConfiguration } from 'swr'
 import { App } from './App'
 import { GlobalStyle } from './GlobalStyle'
-import { http } from './http'
+import { baseUrl, http } from './http'
 import { initMSW } from './mocks/initMSW'
 
 const swrConfig: SWRConfiguration = {
@@ -24,7 +24,7 @@ initMSW().then(() => {
     <React.StrictMode>
       <GlobalStyle />
       <SWRConfig value={swrConfig}>
-        <BrowserRouter>
+        <BrowserRouter basename={baseUrl()}>
           <App />
         </BrowserRouter>
       </SWRConfig>

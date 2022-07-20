@@ -11,14 +11,14 @@ spec:
   team: teamdigihot
   port: 5000
   ingresses:
-    - https://brille.dev.nav.no
+    - https://brille.dev.nav.no/hjelpemidler/barnebriller
   liveness:
-    path: /internal/isalive
+    path: /hjelpemidler/barnebriller/internal/isalive
   readiness:
-    path: /internal/isready
+    path: /hjelpemidler/barnebriller/internal/isready
   prometheus:
     enabled: true
-    path: /internal/metrics
+    path: /hjelpemidler/barnebriller/internal/metrics
   replicas:
     max: 1
     min: 1
