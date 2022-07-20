@@ -1,12 +1,23 @@
 import { HttpError } from './error'
 import type { Resultat } from './types'
 
-export const BASE_API_URL = '/api'
+export function baseUrl(url: string = '') {
+  if (process.env.NODE_ENV === 'production') {
+    return `/hjelpemidler/barnebriller${url}`
+  } else {
+    return url
+  }
+}
+
+export function apiUrl(url: string) {
+  return baseUrl(`/api${url}`)
+}
 
 export const http = {
-  async get<T>(url: string): Promise<T> {
+  async get<T>(path: string): Promise<T> {
     try {
-      const response = await fetch(BASE_API_URL + url, {
+      const url = apiUrl(path)
+      const response = await fetch(url, {
         method: 'get',
         cache: 'no-store',
         headers: {
@@ -21,9 +32,10 @@ export const http = {
       return Promise.reject(HttpError.wrap(err))
     }
   },
-  async post<B, T>(url: string, body: B): Promise<Resultat<T>> {
+  async post<B, T>(path: string, body: B): Promise<Resultat<T>> {
     try {
-      const response = await fetch(BASE_API_URL + url, {
+      const url = apiUrl(path)
+      const response = await fetch(url, {
         method: 'post',
         cache: 'no-store',
         headers: {

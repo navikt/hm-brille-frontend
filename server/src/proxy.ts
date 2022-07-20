@@ -26,7 +26,7 @@ export const proxyHandlers = {
   api(exchangeIDPortenToken: ExchangeToken) {
     return createProxy(config.api.brille_api_base_url, config.api.brille_api_target_audience, exchangeIDPortenToken, {
       proxyReqPathResolver(req) {
-        return req.originalUrl
+        return req.originalUrl.replace('/hjelpemidler/barnebriller/', '/')
       },
     })
   },

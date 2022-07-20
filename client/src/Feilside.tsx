@@ -1,5 +1,6 @@
-import { Accordion, BodyShort, Heading, Link } from '@navikt/ds-react'
+import { Accordion, BodyShort, Heading } from '@navikt/ds-react'
 import styled from 'styled-components'
+import { AppLink } from './components/AppLink'
 import { Avstand } from './components/Avstand'
 import { Pipe } from './components/Pipe'
 import { hentUtviklerinformasjon } from './error'
@@ -44,7 +45,7 @@ function IkkeLoggetInn() {
     <>
       <BodyShort spacing>Du må logge inn for å få tilgang til systemet.</BodyShort>
       <BodyShort spacing>
-        <Link href="/">Gå til innloggingssiden</Link>.
+        <AppLink href="/">Gå til innloggingssiden</AppLink>.
       </BodyShort>
     </>
   )
@@ -57,7 +58,7 @@ function IkkeFunnet() {
         Beklager, siden kan være slettet eller flyttet, eller det var en feil i lenken som førte deg hit.
       </BodyShort>
       <BodyShort spacing>
-        <Link href="/">Gå til forsiden</Link>.
+        <AppLink href="/">Gå til forsiden</AppLink>.
       </BodyShort>
     </>
   )
@@ -68,7 +69,7 @@ function TekniskFeil() {
     <>
       <BodyShort spacing>Beklager, det har skjedd en teknisk feil.</BodyShort>
       <BodyShort spacing>
-        <Link href="/">Gå til forsiden</Link>.
+        <AppLink href="/">Gå til forsiden</AppLink>.
       </BodyShort>
     </>
   )

@@ -1,4 +1,5 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
+import { apiUrl } from '../http'
 import {
   BeregnSatsRequest,
   BeregnSatsResponse,
@@ -18,7 +19,7 @@ import { beregnSats } from './beregnSats'
 let godtattVilkår: boolean = false
 
 const handlers: RequestHandler[] = [
-  rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>('/api/brillesedler', (req, res, ctx) => {
+  rest.post<BeregnSatsRequest, {}, BeregnSatsResponse>(apiUrl('/brillesedler'), (req, res, ctx) => {
     return res(
       ctx.json(
         beregnSats({
@@ -31,7 +32,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<HentInnbyggerRequest, {}, HentInnbyggerResponse>('/api/innbyggere/sok', (req, res, ctx) => {
+  rest.post<HentInnbyggerRequest, {}, HentInnbyggerResponse>(apiUrl('/innbyggere/sok'), (req, res, ctx) => {
     const { fnr } = req.body
     if (fnr === '123') {
       return res(
@@ -60,7 +61,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>('/api/virksomheter', (req, res, ctx) => {
+  rest.get<{}, {}, TidligereBrukteVirksomheterResponse>(apiUrl('/virksomheter'), (req, res, ctx) => {
     return res(
       ctx.json({
         //  sistBrukteOrganisasjon: undefined,
@@ -80,7 +81,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.get<{}, { orgnr: string }, VirksomhetResponse>('/api/virksomheter/:orgnr', (req, res, ctx) => {
+  rest.get<{}, { orgnr: string }, VirksomhetResponse>(apiUrl('/virksomheter/:orgnr'), (req, res, ctx) => {
     const orgnr = req.params.orgnr
 
     if (orgnr === '404') {
@@ -107,14 +108,14 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get<{}, {}, HarLestOgGodtattVilkårResponse>('/api/innsendere', (req, res, ctx) => {
+  rest.get<{}, {}, HarLestOgGodtattVilkårResponse>(apiUrl('/innsendere'), (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ godtatt: godtattVilkår }))
   }),
-  rest.post<{}, {}, {}>('/api/innsendere', (req, res, ctx) => {
+  rest.post<{}, {}, {}>(apiUrl('/innsendere'), (req, res, ctx) => {
     godtattVilkår = true
     return res(ctx.status(200), ctx.json({}))
   }),
-  rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>('/api/vilkarsgrunnlag', (req, res, ctx) => {
+  rest.post<VilkårsgrunnlagRequest, {}, VilkårsgrunnlagResponse>(apiUrl('/vilkarsgrunnlag'), (req, res, ctx) => {
     const { body } = req
 
     const beregnSatsResponse = beregnSats(body.brilleseddel, body.brillepris)
@@ -136,7 +137,7 @@ const handlers: RequestHandler[] = [
     )
   }),
 
-  rest.post<OpprettKravRequest, {}, OpprettKravResponse>('/api/krav', (req, res, ctx) => {
+  rest.post<OpprettKravRequest, {}, OpprettKravResponse>(apiUrl('/krav'), (req, res, ctx) => {
     const { bestillingsreferanse, vilkårsgrunnlag } = req.body
     const beregnSatsResponse = beregnSats(vilkårsgrunnlag.brilleseddel, vilkårsgrunnlag.brillepris)
     return res(

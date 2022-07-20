@@ -36,7 +36,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
           {
             tag: 'script',
             attrs: {
-              src: '/settings.js',
+              src: '/hjelpemidler/barnebriller/settings.js',
             },
           },
         ],
@@ -47,6 +47,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
+  base: env.mode === 'development' ? '/' : '/hjelpemidler/barnebriller/',
   plugins: [htmlPlugin({ development: env.mode === 'development' }), react(), splitVendorChunkPlugin()],
   build: {
     sourcemap: true,
