@@ -31,17 +31,18 @@ export interface Postadresse {
 }
 
 export interface TidligereBrukteVirksomheterResponse {
-  sistBrukteOrganisasjon?: TidligereBruktVirksomhet
-  tidligereBrukteOrganisasjoner?: TidligereBruktVirksomhet[]
+  sistBrukteOrganisasjon?: Virksomhet
+  tidligereBrukteOrganisasjoner?: Virksomhet[]
 }
 
 export interface HarLestOgGodtattVilkårResponse {
   godtatt: boolean
 }
 
-export interface TidligereBruktVirksomhet {
+export interface Virksomhet {
   orgnr: string
   navn: string
+  aktiv: boolean,
   adresse?: string
 }
 
@@ -106,14 +107,7 @@ export interface OpprettKravResponse {
   opprettet: string
 }
 
-export interface VirksomhetResponse {
-  orgnr: string
-  orgNavn: string
-  kontonr: string
-  aktiv: boolean
-  adresse?: string
-  erOptikerVirksomhet: boolean
-}
+export interface VirksomhetResponse  extends Virksomhet{}
 
 export interface Postadresse {
   postnummer: string

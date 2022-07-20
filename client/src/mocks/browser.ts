@@ -69,12 +69,14 @@ const handlers: RequestHandler[] = [
          orgnr: '123456789',
          navn: 'Brillehuset Kristiansand',
           adresse: 'Kristiansandveien 123',
+          aktiv: true
          },
         tidligereBrukteOrganisasjoner: [
           {
             orgnr: '123456789',
             navn: 'Brillehuset Kristiansand',
             adresse: 'Kristiansandveien 123',
+            aktiv: true
           },
         ],
       })
@@ -87,12 +89,10 @@ const handlers: RequestHandler[] = [
     if (orgnr === '404') {
       return res(
         ctx.json({
-          orgNavn: 'Manglerud Avtale',
+          navn: 'Manglerud Avtale',
           orgnr: '123456789',
-          kontonr: '11111111113',
           aktiv: false,
-          adrsese: 'Mangerudveien 6, 0942 Oslo',
-          erOptikerVirksomhet: true,
+          adresse: 'Mangerudveien 6, 0942 Oslo',
         })
       )
     }
@@ -100,11 +100,10 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.json({
         orgnr: '987654321',
-        orgNavn: 'Brillesjø AS',
+        navn: 'Brillesjø AS',
         kontonr: '11111111113',
         aktiv: true,
         adresse: 'Osloveien 1, 0942 Oslo',
-        erOptikerVirksomhet: true,
       })
     )
   }),
