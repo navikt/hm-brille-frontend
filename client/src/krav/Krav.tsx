@@ -1,6 +1,7 @@
 import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { Avstand } from '../components/Avstand'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import ScrollToTop from '../components/ScrollToTop'
 import { useApplicationContext } from '../state/ApplicationContext'
 import type {
@@ -8,7 +9,6 @@ import type {
   HentInnbyggerRequest,
   HentInnbyggerResponse,
   TidligereBrukteVirksomheterResponse,
-  VirksomhetResponse,
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
@@ -79,7 +79,7 @@ export function Krav() {
           <Heading level="2" size="medium" spacing>
             Foretak som skal ha direkte oppgjør
           </Heading>
-          <VirksomhetForm />
+          <VirksomhetForm tidligereBrukteVirksomheter={tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner} />
         </Panel>
       ) : (
         <>
@@ -87,7 +87,7 @@ export function Krav() {
             <Heading size="small" spacing>
               Foretaket som skal ha direkte oppgjør
             </Heading>
-            <BodyLong>{`${appState?.orgNavn}, org. nr. ${appState?.orgnr}`}</BodyLong>
+            <BodyLong>{`${appState?.orgNavn}, org. nr. ${organisasjonsnummer(appState?.orgnr)}`}</BodyLong>
             <Button
               variant="tertiary"
               onClick={() => {

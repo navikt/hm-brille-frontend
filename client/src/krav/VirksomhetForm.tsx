@@ -1,11 +1,12 @@
-import { Button } from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { Tekstfelt } from '../components/Tekstfelt'
 import { http } from '../http'
 import { useApplicationContext } from '../state/ApplicationContext'
-import { VirksomhetResponse } from '../types'
+import { Virksomhet as VirksomhetType, VirksomhetResponse } from '../types'
 import { Virksomhet } from './Virksomhet'
 
 export interface VirksomhetFormData {
@@ -13,11 +14,15 @@ export interface VirksomhetFormData {
   orgNavn: string
 }
 
-export function VirksomhetForm() {
+interface TidligereBrukteVirksomheterProps {
+  tidligereBrukteVirksomheter?: VirksomhetType[]
+}
+
+export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
   const [virksomhet, setVirksomhet] = useState<VirksomhetResponse | null>(null)
   const [orgnummer, setOrgnummer] = useState('')
   const { setAppState, appState } = useApplicationContext()
-
+  const { tidligereBrukteVirksomheter } = props
   const velgVirksomhet = (virksomhet: VirksomhetResponse) =>
     setAppState((prev) => ({
       ...prev,
@@ -38,8 +43,8 @@ export function VirksomhetForm() {
           />
           <Button
             onClick={async () => {
-              const virksomhet : VirksomhetResponse = await http.get(`/virksomheter/${orgnummer}`)
-              if(virksomhet !== null) {
+              const virksomhet: VirksomhetResponse = await http.get(`/virksomheter/${orgnummer}`)
+              if (virksomhet !== null) {
                 setVirksomhet(virksomhet)
               }
             }}
@@ -49,14 +54,36 @@ export function VirksomhetForm() {
           </Button>
         </SøkContainer>
       </form>
+
       {virksomhet && (
         <Avstand paddingTop={5}>
           <Virksomhet virksomhet={virksomhet} onLagre={velgVirksomhet} />
         </Avstand>
       )}
+      {tidligereBrukteVirksomheter && tidligereBrukteVirksomheter?.length > 0 && (
+        <Avstand marginTop={7}>
+          <Heading level="3" size="small" spacing>
+            Tidligere brukte virksomheter
+          </Heading>
+          {tidligereBrukteVirksomheter.map((it) => (
+            <VirksomhetPanel key={it.orgnr}>
+              <Button variant="tertiary" type="button" onClick={() => velgVirksomhet(it)}>
+                Bruk
+              </Button>
+              <BodyLong>{`${organisasjonsnummer(it.orgnr)} ${it.navn}`}</BodyLong>
+            </VirksomhetPanel>
+          ))}
+        </Avstand>
+      )}
     </>
   )
 }
+
+export const VirksomhetPanel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--navds-spacing-5);
+`
 
 const SøkContainer = styled.div`
   display: flex;

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Data } from '../components/Data'
 import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
 
 export interface VirksomhetProps {
@@ -35,7 +36,7 @@ export function Virksomhet(props: VirksomhetProps) {
           <Office1 /> {`${navn}`}
         </Heading>
         <Data>
-          <Datum label="Org. nummer:">{orgnr}</Datum>
+          <Datum label="Org. nummer:">{organisasjonsnummer(orgnr)}</Datum>
           {adresse && <Datum label="Adresse:">{adresse}</Datum>}
         </Data>
       </DataPanel>

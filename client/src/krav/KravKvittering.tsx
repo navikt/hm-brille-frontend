@@ -4,6 +4,7 @@ import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Dato } from '../components/Dato'
 import { Datum } from '../components/Datum'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import ScrollToTop from '../components/ScrollToTop'
 import { OpprettKravResponse } from '../types'
 import { useLocationState } from '../useLocationState'
@@ -27,7 +28,7 @@ export function KravKvittering(props: KravKvitteringProps) {
         Kvittering
       </Heading>
       <Data labelColumnWidth={150}>
-        <Datum label="Org. nummer">{orgnr}</Datum>
+        <Datum label="Org. nummer">{organisasjonsnummer(orgnr)}</Datum>
         <Datum label="Innsendt dato">
           <Dato verdi={opprettet}></Dato>
         </Datum>
