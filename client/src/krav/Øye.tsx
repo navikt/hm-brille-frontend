@@ -2,13 +2,16 @@ import { Heading, Select } from '@navikt/ds-react'
 import { Controller, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
+import type { BrillestyrkeFormData } from './BrillestyrkeForm'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
 
 export function Øye(props: { type: 'venstre' | 'høyre' }) {
   const { type } = props
-  const { control } = useFormContext()
-
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<{ brillestyrke: BrillestyrkeFormData }>()
   return (
     <Grid>
       <ØyeEtikett>
@@ -19,8 +22,11 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
       <Controller
         name={`brillestyrke.${type}Sfære`}
         control={control}
+        rules={{
+          required: 'Du må oppgi en verdi',
+        }}
         render={({ field }) => (
-          <Select label="Sfære (SPH)" size="medium" {...field}>
+          <Select label="Sfære (SPH)" size="medium" error={errors.brillestyrke?.[`${type}Sfære`]?.message} {...field}>
             <option value="">Velg sfære</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
@@ -33,8 +39,16 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
       <Controller
         name={`brillestyrke.${type}Sylinder`}
         control={control}
+        rules={{
+          required: 'Du må oppgi en verdi',
+        }}
         render={({ field }) => (
-          <Select label="Sylinder (CYL)" size="medium" {...field}>
+          <Select
+            label="Sylinder (CYL)"
+            size="medium"
+            error={errors.brillestyrke?.[`${type}Sylinder`]?.message}
+            {...field}
+          >
             <option value="">Velg sylinder</option>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
@@ -55,10 +69,11 @@ const ØyeEtikett = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--navds-spacing-3);
+  grid-template-columns: 120px 180px 180px;
+  gap: var(--navds-spacing-5);
   padding-top: var(--navds-spacing-3);
   padding-bottom: var(--navds-spacing-3);
+  align-items: start;
 `
 
 function range(start: number, stop: number, step: number = 0.25): number[] {

@@ -14,7 +14,7 @@ import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { Barn } from './Barn'
 import { Brukervilkår } from './Brukervilkår'
-import { HentBrukerForm } from './HentBrukerForm'
+import { HentBarnForm } from './HentBarnForm'
 import { IkkeFunnet } from './IkkeFunnet'
 import { KravForm } from './KravForm'
 import { KravSteg } from './KravSteg'
@@ -52,9 +52,9 @@ export function Krav() {
     if (hentBrukerData) {
       setAppState((prev) => ({
         ...prev,
-        innbyggerNavn: hentBrukerData.navn,
-        innbyggerAlder: hentBrukerData.alder,
-        innbyggerFnr: hentBrukerData.fnr,
+        barnNavn: hentBrukerData.navn,
+        barnAlder: hentBrukerData.alder,
+        barnFnr: hentBrukerData.fnr,
       }))
     }
   }, [hentBrukerData])
@@ -63,9 +63,9 @@ export function Krav() {
     return (
       <Brukervilkår
         loading={brukerVilkårLoading}
-        onGodta={() => {
-          godtaBrukervilkår({})
-          mutate()
+        onGodta={async () => {
+          await godtaBrukervilkår({})
+          await mutate()
         }}
       />
     )
@@ -106,7 +106,7 @@ export function Krav() {
             <Heading level="2" size="medium" spacing>
               Om barnet
             </Heading>
-            <HentBrukerForm
+            <HentBarnForm
               onValid={async ({ fnr }) => {
                 await hentBruker({ fnr })
               }}

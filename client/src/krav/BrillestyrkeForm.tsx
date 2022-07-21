@@ -7,10 +7,10 @@ import { usePost } from '../usePost'
 import { Øye } from './Øye'
 
 export interface BrillestyrkeFormData {
-  høyreSfære: string
-  høyreSylinder: string
-  venstreSfære: string
-  venstreSylinder: string
+  høyreSfære: number | ''
+  høyreSylinder: number | ''
+  venstreSfære: number | ''
+  venstreSylinder: number | ''
 }
 
 export function BrillestyrkeForm() {

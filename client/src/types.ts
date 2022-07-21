@@ -47,10 +47,10 @@ export interface Virksomhet {
 }
 
 export interface Brilleseddel {
-  høyreSfære: string
-  høyreSylinder: string
-  venstreSfære: string
-  venstreSylinder: string
+  høyreSfære: number | ''
+  høyreSylinder: number | ''
+  venstreSfære: number | ''
+  venstreSylinder: number | ''
 }
 
 export interface BeregnSatsRequest extends Brilleseddel {}
@@ -58,7 +58,7 @@ export interface BeregnSatsRequest extends Brilleseddel {}
 export interface BeregnSatsResponse {
   sats: SatsType
   satsBeskrivelse: string
-  satsBeløp: string
+  satsBeløp: number
 }
 
 export interface Vilkårsgrunnlag {
@@ -66,7 +66,7 @@ export interface Vilkårsgrunnlag {
   fnrBarn: string
   brilleseddel: Brilleseddel
   bestillingsdato: string
-  brillepris: number
+  brillepris: string
 }
 
 export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
@@ -75,7 +75,7 @@ export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
   sats: SatsType
   satsBeskrivelse: string
-  satsBeløp: string
+  satsBeløp: number
   beløp: string
 }
 
@@ -101,7 +101,7 @@ export interface OpprettKravResponse {
   bestillingsreferanse: string
   behandlingsresultat: string
   sats: string
-  satsBeløp: string
+  satsBeløp: number
   satsBeskrivelse: string
   beløp: string
   opprettet: string

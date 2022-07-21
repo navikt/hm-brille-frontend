@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
+import { dato } from '../dato'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
 import { usePost } from '../usePost'
@@ -19,21 +20,17 @@ export function KravOppsummering() {
     loading: vilkårsvurderingLoading,
   } = usePost<VilkårsgrunnlagRequest, VilkårsgrunnlagResponse>('/vilkarsgrunnlag')
 
-  const formaterDato = (datoString: string): string => {
-    const [day, month, year] = datoString.split('.')
-    return `${year}-${month}-${day}`
-  }
-
   const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
     orgnr: appState.orgnr,
-    fnrBarn: appState.innbyggerFnr,
+    fnrBarn: appState.barnFnr,
     brilleseddel: appState.brillestyrke,
-    bestillingsdato: formaterDato(appState.bestillingsdato),
-    brillepris: parseFloat(appState.brillepris),
+    bestillingsdato: dato.tilISO(appState.bestillingsdato),
+    brillepris: appState.brillepris.replace(',', '.'),
   }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
+    // noinspection JSIgnoredPromiseFromCall
     vurderVilkår(vilkårsgrunnlag)
   }, [])
 
@@ -49,9 +46,9 @@ export function KravOppsummering() {
         Barn
       </Heading>
       <Data>
-        <Datum label="Fødselsnummer">{appState.innbyggerFnr}</Datum>
-        <Datum label="Navn">{appState.innbyggerNavn}</Datum>
-        <Datum label="Alder">{appState.innbyggerAlder}</Datum>
+        <Datum label="Fødselsnummer">{appState.barnFnr}</Datum>
+        <Datum label="Navn">{appState.barnNavn}</Datum>
+        <Datum label="Alder">{appState.barnAlder}</Datum>
       </Data>
       <Heading level="2" size="medium">
         Brillestyrke
@@ -77,19 +74,21 @@ export function KravOppsummering() {
         <Datum label="Organisasjonsnummer">{appState.orgnr}</Datum>
         <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
         <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
-        <Datum label="Pris på brille">{vilkårsgrunnlag.brillepris}</Datum>
+        <Datum label="Pris på brille">{appState.brillepris}</Datum>
         <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
       </Data>
       <Avstand paddingBottom={5} paddingTop={5}>
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
-            <BodyLong>Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn krav om direkte oppgjør. </BodyLong>
+            <BodyLong>
+              Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn krav om direkte oppgjør.{' '}
+            </BodyLong>
             <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
           </Alert>
         ) : (
           <Alert variant="info">
             <Heading level="2" spacing size="small">{`Brillestøtte på ${vilkårsvurdering.beløp} kroner`}</Heading>
-            {vilkårsvurdering.beløp < vilkårsvurdering.satsBeløp ? (
+            {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
               <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
             ) : (
               <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${

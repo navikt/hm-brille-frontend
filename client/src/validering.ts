@@ -1,27 +1,21 @@
 import { fnr } from '@navikt/fnrvalidator'
+import { isValid } from 'date-fns'
+import { dato } from './dato'
 
-export function validerFnr(value: string): string | true {
-  const resultat = fnr(value)
-  if (resultat.status === 'invalid') {
-    return 'Ugyldig fødselsnummer'
-  }
-  return true
+export const validering = {
+  fnr(verdi: string): boolean {
+    return fnr(verdi).status === 'valid'
+  },
+  dato(verdi: string): boolean {
+    return isValid(dato.tilDate(verdi))
+  },
+  beløp(verdi: string): boolean {
+    return /^\d+(,\d{1,2})?$/.test(verdi)
+  },
 }
 
-export function validerDato(datoString: string): boolean {
-  // dd.mm.yyyy
-  const datoRegexp = new RegExp(/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/)
-  return datoRegexp.test(datoString)
-}
-
-export function validerPris(prisString: string): boolean {
-  if (typeof prisString !== 'string') return false
-
-  if (prisString.trim() === '') {
-    return false
+export function validator(test: (verdi: string) => boolean, error: string): (verdi: string) => true | string {
+  return (verdi) => {
+    return test(verdi) || error
   }
-
-  const num = Number(prisString)
-
-  return !Number.isNaN(num) && num > 0
 }

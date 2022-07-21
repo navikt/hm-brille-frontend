@@ -6,14 +6,14 @@ import { KravSteg } from './KravSteg'
 
 export interface BrukervilkårProps {
   loading: boolean
-  onGodta: Function
+
+  onGodta(): Promise<void>
 }
 
 export function Brukervilkår(props: BrukervilkårProps) {
   const { loading, onGodta } = props
 
   const {
-    register,
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -45,7 +45,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
       <BodyLong spacing>
         Første gangen du skal sende inn et krav, inngår du en avtale med NAV om bruk av løsningen.
       </BodyLong>
-      <form onSubmit={handleSubmit(async (data) => await onGodta())}>
+      <form onSubmit={handleSubmit(async () => onGodta())}>
         <Controller
           control={control}
           name="godtatt"
@@ -65,8 +65,18 @@ export function Brukervilkår(props: BrukervilkårProps) {
         />
         <Avstand marginBottom={5} />
         <Knapper>
-          <Button type="submit">Godta</Button>
-          <Button variant="tertiary">Avbryt</Button>
+          <Button type="submit" loading={isSubmitting}>
+            Godta
+          </Button>
+          <Button
+            variant="tertiary"
+            type="button"
+            onClick={() => {
+              window.location.href = 'https://nav.no/barnebriller'
+            }}
+          >
+            Avbryt
+          </Button>
         </Knapper>
       </form>
     </KravSteg>

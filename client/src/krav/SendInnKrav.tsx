@@ -37,7 +37,7 @@ export function SendInnKrav(props: SendInnKravProps) {
           return await sendInnKrav({
             vilkårsgrunnlag: props.vilkårsgrunnlag,
             bestillingsreferanse: appState.bestillingsreferanse,
-            brukersNavn: appState.innbyggerNavn,
+            brukersNavn: appState.barnNavn,
             orgNavn: appState.orgNavn,
             orgAdresse: appState.orgAdresse,
           })

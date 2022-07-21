@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
-import { BrillestyrkeFormData } from '../krav/BrillestyrkeForm'
+import type { Brilleseddel } from '../types'
 
 export interface AppState {
   orgnr: string
   orgNavn: string
   orgAdresse: string
-  innbyggerFnr: string
-  innbyggerNavn: string
-  innbyggerAlder?: number
-  brillestyrke: BrillestyrkeFormData
+  barnFnr: string
+  barnNavn: string
+  barnAlder?: number
+  brillestyrke: Brilleseddel
   bestillingsdato: string
   bestillingsreferanse: string
   brillepris: string
@@ -25,8 +25,8 @@ export const initialAppState: AppState = {
   orgnr: '',
   orgNavn: '',
   orgAdresse: '',
-  innbyggerFnr: '',
-  innbyggerNavn: '',
+  barnFnr: '',
+  barnNavn: '',
   bestillingsreferanse: '',
   brillestyrke: {
     høyreSfære: '',

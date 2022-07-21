@@ -5,33 +5,33 @@ const satser: Record<SatsType, BeregnSatsResponse> = {
     sats: SatsType.SATS_1,
     satsBeskrivelse:
       'Briller med sfærisk styrke på minst ett glass ≥ 1,00D ≤ 4,00D og/eller cylinderstyrke ≥ 1,00D ≤ 4,00D',
-    satsBeløp: '750',
+    satsBeløp: 750,
   },
   [SatsType.SATS_2]: {
     sats: SatsType.SATS_2,
     satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 4,25D ≤ 6,00D og cylinderstyrke ≤ 4,00D',
-    satsBeløp: '1950',
+    satsBeløp: 1950,
   },
   [SatsType.SATS_3]: {
     sats: SatsType.SATS_3,
     satsBeskrivelse:
       'Briller med sfærisk styrke på minst ett glass ≥ 6,25D ≤ 8,00D og/eller cylinderstyrke ≥ 4,25D ≤ 6,00D',
-    satsBeløp: '2650',
+    satsBeløp: 2650,
   },
   [SatsType.SATS_4]: {
     sats: SatsType.SATS_4,
     satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 8,25D ≤ 10,00D og cylinderstyrke ≤ 6,00D',
-    satsBeløp: '3150',
+    satsBeløp: 3150,
   },
   [SatsType.SATS_5]: {
     sats: SatsType.SATS_5,
     satsBeskrivelse: 'Briller med sfærisk styrke på minst ett glass ≥ 10,25D og/eller cylinderstyrke ≥ 6,25D',
-    satsBeløp: '4850',
+    satsBeløp: 4850,
   },
   [SatsType.INGEN]: {
     sats: SatsType.INGEN,
     satsBeskrivelse: 'N/A',
-    satsBeløp: '0',
+    satsBeløp: 0,
   },
 }
 
@@ -63,6 +63,6 @@ export function beregnSats(
   const sats = satser[satsType]
   return {
     ...sats,
-    beløp: Math.min(Number(brillepris), Number(sats.satsBeløp)).toString(),
+    beløp: Math.min(Number(brillepris), sats.satsBeløp).toString(),
   }
 }
