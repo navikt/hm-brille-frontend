@@ -6,13 +6,16 @@ import { ApplicationProvider } from './state/ApplicationContext'
 import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
+import {IkkeAutorisert} from "./IkkeAutorisert";
 
 export function App() {
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => {
         if (isHttpError(error)) {
-          return <Feilside status={error.status} error={error} />
+            if(error.status === 403){
+                return <IkkeAutorisert/>
+            } else return <Feilside status={error.status} error={error} />
         } else {
           return <Feilside status={500} error={error} />
         }
