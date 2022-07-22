@@ -82,7 +82,7 @@ export function KravOppsummering() {
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
             <BodyLong>
-              Barnet oppfyller ikke <DsLink href="todo">vilkårene</DsLink> for å sende inn krav om direkte oppgjør.{' '}
+              Barnet oppfyller ikke <DsLink href="https://nav.no/briller-til-barn" target="_blank">vilkårene</DsLink> for å sende inn krav om direkte oppgjør.
             </BodyLong>
             <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
           </Alert>
