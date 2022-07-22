@@ -72,10 +72,23 @@ const handlers: RequestHandler[] = [
           aktiv: true
         },
         tidligereBrukteOrganisasjoner: [
+            
           {
             orgnr: '123456789',
             navn: 'Brillehuset Kristiansand',
             adresse: 'Kristiansandveien 123',
+            aktiv: true
+          },
+          {
+            orgnr: '112233445',
+            navn: 'Klokker, gull og armatur AS',
+            adresse: 'Strømmensveien 123',
+            aktiv: true
+          },
+          {
+            orgnr: '54433221',
+            navn: 'Brillelsjø AS',
+            adresse: 'Brillefinveien 123',
             aktiv: true
           },
         ],

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { dato } from '../dato'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
@@ -71,7 +72,7 @@ export function KravOppsummering() {
         Annet
       </Heading>
       <Data>
-        <Datum label="Organisasjonsnummer">{appState.orgnr}</Datum>
+        <Datum label="Organisasjonsnummer">{organisasjonsnummer(appState.orgnr)}</Datum>
         <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
         <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
         <Datum label="Pris på brille">{appState.brillepris}</Datum>
