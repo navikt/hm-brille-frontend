@@ -42,7 +42,7 @@ export interface HarLestOgGodtattVilkårResponse {
 export interface Virksomhet {
   orgnr: string
   navn: string
-  aktiv: boolean,
+  aktiv: boolean
   adresse?: string
 }
 
@@ -107,7 +107,7 @@ export interface OpprettKravResponse {
   opprettet: string
 }
 
-export interface VirksomhetResponse  extends Virksomhet{}
+export interface VirksomhetResponse extends Virksomhet {}
 
 export interface Postadresse {
   postnummer: string
