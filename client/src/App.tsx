@@ -14,7 +14,6 @@ import { ApplicationProvider } from './state/ApplicationContext'
 export function App() {
 
     useEffect(() => {
-        // noinspection JSIgnoredPromiseFromCall
         setBreadcrumbs([
           { url: 'https://www.nav.no/barnebriller', title: 'Briller til barn – optikers rolle' },
           { url: baseUrl('/'), title: 'Krav om direkte oppgjør' },
