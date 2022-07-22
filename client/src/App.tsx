@@ -2,20 +2,20 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { Feilside } from './Feilside'
-import { ApplicationProvider } from './state/ApplicationContext'
+import { IkkeAutorisert } from './IkkeAutorisert'
 import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
-import {IkkeAutorisert} from "./IkkeAutorisert";
+import { ApplicationProvider } from './state/ApplicationContext'
 
 export function App() {
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => {
         if (isHttpError(error)) {
-            if(error.status === 403){
-                return <IkkeAutorisert/>
-            } else return <Feilside status={error.status} error={error} />
+          if (error.status === 403) {
+            return <IkkeAutorisert />
+          } else return <Feilside status={error.status} error={error} />
         } else {
           return <Feilside status={500} error={error} />
         }
