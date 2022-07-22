@@ -1,4 +1,5 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
@@ -6,15 +7,17 @@ import { Dato } from '../components/Dato'
 import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import ScrollToTop from '../components/ScrollToTop'
+import { useApplicationContext } from '../state/ApplicationContext'
 import { OpprettKravResponse } from '../types'
 import { useLocationState } from '../useLocationState'
 import { KravSteg } from './KravSteg'
 
-export interface KravKvitteringProps {}
-
-export function KravKvittering(props: KravKvitteringProps) {
-  const {} = props
+export function KravKvittering() {
+  const { resetAppState } = useApplicationContext()
   const { id, orgnr, bestillingsreferanse, beløp, opprettet } = useLocationState<OpprettKravResponse>()
+  useEffect(() => {
+    resetAppState()
+  }, [])
   return (
     <KravSteg>
       <ScrollToTop />

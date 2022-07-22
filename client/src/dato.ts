@@ -5,6 +5,6 @@ export const dato = {
     return parse(verdi, 'dd.MM.yyyy', new Date())
   },
   tilISO(verdi: string): string {
-    return formatISO(this.tilDate(verdi), { representation: 'date' })
+    return !verdi ? verdi : formatISO(this.tilDate(verdi), { representation: 'date' })
   },
 }

@@ -12,7 +12,7 @@ export interface SendInnKravProps {
 }
 
 export function SendInnKrav(props: SendInnKravProps) {
-  const { appState, resetAppState } = useApplicationContext()
+  const { appState } = useApplicationContext()
   const navigate = useNavigate()
 
   const {
@@ -40,8 +40,6 @@ export function SendInnKrav(props: SendInnKravProps) {
             brukersNavn: appState.barnNavn,
             orgNavn: appState.orgNavn,
             orgAdresse: appState.orgAdresse,
-          }).then(() => {
-            resetAppState()
           })
         }}
       >
