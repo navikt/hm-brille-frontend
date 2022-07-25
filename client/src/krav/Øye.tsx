@@ -27,7 +27,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
           required: 'Du må oppgi en verdi',
         }}
         render={({ field }) => (
-          <Select label="Sfære (SPH)" size="medium" error={errors.brillestyrke?.[`${type}Sfære`]?.message} {...field}>
+          <Select style={{maxWidth: '330px'}} label="Sfære (SPH)" size="medium" error={errors.brillestyrke?.[`${type}Sfære`]?.message} {...field}>
             <option value="">Velg sfære</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
@@ -45,6 +45,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         }}
         render={({ field }) => (
           <Select
+              style={{maxWidth: '330px'}}
             label="Sylinder (CYL)"
             size="medium"
             error={errors.brillestyrke?.[`${type}Sylinder`]?.message}
@@ -66,6 +67,10 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
 const ØyeEtikett = styled.div`
   justify-items: auto;
   align-self: center;
+`
+
+const StyrkeSelect = styled.select`
+  max-width: 330px;
 `
 
 const Grid = styled.div`
