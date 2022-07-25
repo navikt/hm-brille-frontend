@@ -5,6 +5,7 @@ import { capitalize } from '../common/stringFormating'
 import type { Brilleseddel } from '../types'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
+import {enhet} from "../enhet";
 
 export function Øye(props: { type: 'venstre' | 'høyre' }) {
   const { type } = props
@@ -74,6 +75,9 @@ const Grid = styled.div`
   padding-top: var(--navds-spacing-3);
   padding-bottom: var(--navds-spacing-3);
   align-items: start;
+  @media ${enhet.mobil} {
+    grid-template-columns: 100%;
+  }
 `
 
 function range(start: number, stop: number, step: number = 0.25): number[] {
