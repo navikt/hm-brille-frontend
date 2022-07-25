@@ -2,7 +2,7 @@ import { Heading, Select } from '@navikt/ds-react'
 import { Controller, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
-import type { BrillestyrkeFormData } from './BrillestyrkeForm'
+import type { Brilleseddel } from '../types'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
 
@@ -11,7 +11,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
   const {
     control,
     formState: { errors },
-  } = useFormContext<{ brillestyrke: BrillestyrkeFormData }>()
+  } = useFormContext<{ brillestyrke: Brilleseddel }>()
   return (
     <Grid>
       <ØyeEtikett>
@@ -30,7 +30,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             <option value="">Velg sfære</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
-                <FormatertStyrke verdi={it} max={MAX_SFÆRE} />
+                <FormatertStyrke verdi={it} type="sfære" />
               </option>
             ))}
           </Select>
@@ -52,7 +52,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             <option value="">Velg sylinder</option>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
-                <FormatertStyrke verdi={-it} max={MAX_SYLINDER} minus />
+                <FormatertStyrke verdi={it} type="sylinder" />
               </option>
             ))}
           </Select>

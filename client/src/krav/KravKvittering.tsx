@@ -2,6 +2,7 @@ import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
+import { Beløp } from '../components/Beløp'
 import { Data } from '../components/Data'
 import { Dato } from '../components/Dato'
 import { Datum } from '../components/Datum'
@@ -14,10 +15,14 @@ import { KravSteg } from './KravSteg'
 
 export function KravKvittering() {
   const { resetAppState } = useApplicationContext()
-  const { id, orgnr, bestillingsreferanse, beløp, opprettet } = useLocationState<OpprettKravResponse>()
+  const state = useLocationState<OpprettKravResponse>()
   useEffect(() => {
     resetAppState()
   }, [])
+  if (!state) {
+    return null
+  }
+  const { id, orgnr, bestillingsreferanse, beløp, opprettet } = state
   return (
     <KravSteg>
       <ScrollToTop />
@@ -35,7 +40,9 @@ export function KravKvittering() {
         <Datum label="Innsendt dato">
           <Dato verdi={opprettet}></Dato>
         </Datum>
-        <Datum label="Beløp til utbetaling">{`${beløp} kr`}</Datum>
+        <Datum label="Beløp til utbetaling">
+          <Beløp verdi={beløp} />
+        </Datum>
         <Datum label="Deres referansenr.">{bestillingsreferanse}</Datum>
         <Datum label="NAVs referansenr.">{id}</Datum>
       </Data>

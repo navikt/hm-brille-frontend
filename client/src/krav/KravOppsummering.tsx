@@ -1,5 +1,6 @@
 import { Alert, BodyLong, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { beløp } from '../beløp'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
@@ -8,7 +9,6 @@ import { dato } from '../dato'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
 import { usePost } from '../usePost'
-import { MAX_SFÆRE, MAX_SYLINDER } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
 import { KravSteg } from './KravSteg'
 import { SendInnKrav } from './SendInnKrav'
@@ -26,7 +26,7 @@ export function KravOppsummering() {
     fnrBarn: appState.barnFnr,
     brilleseddel: appState.brillestyrke,
     bestillingsdato: dato.tilISO(appState.bestillingsdato),
-    brillepris: appState.brillepris.replace(',', '.'),
+    brillepris: beløp.byttDesimaltegn(appState.brillepris),
   }
 
   useEffect(() => {
@@ -56,16 +56,16 @@ export function KravOppsummering() {
       </Heading>
       <Data>
         <Datum label="Høyre sfære">
-          <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} max={MAX_SFÆRE} />
+          <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære" />
         </Datum>
         <Datum label="Høyre sylinder">
-          <FormatertStyrke verdi={appState.brillestyrke.høyreSylinder} max={MAX_SYLINDER} minus />
+          <FormatertStyrke verdi={appState.brillestyrke.høyreSylinder} type="sylinder" />
         </Datum>
         <Datum label="Venstre sfære">
-          <FormatertStyrke verdi={appState.brillestyrke.venstreSfære} max={MAX_SFÆRE} />
+          <FormatertStyrke verdi={appState.brillestyrke.venstreSfære} type="sfære" />
         </Datum>
         <Datum label="Venstre sylinder">
-          <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} max={MAX_SYLINDER} minus />
+          <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} type="sylinder" />
         </Datum>
       </Data>
       <Heading level="2" size="medium">
@@ -82,13 +82,19 @@ export function KravOppsummering() {
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
             <BodyLong>
-              Barnet oppfyller ikke <DsLink href="https://nav.no/briller-til-barn" target="_blank">vilkårene</DsLink> for å sende inn krav om direkte oppgjør.
+              Barnet oppfyller ikke&nbsp;
+              <DsLink href="https://nav.no/briller-til-barn" target="_blank">
+                vilkårene
+              </DsLink>
+              &nbsp;for å sende inn krav om direkte oppgjør.
             </BodyLong>
             <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
           </Alert>
         ) : (
           <Alert variant="info">
-            <Heading level="2" spacing size="small">{`Brillestøtte på ${vilkårsvurdering.beløp} kroner`}</Heading>
+            <Heading level="2" spacing size="small">{`Brillestøtte på ${beløp.formater(
+              vilkårsvurdering.beløp
+            )}`}</Heading>
             {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
               <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
             ) : (

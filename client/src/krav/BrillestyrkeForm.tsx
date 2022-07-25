@@ -1,48 +1,11 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
-import { useEffect, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
 import { Avstand } from '../components/Avstand'
-import { BeregnSatsRequest, BeregnSatsResponse, SatsType } from '../types'
-import { usePost } from '../usePost'
+import { SatsType } from '../types'
+import { useBeregning } from './useBeregning'
 import { Øye } from './Øye'
 
-export interface BrillestyrkeFormData {
-  høyreSfære: number | ''
-  høyreSylinder: number | ''
-  venstreSfære: number | ''
-  venstreSylinder: number | ''
-}
-
 export function BrillestyrkeForm() {
-  const { watch } = useFormContext<{ brillestyrke: BrillestyrkeFormData }>()
-  const høyreSfære = watch('brillestyrke.høyreSfære')
-  const høyreSylinder = watch('brillestyrke.høyreSylinder')
-  const venstreSfære = watch('brillestyrke.venstreSfære')
-  const venstreSylinder = watch('brillestyrke.venstreSylinder')
-
-  const { post: beregnSats, data: beregning } = usePost<BeregnSatsRequest, BeregnSatsResponse>('/brillesedler')
-  const [visBeregning, setVisBeregning] = useState(false)
-
-  useEffect(() => {
-    if (høyreSfære && høyreSylinder && venstreSfære && venstreSylinder) {
-      beregnSats({
-        høyreSfære,
-        høyreSylinder,
-        venstreSfære,
-        venstreSylinder,
-      })
-        .then(() => {
-          setVisBeregning(true)
-        })
-        .catch((err: unknown) => {
-          console.error(err)
-          setVisBeregning(false)
-        })
-    } else if (visBeregning) {
-      setVisBeregning(false)
-    }
-  }, [høyreSfære, høyreSylinder, venstreSfære, venstreSylinder])
-
+  const beregning = useBeregning()
   return (
     <>
       <Avstand paddingBottom={5} paddingTop={5}>
@@ -53,7 +16,7 @@ export function BrillestyrkeForm() {
         <Øye type="høyre" />
         <Øye type="venstre" />
       </Avstand>
-      {visBeregning && beregning && (
+      {beregning && (
         <Avstand paddingBottom={5} paddingTop={5}>
           {beregning.sats === SatsType.INGEN ? (
             <Alert variant="warning">

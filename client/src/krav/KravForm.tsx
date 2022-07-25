@@ -6,12 +6,13 @@ import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
 import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
+import { Brilleseddel } from '../types'
 import { validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
-import { BrillestyrkeForm, BrillestyrkeFormData } from './BrillestyrkeForm'
+import { BrillestyrkeForm } from './BrillestyrkeForm'
 
 export interface KravFormData {
-  brillestyrke: BrillestyrkeFormData
+  brillestyrke: Brilleseddel
   bestillingsdato: string
   brillepris: string
   bestillingsreferanse: string
@@ -41,10 +42,7 @@ export function KravForm() {
           onSubmit={methods.handleSubmit((data) => {
             setAppState((prev) => ({
               ...prev,
-              bestillingsdato: data.bestillingsdato,
-              brillepris: data.brillepris,
-              brillestyrke: data.brillestyrke,
-              bestillingsreferanse: data.bestillingsreferanse,
+              ...data,
             }))
             navigate('/krav/oppsummering')
           })}

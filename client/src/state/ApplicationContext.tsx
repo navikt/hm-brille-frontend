@@ -10,8 +10,8 @@ export interface AppState {
   barnAlder?: number
   brillestyrke: Brilleseddel
   bestillingsdato: string
-  bestillingsreferanse: string
   brillepris: string
+  bestillingsreferanse: string
 }
 
 interface IApplicationContext {
@@ -27,7 +27,6 @@ export const initialAppState: AppState = {
   orgAdresse: '',
   barnFnr: '',
   barnNavn: '',
-  bestillingsreferanse: '',
   brillestyrke: {
     høyreSfære: '',
     høyreSylinder: '',
@@ -36,6 +35,7 @@ export const initialAppState: AppState = {
   },
   bestillingsdato: '',
   brillepris: '',
+  bestillingsreferanse: '',
 }
 
 const ApplicationContext = React.createContext<IApplicationContext>({

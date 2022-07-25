@@ -35,10 +35,7 @@ const satser: Record<SatsType, BeregnSatsResponse> = {
   },
 }
 
-export function beregnSats(
-  brilleseddel: Brilleseddel,
-  brillepris: number | string = 0
-): BeregnSatsResponse & { beløp: string } {
+export function beregnSats(brilleseddel: Brilleseddel, brillepris?: string): BeregnSatsResponse & { beløp: string } {
   const høyreSfære = Number(brilleseddel.høyreSfære)
   const høyreSylinder = Number(brilleseddel.høyreSylinder)
   const venstreSfære = Number(brilleseddel.venstreSfære)
@@ -63,6 +60,6 @@ export function beregnSats(
   const sats = satser[satsType]
   return {
     ...sats,
-    beløp: Math.min(Number(brillepris), sats.satsBeløp).toString(),
+    beløp: (brillepris ? Math.min(Number(brillepris), sats.satsBeløp) : sats.satsBeløp).toString(),
   }
 }
