@@ -20,7 +20,7 @@ export function HentBarnForm(props: HentBarnFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<HentBarnFormData>({ defaultValues: { fnr: '' } })
   return (
-    <form onSubmit={handleSubmit(onValid, onInvalid)} role="search">
+    <form onSubmit={handleSubmit(onValid, onInvalid)} role="search" autoComplete="off">
       <Controller
         control={control}
         name="fnr"

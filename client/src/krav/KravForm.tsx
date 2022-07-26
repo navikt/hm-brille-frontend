@@ -46,6 +46,7 @@ export function KravForm() {
             }))
             navigate('/krav/oppsummering')
           })}
+          autoComplete="off"
         >
           <Avstand paddingBottom={5} paddingTop={5}>
             <BrillestyrkeForm />

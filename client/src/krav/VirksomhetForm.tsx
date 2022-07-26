@@ -32,7 +32,7 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
 
   return (
     <>
-      <form role="search" onSubmit={(e) => e.preventDefault()}>
+      <form role="search" onSubmit={(e) => e.preventDefault()} autoComplete="off">
         <SøkContainer>
           <Tekstfelt
             label="Organisasjonsnummer"
