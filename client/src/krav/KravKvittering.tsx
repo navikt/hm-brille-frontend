@@ -12,7 +12,6 @@ import {useApplicationContext} from '../state/ApplicationContext'
 import {OpprettKravResponse} from '../types'
 import {useLocationState} from '../useLocationState'
 import {KravSteg} from './KravSteg'
-import {HotjarTrigger} from "../components/hotjar-trigger";
 
 export function KravKvittering() {
     const {resetAppState} = useApplicationContext()
@@ -20,37 +19,49 @@ export function KravKvittering() {
     useEffect(() => {
         resetAppState()
     }, [])
+
+    useEffect(() => {
+        console.log('hotjar 0')
+        window.hj =
+            window.hj ||
+            function () {
+                ;(window.hj.q = window.hj.q || []).push(arguments)
+            }
+        if (window.appSettings.MILJO !== 'labs-gcp') {
+            console.log('hotjar 1')
+            window.hj('trigger', 'digihot_hm_brille_api_krav')
+        }
+    })
+
     if (!state) {
         return null
     }
     const {id, orgnr, bestillingsreferanse, beløp, opprettet} = state
     return (
-        <HotjarTrigger>
-            <KravSteg>
-                <ScrollToTop/>
-                <Alert variant="success">Kravet er registrert</Alert>
-                <Avstand marginBottom={5}/>
-                <BodyLong spacing>
-                    Kravet om direkte oppgjør er automatisk registrert. NAV utbetaler stønaden til firmaets kontonummer
-                    senest 30
-                    dager etter at kravet er registrert.
-                </BodyLong>
-                <Heading level="2" size="medium">
-                    Kvittering
-                </Heading>
-                <Data labelColumnWidth={150}>
-                    <Datum label="Org. nummer">{organisasjonsnummer(orgnr)}</Datum>
-                    <Datum label="Innsendt dato">
-                        <Dato verdi={opprettet}></Dato>
-                    </Datum>
-                    <Datum label="Beløp til utbetaling">
-                        <Beløp verdi={beløp}/>
-                    </Datum>
-                    <Datum label="Deres referansenr.">{bestillingsreferanse}</Datum>
-                    <Datum label="NAVs referansenr.">{id}</Datum>
-                </Data>
-                <Link to="/">Til forsiden</Link>
-            </KravSteg>
-        </HotjarTrigger>
+        <KravSteg>
+            <ScrollToTop/>
+            <Alert variant="success">Kravet er registrert</Alert>
+            <Avstand marginBottom={5}/>
+            <BodyLong spacing>
+                Kravet om direkte oppgjør er automatisk registrert. NAV utbetaler stønaden til firmaets kontonummer
+                senest 30
+                dager etter at kravet er registrert.
+            </BodyLong>
+            <Heading level="2" size="medium">
+                Kvittering
+            </Heading>
+            <Data labelColumnWidth={150}>
+                <Datum label="Org. nummer">{organisasjonsnummer(orgnr)}</Datum>
+                <Datum label="Innsendt dato">
+                    <Dato verdi={opprettet}></Dato>
+                </Datum>
+                <Datum label="Beløp til utbetaling">
+                    <Beløp verdi={beløp}/>
+                </Datum>
+                <Datum label="Deres referansenr.">{bestillingsreferanse}</Datum>
+                <Datum label="NAVs referansenr.">{id}</Datum>
+            </Data>
+            <Link to="/">Til forsiden</Link>
+        </KravSteg>
     )
 }
