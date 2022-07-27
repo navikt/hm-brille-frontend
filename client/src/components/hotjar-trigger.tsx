@@ -17,7 +17,7 @@ export const HotjarTrigger = ({ children }: HotjarTriggerProps) => {
             function () {
                 ;(window.hj.q = window.hj.q || []).push(arguments)
             }
-        if (window.appSettings.MILJO !== 'labs-gcp' && window.appSettings.MILJO !== 'dev-gcp') {
+        if (window.appSettings.MILJO !== 'labs-gcp') {
             window.hj('trigger', 'digihot_hm_brille_api_krav')
         }
     })
