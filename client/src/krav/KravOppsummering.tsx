@@ -40,7 +40,9 @@ export function KravOppsummering() {
     if (vilkårsvurderingLoading) {
         return (
             <LoaderContainer>
-                <Loader/>
+                <Avstand paddingBottom={5} paddingTop={5}>
+                    <Loader/>
+                </Avstand>
             </LoaderContainer>
         )
     }
