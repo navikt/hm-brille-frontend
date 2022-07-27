@@ -20,19 +20,6 @@ export function KravKvittering() {
         resetAppState()
     }, [])
 
-    useEffect(() => {
-        console.log('hotjar 0')
-        window.hj =
-            window.hj ||
-            function () {
-                ;(window.hj.q = window.hj.q || []).push(arguments)
-            }
-        if (window.appSettings.MILJO !== 'labs-gcp') {
-            console.log('hotjar 1')
-            window.hj('trigger', 'digihot_hm_brille_api_krav')
-        }
-    })
-
     if (!state) {
         return null
     }
