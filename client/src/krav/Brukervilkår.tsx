@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
 import { KravSteg } from './KravSteg'
+import {LoaderContainer} from "../components/LoaderContainer";
 
 export interface BrukervilkårProps {
   loading: boolean
@@ -24,7 +25,11 @@ export function Brukervilkår(props: BrukervilkårProps) {
   })
 
   if (loading) {
-    return <Loader />
+      return (
+          <LoaderContainer>
+              <Loader/>
+          </LoaderContainer>
+      )
   }
 
   return (

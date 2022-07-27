@@ -12,6 +12,8 @@ import {usePost} from '../usePost'
 import {FormatertStyrke} from './FormatertStyrke'
 import {KravSteg} from './KravSteg'
 import {SendInnKrav} from './SendInnKrav'
+import styled from "styled-components";
+import {LoaderContainer} from "../components/LoaderContainer";
 
 export function KravOppsummering() {
     const {appState} = useApplicationContext()
@@ -37,13 +39,9 @@ export function KravOppsummering() {
 
     if (vilkårsvurderingLoading) {
         return (
-            <>
-                <Loader
-                    variant="neutral"
-                    size="3xlarge"
-                    title="venter..."
-                />
-            </>
+            <LoaderContainer>
+                <Loader/>
+            </LoaderContainer>
         )
     }
     if (!vilkårsvurdering) {

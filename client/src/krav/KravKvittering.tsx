@@ -18,17 +18,6 @@ export function KravKvittering() {
     const state = useLocationState<OpprettKravResponse>()
 
     useEffect(() => {
-        window.hj =
-            window.hj ||
-            function () {
-                ;(window.hj.q = window.hj.q || []).push(arguments)
-            }
-        if (window.appSettings.MILJO !== 'labs-gcp') {
-            window.hj('trigger', 'digihot_hm_brille_api_krav')
-        }
-    })
-
-    useEffect(() => {
         resetAppState()
     }, [])
 
