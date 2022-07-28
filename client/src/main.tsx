@@ -8,6 +8,7 @@ import {App} from './App'
 import {GlobalStyle} from './GlobalStyle'
 import {baseUrl, http} from './http'
 import {initMSW} from './mocks/initMSW'
+import {HotjarTrigger} from "./components/hotjar-trigger";
 
 const swrConfig: SWRConfiguration = {
     async fetcher(url: string) {
@@ -25,7 +26,9 @@ initMSW().then(() => {
             <GlobalStyle/>
             <SWRConfig value={swrConfig}>
                 <BrowserRouter basename={baseUrl()}>
-                    <App/>
+                    <HotjarTrigger>
+                        <App/>
+                    </HotjarTrigger>
                 </BrowserRouter>
             </SWRConfig>
         </React.StrictMode>
