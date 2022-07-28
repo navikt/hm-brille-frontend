@@ -1,5 +1,4 @@
 import {useEffect} from 'react'
-import {useLocation} from "react-router-dom";
 
 declare global {
     interface Window {
@@ -8,25 +7,22 @@ declare global {
 }
 
 interface HotjarTriggerProps {
-    children: any;
+    timeout: number;
 }
 
-export const HotjarTrigger = ({children}: HotjarTriggerProps) => {
-
-    const location = useLocation()
+export const HotjarTrigger = ({timeout}: HotjarTriggerProps) => {
 
     useEffect(() => {
-        console.log(`location: ${location.pathname}`)
-        window.hj =
-            window.hj ||
-            function () {
-                ;(window.hj.q = window.hj.q || []).push(arguments)
+        setTimeout(() => {
+            window.hj =
+                window.hj ||
+                function () {
+                    ;(window.hj.q = window.hj.q || []).push(arguments)
+                }
+            if (window.appSettings.MILJO !== 'labs-gcp') {
+                console.log(`HotJar trigger`)
+                window.hj('trigger', 'digihot_hm_brille_api_krav')
             }
-        //if (window.appSettings.MILJO !== 'labs-gcp' && location.pathname === "/krav/kvittering") {
-            console.log(`HotJar trigger`)
-            window.hj('trigger', 'digihot_hm_brille_api_krav')
-       // }
+        }, timeout)
     }, [])
-
-    return children
 }
