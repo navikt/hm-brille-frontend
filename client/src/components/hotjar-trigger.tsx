@@ -26,7 +26,7 @@ export const HotjarTrigger = ({children}: HotjarTriggerProps) => {
             console.log(`HotJar trigger`)
             window.hj('trigger', 'digihot_hm_brille_api_krav')
        // }
-    })
+    }, [])
 
     return children
 }
