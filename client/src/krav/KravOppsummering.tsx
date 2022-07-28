@@ -94,7 +94,7 @@ export function KravOppsummering() {
                     <Alert variant="warning">
                         <BodyLong>
                             Barnet oppfyller ikke&nbsp;
-                            <DsLink href="https://nav.no/briller-til-barn" target="_blank">
+                            <DsLink href="https://nav.no/briller-til-barn#hvem" target="_blank">
                                 vilkårene
                             </DsLink>
                             &nbsp;for å sende inn krav om direkte oppgjør.
