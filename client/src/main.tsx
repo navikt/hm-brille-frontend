@@ -26,9 +26,7 @@ initMSW().then(() => {
             <GlobalStyle/>
             <SWRConfig value={swrConfig}>
                 <BrowserRouter basename={baseUrl()}>
-                    <HotjarTrigger>
-                        <App/>
-                    </HotjarTrigger>
+                    <App/>
                 </BrowserRouter>
             </SWRConfig>
         </React.StrictMode>
