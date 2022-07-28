@@ -22,10 +22,10 @@ export const HotjarTrigger = ({children}: HotjarTriggerProps) => {
             function () {
                 ;(window.hj.q = window.hj.q || []).push(arguments)
             }
-        if (window.appSettings.MILJO !== 'labs-gcp' && location.pathname === "/krav/kvittering") {
+        //if (window.appSettings.MILJO !== 'labs-gcp' && location.pathname === "/krav/kvittering") {
             console.log(`HotJar trigger`)
             window.hj('trigger', 'digihot_hm_brille_api_krav')
-        }
+       // }
     })
 
     return children
