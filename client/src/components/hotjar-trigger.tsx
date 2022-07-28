@@ -16,7 +16,7 @@ export const HotjarTrigger = ({ children }: HotjarTriggerProps) => {
     const location = useLocation()
 
     useEffect(() => {
-
+        console.log(`location: ${location.pathname}`)
         if(location.pathname === "/krav/kvittering"){
             window.hj =
                 window.hj ||
