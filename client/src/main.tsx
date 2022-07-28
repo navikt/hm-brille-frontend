@@ -8,7 +8,6 @@ import {App} from './App'
 import {GlobalStyle} from './GlobalStyle'
 import {baseUrl, http} from './http'
 import {initMSW} from './mocks/initMSW'
-import {HotjarTrigger} from "./components/hotjar-trigger";
 
 const swrConfig: SWRConfiguration = {
     async fetcher(url: string) {
