@@ -19,7 +19,7 @@ export const HotjarTrigger = ({timeout}: HotjarTriggerProps) => {
                 function () {
                     ;(window.hj.q = window.hj.q || []).push(arguments)
                 }
-            if (window.appSettings.MILJO !== 'labs-gcp') {
+            if (window.appSettings.MILJO !== 'labs-gcp' && window.appSettings.MILJO !== 'dev-gcp') {
                 console.log(`HotJar trigger`)
                 window.hj('trigger', 'digihot_hm_brille_api_krav')
             }
