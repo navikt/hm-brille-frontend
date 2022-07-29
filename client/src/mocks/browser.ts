@@ -15,6 +15,7 @@ import {
   VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
+import {FeatureToggles} from "../FeatureToggleProvider";
 
 let godtattVilkår: boolean = false
 
@@ -165,6 +166,11 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+    rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json({
+            "hm.brille.feilbanner": true
+        }))
+    }),
 ]
 
 export const worker = setupWorker(...handlers)

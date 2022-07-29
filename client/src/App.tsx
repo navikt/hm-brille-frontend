@@ -10,6 +10,7 @@ import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
+import {FeatureToggleProvider} from "./FeatureToggleProvider";
 
 export function App() {
 
@@ -30,7 +31,7 @@ export function App() {
           return <Feilside status={500} error={error} />
         }
       }}
-    >
+    ><FeatureToggleProvider>
       <ApplicationProvider>
         <Routes>
           <Route path="/" element={<Krav />} />
@@ -40,6 +41,7 @@ export function App() {
           <Route path="*" element={<Feilside status={404} />} />
         </Routes>
       </ApplicationProvider>
+    </FeatureToggleProvider>
     </ErrorBoundary>
   )
 }
