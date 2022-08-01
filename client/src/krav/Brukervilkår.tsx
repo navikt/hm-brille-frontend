@@ -4,6 +4,7 @@ import {Avstand} from '../components/Avstand'
 import {Knapper} from '../components/Knapper'
 import {KravSteg} from './KravSteg'
 import {LoaderContainer} from "../components/LoaderContainer";
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
 
 export interface BrukervilkårProps {
     loading: boolean
@@ -42,7 +43,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
             <BodyLong spacing>
                 Her registrerer du krav om stønad til briller til barn, slik at firmaet du jobber i, får riktig
                 utbetaling. Du
-                kan lese mer om støtte til briller til barn på <Link href="https://nav.no/barnebriller">nav.no</Link>
+                kan lese mer om støtte til briller til barn på <LenkeMedLogging href="https://nav.no/barnebriller">nav.no</LenkeMedLogging>
             </BodyLong>
             Vilkår for å legge inn krav:
             <ul>

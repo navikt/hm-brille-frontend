@@ -5,6 +5,7 @@ import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { OpprettKravRequest, OpprettKravResponse, Vilkårsgrunnlag } from '../types'
 import { usePost } from '../usePost'
+import { logSkjemaFullfoert } from '../utils/amplitude'
 import { AvbrytKrav } from './AvbrytKrav'
 
 export interface SendInnKravProps {
@@ -34,13 +35,14 @@ export function SendInnKrav(props: SendInnKravProps) {
       <Button
         loading={sendInnKravLoading}
         onClick={async () => {
-          return await sendInnKrav({
+          await sendInnKrav({ // TODO kva skjer dersom denne feilar?
             vilkårsgrunnlag: props.vilkårsgrunnlag,
             bestillingsreferanse: appState.bestillingsreferanse,
             brukersNavn: appState.barnNavn,
             orgNavn: appState.orgNavn,
             orgAdresse: appState.orgAdresse,
           })
+          logSkjemaFullfoert()
         }}
       >
         Send inn kravet
