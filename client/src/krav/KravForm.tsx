@@ -7,6 +7,7 @@ import { Knapper } from '../components/Knapper'
 import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
+import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
 import { validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
@@ -40,6 +41,7 @@ export function KravForm() {
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit((data) => {
+            logSkjemastegFullfoert(SkjemaSteg.KRAV)
             setAppState((prev) => ({
               ...prev,
               ...data,
