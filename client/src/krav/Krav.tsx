@@ -12,6 +12,7 @@ import type {
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
+import { logSkjemaStartet } from '../utils/amplitude'
 import { Barn } from './Barn'
 import { Brukervilkår } from './Brukervilkår'
 import { HentBarnForm } from './HentBarnForm'
@@ -59,7 +60,17 @@ export function Krav() {
     }
   }, [hentBrukerData])
 
-  if (!lestOgGodtattVilkår || !lestOgGodtattVilkår.godtatt) {
+  const brukerHarLestOgGodtattVilkår = lestOgGodtattVilkår && lestOgGodtattVilkår.godtatt
+  
+  useEffect(() => {
+    // TODO kvifor kjører denne 2 gangar etter at ein har sendt inn eit krav?
+    console.log("useEffect", lestOgGodtattVilkår)
+    if (brukerHarLestOgGodtattVilkår) {
+      logSkjemaStartet()
+    }
+  }, [brukerHarLestOgGodtattVilkår])
+
+  if (!brukerHarLestOgGodtattVilkår) {
     return (
       <Brukervilkår
         loading={brukerVilkårLoading}
