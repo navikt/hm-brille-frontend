@@ -168,7 +168,7 @@ const handlers: RequestHandler[] = [
   }),
     rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
         return res(ctx.status(200), ctx.json({
-            "hm.brille.feilbanner": true
+            "hm.brille.feilbanner": false
         }))
     }),
 ]
