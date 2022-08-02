@@ -13,6 +13,7 @@ import {OpprettKravResponse} from '../types'
 import {useLocationState} from '../useLocationState'
 import {KravSteg} from './KravSteg'
 import {HotjarTrigger} from "../components/hotjar-trigger";
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
 
 export function KravKvittering() {
 
@@ -53,7 +54,7 @@ export function KravKvittering() {
                 <Datum label="Deres referansenr.">{bestillingsreferanse}</Datum>
                 <Datum label="NAVs referansenr.">{id}</Datum>
             </Data>
-            <Link to="/">Til forsiden</Link>
+            <LenkeMedLogging href='/'>Til forsiden</LenkeMedLogging>
         </KravSteg>
     )
 }

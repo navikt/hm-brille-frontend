@@ -63,8 +63,6 @@ export function Krav() {
   const brukerHarLestOgGodtattVilkår = lestOgGodtattVilkår && lestOgGodtattVilkår.godtatt
   
   useEffect(() => {
-    // TODO kvifor kjører denne 2 gangar etter at ein har sendt inn eit krav?
-    console.log("useEffect", lestOgGodtattVilkår)
     if (brukerHarLestOgGodtattVilkår) {
       logSkjemaStartet()
     }

@@ -35,7 +35,7 @@ export function SendInnKrav(props: SendInnKravProps) {
       <Button
         loading={sendInnKravLoading}
         onClick={async () => {
-          await sendInnKrav({ // TODO kva skjer dersom denne feilar?
+          await sendInnKrav({
             vilkårsgrunnlag: props.vilkårsgrunnlag,
             bestillingsreferanse: appState.bestillingsreferanse,
             brukersNavn: appState.barnNavn,
