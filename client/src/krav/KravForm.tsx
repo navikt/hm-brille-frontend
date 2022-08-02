@@ -1,7 +1,9 @@
 import { Button, Heading } from '@navikt/ds-react'
 import React from 'react'
+import styled from 'styled-components'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { dato } from '../dato'
 import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
 import { Tekstfelt } from '../components/Tekstfelt'
@@ -33,6 +35,7 @@ export function KravForm() {
 
   const {
     formState: { errors },
+    setValue,
   } = methods
 
   return (
@@ -56,16 +59,29 @@ export function KravForm() {
           </Heading>
           <Avstand paddingBottom={3} paddingTop={3}>
             <Avstand marginBottom={3}>
-              <Tekstfelt
-                id="bestillingsdato"
-                label="Hvilken dato ble brillen bestilt?"
-                description="DD.MM.ÅÅÅÅ"
-                error={errors.bestillingsdato?.message}
-                {...methods.register('bestillingsdato', {
-                  required: 'Du må oppgi en bestillingsdato',
-                  validate: validator(validering.dato, 'Ugyldig bestillingsdato'),
-                })}
-              />
+              <BestillingsdatoContainer>
+                <Tekstfelt
+                  id="bestillingsdato"
+                  label="Hvilken dato ble brillen bestilt?"
+                  description="DD.MM.ÅÅÅÅ"
+                  error={errors.bestillingsdato?.message}
+                  {...methods.register('bestillingsdato', {
+                    required: 'Du må oppgi en bestillingsdato',
+                    validate: validator(validering.dato, 'Ugyldig bestillingsdato'),
+                  })}
+                />
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() =>
+                    setValue('bestillingsdato', dato.formater(new Date()), {
+                      shouldValidate: true,
+                    })
+                  }
+                >
+                  I dag
+                </Button>
+              </BestillingsdatoContainer>
             </Avstand>
             <Avstand marginBottom={3}>
               <Tekstfelt
@@ -100,3 +116,9 @@ export function KravForm() {
     </>
   )
 }
+
+const BestillingsdatoContainer = styled.div`
+  display: flex;
+  gap: var(--navds-spacing-3);
+  align-items: flex-end;
+`
