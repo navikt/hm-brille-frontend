@@ -38,7 +38,6 @@ export const initAmplitude = () => {
 }
 
 export function logAmplitudeEvent(eventName: string, data?: any) {
-    console.log('amplitude', eventName)
     setTimeout(() => {
         data = {
             app: SKJEMANAVN,
