@@ -13,7 +13,7 @@ export enum amplitude_taxonomy {
 
 //Events som ikke er i NAV sin taxonomi
 export enum digihot_customevents {
-    BESTILLINGSSJEKK_OPPSUMMERINGSSIDE = 'oppsummeringsside viser bestilling',
+    VILKÅRSVURDERING_RESULTAT = 'vilkårsvurdering resultat',
 }
 
 
@@ -38,8 +38,6 @@ export const initAmplitude = () => {
 }
 
 export function logAmplitudeEvent(eventName: string, data?: any) {
-    console.log('amplitude skjemaId:', skjemaId)
-    console.log('amplitude eventName:', eventName)
     setTimeout(() => {
         data = {
             app: SKJEMANAVN,
@@ -95,3 +93,11 @@ export function logSkjemaFullfoert() {
         skjemaId: skjemaId,
     })
 }
+
+export function logSkjemavalideringFeilet(feilmeldinger: string[] | undefined) {
+    logAmplitudeEvent(amplitude_taxonomy.SKJEMAVALIDERING_FEILET, {
+      skjemanavn: SKJEMANAVN,
+      skjemaId: skjemaId,
+      feilmeldinger: feilmeldinger,
+    })
+  }

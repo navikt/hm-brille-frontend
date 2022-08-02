@@ -132,7 +132,7 @@ const handlers: RequestHandler[] = [
 
     const beregnSatsResponse = beregnSats(body.brilleseddel, body.brillepris)
 
-    if (body.fnrBarn === '123') {
+    if (body.fnrBarn === '08887799742') {
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
