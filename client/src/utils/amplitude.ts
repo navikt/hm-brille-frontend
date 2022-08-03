@@ -14,7 +14,7 @@ export enum amplitude_taxonomy {
 //Events som ikke er i NAV sin taxonomi
 export enum digihot_customevents {
   VILKÅRSVURDERING_RESULTAT = 'vilkårsvurdering resultat',
-  KVITTERING_PRINT = 'trykk på knapp for å skrive ut kvittering',
+  PRINT_KVITTERING = 'trykk på knapp for å skrive ut kvittering',
 }
 
 export enum SkjemaSteg {
@@ -101,7 +101,7 @@ export function logSkjemavalideringFeilet(feilmeldinger: string[] | undefined) {
 }
 
 export function logPrintKvitteringÅpnet() {
-  logAmplitudeEvent(digihot_customevents.KVITTERING_PRINT, {
+  logAmplitudeEvent(digihot_customevents.PRINT_KVITTERING, {
     skjemanavn: SKJEMANAVN,
     skjemaId: skjemaId,
   })
