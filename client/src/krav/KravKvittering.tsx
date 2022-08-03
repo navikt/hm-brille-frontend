@@ -23,13 +23,6 @@ export function KravKvittering() {
   const { resetAppState } = useApplicationContext()
   const state = useLocationState<OpprettKravResponse>()
 
-  const printRef = useRef<HTMLDivElement>(null)
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current,
-    onBeforePrint: () => logPrintKvitteringÅpnet(),
-    documentTitle: state?.bestillingsreferanse ? `kvittering_${state.bestillingsreferanse}` : undefined,
-  })
-
   HotjarTrigger({ timeout: 500 })
 
   useEffect(() => {
@@ -39,7 +32,15 @@ export function KravKvittering() {
   if (!state) {
     return null
   }
+
   const { id, orgnr, bestillingsreferanse, beløp, opprettet } = state
+
+  const printRef = useRef<HTMLDivElement>(null)
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    onBeforePrint: () => logPrintKvitteringÅpnet(),
+    documentTitle: `kvittering_${bestillingsreferanse}`,
+  })
 
   return (
     <div ref={printRef}>
