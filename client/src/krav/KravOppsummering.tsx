@@ -52,7 +52,7 @@ export function KravOppsummering() {
         return null
     }
 
-    const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO !== 'prod-gcp'
+    const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO === 'dev-gcp'
 
     logCustomEvent(digihot_customevents.VILKÅRSVURDERING_RESULTAT, { kanSøke: kanSøke })
     if (!kanSøke) {
