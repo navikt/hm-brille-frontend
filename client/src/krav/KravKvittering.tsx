@@ -16,6 +16,9 @@ import { HotjarTrigger } from '../components/hotjar-trigger'
 import { useReactToPrint } from 'react-to-print'
 import styled from 'styled-components'
 import { Print } from '@navikt/ds-icons'
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { baseUrl } from '../http'
+import { logPrintÅpnet } from '../utils/amplitude'
 
 export function KravKvittering() {
   const { resetAppState } = useApplicationContext()
@@ -24,6 +27,7 @@ export function KravKvittering() {
   const printRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
+    onBeforePrint: () => logPrintÅpnet(),
     documentTitle: state?.bestillingsreferanse ? `kvittering_${state.bestillingsreferanse}` : undefined,
   })
 
@@ -68,7 +72,7 @@ export function KravKvittering() {
             <Print aria-hidden />
             Skriv ut kvittering
           </Button>
-          <Link to="/">Til forsiden</Link>
+          <LenkeMedLogging href={baseUrl('/')}>Til forsiden</LenkeMedLogging>
         </Knapperad>
       </KravSteg>
     </div>

@@ -8,6 +8,7 @@ import {
   HentInnbyggerResponse,
   OpprettKravRequest,
   OpprettKravResponse,
+  SatsType,
   TidligereBrukteVirksomheterResponse,
   VilkårsgrunnlagRequest,
   VilkårsgrunnlagResponse,
@@ -44,12 +45,12 @@ const handlers: RequestHandler[] = [
         })
       )
     }
-    if (fnr === '456') {
+    if (fnr === '08887799742') {
       return res(
         ctx.json({
           fnr,
           navn: 'Ole Brumm',
-          alder: 18,
+          alder: 55,
         })
       )
     }
@@ -132,11 +133,12 @@ const handlers: RequestHandler[] = [
 
     const beregnSatsResponse = beregnSats(body.brilleseddel, body.brillepris)
 
-    if (body.fnrBarn === '123') {
+    if (body.fnrBarn === '08887799742') {
       return res(
         ctx.json({
           resultat: VilkårsgrunnlagResultat.NEI,
           ...beregnSatsResponse,
+          sats: SatsType.INGEN,
         })
       )
     }

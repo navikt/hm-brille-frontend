@@ -12,6 +12,7 @@ import type {
 } from '../types'
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
+import { logSkjemaStartet } from '../utils/amplitude'
 import { Barn } from './Barn'
 import { Brukervilkår } from './Brukervilkår'
 import { HentBarnForm } from './HentBarnForm'
@@ -58,6 +59,12 @@ export function Krav() {
       }))
     }
   }, [hentBrukerData])
+  
+  useEffect(() => {
+    if (lestOgGodtattVilkår && lestOgGodtattVilkår.godtatt) {
+      logSkjemaStartet()
+    }
+  }, [lestOgGodtattVilkår])
 
   if (!lestOgGodtattVilkår || !lestOgGodtattVilkår.godtatt) {
     return (

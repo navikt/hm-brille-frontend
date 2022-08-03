@@ -1,11 +1,21 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
+import { useEffect } from 'react'
 import { Avstand } from '../components/Avstand'
 import { SatsType } from '../types'
+import { logSkjemavalideringFeilet } from '../utils/amplitude'
 import { useBeregning } from './useBeregning'
 import { Øye } from './Øye'
 
 export function BrillestyrkeForm() {
   const beregning = useBeregning()
+
+  const vilkårOmStyrkeIkkeOppfylt = "Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt"
+  useEffect(() => {
+    if (beregning && beregning.sats === SatsType.INGEN) {
+      logSkjemavalideringFeilet([vilkårOmStyrkeIkkeOppfylt])
+    }
+  }, [beregning])
+
   return (
     <>
       <Avstand paddingBottom={5} paddingTop={5}>
@@ -20,7 +30,7 @@ export function BrillestyrkeForm() {
         <Avstand paddingBottom={5} paddingTop={5}>
           {beregning.sats === SatsType.INGEN ? (
             <Alert variant="warning">
-              <BodyLong>Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt</BodyLong>
+              <BodyLong>{vilkårOmStyrkeIkkeOppfylt}</BodyLong>
             </Alert>
           ) : (
             <Alert variant="info">

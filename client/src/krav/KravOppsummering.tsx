@@ -14,6 +14,8 @@ import {KravSteg} from './KravSteg'
 import {SendInnKrav} from './SendInnKrav'
 import styled from "styled-components";
 import {LoaderContainer} from "../components/LoaderContainer";
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { digihot_customevents, logCustomEvent, logSkjemavalideringFeilet } from '../utils/amplitude'
 
 export function KravOppsummering() {
     const {appState} = useApplicationContext()
@@ -50,7 +52,12 @@ export function KravOppsummering() {
         return null
     }
 
-    const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO !== 'prod-gcp'
+    const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO === 'dev-gcp'
+
+    logCustomEvent(digihot_customevents.VILKÅRSVURDERING_RESULTAT, { kanSøke: kanSøke })
+    if (!kanSøke) {
+        logSkjemavalideringFeilet(["Barnet oppfyller ikke vilkårene for å sende inn krav om direkte oppgjør."])
+    }
 
     return (
         <KravSteg>
@@ -94,9 +101,9 @@ export function KravOppsummering() {
                     <Alert variant="warning">
                         <BodyLong>
                             Barnet oppfyller ikke&nbsp;
-                            <DsLink href="https://nav.no/briller-til-barn#hvem" target="_blank">
+                            <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
                                 vilkårene
-                            </DsLink>
+                            </LenkeMedLogging>
                             &nbsp;for å sende inn krav om direkte oppgjør.
                         </BodyLong>
                         <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
