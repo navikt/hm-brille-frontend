@@ -1,6 +1,5 @@
 import { Alert, BodyLong, Heading, Button } from '@navikt/ds-react'
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
 import { Beløp } from '../components/Beløp'
 import { Data } from '../components/Data'
@@ -18,7 +17,7 @@ import styled from 'styled-components'
 import { Print } from '@navikt/ds-icons'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
 import { baseUrl } from '../http'
-import { logPrintÅpnet } from '../utils/amplitude'
+import { logPrintKvitteringÅpnet } from '../utils/amplitude'
 
 export function KravKvittering() {
   const { resetAppState } = useApplicationContext()
@@ -27,7 +26,7 @@ export function KravKvittering() {
   const printRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
-    onBeforePrint: () => logPrintÅpnet(),
+    onBeforePrint: () => logPrintKvitteringÅpnet(),
     documentTitle: state?.bestillingsreferanse ? `kvittering_${state.bestillingsreferanse}` : undefined,
   })
 
