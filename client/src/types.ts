@@ -70,7 +70,15 @@ export interface Vilkårsgrunnlag {
   brillepris: string
 }
 
-export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {}
+// Ekstra felter som kun brukes til statistikk o.l.
+export interface VilkårsgrunnlagExtras {
+  orgNavn: string
+  bestillingsreferanse: string
+}
+
+export interface VilkårsgrunnlagRequest extends Vilkårsgrunnlag {
+  extras: VilkårsgrunnlagExtras
+}
 
 export interface VilkårsgrunnlagResponse {
   resultat: VilkårsgrunnlagResultat
