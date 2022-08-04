@@ -8,7 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
-      - print-kvittering
+      - metabase-avslag
 
 env:
   IMAGE: 'ghcr.io/navikt/hm-brille-frontend:${{ github.sha }}'

@@ -63,6 +63,7 @@ export interface BeregnSatsResponse {
 
 export interface Vilkårsgrunnlag {
   orgnr: string
+  orgNavn: string
   fnrBarn: string
   brilleseddel: Brilleseddel
   bestillingsdato: string

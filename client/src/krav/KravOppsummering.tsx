@@ -27,6 +27,7 @@ export function KravOppsummering() {
 
     const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
         orgnr: appState.orgnr,
+        orgNavn: appState.orgNavn,
         fnrBarn: appState.barnFnr,
         brilleseddel: appState.brillestyrke,
         bestillingsdato: dato.tilISO(appState.bestillingsdato),
