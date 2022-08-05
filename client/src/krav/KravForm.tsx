@@ -65,7 +65,18 @@ export function KravForm() {
                 error={errors.bestillingsdato?.message}
                 {...methods.register('bestillingsdato', {
                   required: 'Du må oppgi en bestillingsdato',
-                  validate: validator(validering.dato, 'Ugyldig bestillingsdato'),
+                  validate: {
+                    gyldig: validator(validering.dato, 'Ugyldig bestillingsdato'),
+                    ikkeiFremtiden: validator(validering.ikkeIFremtiden, 'Du kan ikke ha en bestilling i fremtiden'),
+                    ikkeFørLansering: validator(
+                      validering.ikkeDatoFørLansering,
+                      'Du kan ikke bestille briller før lansering av ordningen'
+                    ),
+                    ikkeMerEnnSeksMånederSiden: validator(
+                      validering.ikkeMerEnnSeksMånederSiden,
+                      'Du kan ikke bestille briller for mer enn 6 måneder siden'
+                    ),
+                  },
                 })}
               />
             </Avstand>
