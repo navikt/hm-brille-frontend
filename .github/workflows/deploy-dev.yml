@@ -8,7 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
-      - amplitude
+      - bestillingsdato-validering
 
 env:
   IMAGE: 'ghcr.io/navikt/hm-brille-frontend:${{ github.sha }}'

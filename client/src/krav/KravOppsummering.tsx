@@ -27,10 +27,15 @@ export function KravOppsummering() {
 
     const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
         orgnr: appState.orgnr,
+        orgNavn: appState.orgNavn, // todo fjern
         fnrBarn: appState.barnFnr,
         brilleseddel: appState.brillestyrke,
         bestillingsdato: dato.tilISO(appState.bestillingsdato),
         brillepris: beløp.byttDesimaltegn(appState.brillepris),
+        extras: {
+            orgNavn: appState.orgNavn,
+            bestillingsreferanse: appState.bestillingsreferanse
+        }
     }
 
     useEffect(() => {
