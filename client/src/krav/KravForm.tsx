@@ -8,7 +8,7 @@ import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
 import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
-import { validator, validering } from '../validering'
+import { validator, validering, DATO_FOR_LANSERING } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
 
@@ -65,7 +65,21 @@ export function KravForm() {
                 error={errors.bestillingsdato?.message}
                 {...methods.register('bestillingsdato', {
                   required: 'Du må oppgi en bestillingsdato',
-                  validate: validator(validering.dato, 'Ugyldig bestillingsdato'),
+                  validate: {
+                    gyldig: validator(validering.dato, 'Ugyldig bestillingsdato'),
+                    ikkeiFremtiden: validator(
+                      validering.ikkeIFremtiden,
+                      'Du kan ikke sende krav for briller som skal bestilles i fremtiden'
+                    ),
+                    ikkeFørLansering: validator(
+                      validering.ikkeDatoFørLansering,
+                      `Du kan ikke sende krav for briller som ble bestilt før ordningen ble gjeldende ${DATO_FOR_LANSERING}`
+                    ),
+                    ikkeMerEnnSeksMånederSiden: validator(
+                      validering.ikkeMerEnnSeksMånederSiden,
+                      'Du kan ikke sende krav for briller som ble bestilt for mer enn 6 måneder siden'
+                    ),
+                  },
                 })}
               />
             </Avstand>
