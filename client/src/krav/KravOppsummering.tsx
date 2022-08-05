@@ -104,14 +104,14 @@ export function KravOppsummering() {
             <Avstand paddingBottom={5} paddingTop={5}>
                 {vilkårsvurdering.sats === SatsType.INGEN ? (
                     <Alert variant="warning">
+                        <BodyLong>Du kan ikke sende inn krav om direkte oppgjør.</BodyLong>
+                        <br />
                         <BodyLong>
-                            Barnet oppfyller ikke&nbsp;
+                            Vi har funnet informasjon om at barnet ikke kan få støtte til briller. Av personvernhensyn kan vi ikke gi ut opplysninger om årsak til at støtte ikke kan gis. For mer informasjon om ordningen, se vår&nbsp;
                             <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
-                                vilkårene
-                            </LenkeMedLogging>
-                            &nbsp;for å sende inn krav om direkte oppgjør.
+                                informasjonsside om briller til barn
+                            </LenkeMedLogging>.
                         </BodyLong>
-                        <BodyLong>Det er likevel mulig å søke om refusjon manuelt på nav.no</BodyLong>
                     </Alert>
                 ) : (
                     <Alert variant="info">
