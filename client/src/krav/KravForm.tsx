@@ -11,6 +11,7 @@ import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
 import { validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
+import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
 
 export interface KravFormData {
   brillestyrke: Brilleseddel
@@ -35,6 +36,8 @@ export function KravForm() {
   const {
     formState: { errors },
   } = methods
+
+  HotjarTrigger({ timeout: 500 }, hotjar_event.SKJEMA)
 
   return (
     <>

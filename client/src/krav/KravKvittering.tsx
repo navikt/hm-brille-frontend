@@ -12,7 +12,7 @@ import {useApplicationContext} from '../state/ApplicationContext'
 import {OpprettKravResponse} from '../types'
 import {useLocationState} from '../useLocationState'
 import {KravSteg} from './KravSteg'
-import {HotjarTrigger} from "../components/hotjar-trigger";
+import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger';
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
 
 export function KravKvittering() {
@@ -20,7 +20,7 @@ export function KravKvittering() {
     const {resetAppState} = useApplicationContext()
     const state = useLocationState<OpprettKravResponse>()
 
-    HotjarTrigger({timeout: 500})
+  HotjarTrigger({ timeout: 500 }, hotjar_event.KVITTERING)
 
     useEffect(() => {
         resetAppState()
