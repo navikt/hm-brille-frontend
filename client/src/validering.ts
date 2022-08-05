@@ -2,7 +2,7 @@ import { fnr } from '@navikt/fnrvalidator'
 import { isValid, isBefore, isAfter, subMonths } from 'date-fns'
 import { dato } from './dato'
 
-const DATO_FOR_LANSERING = '01.08.2022'
+export const DATO_FOR_LANSERING = '01.08.2022'
 
 export const validering = {
   fnr(verdi: string): boolean {
