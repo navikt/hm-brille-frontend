@@ -16,7 +16,7 @@ import {
   VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
-import {FeatureToggles} from "../FeatureToggleProvider";
+import { FeatureToggles } from '../FeatureToggleProvider'
 
 let godtattVilkår: boolean = false
 
@@ -36,15 +36,7 @@ const handlers: RequestHandler[] = [
 
   rest.post<HentInnbyggerRequest, {}, HentInnbyggerResponse>(apiUrl('/innbyggere/sok'), (req, res, ctx) => {
     const { fnr } = req.body
-    if (fnr === '123') {
-      return res(
-        ctx.json({
-          fnr,
-          navn: 'Pippi Langstrømpe',
-          alder: 9,
-        })
-      )
-    }
+
     if (fnr === '08887799742') {
       return res(
         ctx.json({
@@ -54,6 +46,7 @@ const handlers: RequestHandler[] = [
         })
       )
     }
+
     return res(
       ctx.json({
         fnr,
@@ -168,11 +161,14 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
-    rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({
-            "hm.brille.feilbanner": false
-        }))
-    }),
+  rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        'hm.brille.feilbanner': false,
+      })
+    )
+  }),
 ]
 
 export const worker = setupWorker(...handlers)
