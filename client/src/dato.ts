@@ -1,4 +1,4 @@
-import { formatISO, parse } from 'date-fns'
+import { formatISO, isMatch, parse } from 'date-fns'
 
 const formatter = new Intl.DateTimeFormat('nb', {
   year: 'numeric',
@@ -11,6 +11,9 @@ function formater(verdi?: Date | number | string): string {
 }
 
 function tilDate(verdi: string): Date {
+  if (isMatch(verdi, 'ddMMyyyy')) {
+    return parse(verdi, 'ddMMyyyy', new Date())
+  }
   return parse(verdi, 'dd.MM.yyyy', new Date())
 }
 
