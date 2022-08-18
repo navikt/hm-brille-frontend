@@ -27,6 +27,10 @@ export const validering = {
     const seksMånederSiden = subMonths(nå, 6)
     return isAfter(dato.tilDate(verdi), seksMånederSiden)
   },
+  bestillingsreferanse(verdi: string): boolean {
+    return /^[A-Za-å\d-_/]+$/.test(verdi)
+  },
+
 }
 
 export function validator(test: (verdi: string, nå: Date) => boolean, error: string): (verdi: string) => true | string {
