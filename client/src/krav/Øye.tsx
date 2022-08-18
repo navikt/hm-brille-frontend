@@ -5,7 +5,7 @@ import { capitalize } from '../common/stringFormating'
 import type { Brilleseddel } from '../types'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
-import {enhet} from "../enhet";
+import { enhet } from '../enhet'
 
 export function Øye(props: { type: 'venstre' | 'høyre' }) {
   const { type } = props
@@ -27,7 +27,13 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
           required: 'Du må oppgi en verdi',
         }}
         render={({ field }) => (
-          <Select style={{maxWidth: '330px'}} label="Sfære (SPH)" size="medium" error={errors.brillestyrke?.[`${type}Sfære`]?.message} {...field}>
+          <Select
+            style={{ maxWidth: '330px' }}
+            label="Sfære (SPH)"
+            size="medium"
+            error={errors.brillestyrke?.[`${type}Sfære`]?.message}
+            {...field}
+          >
             <option value="">Velg sfære</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
@@ -45,7 +51,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         }}
         render={({ field }) => (
           <Select
-              style={{maxWidth: '330px'}}
+            style={{ maxWidth: '330px' }}
             label="Sylinder (CYL)"
             size="medium"
             error={errors.brillestyrke?.[`${type}Sylinder`]?.message}

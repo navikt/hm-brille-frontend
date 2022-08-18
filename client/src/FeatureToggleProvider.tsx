@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import {useGet} from "./useGet";
+import { useGet } from './useGet'
 
 export enum Feature {
   TekniskFeilBanner = 'hm.brille.feilbanner',
@@ -14,7 +14,6 @@ export interface FeatureToggles {
 export const FeatureToggleContext = createContext<FeatureToggles>({})
 
 export const FeatureToggleProvider = ({ children }: { children: React.ReactNode }) => {
-
   const { data: features } = useGet<FeatureToggles>(featureTogglePath(alleFeatures))
 
   return <FeatureToggleContext.Provider value={features || {}}>{children}</FeatureToggleContext.Provider>

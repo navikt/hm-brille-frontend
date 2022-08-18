@@ -59,7 +59,7 @@ export function Krav() {
       }))
     }
   }, [hentBrukerData])
-  
+
   useEffect(() => {
     if (lestOgGodtattVilkår && lestOgGodtattVilkår.godtatt) {
       logSkjemaStartet()

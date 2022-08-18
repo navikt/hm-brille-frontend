@@ -9,7 +9,7 @@ import { Øye } from './Øye'
 export function BrillestyrkeForm() {
   const beregning = useBeregning()
 
-  const vilkårOmStyrkeIkkeOppfylt = "Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt"
+  const vilkårOmStyrkeIkkeOppfylt = 'Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt'
   useEffect(() => {
     if (beregning && beregning.sats === SatsType.INGEN) {
       logSkjemavalideringFeilet([vilkårOmStyrkeIkkeOppfylt])

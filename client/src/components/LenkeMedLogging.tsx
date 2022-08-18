@@ -5,7 +5,11 @@ export function LenkeMedLogging(props: LinkProps) {
   const { children, ...rest } = props
   return (
     <Link
-      onClick={() => { logNavigeringLenke(props.href || '') }} {...rest}>
+      onClick={() => {
+        logNavigeringLenke(props.href || '')
+      }}
+      {...rest}
+    >
       {children}
     </Link>
   )

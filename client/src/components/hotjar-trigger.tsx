@@ -1,9 +1,9 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
 declare global {
-    interface Window {
-        hj: any
-    }
+  interface Window {
+    hj: any
+  }
 }
 
 export enum hotjar_event {
@@ -12,7 +12,7 @@ export enum hotjar_event {
 }
 
 interface HotjarTriggerProps {
-    timeout: number;
+  timeout: number
 }
 
 export const HotjarTrigger = ({ timeout }: HotjarTriggerProps, event: hotjar_event) => {
