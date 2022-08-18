@@ -1,19 +1,21 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
 import { apiUrl } from '../http'
 import {
-  BeregnSatsRequest,
-  BeregnSatsResponse,
-  HarLestOgGodtattVilkårResponse,
-  HentInnbyggerRequest,
-  HentInnbyggerResponse,
-  OpprettKravRequest,
-  OpprettKravResponse,
-  SatsType,
-  TidligereBrukteVirksomheterResponse,
-  VilkårsgrunnlagRequest,
-  VilkårsgrunnlagResponse,
-  VilkårsgrunnlagResultat,
-  VirksomhetResponse,
+    BeregnSatsRequest,
+    BeregnSatsResponse,
+    HarLestOgGodtattVilkårResponse,
+    HentInnbyggerRequest,
+    HentInnbyggerResponse,
+    OpprettKravRequest,
+    OpprettKravResponse,
+    SatsType,
+    TidligereBrukteVirksomheterResponse,
+    VilkårsgrunnlagRequest,
+    VilkårsgrunnlagResponse,
+    VilkårsgrunnlagResultat,
+    VirksomhetResponse,
+    InnsynResponse,
+    InnsynResponseItem
 } from '../types'
 import { beregnSats } from './beregnSats'
 import { FeatureToggles } from '../FeatureToggleProvider'
@@ -162,12 +164,52 @@ const handlers: RequestHandler[] = [
     )
   }),
   rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        'hm.brille.feilbanner': false,
-      })
-    )
+      return res(
+          ctx.status(200),
+          ctx.json({
+              'hm.brille.feilbanner': false,
+          })
+      )
+  }),
+  rest.get<{}, {}, InnsynResponse>(apiUrl('/innsyn'), (req, res, ctx) => {
+      let page = parseInt(req.url.searchParams.get('page') || '1')
+      if (!page || isNaN(page)) page = 1
+
+      let itemsPerPage = 10
+
+      let data = [];
+      for (let i = 0; i < 8; i++) data.push([
+          {
+              vedtakId: 99,
+              name: "Sedat Kronjuvel",
+              description: "Innsendt: 09. august 2022"
+          },
+          {
+              vedtakId: 100,
+              name: "Pippi Langstrømpe",
+              description: "Innsendt: 08. august 2022"
+          },
+          {
+              vedtakId: 101,
+              name: "Harald Rustibus",
+              description: "Innsendt: 07. august 2022"
+          }
+      ])
+      return res(
+          ctx.status(200),
+          ctx.json({
+              numberOfPages: Math.ceil(data.flat().length/itemsPerPage),
+              itemsPerPage: itemsPerPage,
+              totalItems: data.flat().length,
+              items: data.flat().slice(itemsPerPage*(page-1), itemsPerPage*page)
+          })
+      )
+  }),
+  rest.get<{}, {}, {}>(apiUrl('/innsyn/:vedtakId'), (req, res, ctx) => {
+      return res(
+          ctx.status(200),
+          ctx.json({})
+      )
   }),
 ]
 

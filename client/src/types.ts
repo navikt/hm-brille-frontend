@@ -132,3 +132,16 @@ export enum SatsType {
   SATS_5 = 'SATS_5',
   INGEN = 'INGEN',
 }
+
+export interface InnsynResponse {
+  numberOfPages: number
+  itemsPerPage: number
+  totalItems: number
+  items: InnsynResponseItem[]
+}
+
+export interface InnsynResponseItem {
+  vedtakId: number
+  name: string
+  description: string
+}
