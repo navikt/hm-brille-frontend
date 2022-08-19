@@ -1,14 +1,23 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Link} from '@navikt/ds-react'
+import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Link } from '@navikt/ds-react'
 import { Back } from '@navikt/ds-icons'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
+
+function useQuery() {
+  const { search } = useLocation()
+  return React.useMemo(() => new URLSearchParams(search), [search])
+}
 
 export function Oversikt() {
   const navigate = useNavigate()
-  let [currPage, setCurrPage] = useState(1)
+  let setCurrPage = (page: number) => navigate('/oversikt?page=' + page)
+
+  let query = useQuery()
+  let currPage = parseInt(query.get('page') || '1')
+  if (!currPage || isNaN(currPage)) setCurrPage(1)
 
   const { data, error } = useGet<OversiktResponse>('/oversikt?page=' + currPage)
 
@@ -16,15 +25,15 @@ export function Oversikt() {
     <>
       <ScrollToTop />
       <main>
-          <Link
-              onClick={() => {
-                  navigate('/')
-              }}
-              className="dontPrintMe"
-              style={{ cursor: 'pointer', fontSize: '1.1em' }}
-          >
-              <Back aria-hidden /> Tilbake
-          </Link>
+        <Link
+          onClick={() => {
+            navigate('/')
+          }}
+          className="dontPrintMe"
+          style={{ cursor: 'pointer', fontSize: '1.1em' }}
+        >
+          <Back aria-hidden /> Tilbake
+        </Link>
         <h1>Innsendte krav</h1>
         <GuidePanel poster>
           Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV. Sakene vises i 4 uker etter at
