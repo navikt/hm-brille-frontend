@@ -1,134 +1,136 @@
-import {Alert, BodyLong, Heading, Link as DsLink, Loader} from '@navikt/ds-react'
-import {useEffect} from 'react'
-import {beløp} from '../beløp'
-import {Avstand} from '../components/Avstand'
-import {Data} from '../components/Data'
-import {Datum} from '../components/Datum'
-import {organisasjonsnummer} from '../components/organisasjonsnummer'
-import {dato} from '../dato'
-import {useApplicationContext} from '../state/ApplicationContext'
-import {SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat} from '../types'
-import {usePost} from '../usePost'
-import {FormatertStyrke} from './FormatertStyrke'
-import {KravSteg} from './KravSteg'
-import {SendInnKrav} from './SendInnKrav'
-import styled from "styled-components";
-import {LoaderContainer} from "../components/LoaderContainer";
+import { Alert, BodyLong, Heading, Link as DsLink, Loader } from '@navikt/ds-react'
+import { useEffect } from 'react'
+import { beløp } from '../beløp'
+import { Avstand } from '../components/Avstand'
+import { Data } from '../components/Data'
+import { Datum } from '../components/Datum'
+import { organisasjonsnummer } from '../components/organisasjonsnummer'
+import { dato } from '../dato'
+import { useApplicationContext } from '../state/ApplicationContext'
+import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
+import { usePost } from '../usePost'
+import { FormatertStyrke } from './FormatertStyrke'
+import { KravSteg } from './KravSteg'
+import { SendInnKrav } from './SendInnKrav'
+import styled from 'styled-components'
+import { LoaderContainer } from '../components/LoaderContainer'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
 import { digihot_customevents, logCustomEvent, logSkjemavalideringFeilet } from '../utils/amplitude'
 
 export function KravOppsummering() {
-    const {appState} = useApplicationContext()
-    const {
-        post: vurderVilkår,
-        data: vilkårsvurdering,
-        loading: vilkårsvurderingLoading,
-    } = usePost<VilkårsgrunnlagRequest, VilkårsgrunnlagResponse>('/vilkarsgrunnlag')
+  const { appState } = useApplicationContext()
+  const {
+    post: vurderVilkår,
+    data: vilkårsvurdering,
+    loading: vilkårsvurderingLoading,
+  } = usePost<VilkårsgrunnlagRequest, VilkårsgrunnlagResponse>('/vilkarsgrunnlag')
 
-    const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
-        orgnr: appState.orgnr,
-        orgNavn: appState.orgNavn, // todo fjern
-        fnrBarn: appState.barnFnr,
-        brilleseddel: appState.brillestyrke,
-        bestillingsdato: dato.tilISO(appState.bestillingsdato),
-        brillepris: beløp.byttDesimaltegn(appState.brillepris),
-        extras: {
-            orgNavn: appState.orgNavn,
-            bestillingsreferanse: appState.bestillingsreferanse
-        }
-    }
+  const vilkårsgrunnlag: VilkårsgrunnlagRequest = {
+    orgnr: appState.orgnr,
+    orgNavn: appState.orgNavn, // todo fjern
+    fnrBarn: appState.barnFnr,
+    brilleseddel: appState.brillestyrke,
+    bestillingsdato: dato.tilISO(appState.bestillingsdato),
+    brillepris: beløp.byttDesimaltegn(appState.brillepris),
+    extras: {
+      orgNavn: appState.orgNavn,
+      bestillingsreferanse: appState.bestillingsreferanse,
+    },
+  }
 
-    useEffect(() => {
-        window.scrollTo({top: 0, behavior: 'auto'})
-        // noinspection JSIgnoredPromiseFromCall
-        vurderVilkår(vilkårsgrunnlag)
-    }, [])
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+    // noinspection JSIgnoredPromiseFromCall
+    vurderVilkår(vilkårsgrunnlag)
+  }, [])
 
-    if (vilkårsvurderingLoading) {
-        return (
-            <LoaderContainer>
-                <Avstand paddingBottom={5} paddingTop={5}>
-                    <Loader/>
-                </Avstand>
-            </LoaderContainer>
-        )
-    }
-    if (!vilkårsvurdering) {
-        return null
-    }
-
-    const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO === 'dev-gcp'
-
-    logCustomEvent(digihot_customevents.VILKÅRSVURDERING_RESULTAT, { kanSøke: kanSøke })
-    if (!kanSøke) {
-        logSkjemavalideringFeilet(["Barnet oppfyller ikke vilkårene for å sende inn krav om direkte oppgjør."])
-    }
-
+  if (vilkårsvurderingLoading) {
     return (
-        <KravSteg>
-            <Heading level="2" size="medium">
-                Barn
-            </Heading>
-            <Data>
-                <Datum label="Fødselsnummer">{appState.barnFnr}</Datum>
-                <Datum label="Navn">{appState.barnNavn}</Datum>
-                <Datum label="Alder">{appState.barnAlder}</Datum>
-            </Data>
-            <Heading level="2" size="medium">
-                Brillestyrke
-            </Heading>
-            <Data>
-                <Datum label="Høyre sfære">
-                    <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære"/>
-                </Datum>
-                <Datum label="Høyre sylinder">
-                    <FormatertStyrke verdi={appState.brillestyrke.høyreSylinder} type="sylinder"/>
-                </Datum>
-                <Datum label="Venstre sfære">
-                    <FormatertStyrke verdi={appState.brillestyrke.venstreSfære} type="sfære"/>
-                </Datum>
-                <Datum label="Venstre sylinder">
-                    <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} type="sylinder"/>
-                </Datum>
-            </Data>
-            <Heading level="2" size="medium">
-                Annet
-            </Heading>
-            <Data>
-                <Datum label="Organisasjonsnummer">{organisasjonsnummer(appState.orgnr)}</Datum>
-                <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
-                <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
-                <Datum label="Pris på brille">{appState.brillepris}</Datum>
-                <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
-            </Data>
-            <Avstand paddingBottom={5} paddingTop={5}>
-                {vilkårsvurdering.sats === SatsType.INGEN ? (
-                    <Alert variant="warning">
-                        <BodyLong>Du kan ikke sende inn krav om direkte oppgjør.</BodyLong>
-                        <br />
-                        <BodyLong>
-                            Vi har funnet informasjon om at barnet ikke kan få støtte til briller. Av personvernhensyn kan vi ikke gi ut opplysninger om årsak til at støtte ikke kan gis. For mer informasjon om ordningen, se vår&nbsp;
-                            <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
-                                informasjonsside om briller til barn
-                            </LenkeMedLogging>.
-                        </BodyLong>
-                    </Alert>
-                ) : (
-                    <Alert variant="info">
-                        <Heading level="2" spacing size="small">{`Brillestøtte på ${beløp.formater(
-                            vilkårsvurdering.beløp
-                        )}`}</Heading>
-                        {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
-                            <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
-                        ) : (
-                            <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${
-                                vilkårsvurdering.satsBeskrivelse
-                            }`}</BodyLong>
-                        )}
-                    </Alert>
-                )}
-            </Avstand>
-            {kanSøke && <SendInnKrav vilkårsgrunnlag={vilkårsgrunnlag}/>}
-        </KravSteg>
+      <LoaderContainer>
+        <Avstand paddingBottom={5} paddingTop={5}>
+          <Loader />
+        </Avstand>
+      </LoaderContainer>
     )
+  }
+  if (!vilkårsvurdering) {
+    return null
+  }
+
+  const kanSøke = vilkårsvurdering.resultat === VilkårsgrunnlagResultat.JA || window.appSettings.MILJO === 'dev-gcp'
+
+  logCustomEvent(digihot_customevents.VILKÅRSVURDERING_RESULTAT, { kanSøke: kanSøke })
+  if (!kanSøke) {
+    logSkjemavalideringFeilet(['Barnet oppfyller ikke vilkårene for å sende inn krav om direkte oppgjør.'])
+  }
+
+  return (
+    <KravSteg>
+      <Heading level="2" size="medium">
+        Barn
+      </Heading>
+      <Data>
+        <Datum label="Fødselsnummer">{appState.barnFnr}</Datum>
+        <Datum label="Navn">{appState.barnNavn}</Datum>
+        <Datum label="Alder">{appState.barnAlder}</Datum>
+      </Data>
+      <Heading level="2" size="medium">
+        Brillestyrke
+      </Heading>
+      <Data>
+        <Datum label="Høyre sfære">
+          <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære" />
+        </Datum>
+        <Datum label="Høyre sylinder">
+          <FormatertStyrke verdi={appState.brillestyrke.høyreSylinder} type="sylinder" />
+        </Datum>
+        <Datum label="Venstre sfære">
+          <FormatertStyrke verdi={appState.brillestyrke.venstreSfære} type="sfære" />
+        </Datum>
+        <Datum label="Venstre sylinder">
+          <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} type="sylinder" />
+        </Datum>
+      </Data>
+      <Heading level="2" size="medium">
+        Annet
+      </Heading>
+      <Data>
+        <Datum label="Organisasjonsnummer">{organisasjonsnummer(appState.orgnr)}</Datum>
+        <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
+        <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
+        <Datum label="Pris på brille">{appState.brillepris}</Datum>
+        <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
+      </Data>
+      <Avstand paddingBottom={5} paddingTop={5}>
+        {vilkårsvurdering.sats === SatsType.INGEN ? (
+          <Alert variant="warning">
+            <BodyLong>Du kan ikke sende inn krav om direkte oppgjør.</BodyLong>
+            <br />
+            <BodyLong>
+              Vi har funnet informasjon om at barnet ikke kan få støtte til briller. Av personvernhensyn kan vi ikke gi
+              ut opplysninger om årsak til at støtte ikke kan gis. For mer informasjon om ordningen, se vår&nbsp;
+              <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
+                informasjonsside om briller til barn
+              </LenkeMedLogging>
+              .
+            </BodyLong>
+          </Alert>
+        ) : (
+          <Alert variant="info">
+            <Heading level="2" spacing size="small">{`Brillestøtte på ${beløp.formater(
+              vilkårsvurdering.beløp
+            )}`}</Heading>
+            {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
+              <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
+            ) : (
+              <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${
+                vilkårsvurdering.satsBeskrivelse
+              }`}</BodyLong>
+            )}
+          </Alert>
+        )}
+      </Avstand>
+      {kanSøke && <SendInnKrav vilkårsgrunnlag={vilkårsgrunnlag} />}
+    </KravSteg>
+  )
 }

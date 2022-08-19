@@ -30,7 +30,6 @@ export const validering = {
   bestillingsreferanse(verdi: string): boolean {
     return /^[A-Za-å\d-_/]+$/.test(verdi)
   },
-
 }
 
 export function validator(test: (verdi: string, nå: Date) => boolean, error: string): (verdi: string) => true | string {

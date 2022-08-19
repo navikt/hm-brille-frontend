@@ -1,31 +1,28 @@
-import React, {useContext} from 'react'
-import {Alert, Panel} from '@navikt/ds-react'
+import React, { useContext } from 'react'
+import { Alert, Panel } from '@navikt/ds-react'
 import styled from 'styled-components'
-import {Feature, FeatureToggleContext} from "../FeatureToggleProvider";
+import { Feature, FeatureToggleContext } from '../FeatureToggleProvider'
 
 interface BannerProps {
-    children?: React.ReactNode
+  children?: React.ReactNode
 }
 
 export function Banner(props: BannerProps) {
+  const featureToggleContext = useContext(FeatureToggleContext)
+  const visFeilBanner = featureToggleContext[Feature.TekniskFeilBanner]
 
-    const featureToggleContext = useContext(FeatureToggleContext)
-    const visFeilBanner = featureToggleContext[Feature.TekniskFeilBanner]
-
-    return (
-        <BannerContainer>
-            <BannerPanel>
-                {props.children}
-            </BannerPanel>
-            {visFeilBanner && (
-                <FeilBanner>
-                    <Alert variant="error" size="medium">
-                        Vi har dessverre tekniske problemer nå. Det kan derfor være problemer med å sende inn krav.
-                    </Alert>
-                </FeilBanner>
-            )}
-        </BannerContainer>
-    )
+  return (
+    <BannerContainer>
+      <BannerPanel>{props.children}</BannerPanel>
+      {visFeilBanner && (
+        <FeilBanner>
+          <Alert variant="error" size="medium">
+            Vi har dessverre tekniske problemer nå. Det kan derfor være problemer med å sende inn krav.
+          </Alert>
+        </FeilBanner>
+      )}
+    </BannerContainer>
+  )
 }
 
 export const BannerContainer = styled.div`

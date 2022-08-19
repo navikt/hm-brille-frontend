@@ -1,21 +1,19 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
 import { apiUrl } from '../http'
 import {
-    BeregnSatsRequest,
-    BeregnSatsResponse,
-    HarLestOgGodtattVilkårResponse,
-    HentInnbyggerRequest,
-    HentInnbyggerResponse,
-    OpprettKravRequest,
-    OpprettKravResponse,
-    SatsType,
-    TidligereBrukteVirksomheterResponse,
-    VilkårsgrunnlagRequest,
-    VilkårsgrunnlagResponse,
-    VilkårsgrunnlagResultat,
-    VirksomhetResponse,
-    OversiktResponse,
-    OversiktResponseItem
+  BeregnSatsRequest,
+  BeregnSatsResponse,
+  HarLestOgGodtattVilkårResponse,
+  HentInnbyggerRequest,
+  HentInnbyggerResponse,
+  OpprettKravRequest,
+  OpprettKravResponse,
+  SatsType,
+  TidligereBrukteVirksomheterResponse,
+  VilkårsgrunnlagRequest,
+  VilkårsgrunnlagResponse,
+  VilkårsgrunnlagResultat,
+  VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
 import { FeatureToggles } from '../FeatureToggleProvider'
@@ -165,12 +163,12 @@ const handlers: RequestHandler[] = [
     )
   }),
   rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
-      return res(
-          ctx.status(200),
-          ctx.json({
-              'hm.brille.feilbanner': false,
-          })
-      )
+    return res(
+      ctx.status(200),
+      ctx.json({
+        'hm.brille.feilbanner': false,
+      })
+    )
   }),
   ...mocksForOptikersOversiktHandlers,
 ]
