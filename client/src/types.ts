@@ -158,7 +158,7 @@ export interface OversiktDetaljerResponse {
   venstreSylinder: number
   bestillingsdato: string
   brillepris: number
-  belop: number
+  beløp: number
   bestillingsreferanse: string
   satsNr: string
   satsBeskrivelse: string

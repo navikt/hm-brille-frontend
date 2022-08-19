@@ -55,7 +55,7 @@ export const handlers: RequestHandler[] = [
         venstreSylinder: -1.0,
         bestillingsdato: '08.08.2022',
         brillepris: 12345.0,
-        belop: 750.0,
+        beløp: 750.0,
         bestillingsreferanse: 'hlkefhuibv',
         satsNr: '3',
         satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
