@@ -38,7 +38,7 @@ export function App() {
       <FeatureToggleProvider>
         <ApplicationProvider>
           <Routes>
-            <Route path="/" element={<Krav />} />
+            <Route path="/" element={<Forside />} />
             <Route path="/krav" element={<Krav />} />
             <Route path="/krav/oppsummering" element={<KravOppsummering />} />
             <Route path="/krav/kvittering" element={<KravKvittering />} />
