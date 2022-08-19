@@ -141,12 +141,7 @@ export interface OversiktResponse {
 }
 
 export interface OversiktResponseItem {
-  vedtakId: number
-  name: string
-  description: string
-}
-
-export interface OversiktDetaljerResponse {
+  id: number
   orgnavn: string
   orgnr: string
   barnsNavn: string
@@ -162,4 +157,25 @@ export interface OversiktDetaljerResponse {
   bestillingsreferanse: string
   satsNr: string
   satsBeskrivelse: string
+  opprettet: string
+}
+
+export interface OversiktDetaljerResponse {
+  id: number
+  orgnavn: string
+  orgnr: string
+  barnsNavn: string
+  barnsFnr: string
+  barnsAlder: string
+  høyreSfære: number
+  høyreSylinder: number
+  venstreSfære: number
+  venstreSylinder: number
+  bestillingsdato: string
+  brillepris: number
+  beløp: number
+  bestillingsreferanse: string
+  satsNr: string
+  satsBeskrivelse: string
+  opprettet: string
 }

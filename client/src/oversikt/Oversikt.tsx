@@ -5,6 +5,7 @@ import { Back } from '@navikt/ds-icons'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
+import { Dato } from '../components/Dato'
 
 function useQuery() {
   const { search } = useLocation()
@@ -65,13 +66,11 @@ export function Oversikt() {
               {data?.items.map((it, idx) => {
                 return (
                   <li key={idx} style={{ margin: '0.5rem 0' }}>
-                    <LinkPanel
-                      onClick={() => navigate('/oversikt/' + it.vedtakId)}
-                      border
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <LinkPanel.Title>{it.name}</LinkPanel.Title>
-                      <LinkPanel.Description>{it.description}</LinkPanel.Description>
+                    <LinkPanel onClick={() => navigate('/oversikt/' + it.id)} border style={{ cursor: 'pointer' }}>
+                      <LinkPanel.Title>{it.barnsNavn}</LinkPanel.Title>
+                      <LinkPanel.Description>
+                        Innsendt: <Dato verdi={it.opprettet}></Dato>
+                      </LinkPanel.Description>
                     </LinkPanel>
                   </li>
                 )
