@@ -10,6 +10,6 @@ describe('App', () => {
         <App />
       </BrowserRouter>
     )
-    expect(screen.getByText('Krav om direkte oppgjør av briller for barn')).toBeDefined()
+    expect(screen.getByText('Briller til barn')).toBeDefined()
   })
 })

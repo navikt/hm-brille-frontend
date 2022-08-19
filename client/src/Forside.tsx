@@ -1,4 +1,3 @@
-import ScrollToTop from './components/ScrollToTop'
 import React from 'react'
 import { Heading, LinkPanel, Panel, BodyLong, Link } from '@navikt/ds-react'
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +7,6 @@ export function Forside() {
 
   return (
     <>
-      <ScrollToTop />
       <main>
         <Heading level="1" size="xlarge" style={{ textAlign: 'center' }}>
           Briller til barn
