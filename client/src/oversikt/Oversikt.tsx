@@ -37,6 +37,7 @@ export function Oversikt() {
                         variant="neutral"
                         size="3xlarge"
                         title="Laster krav..."
+                        style={{ display: 'block', margin: '2rem auto' }}
                     />
                 )}
                 {!error && data && data.items.length == 0 && (

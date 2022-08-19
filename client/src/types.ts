@@ -145,3 +145,21 @@ export interface OversiktResponseItem {
   name: string
   description: string
 }
+
+export interface OversiktDetaljerResponse {
+  orgnavn: string
+  orgnr: string
+  barnsNavn: string
+  barnsFnr: string
+  barnsAlder: string
+  høyreSfære: number
+  høyreSylinder: number
+  venstreSfære: number
+  venstreSylinder: number
+  bestillingsdato: string
+  brillepris: number
+  belop: number
+  bestillingsreferanse: string
+  satsNr: string
+  satsBeskrivelse: string
+}

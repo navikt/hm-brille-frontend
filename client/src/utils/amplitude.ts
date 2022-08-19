@@ -15,6 +15,7 @@ export enum amplitude_taxonomy {
 export enum digihot_customevents {
   VILKÅRSVURDERING_RESULTAT = 'vilkårsvurdering resultat',
   PRINT_KVITTERING = 'trykk på knapp for å skrive ut kvittering',
+  PRINT_KRAV = 'trykk på knapp for å skrive ut krav',
 }
 
 export enum SkjemaSteg {
@@ -102,6 +103,13 @@ export function logSkjemavalideringFeilet(feilmeldinger: string[] | undefined) {
 
 export function logPrintKvitteringÅpnet() {
   logAmplitudeEvent(digihot_customevents.PRINT_KVITTERING, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logPrintKravÅpnet() {
+  logAmplitudeEvent(digihot_customevents.PRINT_KRAV, {
     skjemanavn: SKJEMANAVN,
     skjemaId: skjemaId,
   })
