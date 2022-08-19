@@ -11,6 +11,7 @@ import { ReactNode } from 'react'
 import { Nullable, OversiktDetaljerResponse } from '../types'
 import { useGet } from '../useGet'
 import styled from 'styled-components'
+import {Dato} from "../components/Dato";
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -76,7 +77,7 @@ export function OversiktDetaljer() {
                 <Data>
                   <DatumHelper label="Navn">{data.barnsNavn}</DatumHelper>
                   <DatumHelper label="Fødselsnummer">{data.barnsFnr}</DatumHelper>
-                  <DatumHelper label="Alder">{data.barnsAlder}</DatumHelper>
+                  <DatumHelper label="Alder">{data.barnsAlder} år</DatumHelper>
                 </Data>
               </div>
               <div style={{ marginTop: '2rem' }}>
@@ -99,7 +100,7 @@ export function OversiktDetaljer() {
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Bestillingsdato">{data.bestillingsdato}</DatumHelper>
+                  <DatumHelper label="Bestillingsdato"><Dato verdi={data.bestillingsdato}></Dato></DatumHelper>
                   <DatumHelper label="Pris på brille">{data.brillepris.toFixed(2).replace('.', ',')} kr</DatumHelper>
                   <DatumHelper label="Bestillingsreferanse">{data.bestillingsreferanse}</DatumHelper>
                 </Data>

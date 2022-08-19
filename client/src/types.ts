@@ -146,7 +146,7 @@ export interface OversiktResponseItem {
   orgnr: string
   barnsNavn: string
   barnsFnr: string
-  barnsAlder: string
+  barnsAlder: number
   høyreSfære: number
   høyreSylinder: number
   venstreSfære: number
@@ -166,7 +166,7 @@ export interface OversiktDetaljerResponse {
   orgnr: string
   barnsNavn: string
   barnsFnr: string
-  barnsAlder: string
+  barnsAlder: number
   høyreSfære: number
   høyreSylinder: number
   venstreSfære: number
