@@ -1,6 +1,6 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail } from '@navikt/ds-react'
+import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Link} from '@navikt/ds-react'
 import { Back } from '@navikt/ds-icons'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -16,15 +16,15 @@ export function Oversikt() {
     <>
       <ScrollToTop />
       <main>
-        <Button
-          variant="tertiary"
-          size="medium"
-          onClick={() => {
-            navigate('/')
-          }}
-        >
-          <Back aria-hidden /> Tilbake
-        </Button>
+          <Link
+              onClick={() => {
+                  navigate('/')
+              }}
+              className="dontPrintMe"
+              style={{ cursor: 'pointer', fontSize: '1.1em' }}
+          >
+              <Back aria-hidden /> Tilbake
+          </Link>
         <h1>Innsendte krav</h1>
         <GuidePanel poster>
           Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV. Sakene vises i 4 uker etter at

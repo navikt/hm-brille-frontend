@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader } from '@navikt/ds-react'
+import { Button, Panel, Heading, Loader, Link } from '@navikt/ds-react'
 import { Back, Print } from '@navikt/ds-icons'
 import React, { useRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
@@ -29,16 +29,15 @@ export function OversiktDetaljer() {
     <DontPrintHelper ref={printRef}>
       <ScrollToTop />
       <main>
-        <Button
-          variant="tertiary"
-          size="medium"
+        <Link
           onClick={() => {
             navigate('/oversikt')
           }}
           className="dontPrintMe"
+          style={{ cursor: 'pointer', fontSize: '1.1em', marginBottom: '2rem' }}
         >
           <Back aria-hidden /> Tilbake til oversikten
-        </Button>
+        </Link>
         {!error && !data && (
           <Loader
             variant="neutral"
@@ -114,10 +113,10 @@ export function OversiktDetaljer() {
                   <li>
                     Barnet kan få støtte fra sats {data.satsNr}: {data.satsBeskrivelse}
                   </li>
-                  <li>Barnet har krav på brillestøtte på kr. {data.belop.toFixed(2).replace('.', ',')}</li>
+                  <li>Barnet har krav på brillestøtte på kr. {data.beløp.toFixed(2).replace('.', ',')}</li>
                 </ul>
                 <Heading level="1" size="small">
-                  Krav om direkte oppgjør fra NAV på kr. {data.belop.toFixed(2).replace('.', ',')}
+                  Krav om direkte oppgjør fra NAV på kr. {data.beløp.toFixed(2).replace('.', ',')}
                 </Heading>
               </div>
             </Panel>
