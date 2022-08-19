@@ -8,7 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
-      - bestillingsdato-validering
+      - oversiktslosning-for-optiker
 
 env:
   IMAGE: 'ghcr.io/navikt/hm-brille-frontend:${{ github.sha }}'
@@ -42,10 +42,12 @@ jobs:
           RESOURCE: .nais/dev.yml
           VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
       - name: post-deploy
+        if: github.ref == 'refs/heads/main'
         uses: navikt/digihot-deploy/actions/post-deploy@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: draft release
+        if: github.ref == 'refs/heads/main'
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,6 +58,7 @@ jobs:
           draft: true
           prerelease: false
       - name: deploy to labs
+        if: github.ref == 'refs/heads/main'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
