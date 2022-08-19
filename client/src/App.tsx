@@ -7,8 +7,8 @@ import { Feilside } from './Feilside'
 import { baseUrl } from './http'
 import { IkkeAutorisert } from './IkkeAutorisert'
 import { Forside } from './Forside'
-import { Innsyn } from './innsyn/Innsyn'
-import { InnsynDetaljer } from './innsyn/InnsynDetaljer'
+import { Oversikt } from './oversikt/Oversikt'
+import { OversiktDetaljer } from './oversikt/OversiktDetaljer'
 import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
@@ -41,8 +41,8 @@ export function App() {
           <Route path="/krav" element={<Krav />} />
           <Route path="/krav/oppsummering" element={<KravOppsummering />} />
           <Route path="/krav/kvittering" element={<KravKvittering />} />
-          <Route path="/innsyn" element={<Innsyn />} />
-          <Route path="/innsyn/:vedtakId" element={<InnsynDetaljer />} />
+          <Route path="/oversikt" element={<Oversikt />} />
+          <Route path="/oversikt/:vedtakId" element={<OversiktDetaljer />} />
           <Route path="*" element={<Feilside status={404} />} />
         </Routes>
       </ApplicationProvider>

@@ -4,16 +4,16 @@ import { Button, GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail } from
 import { Back } from "@navikt/ds-icons"
 import React, { useState } from "react"
 import {useNavigate} from "react-router-dom"
-import { InnsynResponse } from "../types"
+import { OversiktResponse } from "../types"
 
-export function Innsyn() {
+export function Oversikt() {
     const navigate = useNavigate()
     let [ currPage, setCurrPage ] = useState(1)
 
     const {
         data,
         error,
-    } = useGet<InnsynResponse>('/innsyn?page=' + currPage)
+    } = useGet<OversiktResponse>('/oversikt?page=' + currPage)
 
     return (
         <>
@@ -55,7 +55,7 @@ export function Innsyn() {
                             {data?.items.map((it, idx) => {
                                 return (
                                     <li key={idx} style={{ margin: '0.5rem 0' }}>
-                                        <LinkPanel onClick={ () => navigate('/innsyn/' + it.vedtakId) } border style={{ cursor: 'pointer' }}>
+                                        <LinkPanel onClick={ () => navigate('/oversikt/' + it.vedtakId) } border style={{ cursor: 'pointer' }}>
                                             <LinkPanel.Title>
                                                 {it.name}
                                             </LinkPanel.Title>

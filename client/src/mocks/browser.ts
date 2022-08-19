@@ -14,8 +14,8 @@ import {
     VilkårsgrunnlagResponse,
     VilkårsgrunnlagResultat,
     VirksomhetResponse,
-    InnsynResponse,
-    InnsynResponseItem
+    OversiktResponse,
+    OversiktResponseItem
 } from '../types'
 import { beregnSats } from './beregnSats'
 import { FeatureToggles } from '../FeatureToggleProvider'
@@ -171,7 +171,7 @@ const handlers: RequestHandler[] = [
           })
       )
   }),
-  rest.get<{}, {}, InnsynResponse>(apiUrl('/innsyn'), (req, res, ctx) => {
+  rest.get<{}, {}, OversiktResponse>(apiUrl('/oversikt'), (req, res, ctx) => {
       let page = parseInt(req.url.searchParams.get('page') || '1')
       if (!page || isNaN(page)) page = 1
 
@@ -205,7 +205,7 @@ const handlers: RequestHandler[] = [
           })
       )
   }),
-  rest.get<{}, {}, {}>(apiUrl('/innsyn/:vedtakId'), (req, res, ctx) => {
+  rest.get<{}, {}, {}>(apiUrl('/oversikt/:vedtakId'), (req, res, ctx) => {
       return res(
           ctx.status(200),
           ctx.json({})

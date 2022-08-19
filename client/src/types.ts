@@ -133,14 +133,14 @@ export enum SatsType {
   INGEN = 'INGEN',
 }
 
-export interface InnsynResponse {
+export interface OversiktResponse {
   numberOfPages: number
   itemsPerPage: number
   totalItems: number
-  items: InnsynResponseItem[]
+  items: OversiktResponseItem[]
 }
 
-export interface InnsynResponseItem {
+export interface OversiktResponseItem {
   vedtakId: number
   name: string
   description: string
