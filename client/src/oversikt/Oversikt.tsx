@@ -1,7 +1,6 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Link } from '@navikt/ds-react'
-import { Back } from '@navikt/ds-icons'
+import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading } from '@navikt/ds-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
@@ -26,7 +25,7 @@ export function Oversikt() {
     <>
       <ScrollToTop />
       <main>
-        <Link
+        {/* <Link
           onClick={() => {
             navigate('/')
           }}
@@ -34,8 +33,10 @@ export function Oversikt() {
           style={{ cursor: 'pointer', fontSize: '1.1em' }}
         >
           <Back aria-hidden /> Tilbake
-        </Link>
-        <h1>Innsendte krav</h1>
+        </Link> */}
+        <Heading level="1" size="large" style={{ marginRight: '1rem', margin: '0.1em 0' }}>
+          Innsendte krav
+        </Heading>
         <GuidePanel poster>
           Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV. Sakene vises i 4 uker etter at
           kravet er utbetalt av NAV. Ingen saker som er eldre enn 6 måneder vises i oversikten.

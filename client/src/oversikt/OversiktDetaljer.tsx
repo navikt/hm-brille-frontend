@@ -45,7 +45,7 @@ export function OversiktDetaljer() {
     <DontPrintHelper ref={printRef}>
       <ScrollToTop />
       <main>
-        <Link
+        {/* <Link
           onClick={() => {
             navigate('/oversikt')
           }}
@@ -53,7 +53,7 @@ export function OversiktDetaljer() {
           style={{ cursor: 'pointer', fontSize: '1.1em', marginBottom: '2rem' }}
         >
           <Back aria-hidden /> Tilbake til oversikten
-        </Link>
+        </Link> */}
         {!error && !data && (
           <Loader
             variant="neutral"
@@ -65,9 +65,13 @@ export function OversiktDetaljer() {
         {!error && data && (
           <>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h1 style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}>
+              <Heading
+                level="1"
+                size="large"
+                style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}
+              >
                 Krav for {data.barnsNavn}
-              </h1>
+              </Heading>
               <div className="dontPrintMe">
                 <Button variant="secondary" size="medium" onClick={handlePrint}>
                   <Print aria-hidden />
