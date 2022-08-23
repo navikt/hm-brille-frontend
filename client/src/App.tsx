@@ -1,10 +1,7 @@
-import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
-import { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { Feilside } from './Feilside'
-import { baseUrl } from './http'
 import { IkkeAutorisert } from './IkkeAutorisert'
 import { Forside } from './Forside'
 import { Oversikt } from './oversikt/Oversikt'
@@ -14,15 +11,9 @@ import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
 import { FeatureToggleProvider } from './FeatureToggleProvider'
+import Breadcrumbs from './components/Breadcrumbs'
 
 export function App() {
-  useEffect(() => {
-    setBreadcrumbs([
-      { url: 'https://www.nav.no/barnebriller', title: 'Briller til barn – optikers rolle' },
-      { url: baseUrl('/'), title: 'Krav om direkte oppgjør' },
-    ])
-  }, [])
-
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => {
@@ -35,6 +26,7 @@ export function App() {
         }
       }}
     >
+      <Breadcrumbs />
       <FeatureToggleProvider>
         <ApplicationProvider>
           <Routes>
