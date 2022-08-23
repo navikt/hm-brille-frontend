@@ -177,5 +177,6 @@ export interface OversiktDetaljerResponse {
   bestillingsreferanse: string
   satsNr: string
   satsBeskrivelse: string
+  utbetalingsdato?: string
   opprettet: string
 }

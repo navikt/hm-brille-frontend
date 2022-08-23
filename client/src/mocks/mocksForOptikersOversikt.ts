@@ -51,7 +51,7 @@ export const handlers: RequestHandler[] = [
           satsNr: '3',
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-          opprettet: '2022-08-08T14:45:00+02:00',
+          opprettet: '2022-08-09T14:45:00+02:00',
         },
         {
           id: 101,
@@ -86,7 +86,35 @@ export const handlers: RequestHandler[] = [
       })
     )
   }),
-  rest.get<{}, {}, OversiktDetaljerResponse>(apiUrl('/oversikt/:vedtakId'), (req, res, ctx) => {
+  rest.get<{}, { vedtakId: string }, OversiktDetaljerResponse>(apiUrl('/oversikt/:vedtakId'), (req, res, ctx) => {
+    if (req.params.vedtakId == '100') {
+      return res(
+        ctx.delay(),
+        ctx.status(200),
+        ctx.json({
+          id: 1,
+          orgnavn: 'Brillehuset',
+          orgnr: '123 456 789',
+          barnsNavn: 'Sedat Kronjuvel',
+          barnsFnr: '15084300133',
+          barnsAlder: 12,
+          høyreSfære: 1.25,
+          høyreSylinder: -1.0,
+          venstreSfære: 1.0,
+          venstreSylinder: -1.0,
+          bestillingsdato: '2022-08-02',
+          brillepris: 12345.0,
+          beløp: 750.0,
+          bestillingsreferanse: 'hlkefhuibv',
+          satsNr: '3',
+          satsBeskrivelse:
+            'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
+          utbetalingsdato: '2022-08-10T08:00:00+02:00',
+          opprettet: '2022-08-07T14:45:00+02:00',
+        })
+      )
+    }
+
     return res(
       ctx.delay(),
       ctx.status(200),
@@ -107,7 +135,7 @@ export const handlers: RequestHandler[] = [
         bestillingsreferanse: 'hlkefhuibv',
         satsNr: '3',
         satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-        opprettet: '2022-08-02',
+        opprettet: '2022-08-07T14:45:00+02:00',
       })
     )
   }),

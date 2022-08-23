@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Link } from '@navikt/ds-react'
+import { Button, Panel, Heading, Loader, Link, Alert } from '@navikt/ds-react'
 import { Back, Print, EllipsisV, Delete } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import { Dropdown } from '@navikt/ds-react-internal'
@@ -88,9 +88,13 @@ export function OversiktDetaljer() {
                   <Dropdown.Menu>
                     {/* @ts-ignore */}
                     <Dropdown.Menu.List>
-                      <Dropdown.Menu.List.Item ref={skrivUtRef}><Print aria-hidden /> Skriv ut krav</Dropdown.Menu.List.Item>
+                      <Dropdown.Menu.List.Item ref={skrivUtRef}>
+                        <Print aria-hidden /> Skriv ut krav
+                      </Dropdown.Menu.List.Item>
                       <Dropdown.Menu.Divider />
-                      <Dropdown.Menu.List.Item ref={annulerRef}><Delete aria-hidden /> Annulér kravet</Dropdown.Menu.List.Item>
+                      <Dropdown.Menu.List.Item ref={annulerRef}>
+                        <Delete aria-hidden /> Annulér kravet
+                      </Dropdown.Menu.List.Item>
                     </Dropdown.Menu.List>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -141,6 +145,9 @@ export function OversiktDetaljer() {
                   <DatumHelper label="Bestillingsdato">
                     <Dato verdi={data.bestillingsdato} />
                   </DatumHelper>
+                  <DatumHelper label="Krav innsendt">
+                    <Dato verdi={data.opprettet} />
+                  </DatumHelper>
                   <DatumHelper label="Pris på brille">{data.brillepris.toFixed(2).replace('.', ',')} kr</DatumHelper>
                   <DatumHelper label="Bestillingsreferanse">{data.bestillingsreferanse}</DatumHelper>
                 </Data>
@@ -152,9 +159,6 @@ export function OversiktDetaljer() {
                 <Line />
                 <ul>
                   <li>
-                    Kravet innmeldt: <Dato verdi={data.opprettet} />
-                  </li>
-                  <li>
                     Barnet kan få støtte fra sats {data.satsNr}: {data.satsBeskrivelse}
                   </li>
                   <li>Barnet har krav på brillestøtte på kr. {data.beløp.toFixed(2).replace('.', ',')}</li>
@@ -162,6 +166,16 @@ export function OversiktDetaljer() {
                 <Heading level="1" size="small">
                   Krav om direkte oppgjør fra NAV på kr. {data.beløp.toFixed(2).replace('.', ',')}
                 </Heading>
+                {!data.utbetalingsdato && (
+                  <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    Kravet er ikke utbetalt enda.
+                  </Alert>
+                )}
+                {data.utbetalingsdato && (
+                  <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    Kravet er utbetalt <Dato verdi={data.utbetalingsdato} />.
+                  </Alert>
+                )}
               </div>
             </Panel>
           </>
