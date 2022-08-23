@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Link, Alert } from '@navikt/ds-react'
+import { Button, Panel, Heading, Loader, Link, Alert, Modal, BodyLong } from '@navikt/ds-react'
 import { Back, Print, EllipsisV, Delete } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import { Dropdown } from '@navikt/ds-react-internal'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
-import { logPrintKravÅpnet } from '../utils/amplitude'
+import { logPrintKravÅpnet, logSkjemaFullfoert } from '../utils/amplitude'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { ReactNode } from 'react'
@@ -14,6 +14,8 @@ import { Nullable, OversiktDetaljerResponse } from '../types'
 import { useGet } from '../useGet'
 import styled from 'styled-components'
 import { Dato } from '../components/Dato'
+import { Knapper } from '../components/Knapper'
+import { AvbrytKrav } from '../krav/AvbrytKrav'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -36,10 +38,12 @@ export function OversiktDetaljer() {
         handlePrint()
         break
       case annulerRef.current:
-        console.log('Annulér clicked')
+        setModalDeleteOpen(true)
         break
     }
   }
+
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
 
   return (
     <DontPrintHelper ref={printRef}>
@@ -182,6 +186,48 @@ export function OversiktDetaljer() {
                 )}
               </div>
             </Panel>
+            <Modal
+              open={modalDeleteOpen}
+              aria-label="Annuler krav dialog"
+              onClose={() => setModalDeleteOpen((x) => !x)}
+            >
+              <Modal.Content>
+                {!data.utbetalingsdato && (
+                  <main>
+                    <Heading spacing level="1" size="large">
+                      Er du sikker på at du vil annulere kravet?
+                    </Heading>
+                    <BodyLong spacing>Optiker vil ikke få refundert kravet</BodyLong>
+                    <BodyLong spacing>Barnet har fortsatt en ubrukt rettighet inneværende år</BodyLong>
+                    <Knapper>
+                      <Button>Annuler kravet</Button>
+                      <AvbrytKrav />
+                    </Knapper>
+                  </main>
+                )}
+                {data.utbetalingsdato && (
+                  <main>
+                    <Heading spacing level="1" size="large">
+                      Kravet er utbetalt og kan ikke annuleres
+                    </Heading>
+                    <BodyLong spacing>
+                      Etter at kravet er utbetalt kan det ikke annuleres. Det kan ta et par dager før pengene er på
+                      konto.
+                    </BodyLong>
+                    <BodyLong spacing>
+                      Dersom du likevel trenger å annulere kravet, ta kontakt på{' '}
+                      <a href={'mailto:digihot@nav.no?subject=Brillekrav ønskes annulert: ' + data.id}>
+                        digihot@nav.no
+                      </a>{' '}
+                      og oppgi referansenummer {data.id}.
+                    </BodyLong>
+                    <Knapper>
+                      <Button onClick={() => setModalDeleteOpen(false)}>Ok</Button>
+                    </Knapper>
+                  </main>
+                )}
+              </Modal.Content>
+            </Modal>
           </>
         )}
       </main>
