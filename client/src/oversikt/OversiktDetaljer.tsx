@@ -1,7 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
 import { Button, Panel, Heading, Loader, Link } from '@navikt/ds-react'
-import { Back, Print } from '@navikt/ds-icons'
+import { Back, Print, EllipsisV, Delete } from '@navikt/ds-icons'
+import '@navikt/ds-css-internal'
+import { Dropdown } from '@navikt/ds-react-internal'
 import React, { useRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import { logPrintKravÅpnet } from '../utils/amplitude'
@@ -11,7 +13,7 @@ import { ReactNode } from 'react'
 import { Nullable, OversiktDetaljerResponse } from '../types'
 import { useGet } from '../useGet'
 import styled from 'styled-components'
-import {Dato} from "../components/Dato";
+import { Dato } from '../components/Dato'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -25,6 +27,19 @@ export function OversiktDetaljer() {
     onBeforePrint: () => logPrintKravÅpnet(),
     documentTitle: `krav_${vedtakId}`,
   })
+
+  const skrivUtRef = useRef<HTMLButtonElement>(null)
+  const annulerRef = useRef<HTMLButtonElement>(null)
+  const dropdownOnSelect = (e: React.MouseEvent) => {
+    switch (e.target) {
+      case skrivUtRef.current:
+        handlePrint()
+        break
+      case annulerRef.current:
+        console.log('Annulér clicked')
+        break
+    }
+  }
 
   return (
     <DontPrintHelper ref={printRef}>
@@ -53,10 +68,33 @@ export function OversiktDetaljer() {
               <h1 style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}>
                 Krav for {data.barnsNavn}
               </h1>
-              <Button variant="secondary" size="medium" className="dontPrintMe" onClick={handlePrint}>
-                <Print aria-hidden />
-                Skriv ut krav
-              </Button>
+              <div className="dontPrintMe">
+                <Button variant="secondary" size="medium" onClick={handlePrint}>
+                  <Print aria-hidden />
+                  Skriv ut krav
+                </Button>
+                {/* @ts-ignore */}
+                <Dropdown onSelect={dropdownOnSelect}>
+                  <Button
+                    variant="secondary"
+                    size="medium"
+                    className="dontPrintMe"
+                    as={Dropdown.Toggle}
+                    style={{ marginLeft: '-3px' }}
+                  >
+                    <EllipsisV aria-hidden />
+                  </Button>
+                  {/* @ts-ignore */}
+                  <Dropdown.Menu>
+                    {/* @ts-ignore */}
+                    <Dropdown.Menu.List>
+                      <Dropdown.Menu.List.Item ref={skrivUtRef}><Print aria-hidden /> Skriv ut krav</Dropdown.Menu.List.Item>
+                      <Dropdown.Menu.Divider />
+                      <Dropdown.Menu.List.Item ref={annulerRef}><Delete aria-hidden /> Annulér kravet</Dropdown.Menu.List.Item>
+                    </Dropdown.Menu.List>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
             <Panel border={true} style={{ marginTop: '1rem' }}>
               <div style={{ marginTop: '1rem' }}>
@@ -100,7 +138,9 @@ export function OversiktDetaljer() {
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Bestillingsdato"><Dato verdi={data.bestillingsdato}></Dato></DatumHelper>
+                  <DatumHelper label="Bestillingsdato">
+                    <Dato verdi={data.bestillingsdato} />
+                  </DatumHelper>
                   <DatumHelper label="Pris på brille">{data.brillepris.toFixed(2).replace('.', ',')} kr</DatumHelper>
                   <DatumHelper label="Bestillingsreferanse">{data.bestillingsreferanse}</DatumHelper>
                 </Data>
@@ -111,6 +151,9 @@ export function OversiktDetaljer() {
                 </Heading>
                 <Line />
                 <ul>
+                  <li>
+                    Kravet innmeldt: <Dato verdi={data.opprettet} />
+                  </li>
                   <li>
                     Barnet kan få støtte fra sats {data.satsNr}: {data.satsBeskrivelse}
                   </li>
