@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Link, Alert, Modal, BodyLong } from '@navikt/ds-react'
+import { Button, Panel, Heading, Loader, Link, Alert, Modal, BodyLong, Tag } from '@navikt/ds-react'
 import { Back, Print, EllipsisV, Delete } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import { Dropdown } from '@navikt/ds-react-internal'
@@ -15,7 +15,6 @@ import { useGet } from '../useGet'
 import styled from 'styled-components'
 import { Dato } from '../components/Dato'
 import { Knapper } from '../components/Knapper'
-import { AvbrytKrav } from '../krav/AvbrytKrav'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -68,6 +67,20 @@ export function OversiktDetaljer() {
         )}
         {!error && data && (
           <>
+            {data.annullert && (
+              <div style={{ marginBottom: '1rem' }}>
+                <Tag variant="warning" size="small">
+                  Annullert <Dato verdi={data.annullert}></Dato>
+                </Tag>
+              </div>
+            )}
+            {data.utbetalingsdato && (
+              <div style={{ marginBottom: '1rem' }}>
+                <Tag variant="success" size="small">
+                  Utbetalt <Dato verdi={data.utbetalingsdato}></Dato>
+                </Tag>
+              </div>
+            )}
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
               <Heading
                 level="1"
@@ -174,9 +187,14 @@ export function OversiktDetaljer() {
                 <Heading level="1" size="small">
                   Krav om direkte oppgjør fra NAV på kr. {data.beløp.toFixed(2).replace('.', ',')}
                 </Heading>
-                {!data.utbetalingsdato && (
+                {!data.utbetalingsdato && !data.annullert && (
                   <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     Kravet er ikke utbetalt enda.
+                  </Alert>
+                )}
+                {data.annullert && (
+                  <Alert variant="warning" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    Kravet ble annullert <Dato verdi={data.annullert} />.
                   </Alert>
                 )}
                 {data.utbetalingsdato && (

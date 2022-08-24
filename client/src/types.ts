@@ -157,7 +157,9 @@ export interface OversiktResponseItem {
   bestillingsreferanse: string
   satsNr: string
   satsBeskrivelse: string
+  utbetalingsdato?: string
   opprettet: string
+  annullert?: string
 }
 
 export interface OversiktDetaljerResponse {
@@ -179,4 +181,5 @@ export interface OversiktDetaljerResponse {
   satsBeskrivelse: string
   utbetalingsdato?: string
   opprettet: string
+  annullert?: string
 }

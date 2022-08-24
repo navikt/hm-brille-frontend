@@ -1,6 +1,6 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading } from '@navikt/ds-react'
+import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
@@ -71,6 +71,20 @@ export function Oversikt() {
                       <LinkPanel.Title>{it.barnsNavn}</LinkPanel.Title>
                       <LinkPanel.Description>
                         Innsendt: <Dato verdi={it.opprettet}></Dato>
+                        {it.annullert && (
+                          <div>
+                            <Tag variant="warning" size="small">
+                              Annullert <Dato verdi={it.annullert}></Dato>
+                            </Tag>
+                          </div>
+                        )}
+                        {it.utbetalingsdato && (
+                          <div>
+                            <Tag variant="success" size="small">
+                              Utbetalt <Dato verdi={it.utbetalingsdato}></Dato>
+                            </Tag>
+                          </div>
+                        )}
                       </LinkPanel.Description>
                     </LinkPanel>
                   </li>
