@@ -67,7 +67,7 @@ export function Oversikt() {
                     <LinkPanel onClick={() => navigate('/oversikt/' + it.id)} border style={{ cursor: 'pointer' }}>
                       <LinkPanel.Title>{it.barnsNavn}</LinkPanel.Title>
                       <LinkPanel.Description>
-                        Innsendt: <Dato verdi={it.opprettet}></Dato>
+                        Innsendt <Dato verdi={it.opprettet}></Dato> fra {it.orgnavn} med referanse {it.bestillingsreferanse}
                         {it.annullert && (
                           <div>
                             <Tag variant="warning" size="small">
