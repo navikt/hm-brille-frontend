@@ -1,6 +1,7 @@
 import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
 import { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { FeatureToggleProvider } from './FeatureToggleProvider'
@@ -13,10 +14,12 @@ import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
 
 export function App() {
+  const { t } = useTranslation()
   useEffect(() => {
+    // noinspection JSIgnoredPromiseFromCall
     setBreadcrumbs([
-      { url: 'https://www.nav.no/barnebriller', title: 'Briller til barn – optikers rolle' },
-      { url: baseUrl('/'), title: 'Krav om direkte oppgjør' },
+      { url: 'https://www.nav.no/barnebriller', title: t('brødsmuler.optikers_rolle') },
+      { url: baseUrl('/'), title: t('brødsmuler.krav') },
     ])
   }, [])
   return (

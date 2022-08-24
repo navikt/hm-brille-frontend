@@ -1,23 +1,24 @@
-import { Alert, BodyLong, Heading, Link as DsLink, Loader } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import { beløp } from '../beløp'
 import { Avstand } from '../components/Avstand'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { LoaderContainer } from '../components/LoaderContainer'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { dato } from '../dato'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
 import { usePost } from '../usePost'
+import { digihot_customevents, logCustomEvent, logSkjemavalideringFeilet } from '../utils/amplitude'
 import { FormatertStyrke } from './FormatertStyrke'
 import { KravSteg } from './KravSteg'
 import { SendInnKrav } from './SendInnKrav'
-import styled from 'styled-components'
-import { LoaderContainer } from '../components/LoaderContainer'
-import { LenkeMedLogging } from '../components/LenkeMedLogging'
-import { digihot_customevents, logCustomEvent, logSkjemavalideringFeilet } from '../utils/amplitude'
 
 export function KravOppsummering() {
+  const { t } = useTranslation()
   const { appState } = useApplicationContext()
   const {
     post: vurderVilkår,
@@ -67,65 +68,69 @@ export function KravOppsummering() {
   return (
     <KravSteg>
       <Heading level="2" size="medium">
-        Barn
+        {t('krav.overskrift_barn')}
       </Heading>
       <Data>
-        <Datum label="Fødselsnummer">{appState.barnFnr}</Datum>
-        <Datum label="Navn">{appState.barnNavn}</Datum>
-        <Datum label="Alder">{appState.barnAlder}</Datum>
+        <Datum label="krav.ledetekst_fnr">{appState.barnFnr}</Datum>
+        <Datum label="krav.ledetekst_navn">{appState.barnNavn}</Datum>
+        <Datum label="krav.ledetekst_alder">{appState.barnAlder}</Datum>
       </Data>
       <Heading level="2" size="medium">
-        Brillestyrke
+        {t('krav.overskrift_brillestyrke')}
       </Heading>
       <Data>
-        <Datum label="Høyre sfære">
+        <Datum label="krav.ledetekst_høyre_sfære">
           <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære" />
         </Datum>
-        <Datum label="Høyre sylinder">
+        <Datum label="krav.ledetekst_høyre_sylinder">
           <FormatertStyrke verdi={appState.brillestyrke.høyreSylinder} type="sylinder" />
         </Datum>
-        <Datum label="Venstre sfære">
+        <Datum label="krav.ledetekst_venstre_sfære">
           <FormatertStyrke verdi={appState.brillestyrke.venstreSfære} type="sfære" />
         </Datum>
-        <Datum label="Venstre sylinder">
+        <Datum label="krav.ledetekst_venstre_sylinder">
           <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} type="sylinder" />
         </Datum>
       </Data>
       <Heading level="2" size="medium">
-        Annet
+        {t('krav.overskrift_annet')}
       </Heading>
       <Data>
-        <Datum label="Organisasjonsnummer">{organisasjonsnummer(appState.orgnr)}</Datum>
-        <Datum label="Organisasjonsnavn">{appState.orgNavn}</Datum>
-        <Datum label="Bestillingsdato">{appState.bestillingsdato}</Datum>
-        <Datum label="Pris på brille">{appState.brillepris}</Datum>
-        <Datum label="Bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
+        <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(appState.orgnr)}</Datum>
+        <Datum label="krav.ledetekst_organisasjonsnavn">{appState.orgNavn}</Datum>
+        <Datum label="krav.ledetekst_bestillingsdato_alt">{appState.bestillingsdato}</Datum>
+        <Datum label="krav.ledetekst_brillepris_alt">{appState.brillepris}</Datum>
+        <Datum label="krav.ledetekst_bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
       </Data>
       <Avstand paddingBottom={5} paddingTop={5}>
         {vilkårsvurdering.sats === SatsType.INGEN ? (
           <Alert variant="warning">
-            <BodyLong>Du kan ikke sende inn krav om direkte oppgjør.</BodyLong>
+            <BodyLong>{t('krav.kan_ikke_sende_inn')}</BodyLong>
             <br />
             <BodyLong>
-              Vi har funnet informasjon om at barnet ikke kan få støtte til briller. Av personvernhensyn kan vi ikke gi
-              ut opplysninger om årsak til at støtte ikke kan gis. For mer informasjon om ordningen, se vår&nbsp;
-              <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
-                informasjonsside om briller til barn
-              </LenkeMedLogging>
-              .
+              <Trans t={t} i18nKey="krav.kan_ikke_sende_inn_forklaring">
+                <></>
+                <LenkeMedLogging href="https://nav.no/briller-til-barn#hvem" target="_blank">
+                  <></>
+                </LenkeMedLogging>
+                <></>
+              </Trans>
             </BodyLong>
           </Alert>
         ) : (
           <Alert variant="info">
-            <Heading level="2" spacing size="small">{`Brillestøtte på ${beløp.formater(
-              vilkårsvurdering.beløp
-            )}`}</Heading>
+            <Heading level="2" spacing size="small">
+              {t('krav.brillestøtte_beløp_alt', { satsBeløp: beløp.formater(vilkårsvurdering.beløp) })}
+            </Heading>
             {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
-              <BodyLong>{'Barnet får støtte for hele kostnaden på brillen.'}</BodyLong>
+              <BodyLong>{t('krav.brillestøtte_for_hele_brillen')}</BodyLong>
             ) : (
-              <BodyLong>{`Barnet kan få støtte fra sats ${vilkårsvurdering.sats.replace('SATS_', '')}: ${
-                vilkårsvurdering.satsBeskrivelse
-              }`}</BodyLong>
+              <BodyLong>
+                {t('krav.brillestøtte_sats', {
+                  sats: vilkårsvurdering.sats.replace('SATS_', ''),
+                  satsBeskrivelse: vilkårsvurdering.satsBeskrivelse,
+                })}
+              </BodyLong>
             )}
           </Alert>
         )}

@@ -1,14 +1,16 @@
 import { Heading, Select } from '@navikt/ds-react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { capitalize } from '../common/stringFormating'
+import { enhet } from '../enhet'
 import type { Brilleseddel } from '../types'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
-import { enhet } from '../enhet'
 
 export function Øye(props: { type: 'venstre' | 'høyre' }) {
   const { type } = props
+  const { t } = useTranslation()
   const {
     control,
     formState: { errors },
@@ -17,24 +19,24 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
     <Grid>
       <ØyeEtikett>
         <Heading level="3" size="small">
-          {`${capitalize(type)} øye`}
+          {t(`krav.${type}_øye`)}
         </Heading>
       </ØyeEtikett>
       <Controller
         name={`brillestyrke.${type}Sfære`}
         control={control}
         rules={{
-          required: 'Du må oppgi en verdi',
+          required: t('krav.validering_øye'),
         }}
         render={({ field }) => (
           <Select
             style={{ maxWidth: '330px' }}
-            label="Sfære (SPH)"
+            label={t('krav.ledetekst_sfære')}
             size="medium"
             error={errors.brillestyrke?.[`${type}Sfære`]?.message}
             {...field}
           >
-            <option value="">Velg sfære</option>
+            <option value="">{t('krav.velg_sfære')}</option>
             {range(1, MAX_SFÆRE).map((it) => (
               <option key={it} value={it}>
                 <FormatertStyrke verdi={it} type="sfære" />
@@ -47,17 +49,17 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         name={`brillestyrke.${type}Sylinder`}
         control={control}
         rules={{
-          required: 'Du må oppgi en verdi',
+          required: t('krav.validering_øye'),
         }}
         render={({ field }) => (
           <Select
             style={{ maxWidth: '330px' }}
-            label="Sylinder (CYL)"
+            label={t('krav.ledetekst_sylinder')}
             size="medium"
             error={errors.brillestyrke?.[`${type}Sylinder`]?.message}
             {...field}
           >
-            <option value="">Velg sylinder</option>
+            <option value="">{t('krav.velg_sylinder')}</option>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
                 <FormatertStyrke verdi={it} type="sylinder" />
@@ -73,10 +75,6 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
 const ØyeEtikett = styled.div`
   justify-items: auto;
   align-self: center;
-`
-
-const StyrkeSelect = styled.select`
-  max-width: 330px;
 `
 
 const Grid = styled.div`

@@ -1,9 +1,11 @@
 import { Button } from '@navikt/ds-react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useApplicationContext } from '../state/ApplicationContext'
 
 export function AvbrytKrav() {
+  const { t } = useTranslation()
   const { resetAppState } = useApplicationContext()
   const navigate = useNavigate()
   return (
@@ -15,7 +17,7 @@ export function AvbrytKrav() {
         navigate('/')
       }}
     >
-      Avbryt
+      {t('krav.knapp_avbryt')}
     </Button>
   )
 }
