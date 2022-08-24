@@ -211,18 +211,36 @@ export function OversiktDetaljer() {
                       Kravet er utbetalt og kan ikke annuleres
                     </Heading>
                     <BodyLong spacing>
-                      Etter at kravet er utbetalt kan det ikke annuleres. Det kan ta et par dager før pengene er på
-                      konto.
+                      Etter at kravet er sendt til utbetaling av NAV kan det ikke annuleres i denne
+                      selvbetjeningsløsningen.
                     </BodyLong>
                     <BodyLong spacing>
-                      Dersom du likevel trenger å annulere kravet, ta kontakt på{' '}
-                      <a href={'mailto:digihot@nav.no?subject=Brillekrav ønskes annulert: ' + data.id}>
-                        digihot@nav.no
-                      </a>{' '}
-                      og oppgi referansenummer {data.id}.
+                      Dersom du likevel trenger å annulere kravet vil beløpet måtte tilbakebetales av mottaker. Ta
+                      kontakt med NAV ved å trykke{' '}
+                      <a
+                        href={
+                          'mailto:digihot@nav.no?subject=Brillekrav ønskes annulert: ' +
+                          data.id +
+                          '&body=Detaljer om kravet: %0A' +
+                          'NAVs referanse: ' +
+                          data.id +
+                          '%0A' +
+                          'Foretak: ' +
+                          data.orgnr +
+                          ' ' +
+                          data.orgnavn +
+                          '%0A' +
+                          '%0A' +
+                          'Beskriv hvorfor kravet ønskes annulert under linjen: %0A' +
+                          '-------------------------------------------------------------------------- %0A%0A'
+                        }
+                      >
+                        her
+                      </a>
+                      .
                     </BodyLong>
                     <Knapper>
-                      <Button onClick={() => setModalDeleteOpen(false)}>Ok</Button>
+                      <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>Lukk</Button>
                     </Knapper>
                   </main>
                 )}
