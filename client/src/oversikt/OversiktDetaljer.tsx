@@ -31,13 +31,13 @@ export function OversiktDetaljer() {
   })
 
   const skrivUtRef = useRef<HTMLButtonElement>(null)
-  const annulerRef = useRef<HTMLButtonElement>(null)
+  const annullerRef = useRef<HTMLButtonElement>(null)
   const dropdownOnSelect = (e: React.MouseEvent) => {
     switch (e.target) {
       case skrivUtRef.current:
         handlePrint()
         break
-      case annulerRef.current:
+      case annullerRef.current:
         setModalDeleteOpen(true)
         break
     }
@@ -79,7 +79,7 @@ export function OversiktDetaljer() {
               <div className="dontPrintMe">
                 <Button variant="secondary" size="medium" onClick={handlePrint}>
                   <Print aria-hidden />
-                  Skriv ut krav
+                  Skriv ut kravet
                 </Button>
                 {/* @ts-ignore */}
                 <Dropdown onSelect={dropdownOnSelect}>
@@ -97,11 +97,11 @@ export function OversiktDetaljer() {
                     {/* @ts-ignore */}
                     <Dropdown.Menu.List>
                       <Dropdown.Menu.List.Item ref={skrivUtRef}>
-                        <Print aria-hidden /> Skriv ut krav
+                        <Print aria-hidden /> Skriv ut kravet
                       </Dropdown.Menu.List.Item>
                       <Dropdown.Menu.Divider />
-                      <Dropdown.Menu.List.Item ref={annulerRef}>
-                        <Delete aria-hidden /> Annulér kravet
+                      <Dropdown.Menu.List.Item ref={annullerRef}>
+                        <Delete aria-hidden /> Annuller kravet
                       </Dropdown.Menu.List.Item>
                     </Dropdown.Menu.List>
                   </Dropdown.Menu>
@@ -188,38 +188,61 @@ export function OversiktDetaljer() {
             </Panel>
             <Modal
               open={modalDeleteOpen}
-              aria-label="Annuler krav dialog"
+              aria-label="Annuller krav dialog"
               onClose={() => setModalDeleteOpen((x) => !x)}
             >
               <Modal.Content>
                 {!data.utbetalingsdato && (
                   <main>
                     <Heading spacing level="1" size="large">
-                      Er du sikker på at du vil annulere kravet?
+                      Er du sikker på at du vil annullere kravet?
                     </Heading>
-                    <BodyLong spacing>Optiker vil ikke få refundert kravet</BodyLong>
-                    <BodyLong spacing>Barnet har fortsatt en ubrukt rettighet inneværende år</BodyLong>
+                    <BodyLong spacing>
+                      Her kan du annullere et krav. Det kan for eksempel være fordi du ikke ønsker å sende inn kravet
+                      likevel eller for å sende inn et nytt krav med korrigerte opplysninger.
+                    </BodyLong>
+                    <Heading level="2" size="medium">
+                      Konsekvenser
+                    </Heading>
+                    <BodyLong spacing>
+                      <ul>
+                        <li>Optiker vil ikke få refundert penger fra NAV uten å sende inn et nytt krav</li>
+                        <li>
+                          Barnets rettighet til brillestøtte for {new Date(data.bestillingsdato).getFullYear()} vil være
+                          ubrukt etter annullering
+                        </li>
+                        <li>
+                          Hvis brillens bestillingsdato nå er eldre enn seks måneder vil man ikke kunne sende inn kravet
+                          på nytt
+                        </li>
+                      </ul>
+                    </BodyLong>
+
                     <Knapper>
-                      <Button>Annuler kravet</Button>
-                      <AvbrytKrav />
+                      <Button variant="danger">
+                        <Delete aria-hidden /> Annuller kravet
+                      </Button>
+                      <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
+                        Lukk
+                      </Button>
                     </Knapper>
                   </main>
                 )}
                 {data.utbetalingsdato && (
                   <main>
                     <Heading spacing level="1" size="large">
-                      Kravet er utbetalt og kan ikke annuleres
+                      Kravet er utbetalt og kan ikke annulleres
                     </Heading>
                     <BodyLong spacing>
-                      Etter at kravet er sendt til utbetaling av NAV kan det ikke annuleres i denne
+                      Etter at kravet er sendt til utbetaling av NAV kan det ikke annulleres i denne
                       selvbetjeningsløsningen.
                     </BodyLong>
                     <BodyLong spacing>
-                      Dersom du likevel trenger å annulere kravet vil beløpet måtte tilbakebetales av mottaker. Ta
+                      Dersom du likevel trenger å annullere kravet vil beløpet måtte tilbakebetales av mottaker. Ta
                       kontakt med NAV ved å trykke{' '}
                       <a
                         href={
-                          'mailto:digihot@nav.no?subject=Brillekrav ønskes annulert: ' +
+                          'mailto:digihot@nav.no?subject=Brillekrav ønskes annullert: ' +
                           data.id +
                           '&body=Detaljer om kravet: %0A' +
                           'NAVs referanse: ' +
@@ -231,7 +254,7 @@ export function OversiktDetaljer() {
                           data.orgnavn +
                           '%0A' +
                           '%0A' +
-                          'Beskriv hvorfor kravet ønskes annulert under linjen: %0A' +
+                          'Beskriv hvorfor kravet ønskes annullert under linjen: %0A' +
                           '-------------------------------------------------------------------------- %0A%0A'
                         }
                       >
@@ -240,7 +263,9 @@ export function OversiktDetaljer() {
                       .
                     </BodyLong>
                     <Knapper>
-                      <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>Lukk</Button>
+                      <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
+                        Lukk
+                      </Button>
                     </Knapper>
                   </main>
                 )}
