@@ -1,4 +1,5 @@
 import { Accordion, BodyShort, Heading } from '@navikt/ds-react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { AppLink } from './components/AppLink'
 import { Avstand } from './components/Avstand'
@@ -12,14 +13,15 @@ export interface FeilsideProps {
 
 export function Feilside(props: FeilsideProps) {
   const { status, error } = props
+  const { t } = useTranslation()
   const utviklerinformasjon = hentUtviklerinformasjon(error)
   return (
     <main>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="1" size="large" spacing>
-          {overskrift[status] || 'Teknisk feil'}
+          {t(overskrift[status] || 'Teknisk feil')}
           <Pipe />
-          <Feilkode>Feilkode {status}</Feilkode>
+          <Feilkode>{t('feilside.feilkode', { status })}</Feilkode>
         </Heading>
         {{
           401: <IkkeLoggetInn />,
@@ -29,7 +31,7 @@ export function Feilside(props: FeilsideProps) {
       {utviklerinformasjon && (
         <Accordion>
           <Accordion.Item>
-            <Accordion.Header>Informasjon til utviklere</Accordion.Header>
+            <Accordion.Header>{t('feilside.informasjon_til_utviklere')}</Accordion.Header>
             <Accordion.Content>
               <Code>{utviklerinformasjon}</Code>
             </Accordion.Content>
@@ -41,35 +43,36 @@ export function Feilside(props: FeilsideProps) {
 }
 
 function IkkeLoggetInn() {
+  const { t } = useTranslation()
   return (
     <>
-      <BodyShort spacing>Du må logge inn for å få tilgang til systemet.</BodyShort>
+      <BodyShort spacing>{t('feilside.ikke_logget_inn')}</BodyShort>
       <BodyShort spacing>
-        <AppLink href="/">Gå til innloggingssiden</AppLink>.
+        <AppLink href="/">{t('feilside.gå_til_innloggingssiden')}</AppLink>.
       </BodyShort>
     </>
   )
 }
 
 function IkkeFunnet() {
+  const { t } = useTranslation()
   return (
     <>
+      <BodyShort spacing>{t('feilside.ikke_funnet')}</BodyShort>
       <BodyShort spacing>
-        Beklager, siden kan være slettet eller flyttet, eller det var en feil i lenken som førte deg hit.
-      </BodyShort>
-      <BodyShort spacing>
-        <AppLink href="/">Gå til forsiden</AppLink>.
+        <AppLink href="/">{t('feilside.gå_til_forsiden')}</AppLink>.
       </BodyShort>
     </>
   )
 }
 
 function TekniskFeil() {
+  const { t } = useTranslation()
   return (
     <>
-      <BodyShort spacing>Beklager, det har skjedd en teknisk feil.</BodyShort>
+      <BodyShort spacing>{t('feilside.teknisk_feil')}</BodyShort>
       <BodyShort spacing>
-        <AppLink href="/">Gå til forsiden</AppLink>.
+        <AppLink href="/">{t('feilside.gå_til_forsiden')}</AppLink>.
       </BodyShort>
     </>
   )

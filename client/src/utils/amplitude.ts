@@ -11,7 +11,7 @@ export enum amplitude_taxonomy {
   NAVIGERE = 'navigere',
 }
 
-//Events som ikke er i NAV sin taxonomi
+// Events som ikke er i NAVs taksonomi
 export enum digihot_customevents {
   VILKÅRSVURDERING_RESULTAT = 'vilkårsvurdering resultat',
   PRINT_KVITTERING = 'trykk på knapp for å skrive ut kvittering',
@@ -26,7 +26,7 @@ const SKJEMANAVN = 'hm-brille-frontend'
 
 let skjemaId = uuidv4()
 
-export const initAmplitude = () => {
+export function initAmplitude() {
   if (amplitude) {
     amplitude.getInstance().init('default', '', {
       apiEndpoint: 'amplitude.nav.no/collect-auto',

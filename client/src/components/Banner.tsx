@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
 import { Alert, Panel } from '@navikt/ds-react'
+import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { Feature, FeatureToggleContext } from '../FeatureToggleProvider'
 
@@ -8,6 +9,7 @@ interface BannerProps {
 }
 
 export function Banner(props: BannerProps) {
+  const { t } = useTranslation()
   const featureToggleContext = useContext(FeatureToggleContext)
   const visFeilBanner = featureToggleContext[Feature.TekniskFeilBanner]
 
@@ -17,7 +19,7 @@ export function Banner(props: BannerProps) {
       {visFeilBanner && (
         <FeilBanner>
           <Alert variant="error" size="medium">
-            Vi har dessverre tekniske problemer nå. Det kan derfor være problemer med å sende inn krav.
+            {t('banner.tekniske_problemer')}
           </Alert>
         </FeilBanner>
       )}

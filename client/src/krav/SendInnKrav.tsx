@@ -1,5 +1,6 @@
 import { Button } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
@@ -13,6 +14,7 @@ export interface SendInnKravProps {
 }
 
 export function SendInnKrav(props: SendInnKravProps) {
+  const { t } = useTranslation()
   const { appState } = useApplicationContext()
   const navigate = useNavigate()
 
@@ -45,7 +47,7 @@ export function SendInnKrav(props: SendInnKravProps) {
           logSkjemaFullfoert()
         }}
       >
-        Send inn kravet
+        {t('krav.knapp_send_inn_kravet')}
       </Button>
       <AvbrytKrav />
     </Knapper>

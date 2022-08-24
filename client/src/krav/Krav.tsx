@@ -1,5 +1,6 @@
 import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import ScrollToTop from '../components/ScrollToTop'
@@ -22,6 +23,7 @@ import { KravSteg } from './KravSteg'
 import { VirksomhetForm } from './VirksomhetForm'
 
 export function Krav() {
+  const { t } = useTranslation()
   const { appState, setAppState } = useApplicationContext()
   const { post: hentBruker, data: hentBrukerData } = usePost<HentInnbyggerRequest, HentInnbyggerResponse>(
     '/innbyggere/sok'
@@ -84,7 +86,7 @@ export function Krav() {
       {!harValgtVirksomhet ? (
         <Panel>
           <Heading level="2" size="medium" spacing>
-            Foretak som skal ha direkte oppgjør
+            {t('krav.overskrift_foretak')}
           </Heading>
           <VirksomhetForm tidligereBrukteVirksomheter={tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner} />
         </Panel>
@@ -92,7 +94,7 @@ export function Krav() {
         <>
           <Panel border>
             <Heading size="small" spacing>
-              Foretaket som skal ha direkte oppgjør
+              {t('krav.overskrift_foretaket')}
             </Heading>
             <BodyLong>{`${appState?.orgNavn}, org. nr. ${organisasjonsnummer(appState?.orgnr)}`}</BodyLong>
             <Button
@@ -106,12 +108,12 @@ export function Krav() {
                 }))
               }}
             >
-              Velg annen virksomhet
+              {t('krav.knapp_velg_annen_virksomhet')}
             </Button>
           </Panel>
           <Panel>
             <Heading level="2" size="medium" spacing>
-              Om barnet
+              {t('krav.overskrift_om_barnet')}
             </Heading>
             <HentBarnForm
               onValid={async ({ fnr }) => {

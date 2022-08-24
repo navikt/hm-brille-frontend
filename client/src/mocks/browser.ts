@@ -1,4 +1,5 @@
 import { RequestHandler, rest, setupWorker } from 'msw'
+import { FeatureToggles } from '../FeatureToggleProvider'
 import { apiUrl } from '../http'
 import {
   BeregnSatsRequest,
@@ -16,7 +17,6 @@ import {
   VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
-import { FeatureToggles } from '../FeatureToggleProvider'
 import { handlers as mocksForOptikersOversiktHandlers } from './mocksForOptikersOversikt'
 
 let godtattVilkår: boolean = false
@@ -62,27 +62,27 @@ const handlers: RequestHandler[] = [
       ctx.json({
         //  sistBrukteOrganisasjon: undefined,
         sistBrukteOrganisasjon: {
-          orgnr: '123456789',
+          orgnr: '108271914',
           navn: 'Brillehuset Kristiansand',
           adresse: 'Kristiansandveien 123',
           aktiv: true,
         },
         tidligereBrukteOrganisasjoner: [
           {
-            orgnr: '123456789',
+            orgnr: '108271914',
             navn: 'Brillehuset Kristiansand',
             adresse: 'Kristiansandveien 123',
             aktiv: true,
           },
           {
-            orgnr: '112233445',
+            orgnr: '384243762',
             navn: 'Klokker, gull og armatur AS',
             adresse: 'Strømmensveien 123',
             aktiv: true,
           },
           {
-            orgnr: '54433221',
-            navn: 'Brillelsjø AS',
+            orgnr: '092746712',
+            navn: 'Brillesjø AS',
             adresse: 'Brillefinveien 123',
             aktiv: true,
           },
@@ -98,7 +98,7 @@ const handlers: RequestHandler[] = [
       return res(
         ctx.json({
           navn: 'Manglerud Avtale',
-          orgnr: '123456789',
+          orgnr: '978875076',
           aktiv: false,
           adresse: 'Mangerudveien 6, 0942 Oslo',
         })
@@ -107,7 +107,7 @@ const handlers: RequestHandler[] = [
 
     return res(
       ctx.json({
-        orgnr: '987654321',
+        orgnr: '092746712',
         navn: 'Brillesjø AS',
         kontonr: '11111111113',
         aktiv: true,

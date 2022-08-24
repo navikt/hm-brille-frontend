@@ -1,10 +1,11 @@
-import { BodyLong, Button, ConfirmationPanel, Heading, Link, Loader } from '@navikt/ds-react'
+import { BodyLong, Button, ConfirmationPanel, Heading, Loader } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
+import { Trans, useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
 import { Knapper } from '../components/Knapper'
-import { KravSteg } from './KravSteg'
-import { LoaderContainer } from '../components/LoaderContainer'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { LoaderContainer } from '../components/LoaderContainer'
+import { KravSteg } from './KravSteg'
 
 export interface BrukervilkårProps {
   loading: boolean
@@ -14,6 +15,7 @@ export interface BrukervilkårProps {
 
 export function Brukervilkår(props: BrukervilkårProps) {
   const { loading, onGodta } = props
+  const { t } = useTranslation()
 
   const {
     control,
@@ -38,35 +40,34 @@ export function Brukervilkår(props: BrukervilkårProps) {
   return (
     <KravSteg>
       <Heading level="2" size="medium">
-        Brukervilkår
+        {t('brukervilkår.overskrift')}
       </Heading>
       <BodyLong spacing>
-        Her registrerer du krav om stønad til briller til barn, slik at firmaet du jobber i, får riktig utbetaling. Du
-        kan lese mer om støtte til briller til barn på{' '}
-        <LenkeMedLogging href="https://nav.no/barnebriller">nav.no</LenkeMedLogging>
+        <Trans t={t} i18nKey="brukervilkår.ingress">
+          {''}
+          <LenkeMedLogging href="https://nav.no/barnebriller">nav.no</LenkeMedLogging>
+        </Trans>
       </BodyLong>
-      Vilkår for å legge inn krav:
+      {t('brukervilkår.vilkår')}:
       <ul>
-        <li>Firmaet du jobber må ha inngått avtale om direkte oppgjør med NAV.</li>
-        <li>Brillen må være bestilt.</li>
-        <li>Opplysningene du legger inn må være riktige.</li>
+        <li>{t('brukervilkår.vilkår_1')}</li>
+        <li>{t('brukervilkår.vilkår_2')}</li>
+        <li>{t('brukervilkår.vilkår_3')}</li>
       </ul>
-      <BodyLong spacing>
-        Første gangen du skal sende inn et krav, inngår du en avtale med NAV om bruk av løsningen.
-      </BodyLong>
+      <BodyLong spacing>{t('brukervilkår.forklaring')}</BodyLong>
       <form onSubmit={handleSubmit(async () => onGodta())}>
         <Controller
           control={control}
           name="godtatt"
           rules={{
             validate(value) {
-              return value || 'Du må godta brukervilkår for å gå videre'
+              return value || t('brukervilkår.validering_godtatt')
             },
           }}
           render={({ field }) => (
             <ConfirmationPanel
               error={errors.godtatt?.message}
-              label="Jeg har lest og forstått vilkårene."
+              label={t('brukervilkår.ledetekst_godtatt')}
               checked={field.value}
               {...field}
             />
@@ -75,7 +76,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
         <Avstand marginBottom={5} />
         <Knapper>
           <Button type="submit" loading={isSubmitting}>
-            Godta
+            {t('brukervilkår.knapp_godta')}
           </Button>
           <Button
             variant="tertiary"
@@ -84,7 +85,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
               window.location.href = 'https://nav.no/barnebriller'
             }}
           >
-            Avbryt
+            {t('brukervilkår.knapp_avbryt')}
           </Button>
         </Knapper>
       </form>

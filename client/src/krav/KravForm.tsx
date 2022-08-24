@@ -1,17 +1,18 @@
 import { Button, Heading } from '@navikt/ds-react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
+import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
 import { Knapper } from '../components/Knapper'
 import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
 import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
-import { validator, validering, DATO_FOR_LANSERING } from '../validering'
+import { DATO_FOR_LANSERING, validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
-import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
 
 export interface KravFormData {
   brillestyrke: Brilleseddel
@@ -21,6 +22,7 @@ export interface KravFormData {
 }
 
 export function KravForm() {
+  const { t } = useTranslation()
   const { setAppState, appState } = useApplicationContext()
   const navigate = useNavigate()
 
@@ -57,30 +59,32 @@ export function KravForm() {
             <BrillestyrkeForm />
           </Avstand>
           <Heading level="2" size="medium">
-            Om brillen
+            {t('krav.overskrift_om_brillen')}
           </Heading>
           <Avstand paddingBottom={3} paddingTop={3}>
             <Avstand marginBottom={3}>
               <Tekstfelt
                 id="bestillingsdato"
-                label="Hvilken dato ble brillen bestilt?"
+                label={t('krav.ledetekst_bestillingsdato')}
                 description="DD.MM.ÅÅÅÅ"
                 error={errors.bestillingsdato?.message}
                 {...methods.register('bestillingsdato', {
-                  required: 'Du må oppgi en bestillingsdato',
+                  required: t('krav.validering_bestillingsdato_påkrevd'),
                   validate: {
-                    gyldig: validator(validering.dato, 'Ugyldig bestillingsdato'),
-                    ikkeiFremtiden: validator(
+                    gyldig: validator(validering.dato, t('krav.validering_bestillingsdato_ugyldig')),
+                    ikkeIFremtiden: validator(
                       validering.ikkeIFremtiden,
-                      'Du kan ikke sende krav for briller som skal bestilles i fremtiden'
+                      t('krav.validering_bestillingsdato_ikke_i_fremtiden')
                     ),
                     ikkeFørLansering: validator(
                       validering.ikkeDatoFørLansering,
-                      `Du kan ikke sende krav for briller som ble bestilt før ordningen ble gjeldende ${DATO_FOR_LANSERING}`
+                      t('krav.validering_bestillingsdato_ikke_før_lansering', {
+                        datoForLansering: DATO_FOR_LANSERING,
+                      })
                     ),
                     ikkeMerEnnSeksMånederSiden: validator(
                       validering.ikkeMerEnnSeksMånederSiden,
-                      'Du kan ikke sende krav for briller som ble bestilt for mer enn 6 måneder siden'
+                      t('krav.validering_bestillingsdato_ikke_mer_enn_seks_måneder_siden')
                     ),
                   },
                 })}
@@ -89,28 +93,28 @@ export function KravForm() {
             <Avstand marginBottom={3}>
               <Tekstfelt
                 id="brillepris"
-                label="Brillepris (glass og innfatning inkl. mva)"
+                label={t('krav.ledetekst_brillepris')}
                 error={errors.brillepris?.message}
                 {...methods.register('brillepris', {
-                  required: 'Du må oppgi en brillepris',
-                  validate: validator(validering.beløp, 'Ugyldig brillepris'),
+                  required: t('krav.validering_brillepris_påkrevd'),
+                  validate: validator(validering.beløp, t('krav.validering_brillepris_ugyldig')),
                 })}
               />
             </Avstand>
             <Avstand marginBottom={3}>
               <Tekstfelt
                 id="bestillingsreferanse"
-                label="Bestillingsreferanse"
+                label={t('krav.ledetekst_bestillingsreferanse')}
                 error={errors.bestillingsreferanse?.message}
                 {...methods.register('bestillingsreferanse', {
-                  required: 'Du må oppgi en bestillingsreferanse',
+                  required: t('krav.validering_bestillingsreferanse_påkrevd'),
                   validate: validator(validering.bestillingsreferanse, 'Ugyldig spesialtegn i bestillingsreferanse.'),
                 })}
               />
             </Avstand>
             <Knapper>
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
-                Beregn
+                {t('krav.knapp_beregn')}
               </Button>
               <AvbrytKrav />
             </Knapper>

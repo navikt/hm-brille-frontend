@@ -1,28 +1,34 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { baseUrl } from '../http'
+import { useTranslation } from 'react-i18next'
 import { setBreadcrumbs, onBreadcrumbClick } from '@navikt/nav-dekoratoren-moduler'
 
 const Breadcrumbs = () => {
+  const { t } = useTranslation()
   const location = useLocation()
   useEffect(() => {
     const { pathname } = location
     let subBreadcrumbs = []
     if (pathname.indexOf('/oversikt') === 0) {
-      subBreadcrumbs.push({ url: baseUrl('/oversikt'), title: 'Innsendte krav', handleInApp: true })
+      subBreadcrumbs.push({ url: baseUrl('/oversikt'), title: t('brødsmuler.oversikt'), handleInApp: true })
       if (pathname.indexOf('/oversikt/') === 0) {
-        subBreadcrumbs.push({ url: baseUrl(pathname), title: 'Krav', handleInApp: true })
+        subBreadcrumbs.push({ url: baseUrl(pathname), title: t('brødsmuler.oversikt.detaljer'), handleInApp: true })
       }
     }
     if (pathname.indexOf('/krav') === 0) {
-      subBreadcrumbs.push({ url: baseUrl('/krav'), title: 'Send krav', handleInApp: true })
+      subBreadcrumbs.push({ url: baseUrl('/krav'), title: t('brødsmuler.krav'), handleInApp: true })
       if (pathname.indexOf('/krav/oppsummering') === 0) {
-        subBreadcrumbs.push({ url: baseUrl('/krav/oppsummering'), title: 'Oppsummering', handleInApp: true })
+        subBreadcrumbs.push({
+          url: baseUrl('/krav/oppsummering'),
+          title: t('brødsmuler.krav.oppsummering'),
+          handleInApp: true,
+        })
       }
     }
     setBreadcrumbs([
-      { url: 'https://www.nav.no/barnebriller', title: 'Briller til barn – optikers rolle' },
-      { url: baseUrl('/'), title: 'Krav om direkte oppgjør', handleInApp: true },
+      { url: 'https://www.nav.no/barnebriller', title: t('brødsmuler.optikers_rolle') },
+      { url: baseUrl('/'), title: t('brødsmuler.forside'), handleInApp: true },
       ...subBreadcrumbs,
     ])
   }, [location])

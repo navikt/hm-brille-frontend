@@ -1,5 +1,7 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { beløp } from '../beløp'
 import { Avstand } from '../components/Avstand'
 import { SatsType } from '../types'
 import { logSkjemavalideringFeilet } from '../utils/amplitude'
@@ -7,9 +9,10 @@ import { useBeregning } from './useBeregning'
 import { Øye } from './Øye'
 
 export function BrillestyrkeForm() {
+  const { t } = useTranslation()
   const beregning = useBeregning()
 
-  const vilkårOmStyrkeIkkeOppfylt = 'Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt'
+  const vilkårOmStyrkeIkkeOppfylt = t('krav.vilkår_brillestyrke_ikke_oppfylt')
   useEffect(() => {
     if (beregning && beregning.sats === SatsType.INGEN) {
       logSkjemavalideringFeilet([vilkårOmStyrkeIkkeOppfylt])
@@ -20,9 +23,9 @@ export function BrillestyrkeForm() {
     <>
       <Avstand paddingBottom={5} paddingTop={5}>
         <Heading level="2" size="medium">
-          Brillestyrke
+          {t('krav.overskrift_brillestyrke')}
         </Heading>
-        <BodyLong>Du trenger bare å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.</BodyLong>
+        <BodyLong>{t('krav.forklaring_brillestyrke')}</BodyLong>
         <Øye type="høyre" />
         <Øye type="venstre" />
       </Avstand>
@@ -34,13 +37,14 @@ export function BrillestyrkeForm() {
             </Alert>
           ) : (
             <Alert variant="info">
-              <Heading
-                level="2"
-                spacing
-                size="small"
-              >{`Brillestøtte på opp til ${beregning.satsBeløp} kroner`}</Heading>
+              <Heading level="2" spacing size="small">
+                {t('krav.brillestøtte_beløp', { satsBeløp: beløp.formater(beregning.satsBeløp) })}
+              </Heading>
               <BodyLong>
-                {`Barnet kan få støtte fra sats ${beregning.sats.replace('SATS_', '')}: ${beregning.satsBeskrivelse}`}
+                {t('krav.brillestøtte_sats', {
+                  sats: beregning.sats.replace('SATS_', ''),
+                  satsBeskrivelse: beregning.satsBeskrivelse,
+                })}
               </BodyLong>
             </Alert>
           )}

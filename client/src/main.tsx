@@ -7,6 +7,7 @@ import { SWRConfig, SWRConfiguration } from 'swr'
 import { App } from './App'
 import { GlobalStyle } from './GlobalStyle'
 import { baseUrl, http } from './http'
+import './i18n'
 import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
 

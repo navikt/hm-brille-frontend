@@ -18,7 +18,7 @@ export function Barn(props: BarnProps) {
         {`${navn}${alderTekst}`}
       </Heading>
       <Data>
-        <Datum label="Fødselsnummer:">{fnr}</Datum>
+        <Datum label="krav.ledetekst_fnr">{fnr}</Datum>
       </Data>
     </DataPanel>
   )

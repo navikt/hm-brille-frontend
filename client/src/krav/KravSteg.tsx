@@ -1,5 +1,6 @@
 import { Heading } from '@navikt/ds-react'
 import { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Banner } from '../components/Banner'
 
 export interface KravStegProps {
@@ -8,12 +9,13 @@ export interface KravStegProps {
 
 export function KravSteg(props: KravStegProps) {
   const { children } = props
+  const { t } = useTranslation()
   return (
     <>
       <header>
         <Banner>
           <Heading level="1" size="large">
-            Krav om direkte oppgjør av briller for barn
+            {t('krav.overskrift')}
           </Heading>
         </Banner>
       </header>

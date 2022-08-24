@@ -13,13 +13,13 @@ export interface FeatureToggles {
 
 export const FeatureToggleContext = createContext<FeatureToggles>({})
 
-export const FeatureToggleProvider = ({ children }: { children: React.ReactNode }) => {
+export function FeatureToggleProvider({ children }: { children: React.ReactNode }) {
   const { data: features } = useGet<FeatureToggles>(featureTogglePath(alleFeatures))
 
   return <FeatureToggleContext.Provider value={features || {}}>{children}</FeatureToggleContext.Provider>
 }
 
-const featureTogglePath = (features: Feature[]): string => {
+function featureTogglePath(features: Feature[]): string {
   const query = features.map((feature) => `feature=${feature}`).join('&')
   return `/features?${query}`
 }

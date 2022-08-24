@@ -1,6 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
+import { FeatureToggleProvider } from './FeatureToggleProvider'
 import { Feilside } from './Feilside'
 import { IkkeAutorisert } from './IkkeAutorisert'
 import { Forside } from './Forside'
@@ -10,7 +11,6 @@ import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
-import { FeatureToggleProvider } from './FeatureToggleProvider'
 import Breadcrumbs from './components/Breadcrumbs'
 
 export function App() {
