@@ -34,6 +34,17 @@ const spaHandler: RequestHandler = async (req, res) => {
       env: config.nais_cluster_name === 'prod-gcp' ? 'prod' : 'dev',
       context: 'samarbeidspartner',
       chatbot: false,
+      language: 'nb',
+      availableLanguages: [
+        {
+          locale: 'nb',
+          handleInApp: true,
+        },
+        {
+          locale: 'nn',
+          handleInApp: true,
+        },
+      ],
     })
     res.render('index.html', decorator)
   } catch (err: unknown) {
