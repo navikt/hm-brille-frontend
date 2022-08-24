@@ -90,21 +90,19 @@ export function OversiktDetaljer() {
                 Krav for {data.barnsNavn}
               </Heading>
               <div className="dontPrintMe">
-                <Button variant="secondary" size="medium" onClick={handlePrint}>
-                  <Print aria-hidden />
+                <Button icon={<Print aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
                   Skriv ut kravet
                 </Button>
                 {/* @ts-ignore */}
                 <Dropdown onSelect={dropdownOnSelect}>
                   <Button
+                    icon={<EllipsisV aria-hidden />}
                     variant="secondary"
                     size="medium"
                     className="dontPrintMe"
                     as={Dropdown.Toggle}
                     style={{ marginLeft: '-3px' }}
-                  >
-                    <EllipsisV aria-hidden />
-                  </Button>
+                  />
                   {/* @ts-ignore */}
                   <Dropdown.Menu>
                     {/* @ts-ignore */}
@@ -237,8 +235,8 @@ export function OversiktDetaljer() {
                     </BodyLong>
 
                     <Knapper>
-                      <Button variant="danger">
-                        <Delete aria-hidden /> Annuller kravet
+                      <Button icon={<Delete aria-hidden />} variant="danger">
+                        Annuller kravet
                       </Button>
                       <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
                         Lukk

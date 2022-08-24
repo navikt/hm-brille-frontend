@@ -37,10 +37,7 @@ export function Oversikt() {
         <Heading level="1" size="large" style={{ marginRight: '1rem', margin: '0.1em 0' }}>
           Innsendte krav
         </Heading>
-        <GuidePanel poster>
-          Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV. Sakene vises i 4 uker etter at
-          kravet er utbetalt av NAV. Ingen saker som er eldre enn 6 måneder vises i oversikten.
-        </GuidePanel>
+        <GuidePanel poster>Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV.</GuidePanel>
         {!data && !error && (
           <Loader
             variant="neutral"
@@ -52,7 +49,7 @@ export function Oversikt() {
         {!error && data && data.items.length == 0 && (
           <div style={{ marginTop: '2rem' }}>
             <Alert variant="info" size="medium">
-              Vi har ingen krav å vise her akkurat nå. Krav vises i fire uker etter de er utbetalt.
+              Vi har ingen krav å vise her akkurat nå.
             </Alert>
           </div>
         )}

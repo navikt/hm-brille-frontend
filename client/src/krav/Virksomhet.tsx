@@ -41,7 +41,7 @@ export function Virksomhet(props: VirksomhetProps) {
           {adresse && <Datum label="krav.ledetekst_adresse">{adresse}</Datum>}
         </Data>
       </DataPanel>
-      <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<SaveFile />}>
+      <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<SaveFile aria-hidden />}>
         {t('krav.knapp_bruk')}
       </Button>
     </>

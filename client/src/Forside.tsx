@@ -22,7 +22,7 @@ export function Forside() {
         <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
           <LinkPanel onClick={() => navigate('/oversikt')} border>
             <LinkPanel.Title>Innsendte krav</LinkPanel.Title>
-            <LinkPanel.Description>Se krav du har sendt inn til NAV de siste 6 månedene.</LinkPanel.Description>
+            <LinkPanel.Description>Se krav du har sendt inn til NAV.</LinkPanel.Description>
           </LinkPanel>
         </div>
         <Panel style={{ marginTop: '2rem' }} border>
