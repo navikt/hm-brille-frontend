@@ -108,8 +108,13 @@ export function KravForm() {
                 error={errors.bestillingsreferanse?.message}
                 {...methods.register('bestillingsreferanse', {
                   required: t('krav.validering_bestillingsreferanse_påkrevd'),
-                  validate: validator(validering.bestillingsreferanse,
-                    'Ugyldig spesialtegn i bestillingsreferanse.')
+                  validate: validator(
+                    validering.bestillingsreferanse,
+                    t(
+                      'krav.validering_bestillingsreferanse_ugyldig_spesialtegn',
+                      'Ugyldig spesialtegn i bestillingsreferanse.'
+                    )
+                  ),
                 })}
               />
             </Avstand>
