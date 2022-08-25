@@ -110,10 +110,14 @@ export function OversiktDetaljer() {
                       <Dropdown.Menu.List.Item ref={skrivUtRef}>
                         <Print aria-hidden /> Skriv ut kravet
                       </Dropdown.Menu.List.Item>
-                      <Dropdown.Menu.Divider />
-                      <Dropdown.Menu.List.Item ref={annullerRef}>
-                        <Delete aria-hidden /> Annuller kravet
-                      </Dropdown.Menu.List.Item>
+                      {!data.annullert && (
+                        <>
+                          <Dropdown.Menu.Divider />
+                          <Dropdown.Menu.List.Item ref={annullerRef}>
+                            <Delete aria-hidden /> Annuller kravet
+                          </Dropdown.Menu.List.Item>
+                        </>
+                      )}
                     </Dropdown.Menu.List>
                   </Dropdown.Menu>
                 </Dropdown>
