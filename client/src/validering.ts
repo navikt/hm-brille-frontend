@@ -1,5 +1,5 @@
 import { fnr } from '@navikt/fnrvalidator'
-import { isValid, isBefore, isAfter, subMonths } from 'date-fns'
+import { isAfter, isBefore, isValid, subMonths } from 'date-fns'
 import { dato } from './dato'
 
 export const DATO_FOR_LANSERING = '01.08.2022'
@@ -21,6 +21,9 @@ export const validering = {
     if (verdi === DATO_FOR_LANSERING) {
       return true
     }
+    if (verdi === DATO_FOR_LANSERING.replaceAll('.', '')) {
+      return true
+    }
     return isBefore(dato.tilDate(DATO_FOR_LANSERING), dato.tilDate(verdi))
   },
   ikkeMerEnnSeksMånederSiden(verdi: string, nå: Date): boolean {
@@ -30,7 +33,6 @@ export const validering = {
   bestillingsreferanse(verdi: string): boolean {
     return /^[A-Za-å\d-_/]+$/.test(verdi)
   },
-
 }
 
 export function validator(test: (verdi: string, nå: Date) => boolean, error: string): (verdi: string) => true | string {

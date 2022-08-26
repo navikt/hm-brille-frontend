@@ -97,7 +97,7 @@ export function KravOppsummering() {
       </Heading>
       <Data>
         <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(appState.orgnr)}</Datum>
-        <Datum label="krav.ledetekst_organisasjonsnavn">{appState.orgNavn}</Datum>
+        <Datum label="krav.ledetekst_orgnavn">{appState.orgNavn}</Datum>
         <Datum label="krav.ledetekst_bestillingsdato_alt">{appState.bestillingsdato}</Datum>
         <Datum label="krav.ledetekst_brillepris_alt">{appState.brillepris}</Datum>
         <Datum label="krav.ledetekst_bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
