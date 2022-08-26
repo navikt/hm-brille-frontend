@@ -15,6 +15,7 @@ import { useGet } from '../useGet'
 import styled from 'styled-components'
 import { Dato } from '../components/Dato'
 import { Knapper } from '../components/Knapper'
+import { beløp } from '../beløp'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -171,7 +172,7 @@ export function OversiktDetaljer() {
                   <DatumHelper label="Krav innsendt">
                     <Dato verdi={data.opprettet} />
                   </DatumHelper>
-                  <DatumHelper label="Pris på brille">{data.brillepris.toFixed(2).replace('.', ',')} kr</DatumHelper>
+                  <DatumHelper label="Pris på brille">{beløp.formater(data.brillepris)}</DatumHelper>
                   <DatumHelper label="Bestillingsreferanse">{data.bestillingsreferanse}</DatumHelper>
                 </Data>
               </div>
@@ -184,10 +185,10 @@ export function OversiktDetaljer() {
                   <li>
                     Barnet kan få støtte fra sats {data.satsNr}: {data.satsBeskrivelse}
                   </li>
-                  <li>Barnet har krav på brillestøtte på kr. {data.beløp.toFixed(2).replace('.', ',')}</li>
+                  <li>Barnet har krav på brillestøtte på {beløp.formater(data.beløp)}</li>
                 </ul>
                 <Heading level="1" size="small">
-                  Krav om direkte oppgjør fra NAV på kr. {data.beløp.toFixed(2).replace('.', ',')}
+                  Krav om direkte oppgjør fra NAV på {beløp.formater(data.beløp)}
                 </Heading>
                 {!data.utbetalingsdato && !data.annullert && (
                   <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
