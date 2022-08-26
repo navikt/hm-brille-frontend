@@ -27,7 +27,11 @@ i18n.use(initReactI18next).init({
 })
 
 onLanguageSelect(async (language) => {
-  const handleError = (err: any) => console.error(err)
+  const handleError = (err: any) => {
+    if (err) {
+      console.error(err)
+    }
+  }
   await i18n.changeLanguage(language.locale, handleError).catch(handleError)
 })
 
