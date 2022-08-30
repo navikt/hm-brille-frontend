@@ -1,5 +1,5 @@
 import { fnr } from '@navikt/fnrvalidator'
-import { isValid, isBefore, isAfter, subMonths } from 'date-fns'
+import { isAfter, isBefore, isValid, subMonths } from 'date-fns'
 import { dato } from './dato'
 
 export const DATO_FOR_LANSERING = '01.08.2022'
@@ -19,6 +19,9 @@ export const validering = {
   },
   ikkeDatoFørLansering(verdi: string): boolean {
     if (verdi === DATO_FOR_LANSERING) {
+      return true
+    }
+    if (verdi === DATO_FOR_LANSERING.replaceAll('.', '')) {
       return true
     }
     return isBefore(dato.tilDate(DATO_FOR_LANSERING), dato.tilDate(verdi))

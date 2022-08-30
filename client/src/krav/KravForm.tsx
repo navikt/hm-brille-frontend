@@ -7,6 +7,7 @@ import { Avstand } from '../components/Avstand'
 import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
 import { Knapper } from '../components/Knapper'
 import { Tekstfelt } from '../components/Tekstfelt'
+import { dato } from '../dato'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
 import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
@@ -36,6 +37,7 @@ export function KravForm() {
   })
 
   const {
+    setValue,
     formState: { errors },
   } = methods
 
@@ -89,6 +91,15 @@ export function KravForm() {
                   },
                 })}
               />
+              <Avstand marginTop={3}>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setValue('bestillingsdato', dato.nå(), { shouldValidate: true })}
+                >
+                  {t('krav.knapp_i_dag')}
+                </Button>
+              </Avstand>
             </Avstand>
             <Avstand marginBottom={3}>
               <Tekstfelt
