@@ -134,7 +134,7 @@ export function OversiktDetaljer() {
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label={t('krav.ledetekst_organisasjonsnavn')}>{data.orgnavn}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_orgnavn')}>{data.orgnavn}</DatumHelper>
                   <DatumHelper label={t('krav.ledetekst_orgnr')}>{data.orgnr}</DatumHelper>
                 </Data>
               </div>
