@@ -1,42 +1,44 @@
 import React from 'react'
 import { Heading, LinkPanel, Panel, BodyLong, Link } from '@navikt/ds-react'
 import { useNavigate } from 'react-router-dom'
+import { Trans, useTranslation } from 'react-i18next'
+import { LenkeMedLogging } from './components/LenkeMedLogging'
 
 export function Forside() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
     <>
       <main>
         <Heading level="1" size="xlarge" style={{ textAlign: 'center' }}>
-          Briller til barn
+          {t('forside.overskrift')}
         </Heading>
         <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
           <LinkPanel onClick={() => navigate('/krav')} border>
-            <LinkPanel.Title>Send krav</LinkPanel.Title>
-            <LinkPanel.Description>
-              Fyll ut skjema for å sende inn krav om direkte oppgjør for briller til barn.
-            </LinkPanel.Description>
+            <LinkPanel.Title>{t('forside.overskrift_send_krav')}</LinkPanel.Title>
+            <LinkPanel.Description>{t('forside.overskrift_send_krav.beskrivelse')}</LinkPanel.Description>
           </LinkPanel>
         </div>
         <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
           <LinkPanel onClick={() => navigate('/oversikt')} border>
-            <LinkPanel.Title>Innsendte krav</LinkPanel.Title>
-            <LinkPanel.Description>Se krav du har sendt inn til NAV.</LinkPanel.Description>
+            <LinkPanel.Title>{t('forside.overskrift_innsendte_krav')}</LinkPanel.Title>
+            <LinkPanel.Description>{t('forside.overskrift_innsendte_krav.beskrivelse')}</LinkPanel.Description>
           </LinkPanel>
         </div>
         <Panel style={{ marginTop: '2rem' }} border>
           <Heading level="2" size="large" spacing={true} style={{ textAlign: 'center' }}>
-            Om ordningen
+            {t('forside.overskrift_om_ordningen')}
           </Heading>
+          <BodyLong spacing={true}>{t('forside.overskrift_om_ordningen.beskrivelse1')}</BodyLong>
           <BodyLong spacing={true}>
-            Vi kan bruke denne plassen til å informere om relevante ting om ordningen og løsningene.
-          </BodyLong>
-          <BodyLong spacing={true}>
-            <Link href="https://www.nav.no/hjelpemidler/brillekalkulator/" target="_blank">
-              Brillekalkulatoren
-            </Link>{' '}
-            er tilgjengelig for alle som ønsker å se om de kan få støtte til briller til barn.
+            <Trans t={t} i18nKey="forside.overskrift_om_ordningen.beskrivelse2">
+              <></>
+              <LenkeMedLogging href="https://www.nav.no/hjelpemidler/brillekalkulator/" target="_blank">
+                <></>
+              </LenkeMedLogging>
+              <></>
+            </Trans>
           </BodyLong>
         </Panel>
       </main>

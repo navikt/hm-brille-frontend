@@ -5,6 +5,8 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
 import { Dato } from '../components/Dato'
+import { Trans, useTranslation } from 'react-i18next'
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
 
 function useQuery() {
   const { search } = useLocation()
@@ -21,6 +23,8 @@ export function Oversikt() {
 
   const { data, error } = useGet<OversiktResponse>('/oversikt?page=' + currPage)
 
+  const { t } = useTranslation()
+
   return (
     <>
       <ScrollToTop />
@@ -35,21 +39,21 @@ export function Oversikt() {
           <Back aria-hidden /> Tilbake
         </Link> */}
         <Heading level="1" size="large" style={{ marginRight: '1rem', margin: '0.1em 0' }}>
-          Innsendte krav
+          {t('oversikt.overskrift')}
         </Heading>
-        <GuidePanel poster>Dette er en oversikt over krav om direkte oppgjør du har sendt inn til NAV.</GuidePanel>
+        <GuidePanel poster>{t('oversikt.ingress')}</GuidePanel>
         {!data && !error && (
           <Loader
             variant="neutral"
             size="3xlarge"
-            title="Laster krav..."
+            title={t('oversikt.laster')}
             style={{ display: 'block', margin: '2rem auto' }}
           />
         )}
         {!error && data && data.items.length == 0 && (
           <div style={{ marginTop: '2rem' }}>
             <Alert variant="info" size="medium">
-              Vi har ingen krav å vise her akkurat nå.
+              {t('oversikt.ingen_krav')}
             </Alert>
           </div>
         )}
@@ -67,19 +71,26 @@ export function Oversikt() {
                     <LinkPanel onClick={() => navigate('/oversikt/' + it.id)} border style={{ cursor: 'pointer' }}>
                       <LinkPanel.Title>{it.barnsNavn}</LinkPanel.Title>
                       <LinkPanel.Description>
-                        Innsendt <Dato verdi={it.opprettet}></Dato> fra {it.orgnavn} med referanse{' '}
-                        {it.bestillingsreferanse}
+                        <Trans
+                          t={t}
+                          i18nKey="oversikt.krav_beskrivelse"
+                          values={{ orgnavn: it.orgnavn, bestillingsreferanse: it.bestillingsreferanse }}
+                        >
+                          <></>
+                          <Dato verdi={it.opprettet}></Dato>
+                          <></>
+                        </Trans>
                         {it.annullert && (
                           <div>
                             <Tag variant="warning" size="small">
-                              Annullert <Dato verdi={it.annullert}></Dato>
+                              {t('oversikt.annullert')} <Dato verdi={it.annullert}></Dato>
                             </Tag>
                           </div>
                         )}
                         {it.utbetalingsdato && (
                           <div>
                             <Tag variant="success" size="small">
-                              Utbetalt <Dato verdi={it.utbetalingsdato}></Dato>
+                              {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
                             </Tag>
                           </div>
                         )}
@@ -91,8 +102,11 @@ export function Oversikt() {
             </ul>
             <div style={{ textAlign: 'right', margin: '1rem 0 2rem' }}>
               <Detail>
-                Viser {(currPage - 1) * data.itemsPerPage + 1}-{Math.min(currPage * data.itemsPerPage, data.totalItems)}{' '}
-                av {data.totalItems} krav
+                {t('oversikt.pagination', {
+                  totalItems: data.totalItems,
+                  fromRow: (currPage - 1) * data.itemsPerPage + 1,
+                  toRow: Math.min(currPage * data.itemsPerPage, data.totalItems),
+                })}
               </Detail>
             </div>
             {data.numberOfPages > 1 && (

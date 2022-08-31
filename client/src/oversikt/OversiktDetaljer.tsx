@@ -16,10 +16,13 @@ import styled from 'styled-components'
 import { Dato } from '../components/Dato'
 import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
+import { Trans, useTranslation } from 'react-i18next'
+import { LenkeMedLogging } from '../components/LenkeMedLogging'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const { data, error } = useGet<OversiktDetaljerResponse>('/oversikt/' + vedtakId)
 
@@ -62,7 +65,7 @@ export function OversiktDetaljer() {
           <Loader
             variant="neutral"
             size="3xlarge"
-            title="Laster krav..."
+            title={t('oversikt.laster')}
             style={{ display: 'block', margin: '2rem auto' }}
           />
         )}
@@ -71,14 +74,14 @@ export function OversiktDetaljer() {
             {data.annullert && (
               <div style={{ marginBottom: '1rem' }}>
                 <Tag variant="warning" size="small">
-                  Annullert <Dato verdi={data.annullert}></Dato>
+                  {t('oversikt.annullert')} <Dato verdi={data.annullert}></Dato>
                 </Tag>
               </div>
             )}
             {data.utbetalingsdato && (
               <div style={{ marginBottom: '1rem' }}>
                 <Tag variant="success" size="small">
-                  Utbetalt <Dato verdi={data.utbetalingsdato}></Dato>
+                  {t('oversikt.utbetalt')} <Dato verdi={data.utbetalingsdato}></Dato>
                 </Tag>
               </div>
             )}
@@ -88,11 +91,11 @@ export function OversiktDetaljer() {
                 size="large"
                 style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}
               >
-                Krav for {data.barnsNavn}
+                {t('oversikt.krav_detaljer.overskrift')} {data.barnsNavn}
               </Heading>
               <div className="dontPrintMe">
                 <Button icon={<Print aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
-                  Skriv ut kravet
+                  {t('oversikt.krav_detaljer.meny.utskrift')}
                 </Button>
                 {/* @ts-ignore */}
                 <Dropdown onSelect={dropdownOnSelect}>
@@ -109,13 +112,13 @@ export function OversiktDetaljer() {
                     {/* @ts-ignore */}
                     <Dropdown.Menu.List>
                       <Dropdown.Menu.List.Item ref={skrivUtRef}>
-                        <Print aria-hidden /> Skriv ut kravet
+                        <Print aria-hidden /> {t('oversikt.krav_detaljer.meny.utskrift')}
                       </Dropdown.Menu.List.Item>
                       {!data.annullert && (
                         <>
                           <Dropdown.Menu.Divider />
                           <Dropdown.Menu.List.Item ref={annullerRef}>
-                            <Delete aria-hidden /> Annuller kravet
+                            <Delete aria-hidden /> {t('oversikt.krav_detaljer.meny.annuller')}
                           </Dropdown.Menu.List.Item>
                         </>
                       )}
@@ -127,82 +130,101 @@ export function OversiktDetaljer() {
             <Panel border={true} style={{ marginTop: '1rem' }}>
               <div style={{ marginTop: '1rem' }}>
                 <Heading level="1" size="medium">
-                  Foretaket som skal ha direkte oppgjør
+                  {t('krav.overskrift_foretaket')}
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Organisasjonsnavn">{data.orgnavn}</DatumHelper>
-                  <DatumHelper label="Organisasjonsnummer">{data.orgnr}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_organisasjonsnavn')}>{data.orgnavn}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_orgnr')}>{data.orgnr}</DatumHelper>
                 </Data>
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Heading level="1" size="medium">
-                  Barn
+                  {t('krav.overskrift_barn')}
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Navn">{data.barnsNavn}</DatumHelper>
-                  <DatumHelper label="Fødselsnummer">{data.barnsFnr}</DatumHelper>
-                  <DatumHelper label="Alder">{data.barnsAlder} år</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_navn')}>{data.barnsNavn}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_fnr')}>{data.barnsFnr}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_alder')}>{data.barnsAlder} år</DatumHelper>
                 </Data>
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Heading level="1" size="medium">
-                  Brillestyrke
+                  {t('krav.overskrift_brillestyrke')}
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Høyre sfære">{data.høyreSfære.toFixed(2).replace('.', ',')}</DatumHelper>
-                  <DatumHelper label="Høyre sylinder">{data.høyreSylinder.toFixed(2).replace('.', ',')}</DatumHelper>
-                  <DatumHelper label="Venstre sfære">{data.venstreSfære.toFixed(2).replace('.', ',')}</DatumHelper>
-                  <DatumHelper label="Venstre sylinder">
+                  <DatumHelper label={t('krav.ledetekst_høyre_sfære')}>
+                    {data.høyreSfære.toFixed(2).replace('.', ',')}
+                  </DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_høyre_sylinder')}>
+                    {data.høyreSylinder.toFixed(2).replace('.', ',')}
+                  </DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_venstre_sfære')}>
+                    {data.venstreSfære.toFixed(2).replace('.', ',')}
+                  </DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_venstre_sylinder')}>
                     {data.venstreSylinder.toFixed(2).replace('.', ',')}
                   </DatumHelper>
                 </Data>
               </div>
               <div style={{ marginTop: '2rem' }}>
                 <Heading level="1" size="medium">
-                  Om brillen
+                  {t('krav.overskrift_om_brillen')}
                 </Heading>
                 <Line />
                 <Data>
-                  <DatumHelper label="Bestillingsdato">
+                  <DatumHelper label={t('krav.ledetekst_bestillingsdato_alt')}>
                     <Dato verdi={data.bestillingsdato} />
                   </DatumHelper>
-                  <DatumHelper label="Krav innsendt">
+                  <DatumHelper label={t('oversikt.krav_detaljer.ledetekst_krav_innsendt')}>
                     <Dato verdi={data.opprettet} />
                   </DatumHelper>
-                  <DatumHelper label="Pris på brille">{beløp.formater(data.brillepris)}</DatumHelper>
-                  <DatumHelper label="Bestillingsreferanse">{data.bestillingsreferanse}</DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_brillepris_alt')}>
+                    {beløp.formater(data.brillepris)}
+                  </DatumHelper>
+                  <DatumHelper label={t('krav.ledetekst_bestillingsreferanse')}>
+                    {data.bestillingsreferanse}
+                  </DatumHelper>
                 </Data>
               </div>
               <div style={{ marginTop: '2rem', marginBottom: '1rem' }}>
                 <Heading level="1" size="medium">
-                  Om kravet
+                  {t('oversikt.krav_detaljer.overskrift_om_kravet')}
                 </Heading>
                 <Line />
                 <ul>
                   <li>
-                    Barnet kan få støtte fra sats {data.satsNr}: {data.satsBeskrivelse}
+                    {t('krav.brillestøtte_sats', {
+                      sats: data.satsNr,
+                      satsBeskrivelse: data.satsBeskrivelse,
+                    })}
                   </li>
-                  <li>Barnet har krav på brillestøtte på {beløp.formater(data.beløp)}</li>
+                  <li>
+                    {t('oversikt.krav_detaljer.brillestøtte_i_kr', {
+                      beløp: beløp.formater(data.beløp),
+                    })}
+                  </li>
                 </ul>
                 <Heading level="1" size="small">
-                  Krav om direkte oppgjør fra NAV på {beløp.formater(data.beløp)}
+                  {t('oversikt.krav_detaljer.krav_om_direkte_oppgjør', {
+                    beløp: beløp.formater(data.beløp),
+                  })}
                 </Heading>
                 {!data.utbetalingsdato && !data.annullert && (
                   <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    Kravet er ikke utbetalt enda.
+                    {t('oversikt.utbetalingsstatus.ikke_utbetalt')}
                   </Alert>
                 )}
                 {data.annullert && (
                   <Alert variant="warning" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    Kravet ble annullert <Dato verdi={data.annullert} />.
+                    {t('oversikt.utbetalingsstatus.annullert')} <Dato verdi={data.annullert} />.
                   </Alert>
                 )}
                 {data.utbetalingsdato && (
                   <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    Kravet er utbetalt <Dato verdi={data.utbetalingsdato} />.
+                    {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
                   </Alert>
                 )}
               </div>
@@ -216,35 +238,30 @@ export function OversiktDetaljer() {
                 {!data.utbetalingsdato && (
                   <main>
                     <Heading spacing level="1" size="large">
-                      Er du sikker på at du vil annullere kravet?
+                      {t('oversikt.annuller_modal.overskrift')}
                     </Heading>
-                    <BodyLong spacing>
-                      Her kan du annullere et krav. Det kan for eksempel være fordi du ikke ønsker å sende inn kravet
-                      likevel eller for å sende inn et nytt krav med korrigerte opplysninger.
-                    </BodyLong>
+                    <BodyLong spacing>{t('oversikt.annuller_modal.ingress')}</BodyLong>
                     <Heading level="2" size="medium">
-                      Konsekvenser
+                      {t('oversikt.annuller_modal.konsekvenser')}
                     </Heading>
                     <BodyLong spacing>
                       <ul>
-                        <li>Optiker vil ikke få refundert penger fra NAV uten å sende inn et nytt krav</li>
+                        <li>{t('oversikt.annuller_modal.konsekvenser_beskrivelse1')}</li>
                         <li>
-                          Barnets rettighet til brillestøtte for {new Date(data.bestillingsdato).getFullYear()} vil være
-                          ubrukt etter annullering
+                          {t('oversikt.annuller_modal.konsekvenser_beskrivelse2', {
+                            år: new Date(data.bestillingsdato).getFullYear(),
+                          })}
                         </li>
-                        <li>
-                          Hvis brillens bestillingsdato nå er eldre enn seks måneder vil man ikke kunne sende inn kravet
-                          på nytt
-                        </li>
+                        <li>{t('oversikt.annuller_modal.konsekvenser_beskrivelse3')}</li>
                       </ul>
                     </BodyLong>
 
                     <Knapper>
                       <Button icon={<Delete aria-hidden />} variant="danger">
-                        Annuller kravet
+                        {t('oversikt.annuller_modal.knapp_annuller')}
                       </Button>
                       <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
-                        Lukk
+                        {t('oversikt.annuller_modal.knapp_lukk')}
                       </Button>
                     </Knapper>
                   </main>
@@ -252,40 +269,38 @@ export function OversiktDetaljer() {
                 {data.utbetalingsdato && (
                   <main>
                     <Heading spacing level="1" size="large">
-                      Kravet er utbetalt og kan ikke annulleres
+                      {t('oversikt.annuller_modal.allerede_utbetalt_overskrift')}
                     </Heading>
+                    <BodyLong spacing>{t('oversikt.annuller_modal.allerede_utbetalt_beskrivelse1')}</BodyLong>
                     <BodyLong spacing>
-                      Etter at kravet er sendt til utbetaling av NAV kan det ikke annulleres i denne
-                      selvbetjeningsløsningen.
-                    </BodyLong>
-                    <BodyLong spacing>
-                      Dersom du likevel trenger å annullere kravet vil beløpet måtte tilbakebetales av mottaker. Ta
-                      kontakt med NAV ved å trykke{' '}
-                      <a
-                        href={
-                          'mailto:digihot@nav.no?subject=Brillekrav ønskes annullert: ' +
-                          data.id +
-                          '&body=Detaljer om kravet: %0A' +
-                          'NAVs referanse: ' +
-                          data.id +
-                          '%0A' +
-                          'Foretak: ' +
-                          data.orgnr +
-                          ' ' +
-                          data.orgnavn +
-                          '%0A' +
-                          '%0A' +
-                          'Beskriv hvorfor kravet ønskes annullert under linjen: %0A' +
-                          '-------------------------------------------------------------------------- %0A%0A'
-                        }
-                      >
-                        her
-                      </a>
-                      .
+                      <Trans t={t} i18nKey="oversikt.annuller_modal.allerede_utbetalt_beskrivelse2">
+                        <></>
+                        <LenkeMedLogging
+                          href={
+                            'mailto:digihot@nav.no?subject=Brillekrav ønskes annullert: ' +
+                            data.id +
+                            '&body=Detaljer om kravet: %0A' +
+                            'NAVs referanse: ' +
+                            data.id +
+                            '%0A' +
+                            'Foretak: ' +
+                            data.orgnr +
+                            ' ' +
+                            data.orgnavn +
+                            '%0A' +
+                            '%0A' +
+                            'Beskriv hvorfor kravet ønskes annullert under linjen: %0A' +
+                            '-------------------------------------------------------------------------- %0A%0A'
+                          }
+                        >
+                          <></>
+                        </LenkeMedLogging>
+                        <></>
+                      </Trans>
                     </BodyLong>
                     <Knapper>
                       <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
-                        Lukk
+                        {t('oversikt.annuller_modal.knapp_lukk')}
                       </Button>
                     </Knapper>
                   </main>
