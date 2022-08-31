@@ -21,8 +21,13 @@ function tilISO(verdi: string): string {
   return !verdi ? verdi : formatISO(tilDate(verdi), { representation: 'date' })
 }
 
+function nå(): string {
+  return formater(Date.now())
+}
+
 export const dato = {
   formater,
   tilDate,
   tilISO,
+  nå,
 }
