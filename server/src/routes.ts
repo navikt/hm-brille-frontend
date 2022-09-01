@@ -1,4 +1,5 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
+import cookieParser from 'cookie-parser'
 import express, { RequestHandler, Router } from 'express'
 import type { ExchangeToken } from './auth'
 import { config } from './config'
@@ -10,6 +11,7 @@ export const routes = {
   internal(): Router {
     const metrics = createMetrics()
     return Router()
+      .use(cookieParser())
       .get('/isalive', (_, res) => res.send('alive'))
       .get('/isready', (_, res) => res.send('ready'))
       .get('/metrics', async (req, res) => {
@@ -30,11 +32,16 @@ export const routes = {
 
 const spaHandler: RequestHandler = async (req, res) => {
   try {
+    let language = req.cookies['decorator-language']
+    if (language === undefined || !['nb', 'nn'].includes(language)) {
+      language = 'nb'
+    }
+
     const decorator = await fetchDecoratorHtml({
       env: config.nais_cluster_name === 'prod-gcp' ? 'prod' : 'dev',
       context: 'samarbeidspartner',
       chatbot: false,
-      language: 'nb',
+      language: language,
       availableLanguages: [
         {
           locale: 'nb',
