@@ -11,7 +11,6 @@ export const routes = {
   internal(): Router {
     const metrics = createMetrics()
     return Router()
-      .use(cookieParser())
       .get('/isalive', (_, res) => res.send('alive'))
       .get('/isready', (_, res) => res.send('ready'))
       .get('/metrics', async (req, res) => {
@@ -24,6 +23,7 @@ export const routes = {
   },
   public(): Router {
     return Router()
+      .use(cookieParser())
       .get('/settings.js', settingsHandler)
       .get('*', express.static(config.build_path, { index: false }))
       .get('*', spaHandler)
