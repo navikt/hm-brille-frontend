@@ -1,12 +1,11 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
+import { LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
 import { Dato } from '../components/Dato'
-import { Trans, useTranslation } from 'react-i18next'
-import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { useTranslation } from 'react-i18next'
 
 function useQuery() {
   const { search } = useLocation()
@@ -41,7 +40,6 @@ export function Oversikt() {
         <Heading level="1" size="large" style={{ marginRight: '1rem', margin: '0.1em 0' }}>
           {t('oversikt.overskrift')}
         </Heading>
-        <GuidePanel poster>{t('oversikt.ingress')}</GuidePanel>
         {!data && !error && (
           <Loader
             variant="neutral"
@@ -68,22 +66,24 @@ export function Oversikt() {
               {data?.items.map((it, idx) => {
                 return (
                   <li key={idx} style={{ margin: '0.5rem 0' }}>
-                    <LinkPanel onClick={() => navigate('/oversikt/' + it.id)} border style={{ cursor: 'pointer' }}>
-                      <LinkPanel.Title>{it.barnsNavn}</LinkPanel.Title>
+                    <LinkPanel
+                      onClick={() => navigate('/oversikt/' + it.id)}
+                      style={{ cursor: 'pointer' }}
+                      border={false}
+                    >
+                      <LinkPanel.Title className="navds-heading--small"> {it.barnsNavn} </LinkPanel.Title>
+                      {/* TODO: Følge designsystemet og ha svart overskrift som blir blå ved mouseOver? */}
                       <LinkPanel.Description>
-                        <Trans
-                          t={t}
-                          i18nKey="oversikt.krav_beskrivelse"
-                          values={{ orgnavn: it.orgnavn, bestillingsreferanse: it.bestillingsreferanse }}
-                        >
-                          <></>
-                          <Dato verdi={it.opprettet}></Dato>
-                          <></>
-                        </Trans>
-                        {it.annullert && (
+                        {t('oversikt.krav_beskrivelse_linje1')} <Dato verdi={it.opprettet}></Dato>
+                        <br />
+                        {t('oversikt.krav_beskrivelse_linje2', {
+                          orgnavn: it.orgnavn,
+                          bestillingsreferanse: it.bestillingsreferanse,
+                        })}
+                        {it.slettet && (
                           <div>
                             <Tag variant="warning" size="small">
-                              {t('oversikt.annullert')} <Dato verdi={it.annullert}></Dato>
+                              {t('oversikt.slettet')} <Dato verdi={it.slettet}></Dato>
                             </Tag>
                           </div>
                         )}
@@ -96,6 +96,7 @@ export function Oversikt() {
                         )}
                       </LinkPanel.Description>
                     </LinkPanel>
+                    <hr />
                   </li>
                 )
               })}

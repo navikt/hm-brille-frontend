@@ -159,7 +159,7 @@ export interface OversiktResponseItem {
   satsBeskrivelse: string
   utbetalingsdato?: string
   opprettet: string
-  annullert?: string
+  slettet?: string
 }
 
 export interface OversiktDetaljerResponse {
@@ -181,5 +181,5 @@ export interface OversiktDetaljerResponse {
   satsBeskrivelse: string
   utbetalingsdato?: string
   opprettet: string
-  annullert?: string
+  slettet?: string
 }

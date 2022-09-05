@@ -74,7 +74,7 @@ export const handlers: RequestHandler[] = [
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           opprettet: '2022-08-07T14:45:00+02:00',
-          annullert: '2022-08-10T09:10:12+02:00',
+          slettet: '2022-08-10T09:10:12+02:00',
         },
       ])
     return res(
@@ -140,7 +140,7 @@ export const handlers: RequestHandler[] = [
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           opprettet: '2022-08-07T14:45:00+02:00',
-          annullert: '2022-08-10T09:10:12+02:00',
+          slettet: '2022-08-10T09:10:12+02:00',
         })
       )
     }

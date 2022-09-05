@@ -71,10 +71,10 @@ export function OversiktDetaljer() {
         )}
         {!error && data && (
           <>
-            {data.annullert && (
+            {data.slettet && (
               <div style={{ marginBottom: '1rem' }}>
                 <Tag variant="warning" size="small">
-                  {t('oversikt.annullert')} <Dato verdi={data.annullert}></Dato>
+                  {t('oversikt.slettet')} <Dato verdi={data.slettet}></Dato>
                 </Tag>
               </div>
             )}
@@ -114,7 +114,7 @@ export function OversiktDetaljer() {
                       <Dropdown.Menu.List.Item ref={skrivUtRef}>
                         <Print aria-hidden /> {t('oversikt.krav_detaljer.meny.utskrift')}
                       </Dropdown.Menu.List.Item>
-                      {!data.annullert && (
+                      {!data.slettet && (
                         <>
                           <Dropdown.Menu.Divider />
                           <Dropdown.Menu.List.Item ref={annullerRef}>
@@ -212,14 +212,14 @@ export function OversiktDetaljer() {
                     beløp: beløp.formater(data.beløp),
                   })}
                 </Heading>
-                {!data.utbetalingsdato && !data.annullert && (
+                {!data.utbetalingsdato && !data.slettet && (
                   <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.ikke_utbetalt')}
                   </Alert>
                 )}
-                {data.annullert && (
+                {data.slettet && (
                   <Alert variant="warning" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    {t('oversikt.utbetalingsstatus.annullert')} <Dato verdi={data.annullert} />.
+                    {t('oversikt.utbetalingsstatus.slettet')} <Dato verdi={data.slettet} />.
                   </Alert>
                 )}
                 {data.utbetalingsdato && (
@@ -277,7 +277,7 @@ export function OversiktDetaljer() {
                         <></>
                         <LenkeMedLogging
                           href={
-                            'mailto:digihot@nav.no?subject=Brillekrav ønskes annullert: ' +
+                            'mailto:digihot@nav.no?subject=Brillekrav ønskes slettet: ' +
                             data.id +
                             '&body=Detaljer om kravet: %0A' +
                             'NAVs referanse: ' +
@@ -289,7 +289,7 @@ export function OversiktDetaljer() {
                             data.orgnavn +
                             '%0A' +
                             '%0A' +
-                            'Beskriv hvorfor kravet ønskes annullert under linjen: %0A' +
+                            'Beskriv hvorfor kravet ønskes slettet under linjen: %0A' +
                             '-------------------------------------------------------------------------- %0A%0A'
                           }
                         >
