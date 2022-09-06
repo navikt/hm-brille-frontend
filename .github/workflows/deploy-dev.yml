@@ -19,21 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16'
       - uses: actions/checkout@v1
-      - name: Cache node deps
-        id: cache-node
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-      - name: install deps
-        run: npm ci && npm run ci:all
-      - name: test
-        run: npm run test
       - name: pre-deploy
         uses: navikt/digihot-deploy/actions/pre-deploy@v2
         env:
