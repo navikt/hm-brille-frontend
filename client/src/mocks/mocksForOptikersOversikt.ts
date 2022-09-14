@@ -29,6 +29,7 @@ export const handlers: RequestHandler[] = [
           beløp: 750.0,
           bestillingsreferanse: 'hlkefhuibv',
           satsNr: '3',
+          satsBeløp: 750,
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           opprettet: '2022-08-09T14:45:00+02:00',
@@ -49,6 +50,7 @@ export const handlers: RequestHandler[] = [
           beløp: 750.0,
           bestillingsreferanse: 'hlkefhuibv',
           satsNr: '3',
+          satsBeløp: 750,
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           utbetalingsdato: '2022-08-10T08:00:00+02:00',
@@ -71,6 +73,7 @@ export const handlers: RequestHandler[] = [
           beløp: 750.0,
           bestillingsreferanse: 'hlkefhuibv',
           satsNr: '3',
+          satsBeløp: 750,
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           opprettet: '2022-08-07T14:45:00+02:00',
@@ -109,6 +112,7 @@ export const handlers: RequestHandler[] = [
           beløp: 750.0,
           bestillingsreferanse: 'hlkefhuibv',
           satsNr: '3',
+          satsBeløp: 750,
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           utbetalingsdato: '2022-08-10T08:00:00+02:00',
@@ -137,6 +141,7 @@ export const handlers: RequestHandler[] = [
           beløp: 750.0,
           bestillingsreferanse: 'hlkefhuibv',
           satsNr: '3',
+          satsBeløp: 750,
           satsBeskrivelse:
             'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
           opprettet: '2022-08-07T14:45:00+02:00',
@@ -164,6 +169,7 @@ export const handlers: RequestHandler[] = [
         beløp: 750.0,
         bestillingsreferanse: 'hlkefhuibv',
         satsNr: '3',
+        satsBeløp: 750,
         satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
         opprettet: '2022-08-07T14:45:00+02:00',
       })

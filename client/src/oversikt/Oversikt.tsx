@@ -28,15 +28,6 @@ export function Oversikt() {
     <div className="gray-background">
       <ScrollToTop />
       <main>
-        {/* <Link
-          onClick={() => {
-            navigate('/')
-          }}
-          className="dontPrintMe"
-          style={{ cursor: 'pointer', fontSize: '1.1em' }}
-        >
-          <Back aria-hidden /> Tilbake
-        </Link> */}
         <Heading level="1" size="large" style={{ margin: '1em 0', textAlign: 'center' }}>
           {t('oversikt.overskrift')}
         </Heading>

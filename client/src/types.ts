@@ -156,6 +156,7 @@ export interface OversiktResponseItem {
   beløp: number
   bestillingsreferanse: string
   satsNr: string
+  satsBeløp: number
   satsBeskrivelse: string
   utbetalingsdato?: string
   opprettet: string
@@ -178,6 +179,7 @@ export interface OversiktDetaljerResponse {
   beløp: number
   bestillingsreferanse: string
   satsNr: string
+  satsBeløp: number
   satsBeskrivelse: string
   utbetalingsdato?: string
   opprettet: string
