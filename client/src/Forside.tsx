@@ -3,7 +3,6 @@ import { Heading, LinkPanel, Panel, BodyLong, Grid } from '@navikt/ds-react'
 import { useNavigate } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import { LenkeMedLogging } from './components/LenkeMedLogging'
-import './stylesheet/styles.scss'
 import styled from 'styled-components'
 import { InnsendteKravIkon, SendKravIkon } from './resources/ikoner/Ikon'
 
@@ -19,7 +18,7 @@ export function Forside() {
   `
 
   return (
-    <>
+    <div className="gray-background">
       <main>
         <Heading level="1" size="xlarge" style={{ textAlign: 'center' }}>
           {t('forside.overskrift')}
@@ -62,6 +61,6 @@ export function Forside() {
           </BodyLong>
         </Panel>
       </main>
-    </>
+    </div>
   )
 }

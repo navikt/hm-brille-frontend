@@ -25,7 +25,7 @@ export function Oversikt() {
   const { t } = useTranslation()
 
   return (
-    <>
+    <div className="gray-background">
       <ScrollToTop />
       <main>
         {/* <Link
@@ -125,6 +125,6 @@ export function Oversikt() {
           </>
         )}
       </main>
-    </>
+    </div>
   )
 }
