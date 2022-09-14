@@ -6,7 +6,14 @@ const formatter = new Intl.DateTimeFormat('nb', {
   day: '2-digit',
 })
 
-function formater(verdi?: Date | number | string): string {
+const formatterLong = new Intl.DateTimeFormat('nb', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+
+function formater(verdi?: Date | number | string, formatLong?: boolean): string {
+  if (formatLong === true) return verdi ? formatterLong.format(new Date(verdi)) : ''
   return verdi ? formatter.format(new Date(verdi)) : ''
 }
 

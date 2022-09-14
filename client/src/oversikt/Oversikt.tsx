@@ -1,6 +1,6 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
+import { Panel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
@@ -37,7 +37,7 @@ export function Oversikt() {
         >
           <Back aria-hidden /> Tilbake
         </Link> */}
-        <Heading level="1" size="large" style={{ marginRight: '1rem', margin: '0.1em 0' }}>
+        <Heading level="1" size="large" style={{ margin: '1em 0', textAlign: 'center' }}>
           {t('oversikt.overskrift')}
         </Heading>
         {!data && !error && (
@@ -57,50 +57,52 @@ export function Oversikt() {
         )}
         {!error && data && data.items.length > 0 && (
           <>
-            <ul
-              style={{
-                listStyleType: 'none',
-                paddingInlineStart: 0,
-              }}
-            >
-              {data?.items.map((it, idx) => {
-                return (
-                  <li key={idx} style={{ margin: '0.5rem 0' }}>
-                    <LinkPanel
-                      onClick={() => navigate('/oversikt/' + it.id)}
-                      style={{ cursor: 'pointer' }}
-                      border={false}
-                    >
-                      <LinkPanel.Title className="navds-heading--small"> {it.barnsNavn} </LinkPanel.Title>
-                      {/* TODO: Følge designsystemet og ha svart overskrift som blir blå ved mouseOver? */}
-                      <LinkPanel.Description>
-                        {t('oversikt.krav_beskrivelse_linje1')} <Dato verdi={it.opprettet}></Dato>
-                        <br />
-                        {t('oversikt.krav_beskrivelse_linje2', {
-                          orgnavn: it.orgnavn,
-                          bestillingsreferanse: it.bestillingsreferanse,
-                        })}
-                        {it.slettet && (
-                          <div>
-                            <Tag variant="warning" size="small">
-                              {t('oversikt.slettet')} <Dato verdi={it.slettet}></Dato>
-                            </Tag>
-                          </div>
-                        )}
-                        {it.utbetalingsdato && (
-                          <div>
-                            <Tag variant="success" size="small">
-                              {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
-                            </Tag>
-                          </div>
-                        )}
-                      </LinkPanel.Description>
-                    </LinkPanel>
-                    <hr />
-                  </li>
-                )
-              })}
-            </ul>
+            <Panel border={false}>
+              <ul
+                style={{
+                  listStyleType: 'none',
+                  paddingInlineStart: 0,
+                }}
+              >
+                {data?.items.map((it, idx) => {
+                  return (
+                    <li key={idx} style={{ margin: '0.5rem 0' }}>
+                      <LinkPanel
+                        onClick={() => navigate('/oversikt/' + it.id)}
+                        style={{ cursor: 'pointer' }}
+                        border={false}
+                      >
+                        <LinkPanel.Title className="navds-heading--small"> {it.barnsNavn} </LinkPanel.Title>
+                        {/* TODO: Følge designsystemet og ha svart overskrift som blir blå ved mouseOver? */}
+                        <LinkPanel.Description>
+                          {t('oversikt.krav_beskrivelse_linje1')} <Dato verdi={it.opprettet} formatLong={true}></Dato>
+                          <br />
+                          {t('oversikt.krav_beskrivelse_linje2', {
+                            orgnavn: it.orgnavn,
+                            bestillingsreferanse: it.bestillingsreferanse,
+                          })}
+                          {it.slettet && (
+                            <div style={{ marginTop: '0.5rem' }}>
+                              <Tag variant="warning" size="small">
+                                {t('oversikt.slettet')} <Dato verdi={it.slettet}></Dato>
+                              </Tag>
+                            </div>
+                          )}
+                          {it.utbetalingsdato && (
+                            <div style={{ marginTop: '0.5rem' }}>
+                              <Tag variant="success" size="small">
+                                {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
+                              </Tag>
+                            </div>
+                          )}
+                        </LinkPanel.Description>
+                      </LinkPanel>
+                      <hr style={{ margin: '0.5rem var(--navds-spacing-4)' }} />
+                    </li>
+                  )
+                })}
+              </ul>
+            </Panel>
             <div style={{ textAlign: 'right', margin: '1rem 0 2rem' }}>
               <Detail>
                 {t('oversikt.pagination', {
@@ -111,16 +113,17 @@ export function Oversikt() {
               </Detail>
             </div>
             {data.numberOfPages > 1 && (
-              <Pagination
-                size="medium"
-                page={currPage}
-                onPageChange={(x) => setCurrPage(x)}
-                count={data.numberOfPages}
-                boundaryCount={1}
-                siblingCount={1}
-                prevNextTexts
-                style={{ justifyContent: 'center' }}
-              />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination
+                  size="medium"
+                  page={currPage}
+                  onPageChange={(x) => setCurrPage(x)}
+                  count={data.numberOfPages}
+                  boundaryCount={1}
+                  siblingCount={1}
+                  prevNextTexts
+                />
+              </div>
             )}
           </>
         )}
