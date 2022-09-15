@@ -11,16 +11,16 @@ const Breadcrumbs = () => {
     const { pathname } = location
     let subBreadcrumbs = []
     if (pathname.indexOf('/oversikt') === 0) {
-      subBreadcrumbs.push({ url: baseUrl('/oversikt'), title: t('brødsmuler.oversikt'), handleInApp: true })
+      subBreadcrumbs.push({ url: '/oversikt', title: t('brødsmuler.oversikt'), handleInApp: true })
       if (pathname.indexOf('/oversikt/') === 0) {
-        subBreadcrumbs.push({ url: baseUrl(pathname), title: t('brødsmuler.oversikt.detaljer'), handleInApp: true })
+        subBreadcrumbs.push({ url: pathname, title: t('brødsmuler.oversikt.detaljer'), handleInApp: true })
       }
     }
     if (pathname.indexOf('/krav') === 0) {
-      subBreadcrumbs.push({ url: baseUrl('/krav'), title: t('brødsmuler.krav'), handleInApp: true })
+      subBreadcrumbs.push({ url: '/krav', title: t('brødsmuler.krav'), handleInApp: true })
       if (pathname.indexOf('/krav/oppsummering') === 0) {
         subBreadcrumbs.push({
-          url: baseUrl('/krav/oppsummering'),
+          url: '/krav/oppsummering',
           title: t('brødsmuler.krav.oppsummering'),
           handleInApp: true,
         })
@@ -28,7 +28,7 @@ const Breadcrumbs = () => {
     }
     setBreadcrumbs([
       { url: 'https://www.nav.no/barnebriller', title: t('brødsmuler.optikers_rolle') },
-      { url: baseUrl('/'), title: t('brødsmuler.forside'), handleInApp: true },
+      { url: '/', title: t('brødsmuler.forside'), handleInApp: true },
       ...subBreadcrumbs,
     ])
   }, [location])
