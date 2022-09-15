@@ -1,8 +1,14 @@
 import { onLanguageSelect } from '@navikt/nav-dekoratoren-moduler'
 import i18n from 'i18next'
+import Cookies from 'js-cookie'
 import { initReactI18next } from 'react-i18next'
 import nb from './resources/nb_translation.json'
 import nn from './resources/nn_translation.json'
+
+let language = Cookies.get('decorator-language')
+if (language === undefined || !['nb', 'nn'].includes(language)) {
+  language = 'nb'
+}
 
 // noinspection JSIgnoredPromiseFromCall
 i18n.use(initReactI18next).init({
@@ -15,7 +21,7 @@ i18n.use(initReactI18next).init({
       translation: nn,
     },
   },
-  lng: 'nb',
+  lng: language,
   fallbackLng: false,
   supportedLngs: ['nb', 'nn'],
   fallbackNS: 'App',
