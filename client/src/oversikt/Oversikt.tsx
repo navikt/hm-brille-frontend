@@ -79,7 +79,7 @@ export function Oversikt() {
                               </Tag>
                             </div>
                           )}
-                          {it.utbetalingsdato && (
+                          {!it.slettet && it.utbetalingsdato && (
                             <div style={{ marginTop: '0.5rem' }}>
                               <Tag variant="success" size="small">
                                 {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>

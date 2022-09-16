@@ -99,7 +99,7 @@ export function OversiktDetaljer() {
                       {t('oversikt.krav_detaljer.meny.slett')}
                     </Button>
                   )}
-                  {data.utbetalingsdato && (
+                  {!data.slettet && data.utbetalingsdato && (
                     <Button
                       icon={<Email aria-hidden />}
                       variant="tertiary"
@@ -125,7 +125,7 @@ export function OversiktDetaljer() {
                     {t('oversikt.utbetalingsstatus.slettet')} <Dato verdi={data.slettet} />.
                   </Alert>
                 )}
-                {data.utbetalingsdato && (
+                {!data.slettet && data.utbetalingsdato && (
                   <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
                   </Alert>
