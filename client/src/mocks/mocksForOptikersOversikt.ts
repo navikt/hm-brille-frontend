@@ -154,7 +154,7 @@ export const handlers: RequestHandler[] = [
       ctx.delay(),
       ctx.status(200),
       ctx.json({
-        id: 100,
+        id: 99,
         orgnavn: 'Brillehuset',
         orgnr: '123 456 789',
         barnsNavn: 'Sedat Kronjuvel',
