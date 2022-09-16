@@ -154,7 +154,7 @@ export const handlers: RequestHandler[] = [
       ctx.delay(),
       ctx.status(200),
       ctx.json({
-        id: 1,
+        id: 100,
         orgnavn: 'Brillehuset',
         orgnr: '123 456 789',
         barnsNavn: 'Sedat Kronjuvel',
@@ -174,5 +174,11 @@ export const handlers: RequestHandler[] = [
         opprettet: '2022-08-07T14:45:00+02:00',
       })
     )
+  }),
+  rest.delete<{}, { vedtakId: string }, {}>(apiUrl('/krav/:vedtakId'), (req, res, ctx) => {
+    if (req.params.vedtakId == '99') {
+      return res(ctx.delay(), ctx.status(200), ctx.json({}))
+    }
+    return res(ctx.delay(), ctx.status(400), ctx.json({}))
   }),
 ]

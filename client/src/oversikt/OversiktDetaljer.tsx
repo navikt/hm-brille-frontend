@@ -17,6 +17,7 @@ import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
 import { Trans, useTranslation } from 'react-i18next'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
+import { http } from "../http";
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -30,6 +31,18 @@ export function OversiktDetaljer() {
     onBeforePrint: () => logPrintKravÅpnet(),
     documentTitle: `krav_${vedtakId}`,
   })
+
+  const [modalSlettButtonDisabled, setModalSlettButtonDisabled] = useState(false)
+  const slettKrav = async (id: number) => {
+    // deaktiver knapp
+    // rest-kall for å slette
+    setModalSlettButtonDisabled(true)
+    const resultat = await http.delete(`/krav/${id}`, undefined)
+    setModalSlettButtonDisabled(false)
+    console.log(resultat)
+    // håndtere feil
+    // håndtere ok - lukk modalen
+  }
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
 
@@ -204,7 +217,6 @@ export function OversiktDetaljer() {
                       <Heading level="2" size="medium">
                         {t('oversikt.slett_modal.konsekvenser')}
                       </Heading>
-                      <BodyLong spacing>
                         <ul>
                           <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse1')}</li>
                           <li>
@@ -214,10 +226,9 @@ export function OversiktDetaljer() {
                           </li>
                           <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse3')}</li>
                         </ul>
-                      </BodyLong>
 
                       <Knapper>
-                        <Button icon={<Delete aria-hidden />} variant="danger">
+                        <Button icon={<Delete aria-hidden />} variant="danger" onClick={(e) => slettKrav(data.id)} disabled={modalSlettButtonDisabled} loading={modalSlettButtonDisabled}>
                           {t('oversikt.slett_modal.knapp_slett')}
                         </Button>
                         <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
