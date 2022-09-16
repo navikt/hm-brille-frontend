@@ -33,15 +33,23 @@ export function OversiktDetaljer() {
   })
 
   const [modalSlettButtonDisabled, setModalSlettButtonDisabled] = useState(false)
+  const [modalSlettFeil, setModalSlettFeil] = useState(false)
   const slettKrav = async (id: number) => {
     // deaktiver knapp
-    // rest-kall for å slette
     setModalSlettButtonDisabled(true)
+
+    // rest-kall for å slette
     const resultat = await http.delete(`/krav/${id}`, undefined)
-    setModalSlettButtonDisabled(false)
-    console.log(resultat)
-    // håndtere feil
-    // håndtere ok - lukk modalen
+    if (resultat.error) {
+      // håndtere feil
+      console.log('Feil ved sletting av krav:', resultat)
+      setModalSlettButtonDisabled(false)
+      setModalSlettFeil(true)
+      return
+    }
+
+    // håndtere ok - refresh siden
+    window.location.reload()
   }
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
@@ -226,6 +234,10 @@ export function OversiktDetaljer() {
                           </li>
                           <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse3')}</li>
                         </ul>
+
+                      {modalSlettFeil && (
+                          <Alert variant="error" fullWidth style={{ marginBottom: '1rem' }}>{t('oversikt.slett_modal.slett_feilet')}</Alert>
+                      )}
 
                       <Knapper>
                         <Button icon={<Delete aria-hidden />} variant="danger" onClick={(e) => slettKrav(data.id)} disabled={modalSlettButtonDisabled} loading={modalSlettButtonDisabled}>

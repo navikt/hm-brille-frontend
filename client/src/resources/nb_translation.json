@@ -130,6 +130,7 @@
   "oversikt.slett_modal.konsekvenser_beskrivelse1": "Optiker vil ikke få refundert penger fra NAV uten å sende inn et nytt krav",
   "oversikt.slett_modal.konsekvenser_beskrivelse2": "Barnets rettighet til brillestøtte for {{år}} vil være ubrukt etter sletting",
   "oversikt.slett_modal.konsekvenser_beskrivelse3": "Hvis brillens bestillingsdato nå er eldre enn seks måneder vil man ikke kunne sende inn kravet på nytt",
+  "oversikt.slett_modal.slett_feilet": "Noe gikk galt og vi klarte ikke å slette kravet, prøv igjen senere.",
   "oversikt.slett_modal.knapp_slett": "Slett kravet",
   "oversikt.slett_modal.knapp_lukk": "Lukk",
   "oversikt.slett_modal.allerede_utbetalt_overskrift": "Kravet er utbetalt og kan ikke slettes",
