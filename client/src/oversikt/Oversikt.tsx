@@ -1,6 +1,6 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { Panel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
+import { Panel, GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
@@ -48,6 +48,9 @@ export function Oversikt() {
         )}
         {!error && data && data.items.length > 0 && (
           <>
+            <GuidePanel style={{ marginBottom: '2rem' }}>
+              {t('oversikt.intro')}
+            </GuidePanel>
             <Panel border={false}>
               <ul
                 style={{
