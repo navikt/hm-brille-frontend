@@ -39,7 +39,7 @@ export function OversiktDetaljer() {
     setModalSlettButtonDisabled(true)
 
     // rest-kall for å slette
-    const resultat = await http.delete(`/krav/${id}`, undefined)
+    const resultat = await http.delete(`/krav/${id}`, {})
     if (resultat.error) {
       // håndtere feil
       console.log('Feil ved sletting av krav:', resultat)
