@@ -20,8 +20,8 @@ spec:
     enabled: true
     path: /hjelpemidler/barnebriller/internal/metrics
   replicas:
-    max: 2
-    min: 4
+    max: 4
+    min: 2
   resources:
     limits:
       cpu: 500m
