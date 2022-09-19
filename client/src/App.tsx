@@ -1,27 +1,19 @@
-import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
-import { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 import { isHttpError } from './error'
 import { FeatureToggleProvider } from './FeatureToggleProvider'
 import { Feilside } from './Feilside'
-import { baseUrl } from './http'
 import { IkkeAutorisert } from './IkkeAutorisert'
+import { Forside } from './Forside'
+import { Oversikt } from './oversikt/Oversikt'
+import { OversiktDetaljer } from './oversikt/OversiktDetaljer'
 import { Krav } from './krav/Krav'
 import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
+import Breadcrumbs from './components/Breadcrumbs'
 
 export function App() {
-  const { t } = useTranslation()
-  useEffect(() => {
-    // noinspection JSIgnoredPromiseFromCall
-    setBreadcrumbs([
-      { url: 'https://www.nav.no/barnebriller', title: t('brødsmuler.1') },
-      { url: baseUrl('/'), title: t('brødsmuler.2') },
-    ])
-  }, [])
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => {
@@ -34,13 +26,16 @@ export function App() {
         }
       }}
     >
+      <Breadcrumbs />
       <FeatureToggleProvider>
         <ApplicationProvider>
           <Routes>
-            <Route path="/" element={<Krav />} />
+            <Route path="/" element={<Forside />} />
             <Route path="/krav" element={<Krav />} />
             <Route path="/krav/oppsummering" element={<KravOppsummering />} />
             <Route path="/krav/kvittering" element={<KravKvittering />} />
+            <Route path="/oversikt" element={<Oversikt />} />
+            <Route path="/oversikt/:vedtakId" element={<OversiktDetaljer />} />
             <Route path="*" element={<Feilside status={404} />} />
           </Routes>
         </ApplicationProvider>

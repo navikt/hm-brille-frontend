@@ -10,6 +10,7 @@ import { baseUrl, http } from './http'
 import './i18n'
 import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
+import './stylesheet/styles.scss'
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {

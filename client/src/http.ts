@@ -57,4 +57,29 @@ export const http = {
       }
     }
   },
+  async delete<B, T>(path: string, body: B): Promise<Resultat<T>> {
+    try {
+      const url = apiUrl(path)
+      const response = await fetch(url, {
+        method: 'delete',
+        cache: 'no-store',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        return { data }
+      }
+      return {
+        error: HttpError.kallFeilet(url, response),
+      }
+    } catch (err: unknown) {
+      return {
+        error: HttpError.wrap(err),
+      }
+    }
+  },
 }

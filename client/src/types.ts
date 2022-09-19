@@ -132,3 +132,56 @@ export enum SatsType {
   SATS_5 = 'SATS_5',
   INGEN = 'INGEN',
 }
+
+export interface OversiktResponse {
+  numberOfPages: number
+  itemsPerPage: number
+  totalItems: number
+  items: OversiktResponseItem[]
+}
+
+export interface OversiktResponseItem {
+  id: number
+  orgnavn: string
+  orgnr: string
+  barnsNavn: string
+  barnsFnr: string
+  barnsAlder: number
+  høyreSfære: number
+  høyreSylinder: number
+  venstreSfære: number
+  venstreSylinder: number
+  bestillingsdato: string
+  brillepris: number
+  beløp: number
+  bestillingsreferanse: string
+  satsNr: string
+  satsBeløp: number
+  satsBeskrivelse: string
+  utbetalingsdato?: string
+  opprettet: string
+  slettet?: string
+}
+
+export interface OversiktDetaljerResponse {
+  id: number
+  orgnavn: string
+  orgnr: string
+  barnsNavn: string
+  barnsFnr: string
+  barnsAlder: number
+  høyreSfære: number
+  høyreSylinder: number
+  venstreSfære: number
+  venstreSylinder: number
+  bestillingsdato: string
+  brillepris: number
+  beløp: number
+  bestillingsreferanse: string
+  satsNr: string
+  satsBeløp: number
+  satsBeskrivelse: string
+  utbetalingsdato?: string
+  opprettet: string
+  slettet?: string
+}

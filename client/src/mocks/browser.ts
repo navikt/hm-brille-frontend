@@ -17,6 +17,7 @@ import {
   VirksomhetResponse,
 } from '../types'
 import { beregnSats } from './beregnSats'
+import { handlers as mocksForOptikersOversiktHandlers } from './mocksForOptikersOversikt'
 
 let godtattVilkår: boolean = false
 
@@ -169,6 +170,7 @@ const handlers: RequestHandler[] = [
       })
     )
   }),
+  ...mocksForOptikersOversiktHandlers,
 ]
 
 export const worker = setupWorker(...handlers)
