@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from "@navikt/ds-react";
+import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from '@navikt/ds-react'
 import { Print, Delete, Email } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import React, { useRef, useState } from 'react'
@@ -11,8 +11,8 @@ import {
   logSlettKravBekreftet,
   logSlettKravAvbrutt,
   logSlettUtbetaltKravÅpnet,
-  logSlettUtbetaltKravEpost
-} from "../utils/amplitude";
+  logSlettUtbetaltKravEpost,
+} from '../utils/amplitude'
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { ReactNode } from 'react'
@@ -243,22 +243,30 @@ export function OversiktDetaljer() {
                       <Heading level="2" size="medium">
                         {t('oversikt.slett_modal.konsekvenser')}
                       </Heading>
-                        <ul>
-                          <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse1')}</li>
-                          <li>
-                            {t('oversikt.slett_modal.konsekvenser_beskrivelse2', {
-                              år: new Date(data.bestillingsdato).getFullYear(),
-                            })}
-                          </li>
-                          <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse3')}</li>
-                        </ul>
+                      <ul>
+                        <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse1')}</li>
+                        <li>
+                          {t('oversikt.slett_modal.konsekvenser_beskrivelse2', {
+                            år: new Date(data.bestillingsdato).getFullYear(),
+                          })}
+                        </li>
+                        <li>{t('oversikt.slett_modal.konsekvenser_beskrivelse3')}</li>
+                      </ul>
 
                       {modalSlettFeil && (
-                          <Alert variant="error" fullWidth style={{ marginBottom: '1rem' }}>{t('oversikt.slett_modal.slett_feilet')}</Alert>
+                        <Alert variant="error" fullWidth style={{ marginBottom: '1rem' }}>
+                          {t('oversikt.slett_modal.slett_feilet')}
+                        </Alert>
                       )}
 
                       <Knapper>
-                        <Button icon={<Delete aria-hidden />} variant="danger" onClick={(e) => slettKrav(data.id)} disabled={modalSlettButtonDisabled} loading={modalSlettButtonDisabled}>
+                        <Button
+                          icon={<Delete aria-hidden />}
+                          variant="danger"
+                          onClick={(e) => slettKrav(data.id)}
+                          disabled={modalSlettButtonDisabled}
+                          loading={modalSlettButtonDisabled}
+                        >
                           {t('oversikt.slett_modal.knapp_slett')}
                         </Button>
                         <Button
@@ -282,7 +290,8 @@ export function OversiktDetaljer() {
                       <BodyLong spacing>
                         <Trans t={t} i18nKey="oversikt.slett_modal.allerede_utbetalt_beskrivelse2">
                           <></>
-                          <Link onClick={() => logSlettUtbetaltKravEpost()}
+                          <Link
+                            onClick={() => logSlettUtbetaltKravEpost()}
                             href={
                               'mailto:digihot@nav.no?subject=Brillekrav ønskes slettet: ' +
                               data.id +

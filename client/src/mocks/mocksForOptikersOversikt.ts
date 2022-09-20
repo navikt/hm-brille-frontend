@@ -3,109 +3,105 @@ import { apiUrl } from '../http'
 import { OversiktDetaljerResponse, OversiktResponse } from '../types'
 
 const dateGenerator = (minusDays: number, dateTime: boolean): string => {
-    var date = new Date();
-    date.setDate(date.getDate()-minusDays);
-    if (dateTime) return date.toISOString()
-    let y = `${date.getFullYear()}`
-    let m = (date.getMonth() < 10 ? '0' : '') + date.getMonth()
-    let d = (date.getDate() < 10 ? '0' : '') + date.getDate()
-    return `${y}-${m}-${d}`
+  var date = new Date()
+  date.setDate(date.getDate() - minusDays)
+  if (dateTime) return date.toISOString()
+  let y = `${date.getFullYear()}`
+  let m = (date.getMonth() < 10 ? '0' : '') + date.getMonth()
+  let d = (date.getDate() < 10 ? '0' : '') + date.getDate()
+  return `${y}-${m}-${d}`
 }
 
 const kravStore = [
-    {
-        id: 0,
-        orgnavn: 'Brillehuset',
-        orgnr: '123 456 789',
-        barnsNavn: 'Sedat Kronjuvel',
-        barnsFnr: '15084300133',
-        barnsAlder: 12,
-        høyreSfære: 1.25,
-        høyreSylinder: -1.0,
-        venstreSfære: 1.0,
-        venstreSylinder: -1.0,
-        bestillingsdato: dateGenerator(1, false),
-        brillepris: 12345.0,
-        beløp: 750.0,
-        bestillingsreferanse: 'hlkefhuibv',
-        satsNr: '3',
-        satsBeløp: 750,
-        satsBeskrivelse:
-            'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-        opprettet: dateGenerator(0, true),
-        slettet: undefined,
-    },
-    {
-        id: 1,
-        orgnavn: 'Brillehuset',
-        orgnr: '123 456 789',
-        barnsNavn: 'Pippi Langstrømpe',
-        barnsFnr: '15084300133',
-        barnsAlder: 12,
-        høyreSfære: 1.25,
-        høyreSylinder: -1.0,
-        venstreSfære: 1.0,
-        venstreSylinder: -1.0,
-        bestillingsdato: dateGenerator(1, false),
-        brillepris: 12345.0,
-        beløp: 750.0,
-        bestillingsreferanse: 'hlkefhuibv',
-        satsNr: '3',
-        satsBeløp: 750,
-        satsBeskrivelse:
-            'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-        opprettet: dateGenerator(1, true),
-        utbetalingsdato: undefined,
-        slettet: dateGenerator(0, true),
-    },
-    {
-        id: 2,
-        orgnavn: 'Brillehuset',
-        orgnr: '123 456 789',
-        barnsNavn: 'Pippi Langstrømpe',
-        barnsFnr: '15084300133',
-        barnsAlder: 12,
-        høyreSfære: 1.25,
-        høyreSylinder: -1.0,
-        venstreSfære: 1.0,
-        venstreSylinder: -1.0,
-        bestillingsdato: dateGenerator(1, false),
-        brillepris: 12345.0,
-        beløp: 750.0,
-        bestillingsreferanse: 'hlkefhuibv',
-        satsNr: '3',
-        satsBeløp: 750,
-        satsBeskrivelse:
-            'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-        opprettet: dateGenerator(1, true),
-        utbetalingsdato: dateGenerator(1, true),
-        slettet: dateGenerator(0, true),
-    },
-    ...[...Array(30).keys()].map((idx) => {
-        return {
-            id: 3 + idx,
-            orgnavn: 'Brillehuset',
-            orgnr: '123 456 789',
-            barnsNavn: 'Harald Rustibus',
-            barnsFnr: '15084300133',
-            barnsAlder: 12,
-            høyreSfære: 1.25,
-            høyreSylinder: -1.0,
-            venstreSfære: 1.0,
-            venstreSylinder: -1.0,
-            bestillingsdato: dateGenerator(7+idx, false),
-            brillepris: 12345.0,
-            beløp: 750.0,
-            bestillingsreferanse: 'hlkefhuibv',
-            satsNr: '3',
-            satsBeløp: 750,
-            satsBeskrivelse:
-            'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
-            opprettet: dateGenerator(7+idx, true),
-            utbetalingsdato: dateGenerator(idx, true),
-            slettet: undefined,
-        }
-    })
+  {
+    id: 0,
+    orgnavn: 'Brillehuset',
+    orgnr: '123 456 789',
+    barnsNavn: 'Sedat Kronjuvel',
+    barnsFnr: '15084300133',
+    barnsAlder: 12,
+    høyreSfære: 1.25,
+    høyreSylinder: -1.0,
+    venstreSfære: 1.0,
+    venstreSylinder: -1.0,
+    bestillingsdato: dateGenerator(1, false),
+    brillepris: 12345.0,
+    beløp: 750.0,
+    bestillingsreferanse: 'hlkefhuibv',
+    satsNr: '3',
+    satsBeløp: 750,
+    satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
+    opprettet: dateGenerator(0, true),
+    slettet: undefined,
+  },
+  {
+    id: 1,
+    orgnavn: 'Brillehuset',
+    orgnr: '123 456 789',
+    barnsNavn: 'Pippi Langstrømpe',
+    barnsFnr: '15084300133',
+    barnsAlder: 12,
+    høyreSfære: 1.25,
+    høyreSylinder: -1.0,
+    venstreSfære: 1.0,
+    venstreSylinder: -1.0,
+    bestillingsdato: dateGenerator(1, false),
+    brillepris: 12345.0,
+    beløp: 750.0,
+    bestillingsreferanse: 'hlkefhuibv',
+    satsNr: '3',
+    satsBeløp: 750,
+    satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
+    opprettet: dateGenerator(1, true),
+    utbetalingsdato: undefined,
+    slettet: dateGenerator(0, true),
+  },
+  {
+    id: 2,
+    orgnavn: 'Brillehuset',
+    orgnr: '123 456 789',
+    barnsNavn: 'Pippi Langstrømpe',
+    barnsFnr: '15084300133',
+    barnsAlder: 12,
+    høyreSfære: 1.25,
+    høyreSylinder: -1.0,
+    venstreSfære: 1.0,
+    venstreSylinder: -1.0,
+    bestillingsdato: dateGenerator(1, false),
+    brillepris: 12345.0,
+    beløp: 750.0,
+    bestillingsreferanse: 'hlkefhuibv',
+    satsNr: '3',
+    satsBeløp: 750,
+    satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
+    opprettet: dateGenerator(1, true),
+    utbetalingsdato: dateGenerator(1, true),
+    slettet: dateGenerator(0, true),
+  },
+  ...[...Array(30).keys()].map((idx) => {
+    return {
+      id: 3 + idx,
+      orgnavn: 'Brillehuset',
+      orgnr: '123 456 789',
+      barnsNavn: 'Harald Rustibus',
+      barnsFnr: '15084300133',
+      barnsAlder: 12,
+      høyreSfære: 1.25,
+      høyreSylinder: -1.0,
+      venstreSfære: 1.0,
+      venstreSylinder: -1.0,
+      bestillingsdato: dateGenerator(7 + idx, false),
+      brillepris: 12345.0,
+      beløp: 750.0,
+      bestillingsreferanse: 'hlkefhuibv',
+      satsNr: '3',
+      satsBeløp: 750,
+      satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
+      opprettet: dateGenerator(7 + idx, true),
+      utbetalingsdato: dateGenerator(idx, true),
+      slettet: undefined,
+    }
+  }),
 ]
 
 export const handlers: RequestHandler[] = [
@@ -126,15 +122,11 @@ export const handlers: RequestHandler[] = [
   }),
   rest.get<{}, { vedtakId: string }, OversiktDetaljerResponse | {}>(apiUrl('/oversikt/:vedtakId'), (req, res, ctx) => {
     let idx = parseInt(req.params.vedtakId)
-      let krav = kravStore[idx]
-      if (krav) {
-          return res(
-              ctx.delay(),
-              ctx.status(200),
-              ctx.json(krav)
-          )
-      }
-      return res(ctx.delay(), ctx.status(404), ctx.json({}))
+    let krav = kravStore[idx]
+    if (krav) {
+      return res(ctx.delay(), ctx.status(200), ctx.json(krav))
+    }
+    return res(ctx.delay(), ctx.status(404), ctx.json({}))
   }),
   rest.delete<{}, { vedtakId: string }, {}>(apiUrl('/krav/:vedtakId'), (req, res, ctx) => {
     let idx = parseInt(req.params.vedtakId)

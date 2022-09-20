@@ -48,9 +48,7 @@ export function Oversikt() {
         )}
         {!error && data && data.items.length > 0 && (
           <>
-            <GuidePanel style={{ marginBottom: '2rem' }}>
-              {t('oversikt.intro')}
-            </GuidePanel>
+            <GuidePanel style={{ marginBottom: '2rem' }}>{t('oversikt.intro')}</GuidePanel>
             <Panel border={false}>
               <ul
                 style={{
