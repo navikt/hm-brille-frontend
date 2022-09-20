@@ -1,11 +1,18 @@
 import { useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label } from '@navikt/ds-react'
+import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from "@navikt/ds-react";
 import { Print, Delete, Email } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import React, { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
-import { logPrintKravÅpnet } from '../utils/amplitude'
+import {
+  logPrintKravÅpnet,
+  logSlettKravÅpnet,
+  logSlettKravBekreftet,
+  logSlettKravAvbrutt,
+  logSlettUtbetaltKravÅpnet,
+  logSlettUtbetaltKravEpost
+} from "../utils/amplitude";
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { ReactNode } from 'react'
@@ -16,8 +23,7 @@ import { Dato } from '../components/Dato'
 import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
 import { Trans, useTranslation } from 'react-i18next'
-import { LenkeMedLogging } from '../components/LenkeMedLogging'
-import { http } from "../http";
+import { http } from '../http'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -49,7 +55,10 @@ export function OversiktDetaljer() {
     }
 
     // håndtere ok - refresh siden
-    window.location.reload()
+    logSlettKravBekreftet()
+    setTimeout(() => {
+      window.location.reload()
+    }, 300)
   }
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
@@ -94,7 +103,10 @@ export function OversiktDetaljer() {
                       icon={<Delete aria-hidden />}
                       variant="tertiary"
                       size="medium"
-                      onClick={() => setModalDeleteOpen(true)}
+                      onClick={() => {
+                        setModalDeleteOpen(true)
+                        logSlettKravÅpnet()
+                      }}
                     >
                       {t('oversikt.krav_detaljer.meny.slett')}
                     </Button>
@@ -104,7 +116,10 @@ export function OversiktDetaljer() {
                       icon={<Email aria-hidden />}
                       variant="tertiary"
                       size="medium"
-                      onClick={() => setModalDeleteOpen(true)}
+                      onClick={() => {
+                        setModalDeleteOpen(true)
+                        logSlettUtbetaltKravÅpnet()
+                      }}
                     >
                       {t('oversikt.krav_detaljer.meny.feil_i_krav')}
                     </Button>
@@ -213,7 +228,10 @@ export function OversiktDetaljer() {
               <Modal
                 open={modalDeleteOpen}
                 aria-label="Slett krav dialog"
-                onClose={() => setModalDeleteOpen((x) => !x)}
+                onClose={() => {
+                  setModalDeleteOpen(false)
+                  logSlettKravAvbrutt()
+                }}
               >
                 <Modal.Content>
                   {!data.utbetalingsdato && (
@@ -243,7 +261,13 @@ export function OversiktDetaljer() {
                         <Button icon={<Delete aria-hidden />} variant="danger" onClick={(e) => slettKrav(data.id)} disabled={modalSlettButtonDisabled} loading={modalSlettButtonDisabled}>
                           {t('oversikt.slett_modal.knapp_slett')}
                         </Button>
-                        <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
+                        <Button
+                          variant="secondary"
+                          onClick={() => {
+                            setModalDeleteOpen(false)
+                            logSlettKravAvbrutt()
+                          }}
+                        >
                           {t('oversikt.slett_modal.knapp_lukk')}
                         </Button>
                       </Knapper>
@@ -258,7 +282,7 @@ export function OversiktDetaljer() {
                       <BodyLong spacing>
                         <Trans t={t} i18nKey="oversikt.slett_modal.allerede_utbetalt_beskrivelse2">
                           <></>
-                          <LenkeMedLogging
+                          <Link onClick={() => logSlettUtbetaltKravEpost()}
                             href={
                               'mailto:digihot@nav.no?subject=Brillekrav ønskes slettet: ' +
                               data.id +
@@ -277,7 +301,7 @@ export function OversiktDetaljer() {
                             }
                           >
                             <></>
-                          </LenkeMedLogging>
+                          </Link>
                           <></>
                         </Trans>
                       </BodyLong>

@@ -16,6 +16,11 @@ export enum digihot_customevents {
   VILKÅRSVURDERING_RESULTAT = 'vilkårsvurdering resultat',
   PRINT_KVITTERING = 'trykk på knapp for å skrive ut kvittering',
   PRINT_KRAV = 'trykk på knapp for å skrive ut krav',
+  SLETT_KRAV = 'trykk på knapp for å åpne modal for å slette krav',
+  SLETT_KRAV_BEKREFT = 'trykk på knapp for å slette krav',
+  SLETT_KRAV_AVBRYT = 'trykk på knapp for å avbryte sletting av krav',
+  SLETT_UTBETALT_KRAV = 'trykk på knapp for å melde fra om feil i allerede utbetalt krav',
+  SLETT_UTBETALT_KRAV_EPOST = 'trykk på knapp for å sende epost om allerede utbetalt krav',
 }
 
 export enum SkjemaSteg {
@@ -110,6 +115,41 @@ export function logPrintKvitteringÅpnet() {
 
 export function logPrintKravÅpnet() {
   logAmplitudeEvent(digihot_customevents.PRINT_KRAV, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logSlettKravÅpnet() {
+  logAmplitudeEvent(digihot_customevents.SLETT_KRAV, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logSlettKravBekreftet() {
+  logAmplitudeEvent(digihot_customevents.SLETT_KRAV_BEKREFT, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logSlettKravAvbrutt() {
+  logAmplitudeEvent(digihot_customevents.SLETT_KRAV_AVBRYT, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logSlettUtbetaltKravÅpnet() {
+  logAmplitudeEvent(digihot_customevents.SLETT_UTBETALT_KRAV, {
+    skjemanavn: SKJEMANAVN,
+    skjemaId: skjemaId,
+  })
+}
+
+export function logSlettUtbetaltKravEpost() {
+  logAmplitudeEvent(digihot_customevents.SLETT_UTBETALT_KRAV_EPOST, {
     skjemanavn: SKJEMANAVN,
     skjemaId: skjemaId,
   })
