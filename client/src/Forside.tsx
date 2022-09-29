@@ -40,7 +40,10 @@ export function Forside() {
               <InnsendteKravIkon />
               <div>
                 <LinkPanel.Title>{t('forside.overskrift_innsendte_krav')}</LinkPanel.Title>
-                <LinkPanel.Description>{t('forside.overskrift_innsendte_krav.beskrivelse')}</LinkPanel.Description>
+                <LinkPanel.Description>
+                  {t('forside.overskrift_innsendte_krav.beskrivelse1')} <br />{' '}
+                  {t('forside.overskrift_innsendte_krav.beskrivelse2')}
+                </LinkPanel.Description>
               </div>
             </Grid>
           </LinkPanel>

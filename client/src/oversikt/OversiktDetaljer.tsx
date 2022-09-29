@@ -203,9 +203,7 @@ export function OversiktDetaljer() {
                     <DatumHelper label={t('krav.ledetekst_bestillingsreferanse')}>
                       {data.bestillingsreferanse}
                     </DatumHelper>
-                    <DatumHelper label={t('krav.ledetekst_navs_referansenr')}>
-                      {data.id.toString(10)}
-                    </DatumHelper>
+                    <DatumHelper label={t('krav.ledetekst_navs_referansenr')}>{data.id.toString(10)}</DatumHelper>
                   </Data>
                   <Line />
                 </div>
