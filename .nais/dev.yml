@@ -27,8 +27,8 @@ spec:
       cpu: 500m
       memory: 1024Mi
     requests:
-      cpu: 200m
-      memory: 512Mi
+      cpu: 20m
+      memory: 300Mi
   secureLogs:
     enabled: true
   idporten:
