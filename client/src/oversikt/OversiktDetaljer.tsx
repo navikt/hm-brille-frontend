@@ -16,7 +16,7 @@ import {
 import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { ReactNode } from 'react'
-import { Nullable, OversiktDetaljerResponse } from '../types'
+import { Nullable, OversiktDetaljerResponse, SlettetAvType } from '../types'
 import { useGet } from '../useGet'
 import styled from 'styled-components'
 import { Dato } from '../components/Dato'
@@ -137,7 +137,10 @@ export function OversiktDetaljer() {
                 )}
                 {data.slettet && (
                   <Alert variant="warning" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    {t('oversikt.utbetalingsstatus.slettet')} <Dato verdi={data.slettet} />.
+                    {data.slettetAvType === SlettetAvType.INNSENDER
+                      ? t('oversikt.utbetalingsstatus.slettet.innsender')
+                      : t('oversikt.utbetalingsstatus.slettet.nav_admin')}{' '}
+                    <Dato verdi={data.slettet} />.
                   </Alert>
                 )}
                 {!data.slettet && data.utbetalingsdato && (

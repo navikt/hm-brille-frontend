@@ -1,6 +1,6 @@
 import { RequestHandler, rest } from 'msw'
 import { apiUrl } from '../http'
-import { OversiktDetaljerResponse, OversiktResponse } from '../types'
+import { OversiktDetaljerResponse, OversiktResponse, SlettetAvType } from '../types'
 
 const dateGenerator = (minusDays: number, dateTime: boolean): string => {
   var date = new Date()
@@ -33,6 +33,7 @@ const kravStore = [
     satsBeskrivelse: 'Sfærisk styrke på minst ett glass ≥ 6,25 D ≤ 8,0 D og/eller cylinderstyrke ≥ 4,25 D ≤ 6,0 D.',
     opprettet: dateGenerator(0, true),
     slettet: undefined,
+    slettetAvType: undefined,
   },
   {
     id: 1,
@@ -55,6 +56,7 @@ const kravStore = [
     opprettet: dateGenerator(1, true),
     utbetalingsdato: undefined,
     slettet: dateGenerator(0, true),
+    slettetAvType: SlettetAvType.INNSENDER,
   },
   {
     id: 2,
@@ -77,6 +79,7 @@ const kravStore = [
     opprettet: dateGenerator(1, true),
     utbetalingsdato: dateGenerator(1, true),
     slettet: dateGenerator(0, true),
+    slettetAvType: SlettetAvType.NAV_ADMIN,
   },
   ...[...Array(30).keys()].map((idx) => {
     return {
@@ -100,6 +103,7 @@ const kravStore = [
       opprettet: dateGenerator(7 + idx, true),
       utbetalingsdato: dateGenerator(idx, true),
       slettet: undefined,
+      slettetAvType: undefined,
     }
   }),
 ]

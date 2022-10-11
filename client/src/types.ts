@@ -161,6 +161,7 @@ export interface OversiktResponseItem {
   utbetalingsdato?: string
   opprettet: string
   slettet?: string
+  slettetAvType?: SlettetAvType
 }
 
 export interface OversiktDetaljerResponse {
@@ -184,4 +185,10 @@ export interface OversiktDetaljerResponse {
   utbetalingsdato?: string
   opprettet: string
   slettet?: string
+  slettetAvType?: SlettetAvType
+}
+
+export enum SlettetAvType {
+  INNSENDER = 'INNSENDER',
+  NAV_ADMIN = 'NAV_ADMIN',
 }
