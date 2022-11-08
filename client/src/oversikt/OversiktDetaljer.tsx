@@ -111,19 +111,6 @@ export function OversiktDetaljer() {
                       {t('oversikt.krav_detaljer.meny.slett')}
                     </Button>
                   )}
-                  {!data.slettet && data.utbetalingsdato && (
-                    <Button
-                      icon={<Email aria-hidden />}
-                      variant="tertiary"
-                      size="medium"
-                      onClick={() => {
-                        setModalDeleteOpen(true)
-                        logSlettUtbetaltKravÅpnet()
-                      }}
-                    >
-                      {t('oversikt.krav_detaljer.meny.feil_i_krav')}
-                    </Button>
-                  )}
                 </div>
               </div>
               <Panel border={false} style={{ marginTop: '1rem' }}>
