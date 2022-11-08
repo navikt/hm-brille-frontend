@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
 import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from '@navikt/ds-react'
-import { Print, Delete, Email } from '@navikt/ds-icons'
+import { Print, Delete } from '@navikt/ds-icons'
 import '@navikt/ds-css-internal'
 import React, { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
@@ -10,7 +10,6 @@ import {
   logSlettKravÅpnet,
   logSlettKravBekreftet,
   logSlettKravAvbrutt,
-  logSlettUtbetaltKravÅpnet,
   logSlettUtbetaltKravEpost,
 } from '../utils/amplitude'
 import { Data } from '../components/Data'
