@@ -297,7 +297,7 @@ export function OversiktDetaljer() {
                           <Link
                             onClick={() => logSlettUtbetaltKravEpost()}
                             href={
-                              'mailto:digihot@nav.no?subject=Brillekrav ønskes slettet: ' +
+                              'mailto:nav.hot.behandlingsbriller@nav.no?subject=Brillekrav ønskes slettet: ' +
                               data.id +
                               '&body=Detaljer om kravet: %0A' +
                               'NAVs referanse: ' +
