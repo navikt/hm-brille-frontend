@@ -123,7 +123,7 @@
   "krav.krav_detaljer.om_kravet": "Barnet har fått støtte fra sats {{sats}}: {{satsBeskrivelse}} Satsen gir brillestøtte opp til {{satsBeløp}}.",
   "oversikt.krav_detaljer.brillestøtte_i_kr": "Barnet har krav på brillestøtte på {{beløp}}",
   "oversikt.krav_detaljer.krav_om_direkte_oppgjør": "NAV utbetaler {{beløp}} til {{orgnavn}}",
-  "oversikt.utbetalingsstatus.ikke_utbetalt": "Krav vil normalt bli utbetalt ca. 7 dager etter at det er mottatt hos NAV. Nå i starten tar det dessverre lengre tid, men det jobbes med å lansere utbetalinger så snart som mulig. Inntil det utbetales kan det slettes om man finner feil. Se gjerne over før den tid.",
+  "oversikt.utbetalingsstatus.ikke_utbetalt": "Krav vil normalt bli utbetalt ca. 14 dager etter at det er mottatt hos NAV. Inntil det utbetales kan det slettes om man finner feil. Se gjerne over før den tid.",
   "oversikt.utbetalingsstatus.slettet.innsender": "Kravet ble slettet av deg:",
   "oversikt.utbetalingsstatus.slettet.nav_admin": "Kravet ble slettet av NAV etter henvendelse fra virksomheten:",
   "oversikt.utbetalingsstatus.utbetalt": "Kravet ble utbetalt",
