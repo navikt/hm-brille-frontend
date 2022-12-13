@@ -36,7 +36,7 @@ export function BrillestyrkeForm() {
               <BodyLong>{vilkårOmStyrkeIkkeOppfylt}</BodyLong>
             </Alert>
           ) : (
-            <Alert variant="info">
+            <Alert variant="info" role="alert">
               <Heading level="2" spacing size="small">
                 {t('krav.brillestøtte_beløp', { satsBeløp: beløp.formater(beregning.satsBeløp) })}
               </Heading>
