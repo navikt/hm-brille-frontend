@@ -60,7 +60,13 @@ export function Oversikt() {
                   return (
                     <li key={idx} style={{ margin: '0.5rem 0' }}>
                       <LinkPanel
+                          tabIndex={0}
                         onClick={() => navigate('/oversikt/' + it.id)}
+                          onKeyDown={ (event) => {
+                            if(event.key === 'Enter'){
+                              navigate('/oversikt/' + it.id)
+                            }
+                          }}
                         style={{ cursor: 'pointer' }}
                         border={false}
                       >
