@@ -17,7 +17,7 @@ import { FormatertStyrke } from './FormatertStyrke'
 import { KravSteg } from './KravSteg'
 import { SendInnKrav } from './SendInnKrav'
 
-export function KravOppsummering() {
+export function     KravOppsummering() {
   const { t } = useTranslation()
   const { appState } = useApplicationContext()
   const {

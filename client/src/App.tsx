@@ -12,6 +12,8 @@ import { KravKvittering } from './krav/KravKvittering'
 import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
 import Breadcrumbs from './components/Breadcrumbs'
+import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
 
 export function App() {
   return (
@@ -30,16 +32,28 @@ export function App() {
       <FeatureToggleProvider>
         <ApplicationProvider>
           <Routes>
-            <Route path="/" element={<Forside />} />
-            <Route path="/krav" element={<Krav />} />
-            <Route path="/krav/oppsummering" element={<KravOppsummering />} />
-            <Route path="/krav/kvittering" element={<KravKvittering />} />
-            <Route path="/oversikt" element={<Oversikt />} />
-            <Route path="/oversikt/:vedtakId" element={<OversiktDetaljer />} />
-            <Route path="*" element={<Feilside status={404} />} />
+            <Route path="/" element={<SettTittel title="helmet.title.forside"><Forside /></SettTittel>} />
+            <Route path="/krav" element={<SettTittel title="helmet.title.krav"><Krav /></SettTittel>} />
+            <Route path="/krav/oppsummering" element={<SettTittel title="helmet.title.krav_oppsummering"><KravOppsummering /></SettTittel>} />
+            <Route path="/krav/kvittering" element={<SettTittel title="helmet.title.krav_kvittering"><KravKvittering /></SettTittel>} />
+            <Route path="/oversikt" element={<SettTittel title="helmet.title.krav_oversikt"><Oversikt /></SettTittel>} />
+            <Route path="/oversikt/:vedtakId" element={<SettTittel title="helmet.title.kravdetaljer"><OversiktDetaljer /></SettTittel>} />
+            <Route path="*" element={<SettTittel title="helmet.title.feilside"><Feilside status={404} /></SettTittel>} />
           </Routes>
         </ApplicationProvider>
       </FeatureToggleProvider>
     </ErrorBoundary>
   )
 }
+
+const SettTittel = ({title, children}: {title: string, children?: React.ReactNode}) => {
+  const { t } = useTranslation()
+  return (
+      <>
+        <Helmet htmlAttributes={{ lang: 'no' }}>
+          <title>{t(title)}</title>
+        </Helmet>
+        {children}
+      </>
+  )
+};

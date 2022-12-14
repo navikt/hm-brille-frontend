@@ -138,5 +138,12 @@
   "oversikt.slett_modal.knapp_lukk": "Lukk",
   "oversikt.slett_modal.allerede_utbetalt_overskrift": "Kravet er utbetalt og kan ikke slettes",
   "oversikt.slett_modal.allerede_utbetalt_beskrivelse1": "Etter at kravet er sendt til utbetaling av NAV kan det ikke slettes i denne selvbetjeningsløsningen.",
-  "oversikt.slett_modal.allerede_utbetalt_beskrivelse2": "Dersom du likevel trenger å slette kravet vil beløpet måtte tilbakebetales av mottaker. Ta kontakt med NAV ved å trykke <1>her</1>."
+  "oversikt.slett_modal.allerede_utbetalt_beskrivelse2": "Dersom du likevel trenger å slette kravet vil beløpet måtte tilbakebetales av mottaker. Ta kontakt med NAV ved å trykke <1>her</1>.",
+  "helmet.title.forside": "Brillestøtte",
+  "helmet.title.krav": "Nytt krav – Brillestøtte",
+  "helmet.title.krav_oppsummering": "Oppsummering krav – Brillestøtte",
+  "helmet.title.krav_kvittering": "Kvittering krav – Brillestøtte",
+  "helmet.title.feilside": "Feilside – Brillestøtte",
+  "helmet.title.krav_oversikt": "Innsendte krav - Brillestøtte",
+  "helmet.title.kravdetaljer": "Detaljer for innsendt krav - Brillestøtte"
 }
