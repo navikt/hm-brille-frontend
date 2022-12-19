@@ -93,7 +93,7 @@ export function Krav() {
       ) : (
         <>
           <Panel border>
-            <Heading size="small" spacing>
+            <Heading level="2" size="small" spacing>
               {t('krav.overskrift_foretaket')}
             </Heading>
             <BodyLong>{`${appState?.orgNavn}, org. nr. ${organisasjonsnummer(appState?.orgnr)}`}</BodyLong>
