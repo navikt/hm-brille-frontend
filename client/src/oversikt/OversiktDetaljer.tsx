@@ -135,7 +135,7 @@ export function OversiktDetaljer() {
                   </Alert>
                 )}
                 <div style={{ marginTop: '2rem' }}>
-                  <Heading level="1" size="medium">
+                  <Heading level="2" size="medium">
                     {t('krav.overskrift_foretaket')}
                   </Heading>
                   <Data>
@@ -145,7 +145,7 @@ export function OversiktDetaljer() {
                   <Line />
                 </div>
                 <div style={{ marginTop: '2rem' }}>
-                  <Heading level="1" size="medium">
+                  <Heading level="2" size="medium">
                     {t('krav.overskrift_barn')}
                   </Heading>
                   <Data>
@@ -176,7 +176,7 @@ export function OversiktDetaljer() {
                   <Line />
                 </div>
                 <div style={{ marginTop: '2rem' }}>
-                  <Heading level="1" size="medium">
+                  <Heading level="2" size="medium">
                     {t('krav.overskrift_om_brillen')}
                   </Heading>
                   <Data>
@@ -197,7 +197,7 @@ export function OversiktDetaljer() {
                   <Line />
                 </div>
                 <div style={{ marginTop: '2rem', marginBottom: '1rem' }}>
-                  <Heading level="1" size="medium">
+                  <Heading level="2" size="medium">
                     {t('oversikt.krav_detaljer.overskrift_om_kravet')}
                   </Heading>
                   <BodyLong spacing>
@@ -207,7 +207,7 @@ export function OversiktDetaljer() {
                       satsBeløp: beløp.formater(data.satsBeløp),
                     })}
                   </BodyLong>
-                  <Heading level="1" size="small">
+                  <Heading level="2" size="small">
                     {t('oversikt.krav_detaljer.krav_om_direkte_oppgjør', {
                       beløp: beløp.formater(data.beløp),
                       orgnavn: data.orgnavn,
