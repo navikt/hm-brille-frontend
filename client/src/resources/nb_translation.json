@@ -44,6 +44,8 @@
   "krav.barn_oppfyller_ikke": "Barnet oppfyller ikke <1>vilkårene</1> for å sende inn krav om direkte oppgjør.",
   "krav.nav_jobber_med_manuell": "NAV jobber med å få på plass en manuell ordning for å søke om refusjon på <1>nav.no/briller-til-barn<1/>.",
   "krav.husk_dokumenter": "Husk at den som skal søke må ta vare på disse dokumentene:",
+  "krav.allerede_sendt": "Du har allerede sendt inn et krav for dette barnet i {{aar}}. Det er kun mulig å få tilskudd til briller på denne ordningen én gang hvert år.",
+  "krav.allerede_sendt_referanse": "Bestillingsreferansen for det innsendte kravet er: {{referanse}}",
   "krav.dokument.brilleseddel": "Brilleseddel.",
   "krav.dokument.bestillingsdokumentasjon": "Dokumentasjon på bestilling av brille der disse opplysningene fremgår:",
   "krav.dokument.bestillingsdokumentasjon.navn": "Navn på barnet.",

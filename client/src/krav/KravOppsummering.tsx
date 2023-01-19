@@ -103,7 +103,7 @@ export function KravOppsummering() {
                 <Datum label="krav.ledetekst_bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
             </Data>
             <Avstand paddingBottom={5} paddingTop={5}>
-                {vilkårsvurdering.sats === SatsType.INGEN ? (
+                {vilkårsvurdering.sats === SatsType.INGEN && !vilkårsvurdering.kravFraFørFraInnsender ? (
                     <Alert variant="warning">
                         <BodyLong>
                             <Trans t={t} i18nKey="krav.barn_oppfyller_ikke">
@@ -149,6 +149,12 @@ export function KravOppsummering() {
                                 </ul>
                             </li>
                         </ul>
+                    </Alert>
+                ) : vilkårsvurdering.sats === SatsType.INGEN && vilkårsvurdering.kravFraFørFraInnsender ? (
+                    <Alert variant="warning">
+                        <BodyLong>{t('krav.allerede_sendt', {aar: dato.tilDate(appState.bestillingsdato).getFullYear()})}</BodyLong>
+                        <br/>
+                        <BodyLong>{t('krav.allerede_sendt_referanse', {referanse: vilkårsvurdering.kravFraFørFraInnsender})}</BodyLong>
                     </Alert>
                 ) : (
                     <Alert variant="info">

@@ -86,6 +86,7 @@ export interface VilkårsgrunnlagResponse {
   satsBeskrivelse: string
   satsBeløp: number
   beløp: string
+  kravFraFørFraInnsender?: string
 }
 
 export enum VilkårsgrunnlagResultat {
