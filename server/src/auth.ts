@@ -18,7 +18,7 @@ export interface Auth {
 }
 
 export async function createAuth(): Promise<Auth> {
-  if (config.nais_cluster_name === 'labs-gcp') {
+  if (config.is_labs) {
     logger.warn('Bruker auth-stub!')
     return createAuthStub()
   }

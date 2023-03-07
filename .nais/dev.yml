@@ -11,7 +11,7 @@ spec:
   team: teamdigihot
   port: 5000
   ingresses:
-    - https://brille.dev.nav.no/hjelpemidler/barnebriller
+    - https://brille.intern.dev.nav.no/hjelpemidler/barnebriller
   liveness:
     path: /hjelpemidler/barnebriller/internal/isalive
   readiness:

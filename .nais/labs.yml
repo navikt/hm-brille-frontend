@@ -2,16 +2,16 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   labels:
-    app: hm-brille-frontend
+    app: hm-brille-frontend-labs
     team: teamdigihot
-  name: hm-brille-frontend
+  name: hm-brille-frontend-labs
   namespace: teamdigihot
 spec:
   image: {{image}}
   team: teamdigihot
   port: 5000
   ingresses:
-    - https://brille.labs.nais.io/hjelpemidler/barnebriller
+    - https://brille-labs.ekstern.dev.nav.no/hjelpemidler/barnebriller
   liveness:
     path: /hjelpemidler/barnebriller/internal/isalive
   readiness:
@@ -32,6 +32,8 @@ spec:
   secureLogs:
     enabled: true
   env:
+    - name: IS_LABS
+      value: 'true'
     - name: BRILLE_API_BASE_URL
       value: ''
     - name: BRILLE_API_TARGET_AUDIENCE

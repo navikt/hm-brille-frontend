@@ -6,6 +6,7 @@ export const config = {
   port: process.env.PORT || 5000,
   node_env: process.env.NODE_ENV || 'production',
   nais_cluster_name: process.env.NAIS_CLUSTER_NAME || 'labs-gcp',
+  is_labs: process.env.IS_LABS || false,
   use_msw: process.env.USE_MSW === 'true',
   git_commit: process.env.GIT_COMMIT || 'Ukjent',
   api: {

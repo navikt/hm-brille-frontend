@@ -64,7 +64,7 @@ const spaHandler: RequestHandler = async (req, res) => {
 const settingsHandler: RequestHandler = (req, res) => {
   const appSettings = {
     GIT_COMMIT: config.git_commit,
-    MILJO: config.nais_cluster_name,
+    MILJO: config.is_labs ? 'labs-gcp' : config.nais_cluster_name,
     USE_MSW: config.use_msw,
   }
   res.type('.js')
