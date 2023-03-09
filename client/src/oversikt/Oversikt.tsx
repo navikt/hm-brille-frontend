@@ -48,7 +48,12 @@ export function Oversikt() {
         )}
         {!error && data && data.items.length > 0 && (
           <>
-            <GuidePanel style={{ marginBottom: '2rem' }}>{t('oversikt.intro')}</GuidePanel>
+            <GuidePanel style={{ marginBottom: '2rem' }}>
+              <ul style={{ paddingInlineStart: '20px' }}>
+                <li>{t('oversikt.intro.pnkt1')}</li>
+                <li>{t('oversikt.intro.pnkt2')}</li>
+              </ul>
+            </GuidePanel>
             <Panel border={false}>
               <ul
                 style={{
