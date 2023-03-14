@@ -97,7 +97,7 @@ export function OversiktDetaljer() {
                   <Button icon={<Print aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
                     {t('oversikt.krav_detaljer.meny.utskrift')}
                   </Button>
-                  {!data.slettet && !data.utbetalingsdato && (
+                  {!data.slettet && !data.utbetalingsdato && !data.utbetalingsstatus && (
                     <Button
                       icon={<Delete aria-hidden />}
                       variant="tertiary"
@@ -116,7 +116,7 @@ export function OversiktDetaljer() {
                 <div style={{ textAlign: 'right' }}>
                   <Label>{t('oversikt.krav_detaljer.mottatt')}</Label> <Dato verdi={data.opprettet} />
                 </div>
-                {!data.utbetalingsdato && !data.slettet && (
+                {!data.utbetalingsdato && !data.utbetalingsstatus && !data.slettet && (
                   <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.ikke_utbetalt')}
                   </Alert>
@@ -130,9 +130,14 @@ export function OversiktDetaljer() {
                   </Alert>
                 )}
                 {!data.slettet && data.utbetalingsdato && (
-                  <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                    {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
-                  </Alert>
+                    <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                      {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
+                    </Alert>
+                )}
+                {!data.slettet && !data.utbetalingsdato && data.utbetalingsstatus && (
+                    <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                      {t('oversikt.utbetalingsstatus.utbetales')}
+                    </Alert>
                 )}
                 <div style={{ marginTop: '2rem' }}>
                   <Heading level="2" size="medium">

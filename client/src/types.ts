@@ -160,6 +160,7 @@ export interface OversiktResponseItem {
   satsBeløp: number
   satsBeskrivelse: string
   utbetalingsdato?: string
+  utbetalingsstatus?: string
   opprettet: string
   slettet?: string
   slettetAvType?: SlettetAvType
@@ -184,6 +185,7 @@ export interface OversiktDetaljerResponse {
   satsBeløp: number
   satsBeskrivelse: string
   utbetalingsdato?: string
+  utbetalingsstatus?: string
   opprettet: string
   slettet?: string
   slettetAvType?: SlettetAvType

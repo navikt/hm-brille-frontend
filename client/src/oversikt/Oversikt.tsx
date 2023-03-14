@@ -92,11 +92,18 @@ export function Oversikt() {
                             </div>
                           )}
                           {!it.slettet && it.utbetalingsdato && (
-                            <div style={{ marginTop: '0.5rem' }}>
-                              <Tag variant="success" size="small">
-                                {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
-                              </Tag>
-                            </div>
+                              <div style={{ marginTop: '0.5rem' }}>
+                                <Tag variant="success" size="small">
+                                  {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
+                                </Tag>
+                              </div>
+                          )}
+                          {!it.slettet && !it.utbetalingsdato && it.utbetalingsstatus && (
+                              <div style={{ marginTop: '0.5rem' }}>
+                                <Tag variant="info" size="small">
+                                  {t('oversikt.utbetales')}
+                                </Tag>
+                              </div>
                           )}
                         </LinkPanel.Description>
                       </LinkPanel>
