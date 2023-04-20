@@ -63,12 +63,13 @@ export function KravForm() {
           <Heading level="2" size="medium">
             {t('krav.overskrift_om_brillen')}
           </Heading>
-          <Avstand paddingBottom={3} paddingTop={3}>
-            <Avstand marginBottom={3}>
+          <Avstand paddingBottom={3} paddingTop={4}>
+            <Avstand marginBottom={8}>
               <Tekstfelt
                 id="bestillingsdato"
                 label={t('krav.ledetekst_bestillingsdato')}
                 description="DD.MM.ÅÅÅÅ"
+                htmlSize={15}
                 error={errors.bestillingsdato?.message}
                 {...methods.register('bestillingsdato', {
                   required: t('krav.validering_bestillingsdato_påkrevd'),
@@ -91,20 +92,23 @@ export function KravForm() {
                   },
                 })}
               />
-              <Avstand marginTop={3}>
+              <Avstand marginTop={4}>
                 <Button
                   type="button"
                   variant="secondary"
+                  size="small"
                   onClick={() => setValue('bestillingsdato', dato.nå(), { shouldValidate: true })}
                 >
                   {t('krav.knapp_i_dag')}
                 </Button>
               </Avstand>
             </Avstand>
-            <Avstand marginBottom={3}>
+            <Avstand marginBottom={8}>
               <Tekstfelt
                 id="brillepris"
                 label={t('krav.ledetekst_brillepris')}
+                description={t('krav.ledetekst_brillepris_desc')}
+                htmlSize={15}
                 error={errors.brillepris?.message}
                 {...methods.register('brillepris', {
                   required: t('krav.validering_brillepris_påkrevd'),
@@ -112,7 +116,7 @@ export function KravForm() {
                 })}
               />
             </Avstand>
-            <Avstand marginBottom={3}>
+            <Avstand marginBottom={10}>
               <Tekstfelt
                 id="bestillingsreferanse"
                 label={t('krav.ledetekst_bestillingsreferanse')}

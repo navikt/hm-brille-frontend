@@ -111,7 +111,7 @@ export function Krav() {
               {t('krav.knapp_velg_annen_virksomhet')}
             </Button>
           </Panel>
-          <Panel>
+          <Panel style={{ marginTop: '2rem' }}>
             <Heading level="2" size="medium" spacing>
               {t('krav.overskrift_om_barnet')}
             </Heading>
