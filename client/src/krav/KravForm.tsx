@@ -1,4 +1,4 @@
-import { Button, Heading } from '@navikt/ds-react'
+import { Alert, Button, Heading } from '@navikt/ds-react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -38,8 +38,12 @@ export function KravForm() {
 
   const {
     setValue,
+    watch,
     formState: { errors },
   } = methods
+
+  const watchedBrillepris = parseInt(watch('brillepris'))
+  const brilleprisWarning = !isNaN(watchedBrillepris) && watchedBrillepris >= 20000
 
   HotjarTrigger({ timeout: 500 }, hotjar_event.SKJEMA)
 
@@ -115,6 +119,13 @@ export function KravForm() {
                   validate: validator(validering.beløp, t('krav.validering_brillepris_ugyldig')),
                 })}
               />
+              {errors.brillepris == null && brilleprisWarning && (
+                <Avstand marginTop={4}>
+                  <Alert variant="warning" size="small">
+                    {t('krav.ledetekst_brillepris_advarsel_hoypris')}
+                  </Alert>
+                </Avstand>
+              )}
             </Avstand>
             <Avstand marginBottom={10}>
               <Tekstfelt
