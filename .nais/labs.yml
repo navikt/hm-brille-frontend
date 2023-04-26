@@ -44,3 +44,7 @@ spec:
       value: 'true'
     - name: GIT_COMMIT
       value: {{commit}}
+  accessPolicy:
+    outbound:
+      external:
+        - host: dekoratoren.ekstern.dev.nav.no
