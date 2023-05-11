@@ -118,6 +118,7 @@
   "krav.velg_sylinder": "Velg sylinder",
   "krav.venstre_øye": "Venstre øye",
   "krav.vilkår_brillestyrke_ikke_oppfylt": "Vilkår om brillestyrke og/eller sylinderstyrke er ikke oppfylt",
+  "krav.annen_ordning_info": "<strong>MERK:</strong> Det gis ikke tilskudd fra denne ordningen dersom vi allerede har gitt tilskudd til de samme brillene gjennom noen av <1>de andre støtteordningene vi har for briller (åpnes i ny fane)<1/>.",
   "oversikt.overskrift": "Innsendte krav",
   "oversikt.laster": "Laster krav...",
   "oversikt.ingen_krav": "Vi har ingen krav å vise her akkurat nå.",

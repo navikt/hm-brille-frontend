@@ -171,6 +171,13 @@ export function KravOppsummering() {
                                 })}
                             </BodyLong>
                         )}
+                        <br/>
+                        <Trans t={t} i18nKey="krav.annen_ordning_info">
+                            <></>
+                            <LenkeMedLogging href="https://www.nav.no/no/person/hjelpemidler/hjelpemidler-og-tilrettelegging/hjelpemidler/syn" target="_blank">
+                                <></>
+                            </LenkeMedLogging>
+                        </Trans>
                     </Alert>
                 )}
             </Avstand>
