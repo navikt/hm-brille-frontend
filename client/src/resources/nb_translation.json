@@ -38,7 +38,7 @@
   "krav.brillestøtte_beløp": "Brillestøtte på opp til {{satsBeløp}} kroner",
   "krav.brillestøtte_beløp_alt": "Brillestøtte på {{satsBeløp}} kroner",
   "krav.brillestøtte_for_hele_brillen": "Barnet får støtte for hele kostnaden på brillen.",
-  "krav.brillestøtte_sats": "Barnet kan få støtte fra sats {{sats}}: {{satsBeskrivelse}}",
+  "krav.brillestøtte_sats": "<strong>Barnet kan få støtte fra sats {{sats}}:</strong> {{satsBeskrivelse}}",
   "krav.forklaring_brillestyrke": "Du trenger bare å legge inn sfære og sylinder for å se hvilken støttesats barnet kan få.",
   "krav.høyre_øye": "Høyre øye",
   "krav.barn_oppfyller_ikke": "Barnet oppfyller ikke <1>vilkårene</1> for å sende inn krav om direkte oppgjør.",

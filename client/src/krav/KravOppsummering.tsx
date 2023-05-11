@@ -164,17 +164,22 @@ export function KravOppsummering() {
                         {Number(vilkårsvurdering.beløp) < vilkårsvurdering.satsBeløp ? (
                             <BodyLong>{t('krav.brillestøtte_for_hele_brillen')}</BodyLong>
                         ) : (
+
                             <BodyLong>
-                                {t('krav.brillestøtte_sats', {
-                                    sats: vilkårsvurdering.sats.replace('SATS_', ''),
-                                    satsBeskrivelse: vilkårsvurdering.satsBeskrivelse,
-                                })}
+                                <Trans t={t} i18nKey="krav.brillestøtte_sats"
+                                       values={{
+                                           sats: vilkårsvurdering.sats.replace('SATS_', ''),
+                                           satsBeskrivelse: vilkårsvurdering.satsBeskrivelse
+                                       }}>
+                                </Trans>
                             </BodyLong>
                         )}
                         <br/>
                         <Trans t={t} i18nKey="krav.annen_ordning_info">
                             <></>
-                            <LenkeMedLogging href="https://www.nav.no/no/person/hjelpemidler/hjelpemidler-og-tilrettelegging/hjelpemidler/syn" target="_blank">
+                            <LenkeMedLogging
+                                href="https://www.nav.no/no/person/hjelpemidler/hjelpemidler-og-tilrettelegging/hjelpemidler/syn"
+                                target="_blank">
                                 <></>
                             </LenkeMedLogging>
                         </Trans>
