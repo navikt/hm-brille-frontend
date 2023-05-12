@@ -54,3 +54,5 @@ spec:
     outbound:
       rules:
         - application: hm-brille-api
+      external:
+        - host: www.nav.no
