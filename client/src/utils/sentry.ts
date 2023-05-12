@@ -12,7 +12,17 @@ export function initSentry() {
         // Set tracesSampleRate to 1.0 to capture 100%
         // of transactions for performance monitoring.
         // We recommend adjusting this value in production
-        tracesSampleRate: 1.0,
+        // tracesSampleRate: 1.0,
+        denyUrls: [
+            // Chrome extensions
+            /extensions\//i,
+            /^chrome:\/\//i,
+            // Safari extensions
+            /^safari-extension:/i,
+            // external scripts
+            /psplugin/,
+            /dekoratoren\/client/,
+        ],
         enabled: (MILJO === 'dev-gcp' && USE_MSW === false) || MILJO === 'prod-gcp',
         environment: MILJO,
     });
