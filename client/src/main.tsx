@@ -11,12 +11,16 @@ import './i18n'
 import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
 import './stylesheet/styles.scss'
+import {initSentry} from "./utils/sentry";
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {
     return http.get(url)
   },
 }
+
+initAmplitude()
+initSentry()
 
 initMSW().then(() => {
   const container = document.getElementById('root')!
@@ -35,4 +39,4 @@ initMSW().then(() => {
   )
 })
 
-initAmplitude()
+
