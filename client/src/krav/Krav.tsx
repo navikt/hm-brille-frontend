@@ -21,6 +21,7 @@ import { IkkeFunnet } from './IkkeFunnet'
 import { KravForm } from './KravForm'
 import { KravSteg } from './KravSteg'
 import { VirksomhetForm } from './VirksomhetForm'
+import { Endringsvarsel } from '@navikt/hm-react-components'
 
 export function Krav() {
   const { t } = useTranslation()
@@ -92,7 +93,17 @@ export function Krav() {
         </Panel>
       ) : (
         <>
+        <Avstand marginBottom={5}>
+          <Endringsvarsel
+              tittel="Endring av satser"
+              tekst="Satsene endres for briller bestilt etter 1. juli. Se de nye satsene på"
+              lenke="https://www.nav.no/briller-til-barn"
+              lenketekst="nav.no/briller-til-barn (åpnes i ny side)"
+          />
+        </Avstand>
+
           <Panel border>
+
             <Heading level="2" size="small" spacing>
               {t('krav.overskrift_foretaket')}
             </Heading>
