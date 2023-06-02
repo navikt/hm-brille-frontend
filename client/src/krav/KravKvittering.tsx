@@ -35,7 +35,7 @@ export function KravKvittering() {
         return null
     }
 
-    const {id, orgnr, bestillingsreferanse, beløp, bestillingsdato} = state
+    const {id, orgnr, bestillingsreferanse, beløp, bestillingsdato, opprettet} = state
 
     const printRef = useRef<HTMLDivElement>(null)
     const handlePrint = useReactToPrint({
@@ -56,6 +56,9 @@ export function KravKvittering() {
                 </Heading>
                 <Data labelColumnWidth={150}>
                     <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
+                    <Datum label="krav.ledetekst_opprettet_dato">
+                        <Dato verdi={opprettet}></Dato>
+                    </Datum>
                     <Datum label="krav.ledetekst_bestilling_dato">
                         <Dato verdi={bestillingsdato}></Dato>
                     </Datum>
