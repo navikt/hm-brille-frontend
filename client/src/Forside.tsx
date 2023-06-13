@@ -1,21 +1,21 @@
 import React from 'react'
-import { Heading, LinkPanel, Panel, BodyLong, Grid } from '@navikt/ds-react'
+import { Heading, LinkPanel, Panel, BodyLong } from '@navikt/ds-react'
 import { useNavigate } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import { LenkeMedLogging } from './components/LenkeMedLogging'
 import styled from 'styled-components'
 import { InnsendteKravIkon, SendKravIkon } from './resources/ikoner/Ikon'
 
+const Grid = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--navds-spacing-8);
+  align-items: center;
+`
+
 export function Forside() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-
-  const Grid = styled.div`
-    display: grid;
-    grid-auto-flow: column;
-    gap: var(--navds-spacing-8);
-    align-items: center;
-  `
 
   return (
     <div className="gray-background">
