@@ -26,6 +26,8 @@
   "feilside.ta_kontakt_agder": "Ta kontakt om du har spørsmål (åpnes i ny fane)",
   "feilside.feil.teknisk_feil.tittel": "Beklager, vi har tekniske problemer akkurat nå",
   "feilside.feil.teknisk_feil.beskrivelse": "Våre utviklere er informert og kommer til å rette opp feilen så raskt som mulig. Vi anbefaler deg å prøve på nytt på et senere tidspunkt.",
+  "feilside.feil.teknisk_feil_innsending.tittel": "Vi klarte ikke å registrere kravet på grunn av en teknisk feil hos oss.",
+  "feilside.feil.teknisk_feil_innsending.beskrivelse": "Våre utviklere er informert om problemet og kommer til å rette opp feilen så raskt som mulig. Vi anbefaler deg å prøve på nytt på et senere tidspunkt.",
   "feilside.feil.ikke_funnet.tittel": "Fant ikke siden du leter etter",
   "feilside.feil.ikke_funnet.beskrivelse": "Beklager, siden kan være slettet eller flyttet, eller så var det en feil som førte deg hit.",
   "feilside.feil.ikke_logget_inn.tittel": "Ikke logget inn",

@@ -13,20 +13,20 @@ export interface FeilsideProps {
 }
 
 export function Feilside(props: FeilsideProps) {
-  const { status, error } = props
+  const { status, error, erInnsendingFeil } = props
   const { t } = useTranslation()
   const utviklerinformasjon = hentUtviklerinformasjon(error)
   return (
     <main>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="1" size="large" spacing>
-          {t(overskrift[status] || 'feilside.feil.teknisk_feil.tittel')}
+          {t(overskrift[status] || (erInnsendingFeil === true ? 'feilside.feil.teknisk_feil_innsending.tittel' : 'feilside.feil.teknisk_feil.tittel'))}
         </Heading>
         <Avstand marginTop={8}>
           {{
             401: <IkkeLoggetInn />,
             404: <IkkeFunnet />,
-          }[status] || <TekniskFeil />}
+          }[status] || <TekniskFeil erInnsendingFeil={erInnsendingFeil} />}
         </Avstand>
       </Avstand>
       {utviklerinformasjon && (
@@ -72,12 +72,12 @@ function IkkeFunnet() {
   )
 }
 
-function TekniskFeil() {
+function TekniskFeil({erInnsendingFeil}: {erInnsendingFeil?: Boolean}) {
   const { t } = useTranslation()
   return (
     <>
       <BodyShort spacing>
-          {t('feilside.feil.teknisk_feil.beskrivelse')}
+          {t(erInnsendingFeil ? 'feilside.feil.teknisk_feil_innsending.beskrivelse' : 'feilside.feil.teknisk_feil.beskrivelse')}
       </BodyShort>
       <Avstand marginTop={8}>
         <BodyShort spacing>

@@ -17,24 +17,14 @@ import {Helmet} from "react-helmet";
 
 export function App() {
   return (
-    <ErrorBoundary
-      fallbackRender={({ error }) => {
-        if (isHttpError(error)) {
-          if (error.status === 403) {
-            return <IkkeAutorisert />
-          } else return <Feilside status={error.status} error={error} />
-        } else {
-          return <Feilside status={500} error={error} />
-        }
-      }}
-    >
+      <FeilGrense erInnsendingFeil={false}>
       <Breadcrumbs />
       <FeatureToggleProvider>
         <ApplicationProvider>
           <Routes>
             <Route path="/" element={<SettTittel title="helmet.title.forside"><Forside /></SettTittel>} />
             <Route path="/krav" element={<SettTittel title="helmet.title.krav"><Krav /></SettTittel>} />
-            <Route path="/krav/oppsummering" element={<SettTittel title="helmet.title.krav_oppsummering"><KravOppsummering /></SettTittel>} />
+            <Route path="/krav/oppsummering" element={<SettTittel title="helmet.title.krav_oppsummering"><FeilGrense erInnsendingFeil={true}><KravOppsummering /></FeilGrense></SettTittel>} />
             <Route path="/krav/kvittering" element={<SettTittel title="helmet.title.krav_kvittering"><KravKvittering /></SettTittel>} />
             <Route path="/oversikt" element={<SettTittel title="helmet.title.krav_oversikt"><Oversikt /></SettTittel>} />
             <Route path="/oversikt/:vedtakId" element={<SettTittel title="helmet.title.kravdetaljer"><OversiktDetaljer /></SettTittel>} />
@@ -42,18 +32,37 @@ export function App() {
           </Routes>
         </ApplicationProvider>
       </FeatureToggleProvider>
-    </ErrorBoundary>
+    </FeilGrense>
   )
 }
 
 const SettTittel = ({title, children}: {title: string, children?: React.ReactNode}) => {
-  const { t } = useTranslation()
-  return (
-      <>
-        <Helmet htmlAttributes={{ lang: 'no' }}>
-          <title>{t(title)}</title>
-        </Helmet>
+    const { t } = useTranslation()
+    return (
+        <>
+            <Helmet htmlAttributes={{ lang: 'no' }}>
+                <title>{t(title)}</title>
+            </Helmet>
+            {children}
+        </>
+    )
+}
+
+const FeilGrense = ({erInnsendingFeil, children}: {erInnsendingFeil: Boolean, children?: React.ReactNode}) => {
+    const { t } = useTranslation()
+    return (
+      <ErrorBoundary
+        fallbackRender={({ error }) => {
+          if (isHttpError(error)) {
+            if (error.status === 403) {
+              return <IkkeAutorisert />
+            } else return <Feilside status={error.status} error={error} erInnsendingFeil={erInnsendingFeil} />
+          } else {
+            return <Feilside status={500} error={error} erInnsendingFeil={erInnsendingFeil} />
+          }
+        }}
+      >
         {children}
-      </>
-  )
-};
+      </ErrorBoundary>
+    )
+}
