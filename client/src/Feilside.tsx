@@ -20,7 +20,7 @@ export function Feilside(props: FeilsideProps) {
     <main>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="1" size="large" spacing>
-          {t(overskrift[status] || 'Beklager, vi har tekniske problemer akkurat nå')}
+          {t(overskrift[status] || 'feilside.feil.teknisk_feil.tittel')}
         </Heading>
         <Avstand marginTop={8}>
           {{
