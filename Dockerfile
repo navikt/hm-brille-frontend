@@ -3,7 +3,7 @@ WORKDIR /app
 COPY client/package.json client/package-lock.json ./
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) \
-    npm ci
+    npm ci --prefer-offline --no-audit
 COPY client .
 RUN npm run test && npm run build
 
