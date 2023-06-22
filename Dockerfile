@@ -2,8 +2,8 @@ FROM node:16.15.0-alpine as client-builder
 WORKDIR /app
 COPY client/package.json client/package-lock.json ./
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) \
-    npm ci --prefer-offline --no-audit
+    echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> .npmrc
+RUN npm ci
 COPY client .
 RUN npm run test && npm run build
 
