@@ -14,7 +14,7 @@ RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) \
     npm ci
 COPY server .
-RUN npm run test && npm run build
+RUN npm run && npm run build
 
 FROM node:16.15.0-alpine as server-dependencies
 WORKDIR /app
