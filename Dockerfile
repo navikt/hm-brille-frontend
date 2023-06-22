@@ -1,7 +1,9 @@
 FROM node:16.15.0-alpine as client-builder
 WORKDIR /app
 COPY client/package.json client/package-lock.json ./
-RUN npm ci
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) \
+    npm ci
 COPY client .
 RUN npm run test && npm run build
 
