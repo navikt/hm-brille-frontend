@@ -85,12 +85,12 @@ export function Krav() {
     <KravSteg>
       <ScrollToTop />
 
-      <Avstand marginBottom={5} marginTop={5}>
+      <Avstand marginBottom={5}>
         <Endringsvarsel
             tittel={t('info.satsendring.tittel')}
             tekst={t('info.satsendring.tekst')}
             lenketekst={t('info.satsendring.lenketekst')}
-            lenke="https://www.nav.no/briller-til-barn"
+            lenke="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye"
         />
       </Avstand>
       {!harValgtVirksomhet ? (
