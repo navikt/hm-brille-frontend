@@ -132,7 +132,7 @@ export function Krav() {
             />
             {hentBrukerData &&
               (hentBrukerData.fnr ? (
-                <Avstand marginTop={5} marginBottom={5}>
+                <Avstand marginTop={2} marginBottom={5}>
                   <Barn {...hentBrukerData} />
                   <Avstand marginTop={5}>
                     <KravForm />
