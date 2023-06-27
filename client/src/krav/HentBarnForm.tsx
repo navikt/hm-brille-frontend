@@ -50,5 +50,5 @@ export function HentBarnForm(props: HentBarnFormProps) {
 }
 
 const Søkefelt = styled.div`
-  max-width: 330px;
+  //max-width: 330px;
 `
