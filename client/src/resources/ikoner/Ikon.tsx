@@ -1,7 +1,7 @@
-import { Copy, Notes } from '@navikt/ds-icons'
 import React from 'react'
 
 import styled from 'styled-components'
+import { DocPencilIcon, FilesIcon} from "@navikt/aksel-icons";
 
 export interface IkonProps {
   bgSize?: number
@@ -25,12 +25,12 @@ export const IkonBakgrunn = styled.div<IkonBakgrunnProps>`
 
 export const InnsendteKravIkon: React.FC<IkonProps> = ({ bgSize = 62, iconSize = 32 }) => (
   <IkonBakgrunn size={bgSize}>
-    <Copy aria-hidden width={iconSize} height={iconSize} />
+    <FilesIcon aria-hidden width={iconSize} height={iconSize} />
   </IkonBakgrunn>
 )
 
 export const SendKravIkon: React.FC<IkonProps> = ({ bgSize = 62, iconSize = 32 }) => (
   <IkonBakgrunn size={bgSize}>
-    <Notes aria-hidden width={iconSize} height={iconSize} />
+    <DocPencilIcon aria-hidden width={iconSize} height={iconSize} />
   </IkonBakgrunn>
 )

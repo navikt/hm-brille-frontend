@@ -107,7 +107,7 @@ export function Oversikt() {
                           )}
                         </LinkPanel.Description>
                       </LinkPanel>
-                      <hr style={{ margin: '0.5rem var(--navds-spacing-4)' }} />
+                      <hr style={{ margin: '0.5rem var(--a-spacing-4)' }} />
                     </li>
                   )
                 })}

@@ -4,7 +4,7 @@ import {enhet} from "../enhet";
 export const DataResponsive = styled.dl<{ labelColumnWidth?: number }>`
   display: grid;
   grid-template-columns: ${(props) => (props.labelColumnWidth ? `${props.labelColumnWidth}px` : '140px')} auto;
-  gap: var(--navds-spacing-1);
+  gap: var(--a-spacing-1);
   margin-top: 5px;
 
   @media ${enhet.mobil} {

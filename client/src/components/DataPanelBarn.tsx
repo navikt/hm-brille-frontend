@@ -6,7 +6,7 @@ export const DataPanelBarn = styled(Panel)`
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 3em;
-  margin-bottom: var(--navds-spacing-5);
+  margin-bottom: var(--a-spacing-5);
   background-color: #E6F0FF;
   border-radius: 5px;
   align-items: center;

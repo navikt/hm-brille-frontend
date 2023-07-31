@@ -50,5 +50,5 @@ export function spacer(props: MarginPadding) {
 }
 
 export function spacingVar(space?: number): string | undefined {
-  return typeof space === 'number' ? `var(--navds-spacing-${space})` : undefined
+  return typeof space === 'number' ? `var(--a-spacing-${space})` : undefined
 }

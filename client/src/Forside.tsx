@@ -9,7 +9,7 @@ import { InnsendteKravIkon, SendKravIkon } from './resources/ikoner/Ikon'
 const Grid = styled.div`
   display: grid;
   grid-auto-flow: column;
-  gap: var(--navds-spacing-8);
+  gap: var(--a-spacing-8);
   align-items: center;
 `
 

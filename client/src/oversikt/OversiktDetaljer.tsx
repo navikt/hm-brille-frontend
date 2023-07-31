@@ -1,8 +1,6 @@
 import { useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
 import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from '@navikt/ds-react'
-import { Print, Delete } from '@navikt/ds-icons'
-import '@navikt/ds-css-internal'
 import React, { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import {
@@ -23,6 +21,7 @@ import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
 import { Trans, useTranslation } from 'react-i18next'
 import { http } from '../http'
+import {PrinterSmallIcon, TrashIcon} from "@navikt/aksel-icons";
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -94,12 +93,12 @@ export function OversiktDetaljer() {
                 }}
               >
                 <div className="dontPrintMe">
-                  <Button icon={<Print aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
+                  <Button icon={<PrinterSmallIcon aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
                     {t('oversikt.krav_detaljer.meny.utskrift')}
                   </Button>
                   {!data.slettet && !data.utbetalingsdato && !data.utbetalingsstatus && (
                     <Button
-                      icon={<Delete aria-hidden />}
+                      icon={<TrashIcon aria-hidden />}
                       variant="tertiary"
                       size="medium"
                       onClick={() => {
@@ -256,7 +255,7 @@ export function OversiktDetaljer() {
 
                       <Knapper>
                         <Button
-                          icon={<Delete aria-hidden />}
+                          icon={<TrashIcon aria-hidden />}
                           variant="danger"
                           onClick={(e) => slettKrav(data.id)}
                           disabled={modalSlettButtonDisabled}

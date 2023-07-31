@@ -1,6 +1,5 @@
-import {Print} from '@navikt/ds-icons'
 import {Alert, BodyLong, Button, Heading} from '@navikt/ds-react'
-import {useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useReactToPrint} from 'react-to-print'
 import styled from 'styled-components'
@@ -19,6 +18,7 @@ import {OpprettKravResponse} from '../types'
 import {useLocationState} from '../useLocationState'
 import {logPrintKvitteringÅpnet} from '../utils/amplitude'
 import {KravSteg} from './KravSteg'
+import {PrinterSmallIcon} from "@navikt/aksel-icons";
 
 export function KravKvittering() {
     const {t} = useTranslation()
@@ -69,7 +69,7 @@ export function KravKvittering() {
                     <Datum label="krav.ledetekst_navs_referansenr">{id}</Datum>
                 </Data>
                 <Knapperad>
-                    <Button variant="secondary" onClick={handlePrint} icon={<Print aria-hidden/>}>
+                    <Button variant="secondary" onClick={handlePrint} icon={<PrinterSmallIcon aria-hidden/>}>
                         {t('krav.knapp_skriv_ut_kvittering')}
                     </Button>
                     <LenkeMedLogging href={baseUrl('/')}>{t('krav.lenke_til_forsiden')}</LenkeMedLogging>
@@ -81,7 +81,7 @@ export function KravKvittering() {
 
 const Knapperad = styled.div`
   display: flex;
-  gap: var(--navds-spacing-4);
+  gap: var(--a-spacing-4);
   @media print {
     display: none;
   }
