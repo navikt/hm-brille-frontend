@@ -9,7 +9,7 @@ export interface AppState {
   barnNavn: string
   barnAlder?: number
   brillestyrke: Brilleseddel
-  bestillingsdato: string
+  bestillingsdato?: Date
   brillepris: string
   bestillingsreferanse: string
 }
@@ -33,7 +33,7 @@ export const initialAppState: AppState = {
     venstreSfære: '',
     venstreSylinder: '',
   },
-  bestillingsdato: '',
+  bestillingsdato: undefined,
   brillepris: '',
   bestillingsreferanse: '',
 }
