@@ -14,10 +14,13 @@ import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
 import { DATO_FOR_LANSERING, validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
+import { DatePicker, useDatepicker } from "@navikt/ds-react";
+import {Bestillingsdato} from "./Bestillingsdato";
+
 
 export interface KravFormData {
   brillestyrke: Brilleseddel
-  bestillingsdato: string
+  bestillingsdato: Date
   brillepris: string
   bestillingsreferanse: string
 }
@@ -26,6 +29,9 @@ export function KravForm() {
   const { t } = useTranslation()
   const { setAppState, appState } = useApplicationContext()
   const navigate = useNavigate()
+  const { datepickerProps, inputProps, selectedDay } = useDatepicker({
+    onDateChange: console.log,
+  });
 
   const methods = useForm<KravFormData>({
     defaultValues: {
@@ -68,44 +74,8 @@ export function KravForm() {
             {t('krav.overskrift_om_brillen')}
           </Heading>
           <Avstand paddingBottom={3} paddingTop={4}>
-            <Avstand marginBottom={8}>
-              <Tekstfelt
-                id="bestillingsdato"
-                label={t('krav.ledetekst_bestillingsdato')}
-                description="DD.MM.ÅÅÅÅ"
-                htmlSize={15}
-                error={errors.bestillingsdato?.message}
-                {...methods.register('bestillingsdato', {
-                  required: t('krav.validering_bestillingsdato_påkrevd'),
-                  validate: {
-                    gyldig: validator(validering.dato, t('krav.validering_bestillingsdato_ugyldig')),
-                    ikkeIFremtiden: validator(
-                      validering.ikkeIFremtiden,
-                      t('krav.validering_bestillingsdato_ikke_i_fremtiden')
-                    ),
-                    ikkeFørLansering: validator(
-                      validering.ikkeDatoFørLansering,
-                      t('krav.validering_bestillingsdato_ikke_før_lansering', {
-                        datoForLansering: DATO_FOR_LANSERING,
-                      })
-                    ),
-                    ikkeMerEnnSeksMånederSiden: validator(
-                      validering.ikkeMerEnnSeksMånederSiden,
-                      t('krav.validering_bestillingsdato_ikke_mer_enn_seks_måneder_siden')
-                    ),
-                  },
-                })}
-              />
-              <Avstand marginTop={4}>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="small"
-                  onClick={() => setValue('bestillingsdato', dato.nå(), { shouldValidate: true })}
-                >
-                  {t('krav.knapp_i_dag')}
-                </Button>
-              </Avstand>
+            <Avstand paddingBottom={3} paddingTop={4}>
+              <Bestillingsdato />
             </Avstand>
             <Avstand marginBottom={8}>
               <Tekstfelt

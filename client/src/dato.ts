@@ -24,8 +24,8 @@ function tilDate(verdi: string): Date {
   return parse(verdi, 'dd.MM.yyyy', new Date())
 }
 
-function tilISO(verdi: string): string {
-  return !verdi ? verdi : formatISO(tilDate(verdi), { representation: 'date' })
+function tilISO(verdi: Date): string {
+  return !verdi ? verdi : formatISO(verdi, { representation: 'date' })
 }
 
 function nå(): string {
