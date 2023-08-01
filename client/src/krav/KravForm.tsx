@@ -74,7 +74,7 @@ export function KravForm() {
             {t('krav.overskrift_om_brillen')}
           </Heading>
           <Avstand paddingBottom={3} paddingTop={4}>
-            <Avstand paddingBottom={3} paddingTop={4}>
+            <Avstand paddingTop={4} marginBottom={8}>
               <Bestillingsdato />
             </Avstand>
             <Avstand marginBottom={8}>
@@ -101,6 +101,7 @@ export function KravForm() {
               <Tekstfelt
                 id="bestillingsreferanse"
                 label={t('krav.ledetekst_bestillingsreferanse')}
+                description={t('krav.ledetekst_bestillingsreferanse_desc')}
                 error={errors.bestillingsreferanse?.message}
                 {...methods.register('bestillingsreferanse', {
                   required: t('krav.validering_bestillingsreferanse_påkrevd'),
