@@ -2,21 +2,20 @@ import React, {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 
 import {DatePicker, useDatepicker} from '@navikt/ds-react'
-import {format, formatISO, isBefore} from "date-fns";
-import {da} from "date-fns/locale";
-import {dato} from "../dato";
+import {format} from "date-fns";
 import {DATO_FOR_LANSERING, validering} from "../validering";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
+
 
 export function Bestillingsdato() {
     const {formState, setValue, setError, clearErrors, watch} = useFormContext<{ bestillingsdato?: Date }>()
     const {errors} = formState
-
+    const {t} = useTranslation()
     const valgtDato = watch('bestillingsdato')
 
     useEffect(() => {
         if (formState.isSubmitting && !valgtDato) {
-            setError('bestillingsdato', {type: 'custom', message: 'Ingen bestillingsdato valgt'})
+            setError('bestillingsdato', {type: 'custom', message: t('krav.validering_bestillingsdato_påkrevd')})
         } else if (formState.isSubmitting && !validering.ikkeDatoFørLansering(valgtDato!!)) {
             setError('bestillingsdato', {
                 type: 'custom', message:
@@ -59,7 +58,7 @@ export function Bestillingsdato() {
             <DatePicker.Input
                 {...inputProps}
                 size="medium"
-                label="Hvilken dato ble brillen bestilt?"
+                label={t('krav.ledetekst_bestillingsdato')}
                 id="bestillingsdato"
                 value={inputProps.value}
                 error={errors.bestillingsdato?.message}
