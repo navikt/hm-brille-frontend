@@ -1,8 +1,8 @@
 import { fnr } from '@navikt/fnrvalidator'
-import { isAfter, isBefore, isValid, subMonths } from 'date-fns'
+import {isAfter, isBefore, isSameDay, isValid, subMonths} from 'date-fns'
 import { dato } from './dato'
 
-export const DATO_FOR_LANSERING = '01.08.2022'
+export const DATO_FOR_LANSERING = new Date('Aug 1 2022')
 
 export const validering = {
   fnr(verdi: string): boolean {
@@ -14,21 +14,18 @@ export const validering = {
   beløp(verdi: string): boolean {
     return /^\d+(,\d{1,2})?$/.test(verdi)
   },
-  ikkeIFremtiden(verdi: string, nå: Date): boolean {
-    return isBefore(dato.tilDate(verdi), nå)
+  ikkeIFremtiden(verdi: Date, nå: Date): boolean {
+    return isBefore(verdi, nå)
   },
-  ikkeDatoFørLansering(verdi: string): boolean {
-    if (verdi === DATO_FOR_LANSERING) {
+  ikkeDatoFørLansering(verdi: Date): boolean {
+    if(isSameDay(DATO_FOR_LANSERING, verdi)){
       return true
     }
-    if (verdi === DATO_FOR_LANSERING.replaceAll('.', '')) {
-      return true
-    }
-    return isBefore(dato.tilDate(DATO_FOR_LANSERING), dato.tilDate(verdi))
+    return isBefore(DATO_FOR_LANSERING, verdi)
   },
-  ikkeMerEnnSeksMånederSiden(verdi: string, nå: Date): boolean {
+  ikkeMerEnnSeksMånederSiden(verdi: Date, nå: Date): boolean {
     const seksMånederSiden = subMonths(nå, 6)
-    return isAfter(dato.tilDate(verdi), seksMånederSiden)
+    return isAfter(verdi, seksMånederSiden)
   },
   bestillingsreferanse(verdi: string): boolean {
     return /^[A-Za-å\d-_/]+$/.test(verdi)

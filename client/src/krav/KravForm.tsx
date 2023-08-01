@@ -78,35 +78,6 @@ export function KravForm() {
               <Bestillingsdato />
             </Avstand>
             <Avstand marginBottom={8}>
-              {/*<Tekstfelt*/}
-              {/*  id="bestillingsdato"*/}
-              {/*  label={t('krav.ledetekst_bestillingsdato')}*/}
-              {/*  description="DD.MM.ÅÅÅÅ"*/}
-              {/*  htmlSize={15}*/}
-              {/*  error={errors.bestillingsdato?.message}*/}
-              {/*  {...methods.register('bestillingsdato', {*/}
-              {/*    required: t('krav.validering_bestillingsdato_påkrevd'),*/}
-              {/*    validate: {*/}
-              {/*      gyldig: validator(validering.dato, t('krav.validering_bestillingsdato_ugyldig')),*/}
-              {/*      ikkeIFremtiden: validator(*/}
-              {/*        validering.ikkeIFremtiden,*/}
-              {/*        t('krav.validering_bestillingsdato_ikke_i_fremtiden')*/}
-              {/*      ),*/}
-              {/*      ikkeFørLansering: validator(*/}
-              {/*        validering.ikkeDatoFørLansering,*/}
-              {/*        t('krav.validering_bestillingsdato_ikke_før_lansering', {*/}
-              {/*          datoForLansering: DATO_FOR_LANSERING,*/}
-              {/*        })*/}
-              {/*      ),*/}
-              {/*      ikkeMerEnnSeksMånederSiden: validator(*/}
-              {/*        validering.ikkeMerEnnSeksMånederSiden,*/}
-              {/*        t('krav.validering_bestillingsdato_ikke_mer_enn_seks_måneder_siden')*/}
-              {/*      ),*/}
-              {/*    },*/}
-              {/*  })}*/}
-              {/*/>*/}
-            </Avstand>
-            <Avstand marginBottom={8}>
               <Tekstfelt
                 id="brillepris"
                 label={t('krav.ledetekst_brillepris')}
