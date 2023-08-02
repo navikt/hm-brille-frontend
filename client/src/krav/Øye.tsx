@@ -33,6 +33,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             label={t('krav.ledetekst_sfære')}
             size="medium"
             error={errors.brillestyrke?.[`${type}Sfære`]?.message}
+            aria-label={`${type}Sfære`}
             {...field}
           >
             <option value="">{t('krav.velg_sfære')}</option>
@@ -56,6 +57,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             label={t('krav.ledetekst_sylinder')}
             size="medium"
             error={errors.brillestyrke?.[`${type}Sylinder`]?.message}
+            aria-label={`${type}Sylinder`}
             {...field}
           >
             <option value="">{t('krav.velg_sylinder')}</option>
