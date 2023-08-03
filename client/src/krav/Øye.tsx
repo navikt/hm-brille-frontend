@@ -4,7 +4,14 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { enhet } from '../enhet'
 import type { Brilleseddel } from '../types'
-import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
+import {
+    MAX_NEGATIV_SFÆRE,
+    MAX_SFÆRE,
+    MAX_STYRKE,
+    MAX_SYLINDER,
+    MIN_NEGATIV_SFÆRE,
+    MIN_STYRKE
+} from './config'
 import { FormatertStyrke } from './FormatertStyrke'
 
 export function Øye(props: { type: 'venstre' | 'høyre' }) {
@@ -36,12 +43,20 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             aria-label={`${type}Sfære`}
             {...field}
           >
-            <option value="">{t('krav.velg_sfære')}</option>
-            {range(1, MAX_SFÆRE).map((it) => (
-              <option key={it} value={it}>
-                <FormatertStyrke verdi={it} type="sfære" />
-              </option>
-            ))}
+
+              {rangeV2(0, 6).reverse().map((it) => (
+                  <option key={it} value={it}>
+                      <FormatertStyrke verdi={it} type="sfære"/>
+                  </option>
+              ))}
+              <option value="" disabled>{t('krav.velg_sfære')}</option>
+              {rangeV2(-12, -0.25).reverse().map((it) => (
+                  <option key={it} value={it}>
+                      <FormatertStyrke verdi={it} type="sfære" />
+                  </option>
+              ))}
+
+
           </Select>
         )}
       />
@@ -60,7 +75,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
             aria-label={`${type}Sylinder`}
             {...field}
           >
-            <option value="">{t('krav.velg_sylinder')}</option>
+            <option value="" disabled>{t('krav.velg_sylinder')}</option>
             {range(1, MAX_SYLINDER).map((it) => (
               <option key={it} value={it}>
                 <FormatertStyrke verdi={it} type="sylinder" />
@@ -92,10 +107,22 @@ const Grid = styled.div`
 
 function range(start: number, stop: number, step: number = 0.25): number[] {
   const size = (stop - start) * 4 + 1
-  const padding = 1 / step
+  const padding = 0 / step
   const valg = Array(size + padding)
     .fill(step)
     .map((x, y) => x * y)
     .slice(padding)
-  return [MIN_STYRKE, ...valg, MAX_STYRKE]
+  return [...valg]
 }
+
+const rangeV2 = (start: number, end: number, step: number = 0.25) => {
+    let output = [];
+    if (typeof end === 'undefined') {
+        end = start;
+        start = 0;
+    }
+    for (let i = start; i < end + step; i += step) {
+        output.push(i);
+    }
+    return output;
+};

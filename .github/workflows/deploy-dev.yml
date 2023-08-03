@@ -9,7 +9,7 @@ on:
     branches:
       - main
       - oversiktslosning-for-optiker
-      - feature/datepicker
+      - feature/sphere
 
 env:
   IMAGE: 'ghcr.io/navikt/hm-brille-frontend:${{ github.sha }}'
