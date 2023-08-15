@@ -1,0 +1,24 @@
+import {Panel} from '@navikt/ds-react'
+import styled from 'styled-components'
+import {enhet} from "../enhet";
+
+export const DataPanelBedrift = styled(Panel)`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 3em;
+  border-radius: 5px;
+  border-color: black;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  margin: var(--a-spacing-5);
+
+
+  @media ${enhet.mobil} {
+    width: 95%;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    justify-items: center;
+  }
+  
+`
