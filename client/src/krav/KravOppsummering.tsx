@@ -123,33 +123,6 @@ export function KravOppsummering() {
                                 </LenkeMedLogging>
                             </Trans>
                         </BodyLong>
-                        <br/>
-                        <BodyLong style={{fontWeight: "bold"}}>{t('krav.husk_dokumenter')}</BodyLong>
-                        <ul>
-                            <li>
-                                {t('krav.dokument.brilleseddel')}
-                            </li>
-                            <li>
-                                {t('krav.dokument.bestillingsdokumentasjon')}
-                                <ul>
-                                    <li>
-                                        {t('krav.dokument.bestillingsdokumentasjon.navn')}
-                                    </li>
-                                    <li>
-                                        {t('krav.dokument.bestillingsdokumentasjon.bestillingsdato')}
-                                    </li>
-                                    <li>
-                                        {t('krav.dokument.bestillingsdokumentasjon.hva')}
-                                    </li>
-                                    <li>
-                                        {t('krav.dokument.bestillingsdokumentasjon.hvor')}
-                                    </li>
-                                    <li>
-                                        {t('krav.dokument.bestillingsdokumentasjon.kostnad')}
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </Alert>
                 ) : vilkårsvurdering.sats === SatsType.INGEN && vilkårsvurdering.kravFraFørFraInnsender ? (
                     <Alert variant="warning">
