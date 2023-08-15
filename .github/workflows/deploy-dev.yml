@@ -10,6 +10,7 @@ on:
       - main
       - oversiktslosning-for-optiker
       - feature/datepicker
+      - bedriftsboks
 
 env:
   IMAGE: 'ghcr.io/navikt/hm-brille-frontend:${{ github.sha }}'
