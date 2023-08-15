@@ -118,7 +118,7 @@ export function KravOppsummering() {
                         <BodyLong>
                             <Trans t={t} i18nKey="krav.nav_jobber_med_manuell">
                                 <></>
-                                <LenkeMedLogging href="https://www.nav.no/fyllut/nav100734?sub=paper" target="_blank">
+                                <LenkeMedLogging href="https://www.nav.no/fyllut/nav100734" target="_blank">
                                     <></>
                                 </LenkeMedLogging>
                             </Trans>
