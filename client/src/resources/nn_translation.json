@@ -49,7 +49,7 @@
   "krav.forklaring_brillestyrke": "Du treng berre å legge inn sfære og sylinder for å sjå kva støttesats bornet kan få.",
   "krav.høyre_øye": "Høgre auge",
   "krav.barn_oppfyller_ikke": "bornet oppfyller ikkje <1>vilkåra</1> for å sende inn krav om direkte oppgjer.",
-  "krav.nav_jobber_med_manuell": "Det er likevel mogleg for bornet å <1>søke om refusjon manuelt<1/>.",
+  "krav.nav_jobber_med_manuell": "Det er likevel mogleg for bornet å <1>søke om refusjon manuelt<1/>",
   "krav.husk_dokumenter": "Husk at den som skal søkje må ta vare på desse dokumenta:",
   "krav.allerede_sendt": "Du har allereie sendt inn eit krav for dette bornet i {{aar}}. Det er kun mogleg å få tilskudd til briller på denne ordningen ein gong kvart år.",
   "krav.allerede_sendt_referanse": "Bestillingsreferansa for det innsende kravet er: {{referanse}}",
