@@ -28,7 +28,7 @@ export const validering = {
     return isAfter(verdi, seksMånederSiden)
   },
   bestillingsreferanse(verdi: string): boolean {
-    return /^[A-Za-å\d-_/]+$/.test(verdi)
+    return /^[A-Za-å\d-_/]+$/.test(verdi) && verdi.length <= 100
   },
 }
 

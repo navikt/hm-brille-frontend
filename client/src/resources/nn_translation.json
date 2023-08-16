@@ -118,7 +118,7 @@
   "krav.validering_bestillingsdato_påkrevd": "Du må oppgje ein bestillingsdato",
   "krav.validering_bestillingsdato_ugyldig": "Ugyldig bestillingsdato",
   "krav.validering_bestillingsreferanse_påkrevd": "Du må oppgje ein bestillingsreferanse",
-  "krav.validering_bestillingsreferanse_ugyldig_spesialtegn": "Ugyldig spesialteikn",
+  "krav.validering_bestillingsreferanse_ugyldig_spesialtegn": "Ugyldig spesialteikn eller for mange karakterar",
   "krav.validering_brillepris_påkrevd": "Du må oppgje ein brillepris",
   "krav.validering_brillepris_ugyldig": "Ugyldig brillepris",
   "krav.validering_fnr_påkrevd": "Du må oppgje eit fødselsnummer",
