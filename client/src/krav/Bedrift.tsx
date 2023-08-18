@@ -24,10 +24,9 @@ export function Bedrift(props: BedriftProps) {
                         {t('krav.overskrift_foretaket')}
                     </BodyShort>
                     <Label size="medium">{` ${orgNavn}`}</Label>
-                    <BodyLong>{`org. nr. ${organisasjonsnummer(orgnr)}`}</BodyLong>
+                    <BodyLong size="small">{`org. nr. ${organisasjonsnummer(orgnr)}`}</BodyLong>
                 </div>
                 <Button
-                    style={{marginTop: '0.5rem'}}
                     size="small"
                     variant="tertiary"
                     onClick={() => {

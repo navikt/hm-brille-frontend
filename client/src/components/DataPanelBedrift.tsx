@@ -10,7 +10,7 @@ export const DataPanelBedrift = styled(Panel)`
   border-color: black;
   align-items: center;
   padding-top: 1.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   margin: var(--a-spacing-5);
 
 
