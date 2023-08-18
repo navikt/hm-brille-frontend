@@ -65,7 +65,7 @@ const handlers: RequestHandler[] = [
                     orgnr: '108271914',
                     navn: 'Brillehuset Kristiansand',
                     adresse: 'Kristiansandveien 123',
-                    aktiv: true,
+                    aktiv: false,
                 },
                 tidligereBrukteOrganisasjoner: [
                     {
