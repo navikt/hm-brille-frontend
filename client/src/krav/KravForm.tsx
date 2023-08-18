@@ -118,7 +118,7 @@ export function KravForm() {
                                         validering.bestillingsreferanse,
                                         t(
                                             'krav.validering_bestillingsreferanse_ugyldig_spesialtegn',
-                                            'Ugyldig spesialtegn i bestillingsreferanse.'
+                                            'Ugyldig spesialtegn eller for mange karakterer'
                                         )
                                     ),
                                 })}
