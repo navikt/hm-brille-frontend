@@ -19,14 +19,16 @@ export function Bedrift(props: BedriftProps) {
         <DataPanelBedrift>
 
             <div>
-                <div style={{marginLeft: "1.25rem"}}>
-                    <BodyShort size="medium" spacing>
+                <div style={{marginLeft: "0.6rem"}}>
+                    <BodyShort spacing style={{fontSize: '1.2rem'}}>
                         {t('krav.overskrift_foretaket')}
                     </BodyShort>
-                    <Label>{`${orgNavn}`}</Label>
+                    <Label size="medium">{` ${orgNavn}`}</Label>
                     <BodyLong>{`org. nr. ${organisasjonsnummer(orgnr)}`}</BodyLong>
                 </div>
                 <Button
+                    style={{marginTop: '0.5rem'}}
+                    size="small"
                     variant="tertiary"
                     onClick={() => {
                         props.onByttBedrift()
@@ -35,7 +37,7 @@ export function Bedrift(props: BedriftProps) {
                     {t('krav.knapp_velg_annen_virksomhet')}
                 </Button>
             </div>
-            <Buldings2Icon fontSize="4rem" style={{marginRight: "3rem"}}/>
+            <Buldings2Icon fontSize="3rem" style={{marginRight: "3rem"}}/>
         </DataPanelBedrift>
     )
 }

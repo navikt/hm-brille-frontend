@@ -6,7 +6,7 @@ export const DataPanelBedrift = styled(Panel)`
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: 3em;
-  border-radius: 5px;
+  border-radius: 10px;
   border-color: black;
   align-items: center;
   padding-top: 1.5rem;
@@ -15,7 +15,6 @@ export const DataPanelBedrift = styled(Panel)`
 
 
   @media ${enhet.mobil} {
-    width: 95%;
     grid-template-columns: 1fr;
     row-gap: 10px;
     justify-items: center;
