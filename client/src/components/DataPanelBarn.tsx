@@ -13,7 +13,6 @@ export const DataPanelBarn = styled(Panel)`
   padding-top: 1.5rem;
   padding-bottom: 0;
 
-
   @media ${enhet.mobil} {
     width: 95%;
     grid-template-columns: 1fr;

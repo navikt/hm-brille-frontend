@@ -1,6 +1,4 @@
-import {Heading} from '@navikt/ds-react'
-import {Data} from '../components/Data'
-import {Datum} from '../components/Datum'
+import {Heading, Label} from '@navikt/ds-react'
 import {DataPanelBarn} from "../components/DataPanelBarn";
 import {BrillebarnComponent} from "../resources/svg/BrillebarnComponent";
 import {t} from "i18next";
@@ -19,13 +17,14 @@ export function Barn(props: BarnProps) {
     return (
         <DataPanelBarn>
             <BrillebarnComponent/>
-            <div>
+            <div role="alert">
                 <Heading level="3" size="xsmall">
                     {`${navn}${alderTekst}`}
                 </Heading>
-                <DataResponsive>
-                    <DatumWithoutMargin label="krav.ledetekst_fnr">{fnr}</DatumWithoutMargin>
-                </DataResponsive>
+                <div style={{display: "grid", gridTemplateColumns: "auto 1fr"}}>
+                    <Label as="div">{`${t("krav.ledetekst_fnr")}`}</Label>
+                    <div style={{paddingLeft: '0.5rem'}}>{fnr}</div>
+                </div>
             </div>
 
         </DataPanelBarn>
