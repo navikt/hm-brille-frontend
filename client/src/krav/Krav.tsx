@@ -1,8 +1,7 @@
-import {BodyLong, Button, Heading, Panel} from '@navikt/ds-react'
+import {Heading, Panel} from '@navikt/ds-react'
 import {useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Avstand} from '../components/Avstand'
-import {organisasjonsnummer} from '../components/organisasjonsnummer'
 import ScrollToTop from '../components/ScrollToTop'
 import {useApplicationContext} from '../state/ApplicationContext'
 import type {
@@ -21,7 +20,6 @@ import {IkkeFunnet} from './IkkeFunnet'
 import {KravForm} from './KravForm'
 import {KravSteg} from './KravSteg'
 import {VirksomhetForm} from './VirksomhetForm'
-import {Endringsvarsel} from "@navikt/hm-react-components";
 import {Bedrift} from "./Bedrift";
 
 export function Krav() {
@@ -86,14 +84,14 @@ export function Krav() {
         <KravSteg>
             <ScrollToTop/>
 
-            <Avstand marginBottom={5}>
+            {/*<Avstand marginBottom={5}>
                 <Endringsvarsel
                     tittel={t('info.satsendring.tittel')}
                     tekst={t('info.satsendring.tekst')}
                     lenketekst={t('info.satsendring.lenketekst')}
                     lenke="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye"
                 />
-            </Avstand>
+            </Avstand>*/}
             {!harValgtVirksomhet ? (
                 <Panel>
                     <Heading level="2" size="medium" spacing>
