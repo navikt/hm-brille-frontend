@@ -40,7 +40,8 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
           />
           <Button
             onClick={async () => {
-              const virksomhet: VirksomhetResponse = await http.get(`/virksomheter/${orgnr}`)
+              const orgnrUtenMellomrom = orgnr.replaceAll(' ', '').trim()
+              const virksomhet: VirksomhetResponse = await http.get(`/virksomheter/${orgnrUtenMellomrom}`)
               if (virksomhet !== null) {
                 setVirksomhet(virksomhet)
               }
