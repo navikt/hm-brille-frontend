@@ -49,7 +49,9 @@ export async function createAuth(): Promise<Auth> {
           res.sendStatus(401)
           return
         }
-        if (result.payload.acr !== 'Level4') {
+        const aksepterteAcrs = ['Level4', 'idporten-loa-high']
+
+        if (!aksepterteAcrs.includes(result.payload.acr as any)) {
           logger.warn(`acr er ikke riktig, payload.acr: ${result.payload.acr}`)
           res.sendStatus(403)
           return
