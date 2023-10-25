@@ -1,30 +1,20 @@
-import { Alert, Panel } from '@navikt/ds-react'
-import React, { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
+import {Panel} from '@navikt/ds-react'
+import React from 'react'
+import {useTranslation} from 'react-i18next'
 import styled from 'styled-components'
-import { Feature, FeatureToggleContext } from '../FeatureToggleProvider'
 
 interface BannerProps {
-  children?: React.ReactNode
+    children?: React.ReactNode
 }
 
 export function Banner(props: BannerProps) {
-  const { t } = useTranslation()
-  const featureToggleContext = useContext(FeatureToggleContext)
-  const visFeilBanner = featureToggleContext[Feature.TekniskFeilBanner]
+    const {t} = useTranslation()
 
-  return (
-    <BannerContainer>
-      <BannerPanel>{props.children}</BannerPanel>
-      {visFeilBanner && (
-        <FeilBanner>
-          <Alert variant="error" size="medium">
-            {t('banner.tekniske_problemer')}
-          </Alert>
-        </FeilBanner>
-      )}
-    </BannerContainer>
-  )
+    return (
+        <BannerContainer>
+            <BannerPanel>{props.children}</BannerPanel>
+        </BannerContainer>
+    )
 }
 
 export const BannerContainer = styled.div`

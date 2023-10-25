@@ -1,5 +1,4 @@
 import {RequestHandler, rest, setupWorker} from 'msw'
-import {FeatureToggles} from '../FeatureToggleProvider'
 import {apiUrl} from '../http'
 import {
     BeregnSatsRequest,
@@ -170,14 +169,6 @@ const handlers: RequestHandler[] = [
                 behandlingsresultat: 'INNVILGET',
                 opprettet: new Date().toISOString(),
                 ...beregnSatsResponse,
-            })
-        )
-    }),
-    rest.get<{}, {}, FeatureToggles>(apiUrl('/features'), (req, res, ctx) => {
-        return res(
-            ctx.status(200),
-            ctx.json({
-                'hm.brille.feilbanner': false,
             })
         )
     }),
