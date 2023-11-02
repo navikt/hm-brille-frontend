@@ -144,26 +144,12 @@ export interface OversiktResponse {
 export interface OversiktResponseItem {
   id: number
   orgnavn: string
-  orgnr: string
   barnsNavn: string
-  barnsFnr: string
-  barnsAlder: number
-  høyreSfære: number
-  høyreSylinder: number
-  venstreSfære: number
-  venstreSylinder: number
-  bestillingsdato: string
-  brillepris: number
-  beløp: number
   bestillingsreferanse: string
-  satsNr: string
-  satsBeløp: number
-  satsBeskrivelse: string
   utbetalingsdato?: string
   utbetalingsstatus?: string
   opprettet: string
   slettet?: string
-  slettetAvType?: SlettetAvType
 }
 
 export interface OversiktDetaljerResponse {
