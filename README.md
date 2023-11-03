@@ -1,6 +1,7 @@
 # hm-brille-frontend
 
 Front-end for registrering av brillekrav for autoriserte optikere.
+Back-end for appen er [hm-brille-api](https://github.com/navikt/hm-brille-api)
 
 ## Om appen
 
