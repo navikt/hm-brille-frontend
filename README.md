@@ -16,11 +16,12 @@ Optiker registrerer hvilket barn kravet gjelder og relevant informasjon om barne
 Optiker fyller så inn brilleseddel, bestillingsdato og pris på brillen og kravet vilkårsprøves basert
 på dette. Dersom vilkårsprøving gir støtte så får optiker mulighet til å sende kravet inn til NAV.
 
-## Byggesystem og lokal kjøring
+## Bygg og lokal kjøring
 
 Appen bygges med Vite og kjøres lokalt med Vite dev server:
 
 ```npm install```
+
 ```npm run dev```
 
 MockSeviceWorker brukes for å mocke API-kall lokalt og i labs, se [browser.ts](./client/src/mocks/browser.ts).
