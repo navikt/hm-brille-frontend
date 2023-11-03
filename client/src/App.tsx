@@ -18,7 +18,7 @@ export function App() {
     return (
         <FeilGrense erInnsendingFeil={false}>
             <Breadcrumbs/>
-            <ApplicationProvider>
+                <ApplicationProvider>
                 <Routes>
                     <Route path="/" element={<SettTittel title="helmet.title.forside"><Forside/></SettTittel>}/>
                     <Route path="/krav" element={<SettTittel title="helmet.title.krav"><Krav/></SettTittel>}/>
