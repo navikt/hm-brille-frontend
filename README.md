@@ -16,6 +16,10 @@ Optiker registrerer hvilket barn kravet gjelder og relevant informasjon om barne
 Optiker fyller så inn brilleseddel, bestillingsdato og pris på brillen og kravet vilkårsprøves basert
 på dette. Dersom vilkårsprøving gir støtte så får optiker mulighet til å sende kravet inn til NAV.
 
+### Overordnet dokumentasjon
+
+Overordnet dokumentasjon av brillestøtte finnes [her](doc/%C3%98kosystem.md)
+
 ## Bygg og lokal kjøring
 
 Appen bygges med Vite og kjøres lokalt med Vite dev server:
