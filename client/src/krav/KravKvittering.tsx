@@ -54,7 +54,7 @@ export function KravKvittering() {
                 <Heading level="2" size="medium">
                     {t('krav.overskrift_kvittering')}
                 </Heading>
-                <Data labelColumnWidth={150}>
+                <Data>
                     <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
                     <Datum label="krav.ledetekst_opprettet_dato">
                         <Dato verdi={opprettet}></Dato>
