@@ -76,12 +76,16 @@ export function OversiktDetaljer() {
           )}
           {!error && data && (
             <>
+
               <Heading
                 level="1"
                 size="large"
                 style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}
               >
-                {t('oversikt.krav_detaljer.overskrift')} {data.barnsNavn}
+                  {data.barnsNavn ?
+                      t('oversikt.krav_detaljer.overskrift') + ' ' + data.barnsNavn :
+                      t('oversikt.krav_detaljer.overskrift') + ' ' + data.barnsFnr
+                  }
               </Heading>
               <div
                 style={{
@@ -153,7 +157,9 @@ export function OversiktDetaljer() {
                     {t('krav.overskrift_barn')}
                   </Heading>
                   <Data>
-                    <DatumHelper label={t('krav.ledetekst_navn')}>{data.barnsNavn}</DatumHelper>
+                      {data.barnsNavn ? <DatumHelper label={t('krav.ledetekst_navn')}>{data.barnsNavn}</DatumHelper>
+                            : <DatumHelper label={t('krav.ledetekst_fødselsdato')}>{data.barnsFødselsdato}</DatumHelper>
+                      }
                     <DatumHelper label={t('krav.ledetekst_fnr')}>{data.barnsFnr}</DatumHelper>
                     <DatumHelper label={t('krav.ledetekst_alder')}>{data.barnsAlder} år</DatumHelper>
                   </Data>

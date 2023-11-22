@@ -17,6 +17,7 @@ import {FormatertStyrke} from './FormatertStyrke'
 import {KravSteg} from './KravSteg'
 import {SendInnKrav} from './SendInnKrav'
 import {format, formatISO} from "date-fns";
+import {Dato} from "../components/Dato";
 
 export function KravOppsummering() {
     const {t} = useTranslation()
@@ -32,7 +33,7 @@ export function KravOppsummering() {
         orgNavn: appState.orgNavn, // todo fjern
         fnrBarn: appState.barnFnr,
         brilleseddel: appState.brillestyrke,
-        bestillingsdato: formatISO(appState.bestillingsdato!!, { representation: 'date' }),
+        bestillingsdato: formatISO(appState.bestillingsdato!!, {representation: 'date'}),
         brillepris: beløp.byttDesimaltegn(appState.brillepris),
         extras: {
             orgNavn: appState.orgNavn,
@@ -73,7 +74,9 @@ export function KravOppsummering() {
             </Heading>
             <Data>
                 <Datum label="krav.ledetekst_fnr">{appState.barnFnr}</Datum>
-                <Datum label="krav.ledetekst_navn">{appState.barnNavn}</Datum>
+                {appState.barnNavn ? <Datum label="krav.ledetekst_navn">{appState.barnNavn}</Datum> :
+                    appState.barnFødselsdato && <Datum label="krav.ledetekst_fødselsdato"><Dato verdi={appState.barnFødselsdato}/></Datum>
+                }
                 <Datum label="krav.ledetekst_alder">{appState.barnAlder}</Datum>
             </Data>
             <Heading level="2" size="medium">
@@ -99,7 +102,8 @@ export function KravOppsummering() {
             <Data>
                 <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(appState.orgnr)}</Datum>
                 <Datum label="krav.ledetekst_orgnavn">{appState.orgNavn}</Datum>
-                <Datum label="krav.ledetekst_bestillingsdato_alt">{format(appState.bestillingsdato!!, "dd.MM.yyyy")}</Datum>
+                <Datum
+                    label="krav.ledetekst_bestillingsdato_alt">{format(appState.bestillingsdato!!, "dd.MM.yyyy")}</Datum>
                 <Datum label="krav.ledetekst_brillepris_alt">{appState.brillepris}</Datum>
                 <Datum label="krav.ledetekst_bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
             </Data>

@@ -6,7 +6,8 @@ export interface AppState {
   orgNavn: string
   orgAdresse: string
   barnFnr: string
-  barnNavn: string
+  barnNavn?: string
+  barnFødselsdato?: string
   barnAlder?: number
   brillestyrke: Brilleseddel
   bestillingsdato?: Date

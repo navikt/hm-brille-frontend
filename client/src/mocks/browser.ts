@@ -47,6 +47,16 @@ const handlers: RequestHandler[] = [
             )
         }
 
+        if (fnr === '20071359671') {
+            return res(
+                ctx.json({
+                    fnr,
+                    fødselsdato: '2019-11-20',
+                    alder: 4,
+                })
+            )
+        }
+
         return res(
             ctx.json({
                 fnr,

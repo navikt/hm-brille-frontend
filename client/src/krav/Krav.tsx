@@ -13,7 +13,7 @@ import type {
 import {useGet} from '../useGet'
 import {usePost} from '../usePost'
 import {logSkjemaStartet} from '../utils/amplitude'
-import {Barn} from './Barn'
+import {BarnMedNavn} from './BarnMedNavn'
 import {Brukervilkår} from './Brukervilkår'
 import {HentBarnForm} from './HentBarnForm'
 import {IkkeFunnet} from './IkkeFunnet'
@@ -21,6 +21,8 @@ import {KravForm} from './KravForm'
 import {KravSteg} from './KravSteg'
 import {VirksomhetForm} from './VirksomhetForm'
 import {Bedrift} from "./Bedrift";
+import {instanceOfHentInnbyggerMedNavnResponse} from "../utils/TypeOf";
+import {BarnMedFødselsdato} from "./BarnMedFødselsdato";
 
 export function Krav() {
     const {t} = useTranslation()
@@ -55,7 +57,8 @@ export function Krav() {
         if (hentBrukerData) {
             setAppState((prev) => ({
                 ...prev,
-                barnNavn: hentBrukerData.navn,
+                barnNavn: instanceOfHentInnbyggerMedNavnResponse(hentBrukerData) ? hentBrukerData.navn : undefined,
+                barnFødselsdato: !instanceOfHentInnbyggerMedNavnResponse(hentBrukerData) ? hentBrukerData.fødselsdato : undefined,
                 barnAlder: hentBrukerData.alder,
                 barnFnr: hentBrukerData.fnr,
             }))
@@ -125,8 +128,17 @@ export function Krav() {
                         {hentBrukerData &&
                             (hentBrukerData.fnr ? (
                                 <Avstand marginTop={2} marginBottom={5}>
-                                    <Barn {...hentBrukerData} />
-                                    <Avstand marginTop={5}>
+                                    {appState.barnNavn ? (
+                                            <BarnMedNavn fnr={appState.barnFnr} navn={appState.barnNavn}
+                                                         alder={appState.barnAlder}/>
+                                        )
+                                        : appState.barnFødselsdato ? (
+                                            <BarnMedFødselsdato fnr={appState.barnFnr}
+                                                                fødselsdato={appState.barnFødselsdato}
+                                                                alder={appState.barnAlder}/>
+                                        ) : (<></>)
+                                    }
+                                    < Avstand marginTop={5}>
                                         <KravForm/>
                                     </Avstand>
                                 </Avstand>
