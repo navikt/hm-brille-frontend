@@ -160,7 +160,7 @@ export function OversiktDetaljer() {
                   <Line />
                 </div>
                 <div style={{ marginTop: '2rem' }}>
-                  <Heading level="1" size="medium">
+                  <Heading level="2" size="medium">
                     {t('krav.overskrift_brillestyrke')}
                   </Heading>
                   <Data>
@@ -211,7 +211,7 @@ export function OversiktDetaljer() {
                       satsBeløp: beløp.formater(data.satsBeløp),
                     })}
                   </BodyLong>
-                  <Heading level="2" size="small">
+                  <Heading level="3" size="small">
                     {t('oversikt.krav_detaljer.krav_om_direkte_oppgjør', {
                       beløp: beløp.formater(data.beløp),
                       orgnavn: data.orgnavn,
