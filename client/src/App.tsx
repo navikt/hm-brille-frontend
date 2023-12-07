@@ -12,73 +12,75 @@ import { KravOppsummering } from './krav/KravOppsummering'
 import { ApplicationProvider } from './state/ApplicationContext'
 import Breadcrumbs from './components/Breadcrumbs'
 import { useTranslation } from 'react-i18next'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 export function App() {
   return (
     <FeilGrense erInnsendingFeil={false}>
       <Breadcrumbs />
       <ApplicationProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <SettTittel title="helmet.title.forside">
-                <Forside />
-              </SettTittel>
-            }
-          />
-          <Route
-            path="/krav"
-            element={
-              <SettTittel title="helmet.title.krav">
-                <Krav />
-              </SettTittel>
-            }
-          />
-          <Route
-            path="/krav/oppsummering"
-            element={
-              <SettTittel title="helmet.title.krav_oppsummering">
-                <FeilGrense erInnsendingFeil={true}>
-                  <KravOppsummering />
-                </FeilGrense>
-              </SettTittel>
-            }
-          />
-          <Route
-            path="/krav/kvittering"
-            element={
-              <SettTittel title="helmet.title.krav_kvittering">
-                <KravKvittering />
-              </SettTittel>
-            }
-          />
-          <Route
-            path="/oversikt"
-            element={
-              <SettTittel title="helmet.title.krav_oversikt">
-                <Oversikt />
-              </SettTittel>
-            }
-          />
-          <Route
-            path="/oversikt/:vedtakId"
-            element={
-              <SettTittel title="helmet.title.kravdetaljer">
-                <OversiktDetaljer />
-              </SettTittel>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <SettTittel title="helmet.title.feilside">
-                <Feilside status={404} />
-              </SettTittel>
-            }
-          />
-        </Routes>
+        <HelmetProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <SettTittel title="helmet.title.forside">
+                  <Forside />
+                </SettTittel>
+              }
+            />
+            <Route
+              path="/krav"
+              element={
+                <SettTittel title="helmet.title.krav">
+                  <Krav />
+                </SettTittel>
+              }
+            />
+            <Route
+              path="/krav/oppsummering"
+              element={
+                <SettTittel title="helmet.title.krav_oppsummering">
+                  <FeilGrense erInnsendingFeil={true}>
+                    <KravOppsummering />
+                  </FeilGrense>
+                </SettTittel>
+              }
+            />
+            <Route
+              path="/krav/kvittering"
+              element={
+                <SettTittel title="helmet.title.krav_kvittering">
+                  <KravKvittering />
+                </SettTittel>
+              }
+            />
+            <Route
+              path="/oversikt"
+              element={
+                <SettTittel title="helmet.title.krav_oversikt">
+                  <Oversikt />
+                </SettTittel>
+              }
+            />
+            <Route
+              path="/oversikt/:vedtakId"
+              element={
+                <SettTittel title="helmet.title.kravdetaljer">
+                  <OversiktDetaljer />
+                </SettTittel>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <SettTittel title="helmet.title.feilside">
+                  <Feilside status={404} />
+                </SettTittel>
+              }
+            />
+          </Routes>
+        </HelmetProvider>
       </ApplicationProvider>
     </FeilGrense>
   )
