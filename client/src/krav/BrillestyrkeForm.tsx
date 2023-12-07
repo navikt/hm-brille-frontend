@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 import { useEffect } from 'react'
-import {Trans, useTranslation} from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { beløp } from '../beløp'
 import { Avstand } from '../components/Avstand'
 import { SatsType } from '../types'
@@ -41,12 +41,14 @@ export function BrillestyrkeForm() {
                 {t('krav.brillestøtte_beløp', { satsBeløp: beløp.formater(beregning.satsBeløp) })}
               </Heading>
               <BodyLong>
-                <Trans t={t} i18nKey="krav.brillestøtte_sats"
-                       values={{
-                         sats: beregning.sats.replace('SATS_', ''),
-                         satsBeskrivelse: beregning.satsBeskrivelse
-                       }}>
-                </Trans>
+                <Trans
+                  t={t}
+                  i18nKey="krav.brillestøtte_sats"
+                  values={{
+                    sats: beregning.sats.replace('SATS_', ''),
+                    satsBeskrivelse: beregning.satsBeskrivelse,
+                  }}
+                ></Trans>
               </BodyLong>
             </Alert>
           )}

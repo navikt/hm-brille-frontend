@@ -11,7 +11,7 @@ import './i18n'
 import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
 import './stylesheet/styles.scss'
-import {initSentry} from "./utils/sentry";
+import { initSentry } from './utils/sentry'
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {
@@ -38,5 +38,3 @@ initMSW().then(() => {
     </React.StrictMode>
   )
 })
-
-

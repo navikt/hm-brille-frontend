@@ -25,14 +25,14 @@ export function Forside() {
         </Heading>
         <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
           <LinkPanel
-              tabIndex={0}
-              onClick={() => navigate('/krav')}
-              onKeyDown={ (event) => {
-                  if(event.key === 'Enter'){
-                      navigate('/krav')
-                  }
-              }}
-              border={false}
+            tabIndex={0}
+            onClick={() => navigate('/krav')}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                navigate('/krav')
+              }
+            }}
+            border={false}
           >
             <Grid>
               <SendKravIkon />
@@ -45,14 +45,14 @@ export function Forside() {
         </div>
         <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
           <LinkPanel
-              tabIndex={0}
-              onClick={() => navigate('/oversikt')}
-              onKeyDown={ (event) => {
-                  if(event.key === 'Enter'){
-                      navigate('/oversikt')
-                  }
-              }}
-              border={false}
+            tabIndex={0}
+            onClick={() => navigate('/oversikt')}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                navigate('/oversikt')
+              }
+            }}
+            border={false}
           >
             <Grid>
               <InnsendteKravIkon />

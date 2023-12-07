@@ -20,7 +20,12 @@ export function Feilside(props: FeilsideProps) {
     <main>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="1" size="large" spacing>
-          {t(overskrift[status] || (erInnsendingFeil === true ? 'feilside.feil.teknisk_feil_innsending.tittel' : 'feilside.feil.teknisk_feil.tittel'))}
+          {t(
+            overskrift[status] ||
+              (erInnsendingFeil === true
+                ? 'feilside.feil.teknisk_feil_innsending.tittel'
+                : 'feilside.feil.teknisk_feil.tittel')
+          )}
         </Heading>
         <Avstand marginTop={8}>
           {{
@@ -33,9 +38,9 @@ export function Feilside(props: FeilsideProps) {
         <Avstand marginTop={12} paddingLeft={2} paddingRight={2}>
           <ReadMore header={t('feilside.informasjon_til_utviklere.tittel')} defaultOpen={true}>
             <Code>
-                {t('feilside.informasjon_til_utviklere.datotid')}: {new Date().toISOString()}.{'\n'}
-                {t('feilside.informasjon_til_utviklere.status')}: {status}.{'\n'}
-                {utviklerinformasjon}
+              {t('feilside.informasjon_til_utviklere.datotid')}: {new Date().toISOString()}.{'\n'}
+              {t('feilside.informasjon_til_utviklere.status')}: {status}.{'\n'}
+              {utviklerinformasjon}
             </Code>
           </ReadMore>
         </Avstand>
@@ -72,16 +77,23 @@ function IkkeFunnet() {
   )
 }
 
-function TekniskFeil({erInnsendingFeil}: {erInnsendingFeil?: Boolean}) {
+function TekniskFeil({ erInnsendingFeil }: { erInnsendingFeil?: Boolean }) {
   const { t } = useTranslation()
   return (
     <>
       <BodyShort spacing>
-          {t(erInnsendingFeil ? 'feilside.feil.teknisk_feil_innsending.beskrivelse' : 'feilside.feil.teknisk_feil.beskrivelse')}
+        {t(
+          erInnsendingFeil
+            ? 'feilside.feil.teknisk_feil_innsending.beskrivelse'
+            : 'feilside.feil.teknisk_feil.beskrivelse'
+        )}
       </BodyShort>
       <Avstand marginTop={8}>
         <BodyShort spacing>
-          <Link href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/kontorer/nav-hjelpemiddelsentral-agder" target="_blank">
+          <Link
+            href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/kontorer/nav-hjelpemiddelsentral-agder"
+            target="_blank"
+          >
             {t('feilside.ta_kontakt_agder')}
           </Link>
         </BodyShort>
@@ -96,7 +108,14 @@ function KnappTilForsiden() {
   const { t } = useTranslation()
   return (
     <Avstand marginTop={10}>
-      <Button onClick={() => {navigate('/'); /* reload page after changing href: */ navigate(0)}}>{t('feilside.gå_til_forsiden')}</Button>
+      <Button
+        onClick={() => {
+          navigate('/')
+          /* reload page after changing href: */ navigate(0)
+        }}
+      >
+        {t('feilside.gå_til_forsiden')}
+      </Button>
     </Avstand>
   )
 }

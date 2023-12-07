@@ -21,7 +21,7 @@ import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
 import { Trans, useTranslation } from 'react-i18next'
 import { http } from '../http'
-import {PrinterSmallIcon, TrashIcon} from "@navikt/aksel-icons";
+import { PrinterSmallIcon, TrashIcon } from '@navikt/aksel-icons'
 
 export function OversiktDetaljer() {
   let { vedtakId } = useParams()
@@ -93,7 +93,12 @@ export function OversiktDetaljer() {
                 }}
               >
                 <div className="dontPrintMe">
-                  <Button icon={<PrinterSmallIcon aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
+                  <Button
+                    icon={<PrinterSmallIcon aria-hidden />}
+                    variant="secondary"
+                    size="medium"
+                    onClick={handlePrint}
+                  >
                     {t('oversikt.krav_detaljer.meny.utskrift')}
                   </Button>
                   {!data.slettet && !data.utbetalingsdato && !data.utbetalingsstatus && (
@@ -129,14 +134,14 @@ export function OversiktDetaljer() {
                   </Alert>
                 )}
                 {!data.slettet && data.utbetalingsdato && (
-                    <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                      {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
-                    </Alert>
+                  <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
+                  </Alert>
                 )}
                 {!data.slettet && !data.utbetalingsdato && data.utbetalingsstatus && (
-                    <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                      {t('oversikt.utbetalingsstatus.utbetales')}
-                    </Alert>
+                  <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    {t('oversikt.utbetalingsstatus.utbetales')}
+                  </Alert>
                 )}
                 <div style={{ marginTop: '2rem' }}>
                   <Heading level="2" size="medium">

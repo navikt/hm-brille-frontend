@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import { DocPencilIcon, FilesIcon} from "@navikt/aksel-icons";
+import { DocPencilIcon, FilesIcon } from '@navikt/aksel-icons'
 
 export interface IkonProps {
   bgSize?: number

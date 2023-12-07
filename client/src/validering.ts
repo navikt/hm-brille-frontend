@@ -1,5 +1,5 @@
 import { fnr } from '@navikt/fnrvalidator'
-import {isAfter, isBefore, isSameDay, isValid, subMonths} from 'date-fns'
+import { isAfter, isBefore, isSameDay, isValid, subMonths } from 'date-fns'
 import { dato } from './dato'
 
 export const DATO_FOR_LANSERING = new Date('Aug 1 2022')
@@ -18,7 +18,7 @@ export const validering = {
     return isBefore(verdi, nå)
   },
   ikkeDatoFørLansering(verdi: Date): boolean {
-    if(isSameDay(DATO_FOR_LANSERING, verdi)){
+    if (isSameDay(DATO_FOR_LANSERING, verdi)) {
       return true
     }
     return isBefore(DATO_FOR_LANSERING, verdi)

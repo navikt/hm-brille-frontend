@@ -1,20 +1,20 @@
-import {Panel} from '@navikt/ds-react'
+import { Panel } from '@navikt/ds-react'
 import React from 'react'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 interface BannerProps {
-    children?: React.ReactNode
+  children?: React.ReactNode
 }
 
 export function Banner(props: BannerProps) {
-    const {t} = useTranslation()
+  const { t } = useTranslation()
 
-    return (
-        <BannerContainer>
-            <BannerPanel>{props.children}</BannerPanel>
-        </BannerContainer>
-    )
+  return (
+    <BannerContainer>
+      <BannerPanel>{props.children}</BannerPanel>
+    </BannerContainer>
+  )
 }
 
 export const BannerContainer = styled.div`

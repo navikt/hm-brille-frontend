@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {enhet} from "../enhet";
+import { enhet } from '../enhet'
 
 export const DataResponsive = styled.dl<{ labelColumnWidth?: number }>`
   display: grid;
@@ -11,5 +11,4 @@ export const DataResponsive = styled.dl<{ labelColumnWidth?: number }>`
     width: 95%;
     grid-template-columns: 1fr;
   }
-  
 `

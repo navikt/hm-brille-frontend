@@ -5,8 +5,8 @@ import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
-import React from "react";
-import {Buldings2Icon, FloppydiskIcon} from "@navikt/aksel-icons";
+import React from 'react'
+import { Buldings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
 
 export interface VirksomhetProps {
   virksomhet: VirksomhetResponse
