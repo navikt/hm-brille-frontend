@@ -7,7 +7,8 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     padding: 40px;
     @media ${enhet.mobil} {
-      width: 95%;
+      width: 100%;
+      padding: 40px 10px;
     }
   }
 `

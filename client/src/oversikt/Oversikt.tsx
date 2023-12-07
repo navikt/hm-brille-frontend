@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
 import { Dato } from '../components/Dato'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
 function useQuery() {
   const { search } = useLocation()
@@ -124,15 +125,17 @@ export function Oversikt() {
             </div>
             {data.numberOfPages > 1 && (
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Pagination
-                  size="medium"
-                  page={currPage}
-                  onPageChange={(x) => setCurrPage(x)}
-                  count={data.numberOfPages}
-                  boundaryCount={1}
-                  siblingCount={1}
-                  prevNextTexts
-                />
+                <PaginationCentering>
+                  <Pagination
+                    size="medium"
+                    page={currPage}
+                    onPageChange={(x) => setCurrPage(x)}
+                    count={data.numberOfPages}
+                    boundaryCount={1}
+                    siblingCount={1}
+                    prevNextTexts
+                  />
+                </PaginationCentering>
               </div>
             )}
           </>
@@ -141,3 +144,13 @@ export function Oversikt() {
     </div>
   )
 }
+
+const PaginationCentering = styled.div`
+  ul.navds-pagination__list {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  button.navds-pagination--invisible {
+    display: none;
+  }
+`
