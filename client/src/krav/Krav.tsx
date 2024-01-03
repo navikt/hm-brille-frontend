@@ -21,6 +21,7 @@ import { KravForm } from './KravForm'
 import { KravSteg } from './KravSteg'
 import { VirksomhetForm } from './VirksomhetForm'
 import { Bedrift } from './Bedrift'
+import { Endringsvarsel } from "@navikt/hm-react-components";
 
 export function Krav() {
   const { t } = useTranslation()
@@ -84,14 +85,14 @@ export function Krav() {
     <KravSteg>
       <ScrollToTop />
 
-      {/*<Avstand marginBottom={5}>
+      {<Avstand marginBottom={5}>
                 <Endringsvarsel
                     tittel={t('info.satsendring.tittel')}
                     tekst={t('info.satsendring.tekst')}
                     lenketekst={t('info.satsendring.lenketekst')}
                     lenke="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye"
                 />
-            </Avstand>*/}
+            </Avstand>}
       {!harValgtVirksomhet ? (
         <Panel>
           <Heading level="2" size="medium" spacing>
