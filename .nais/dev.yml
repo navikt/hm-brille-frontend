@@ -8,7 +8,6 @@ metadata:
   namespace: teamdigihot
 spec:
   image: {{image}}
-  team: teamdigihot
   port: 5000
   ingresses:
     - https://brille.intern.dev.nav.no/hjelpemidler/barnebriller
@@ -38,7 +37,6 @@ spec:
       level: Level4
       locale: nb
       autoLogin: true
-      errorPath: ""
   tokenx:
     enabled: true
   env:
