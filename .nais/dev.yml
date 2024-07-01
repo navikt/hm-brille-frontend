@@ -11,6 +11,7 @@ spec:
   port: 5000
   ingresses:
     - https://brille.intern.dev.nav.no/hjelpemidler/barnebriller
+    - https://brille.ansatt.dev.nav.no/hjelpemidler/barnebriller
   liveness:
     path: /hjelpemidler/barnebriller/internal/isalive
   readiness:
