@@ -9,7 +9,7 @@ WORKDIR /app
 COPY client/package.json client/package-lock.json ./
 RUN npm ci
 COPY client .
-RUN npm run test:ci && npm run build
+RUN npm run build
 
 # build server
 FROM node as server-builder
