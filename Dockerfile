@@ -1,32 +1,38 @@
-FROM node:16.15.0-alpine as client-builder
+FROM node:20.14.0-alpine as node
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
+RUN npm config set @navikt:registry=https://npm.pkg.github.com
+
+# build client
+FROM node as client-builder
 WORKDIR /app
 COPY client/package.json client/package-lock.json ./
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> .npmrc
 RUN npm ci
 COPY client .
-RUN npm run && npm run build
+RUN npm run test:ci && npm run build
 
-FROM node:16.15.0-alpine as server-builder
+# build server
+FROM node as server-builder
 WORKDIR /app
 COPY server/package.json server/package-lock.json ./
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    NODE_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) \
-    npm ci
+RUN npm ci
 COPY server .
-RUN npm run && npm run build
+RUN npm run build
 
-FROM node:16.15.0-alpine as server-dependencies
+# install server dependencies
+FROM node as server-dependencies
 WORKDIR /app
 COPY server/package.json server/package-lock.json ./
-RUN npm install --omit=dev
+RUN npm ci --omit dev
 
-FROM gcr.io/distroless/nodejs:16 as runtime
-
+# runtime
+FROM gcr.io/distroless/nodejs20-debian12 as runtime
 WORKDIR /app
 
-ENV NODE_ENV=production
-EXPOSE 5000
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ENV TZ="Europe/Oslo"
+EXPOSE 3000
 
 COPY --from=client-builder /app/dist ./client/dist
 COPY --from=server-builder /app/dist ./server/dist
@@ -35,4 +41,4 @@ WORKDIR /app/server
 
 COPY --from=server-dependencies /app/node_modules ./node_modules
 
-CMD [ "-r", "source-map-support/register", "-r", "dotenv/config", "dist/server.js" ]
+CMD [ "--enable-source-maps", "dist/server.mjs" ]
