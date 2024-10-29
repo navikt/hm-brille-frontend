@@ -1,4 +1,4 @@
-import { RequestHandler, rest } from 'msw'
+import { http, HttpResponse, RequestHandler } from 'msw'
 import { apiUrl } from '../http'
 import { OversiktDetaljerResponse, OversiktResponse, SlettetAvType } from '../types'
 
@@ -135,35 +135,33 @@ const kravStore = [
 ]
 
 export const handlers: RequestHandler[] = [
-  rest.get<{}, {}, OversiktResponse>(apiUrl('/oversikt'), (req, res, ctx) => {
-    let page = parseInt(req.url.searchParams.get('page') || '1')
+  http.get<{ page: string }, {}, OversiktResponse>(apiUrl('/oversikt'), ({ params }) => {
+    let page = parseInt(params.page || '1')
     if (!page || isNaN(page)) page = 1
     let itemsPerPage = 10
-    return res(
-      ctx.delay(),
-      ctx.status(200),
-      ctx.json({
+    return HttpResponse.json(
+      {
         numberOfPages: Math.ceil(kravStore.length / itemsPerPage),
         itemsPerPage: itemsPerPage,
         totalItems: kravStore.length,
         items: kravStore.slice(itemsPerPage * (page - 1), itemsPerPage * page),
-      })
+      }
     )
   }),
-  rest.get<{}, { vedtakId: string }, OversiktDetaljerResponse | {}>(apiUrl('/oversikt/:vedtakId'), (req, res, ctx) => {
-    let idx = parseInt(req.params.vedtakId)
+  http.get<{ vedtakId: string }, {}, OversiktDetaljerResponse | {}>(apiUrl('/oversikt/:vedtakId'), ({ params }) => {
+    let idx = parseInt(params.vedtakId)
     let krav = kravStore[idx]
     if (krav) {
-      return res(ctx.delay(), ctx.status(200), ctx.json(krav))
+      return HttpResponse.json(krav)
     }
-    return res(ctx.delay(), ctx.status(404), ctx.json({}))
+    return HttpResponse.json({}, { status: 404 })
   }),
-  rest.delete<{}, { vedtakId: string }, {}>(apiUrl('/krav/:vedtakId'), (req, res, ctx) => {
-    let idx = parseInt(req.params.vedtakId)
+  http.delete<{ vedtakId: string }, {}, {}>(apiUrl('/krav/:vedtakId'), ({ params }) => {
+    let idx = parseInt(params.vedtakId)
     let krav = kravStore[idx]
     if (krav && !krav.slettet) {
-      return res(ctx.delay(), ctx.status(200), ctx.json({}))
+      return HttpResponse.json({})
     }
-    return res(ctx.delay(), ctx.status(400), ctx.json({}))
+    return HttpResponse.json({}, { status: 404 })
   }),
 ]
