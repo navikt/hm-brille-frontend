@@ -1,7 +1,8 @@
 import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
 import react from '@vitejs/plugin-react'
-import { render } from 'mustache'
+import mustache from 'mustache'
 import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite'
+
 
 const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
   name: 'html-transform',
@@ -24,7 +25,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
         ],
       })
       return {
-        html: render(html, decorator),
+        html: mustache.render(html, decorator),
         tags: [
           {
             tag: 'script',
