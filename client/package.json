@@ -17,7 +17,7 @@
     "@navikt/hm-react-components": "1.0.3",
     "@navikt/nav-dekoratoren-moduler": "^1.6.9",
     "@sentry/react": "^7.119.2",
-    "@sentry/tracing": "^7.51.2",
+    "@sentry/tracing": "^7.119.2",
     "amplitude-js": "^8.19.0",
     "date-fns": "^2.29.3",
     "i18next": "^21.9.1",
