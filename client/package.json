@@ -50,7 +50,7 @@
     "@types/uuid": "^8.3.4",
     "@vitejs/plugin-react": "^4.1.0",
     "cypress": "^13.3.2",
-    "msw": "^2.5.0",
+    "msw": "^2.5.2",
     "mustache": "^4.2.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
