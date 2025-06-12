@@ -29,8 +29,6 @@ spec:
     requests:
       cpu: 20m
       memory: 300Mi
-  secureLogs:
-    enabled: true
   idporten:
     enabled: true
     sidecar:
