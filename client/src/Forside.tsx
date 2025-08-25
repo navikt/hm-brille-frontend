@@ -5,6 +5,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { LenkeMedLogging } from './components/LenkeMedLogging'
 import styled from 'styled-components'
 import { InnsendteKravIkon, SendKravIkon } from './resources/ikoner/Ikon'
+import { useApplicationContext } from './state/ApplicationContext'
 
 const Grid = styled.div`
   display: grid;
@@ -16,6 +17,10 @@ const Grid = styled.div`
 export function Forside() {
     const navigate = useNavigate()
     const { t } = useTranslation()
+
+    // Ikke husk krav hvis man går tilbake til forsiden (selv om man ikke bruker avbryt-knappen)
+    const { resetAppState } = useApplicationContext()
+    resetAppState()
 
     return (
         <div className="gray-background">
