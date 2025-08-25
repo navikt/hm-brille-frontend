@@ -8,6 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
+      - alt-virksomhet-velger
 
 jobs:
   build:
