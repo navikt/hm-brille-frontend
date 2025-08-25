@@ -39,18 +39,18 @@ export function Krav() {
 
   const harValgtVirksomhet = appState.orgnr !== ''
 
-  useEffect(() => {
-    const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
-
-    if (sistBrukteOrg) {
-      setAppState((prev) => ({
-        ...prev,
-        orgnr: sistBrukteOrg.orgnr,
-        orgNavn: sistBrukteOrg.navn,
-        orgAdresse: sistBrukteOrg.adresse || '',
-      }))
-    }
-  }, [tidligereBrukteVirksomheter])
+  // useEffect(() => {
+  //   const sistBrukteOrg = tidligereBrukteVirksomheter?.sistBrukteOrganisasjon
+  //
+  //   if (sistBrukteOrg) {
+  //     setAppState((prev) => ({
+  //       ...prev,
+  //       orgnr: sistBrukteOrg.orgnr,
+  //       orgNavn: sistBrukteOrg.navn,
+  //       orgAdresse: sistBrukteOrg.adresse || '',
+  //     }))
+  //   }
+  // }, [tidligereBrukteVirksomheter])
 
   useEffect(() => {
     if (hentBrukerData) {
