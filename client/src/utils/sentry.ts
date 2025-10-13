@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react'
 import { browserTracingIntegration } from "@sentry/react";
 
-const MILJO = window.appSettings?.MILJO
+const NAIS_CLUSTER_NAME = window.appSettings?.NAIS_CLUSTER_NAME
 const USE_MSW = window.appSettings?.USE_MSW
 
 export function initSentry() {
@@ -23,7 +23,7 @@ export function initSentry() {
       /psplugin/,
       /dekoratoren\/client/,
     ],
-    enabled: (MILJO === 'dev-gcp' && USE_MSW === false) || MILJO === 'prod-gcp',
-    environment: MILJO,
+    enabled: (NAIS_CLUSTER_NAME === 'dev-gcp' && USE_MSW === false) || NAIS_CLUSTER_NAME === 'prod-gcp',
+    environment: NAIS_CLUSTER_NAME,
   })
 }

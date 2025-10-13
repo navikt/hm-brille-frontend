@@ -1,4 +1,4 @@
-FROM node:20.14.0-alpine AS node
+FROM node:lts-alpine AS node
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
 RUN npm config set @navikt:registry=https://npm.pkg.github.com
@@ -12,33 +12,19 @@ COPY client .
 RUN npm run build
 
 # build server
-FROM node AS server-builder
+FROM golang:1.25.1-alpine AS server-builder
 WORKDIR /app
-COPY server/package.json server/package-lock.json ./
-RUN npm ci
-COPY server .
-RUN npm run build
-
-# install server dependencies
-FROM node AS server-dependencies
-WORKDIR /app
-COPY server/package.json server/package-lock.json ./
-RUN npm ci --omit dev
+COPY server ./
+RUN go build .
 
 # runtime
-FROM gcr.io/distroless/nodejs20-debian12 AS runtime
+FROM gcr.io/distroless/static-debian12 AS runtime
 WORKDIR /app
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
 ENV TZ="Europe/Oslo"
-EXPOSE 3000
+EXPOSE 5000
 
-COPY --from=client-builder /app/dist ./client/dist
-COPY --from=server-builder /app/dist ./server/dist
+COPY --from=client-builder /app/dist ./dist
+COPY --from=server-builder /app/hm-brille-frontend .
 
-WORKDIR /app/server
-
-COPY --from=server-dependencies /app/node_modules ./node_modules
-
-CMD [ "--enable-source-maps", "-r", "dotenv/config", "dist/server.js" ]
+CMD [ "./hm-brille-frontend" ]

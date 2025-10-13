@@ -12,12 +12,12 @@ spec:
   ingresses:
     - https://brille-labs.ekstern.dev.nav.no/hjelpemidler/barnebriller
   liveness:
-    path: /hjelpemidler/barnebriller/internal/isalive
+    path: /isalive
   readiness:
-    path: /hjelpemidler/barnebriller/internal/isready
+    path: /isready
   prometheus:
-    enabled: true
-    path: /hjelpemidler/barnebriller/internal/metrics
+    enabled: false
+    path: /metrics
   replicas:
     max: 1
     min: 1
@@ -35,8 +35,6 @@ spec:
       value: ''
     - name: BRILLE_API_TARGET_AUDIENCE
       value: ''
-    - name: PORT
-      value: '5000'
     - name: USE_MSW
       value: 'true'
     - name: GIT_COMMIT

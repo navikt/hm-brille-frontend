@@ -31,7 +31,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
             tag: 'script',
             children: `window.appSettings = {
               GIT_COMMIT: 'ukjent',
-              MILJO: 'labs-gcp',
+              NAIS_CLUSTER_NAME: 'labs-gcp',
               USE_MSW: true,
             }`,
           },

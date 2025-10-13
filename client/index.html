@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{{DECORATOR_STYLES}}}
+  {{.HeadAssets}}
   <title>NAV Brille</title>
 </head>
+
 <body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-{{{DECORATOR_HEADER}}}
-<div id="root"></div>
-{{{DECORATOR_FOOTER}}}
-{{{DECORATOR_SCRIPTS}}}
-<script type="module" src="/src/main.tsx"></script>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  {{.Header}}
+  <div id="root"></div>
+  {{.Footer}}
+  {{.Scripts}}
+  <script type="module" src="/src/main.tsx"></script>
 </body>
+
 </html>
