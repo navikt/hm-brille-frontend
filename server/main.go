@@ -25,8 +25,19 @@ func main() {
 		BasePath: "/hjelpemidler/barnebriller/",
 		RootDir:  "dist",
 		DecoratorOpts: &decorator.Options{
-			Context: "samarbeidspartner",
-			Chatbot: new(bool),
+			Context:  "samarbeidspartner",
+			Chatbot:  new(bool),
+			Language: "nb",
+			AvailableLanguages: []decorator.AvailableLanguage{
+				{
+					Locale:      "nb",
+					HandleInApp: true,
+				},
+				{
+					Locale:      "nn",
+					HandleInApp: true,
+				},
+			},
 		},
 		Proxy: proxy.Map{
 			"/api/": &proxy.Options{
