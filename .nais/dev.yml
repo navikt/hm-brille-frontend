@@ -13,12 +13,12 @@ spec:
     - https://brille.intern.dev.nav.no/hjelpemidler/barnebriller
     - https://brille.ansatt.dev.nav.no/hjelpemidler/barnebriller
   liveness:
-    path: /hjelpemidler/barnebriller/internal/isalive
+    path: /isalive
   readiness:
-    path: /hjelpemidler/barnebriller/internal/isready
+    path: /isready
   prometheus:
-    enabled: true
-    path: /hjelpemidler/barnebriller/internal/metrics
+    enabled: false
+    path: /metrics
   replicas:
     max: 1
     min: 1
@@ -43,11 +43,11 @@ spec:
       value: 'http://hm-brille-api.teamdigihot.svc.cluster.local'
     - name: BRILLE_API_TARGET_AUDIENCE
       value: dev-gcp:teamdigihot:hm-brille-api
-    - name: PORT
-      value: '5000'
     - name: GIT_COMMIT
       value: {{commit}}
   accessPolicy:
     outbound:
       rules:
         - application: hm-brille-api
+        - application: nav-dekoratoren
+          namespace: personbruker

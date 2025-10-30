@@ -24,14 +24,25 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
           },
         ],
       })
+      const {
+        DECORATOR_HEAD_ASSETS: HeadAssets,
+        DECORATOR_HEADER: Header,
+        DECORATOR_FOOTER: Footer,
+        DECORATOR_SCRIPTS: Scripts,
+      } = decorator
       return {
-        html: mustache.render(html, decorator),
+        html: mustache.render(html.replaceAll('{{.', '{{{').replaceAll('}}', '}}}'), {
+          HeadAssets,
+          Header,
+          Footer,
+          Scripts,
+        }),
         tags: [
           {
             tag: 'script',
             children: `window.appSettings = {
               GIT_COMMIT: 'ukjent',
-              MILJO: 'labs-gcp',
+              NAIS_CLUSTER_NAME: 'labs-gcp',
               USE_MSW: true,
             }`,
           },

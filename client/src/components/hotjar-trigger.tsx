@@ -21,9 +21,9 @@ export const HotjarTrigger = ({ timeout }: HotjarTriggerProps, event: hotjar_eve
       window.hj =
         window.hj ||
         function () {
-          ;(window.hj.q = window.hj.q || []).push(arguments)
+          ; (window.hj.q = window.hj.q || []).push(arguments)
         }
-      if (window.appSettings.MILJO !== 'labs-gcp' && window.appSettings.MILJO !== 'dev-gcp') {
+      if (window.appSettings.NAIS_CLUSTER_NAME !== 'labs-gcp' && window.appSettings.NAIS_CLUSTER_NAME !== 'dev-gcp') {
         window.hj('trigger', event)
       }
     }, timeout)
