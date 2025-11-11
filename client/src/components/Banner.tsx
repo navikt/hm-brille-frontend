@@ -23,7 +23,7 @@ export const BannerContainer = styled.div`
 `
 
 export const BannerPanel = styled(Panel)`
-  background-color: var(--a-gray-50);
+  background-color: var(--ax-neutral-100);
   text-align: center;
   width: 100vw;
 `
@@ -32,5 +32,5 @@ export const FeilBanner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: var(--a-spacing-2);
+  margin-top: var(--ax-space-8);
 `

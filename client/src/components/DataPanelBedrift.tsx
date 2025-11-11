@@ -11,7 +11,7 @@ export const DataPanelBedrift = styled(Panel)`
   align-items: center;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  margin: var(--a-spacing-5);
+  margin: var(--ax-space-20);
 
   @media ${enhet.mobil} {
     grid-template-columns: 1fr;

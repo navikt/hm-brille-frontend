@@ -138,7 +138,7 @@ export function KravForm() {
 const Grid = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  gap: var(--a-spacing-3);
-  padding-top: var(--a-spacing-3);
+  gap: var(--ax-space-12);
+  padding-top: var(--ax-space-12);
   align-items: start;
 `

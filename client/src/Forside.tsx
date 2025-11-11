@@ -10,7 +10,7 @@ import { useApplicationContext } from './state/ApplicationContext'
 const Grid = styled.div`
   display: grid;
   grid-auto-flow: column;
-  gap: var(--a-spacing-8);
+  gap: var(--ax-space-32);
   align-items: center;
 `
 

@@ -6,7 +6,7 @@ import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
 import React from 'react'
-import { Buldings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
+import { Buildings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
 
 export interface VirksomhetProps {
   virksomhet: VirksomhetResponse
@@ -35,7 +35,7 @@ export function Virksomhet(props: VirksomhetProps) {
     <>
       <DataPanel>
         <Heading level="3" size="small">
-          <Buldings2Icon /> {`${navn}`}
+          <Buildings2Icon /> {`${navn}`}
         </Heading>
         <Data>
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>

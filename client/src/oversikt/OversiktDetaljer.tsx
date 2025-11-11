@@ -232,7 +232,7 @@ export function OversiktDetaljer() {
                   logSlettKravAvbrutt()
                 }}
               >
-                <Modal.Content>
+                <Modal.Body>
                   {!data.utbetalingsdato && (
                     <main>
                       <Heading spacing level="1" size="large">
@@ -320,7 +320,7 @@ export function OversiktDetaljer() {
                       </Knapper>
                     </main>
                   )}
-                </Modal.Content>
+                </Modal.Body>
               </Modal>
             </>
           )}

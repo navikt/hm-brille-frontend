@@ -2,6 +2,6 @@ import { Panel } from '@navikt/ds-react'
 import styled from 'styled-components'
 
 export const DataPanel = styled(Panel)`
-  margin-bottom: var(--a-spacing-5);
-  background-color: var(--a-gray-50);
+  margin-bottom: var(--ax-space-20);
+  background-color: var(--ax-neutral-100);
 `

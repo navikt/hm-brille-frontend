@@ -81,9 +81,9 @@ const ØyeEtikett = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 120px 180px 180px;
-  gap: var(--a-spacing-5);
-  padding-top: var(--a-spacing-3);
-  padding-bottom: var(--a-spacing-3);
+  gap: var(--ax-space-20);
+  padding-top: var(--ax-space-12);
+  padding-bottom: var(--ax-space-12);
   align-items: start;
   @media ${enhet.mobil} {
     grid-template-columns: 100%;
