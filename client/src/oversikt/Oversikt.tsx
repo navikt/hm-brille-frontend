@@ -1,8 +1,8 @@
 import { useGet } from '../useGet'
 import ScrollToTop from '../components/ScrollToTop'
-import { Panel, GuidePanel, LinkPanel, Alert, Loader, Pagination, Detail, Heading, Tag } from '@navikt/ds-react'
+import { GuidePanel, Alert, Loader, Pagination, Detail, Heading, Tag, Box, LinkCard } from '@navikt/ds-react'
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
 import { Dato } from '../components/Dato'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +55,7 @@ export function Oversikt() {
                 <li>{t('oversikt.intro.pnkt2')}</li>
               </ul>
             </GuidePanel>
-            <Panel border={false}>
+            <Box.New>
               <ul
                 style={{
                   listStyleType: 'none',
@@ -65,26 +65,21 @@ export function Oversikt() {
                 {data?.items.map((it, idx) => {
                   return (
                     <li key={idx} style={{ margin: '0.5rem 0' }}>
-                      <LinkPanel
-                        tabIndex={0}
-                        onClick={() => navigate('/oversikt/' + it.id)}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter') {
-                            navigate('/oversikt/' + it.id)
-                          }
-                        }}
-                        style={{ cursor: 'pointer' }}
-                        border={false}
-                      >
-                        <LinkPanel.Title className="navds-heading--small"> {it.barnsNavn} </LinkPanel.Title>
-                        {/* TODO: Følge designsystemet og ha svart overskrift som blir blå ved mouseOver? */}
-                        <LinkPanel.Description>
+                      <LinkCard tabIndex={0}>
+                        <LinkCard.Title>
+                          <LinkCard.Anchor asChild>
+                            <Link to={`/oversikt/${it.id}`}>{it.barnsNavn}</Link>
+                          </LinkCard.Anchor>
+                        </LinkCard.Title>
+                        <LinkCard.Description>
                           {t('oversikt.krav_beskrivelse_linje1')} <Dato verdi={it.opprettet} formatLong={true}></Dato>
                           <br />
                           {t('oversikt.krav_beskrivelse_linje2', {
                             orgnavn: it.orgnavn,
                             bestillingsreferanse: it.bestillingsreferanse,
                           })}
+                        </LinkCard.Description>
+                        <LinkCard.Footer>
                           {it.slettet && (
                             <div style={{ marginTop: '0.5rem' }}>
                               <Tag variant="warning" size="small">
@@ -106,14 +101,14 @@ export function Oversikt() {
                               </Tag>
                             </div>
                           )}
-                        </LinkPanel.Description>
-                      </LinkPanel>
-                      <hr style={{ margin: '0.5rem var(--ax-space-16)' }} />
+                        </LinkCard.Footer>
+                      </LinkCard>
+                      {/* <hr style={{ margin: '0.5rem var(--ax-space-16)' }} /> Virker ikke som at denne trengs lenger med nye LinkCards som splittes tydeligere*/}
                     </li>
                   )
                 })}
               </ul>
-            </Panel>
+            </Box.New>
             <div style={{ textAlign: 'right', margin: '1rem 0 2rem' }}>
               <Detail>
                 {t('oversikt.pagination', {

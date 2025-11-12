@@ -180,5 +180,6 @@
   "helmet.title.kravdetaljer": "Detaljar for innsendt krav - Brillestønad",
   "info.satsendring.tittel": "Endring av satsar",
   "info.satsendring.tekst": "Satsane endrast for briller bestilt etter 1. januar. Sjå dei nye satsane på",
-  "info.satsendring.lenketekst": "nav.no/briller-til-barn (opnast i ny side)"
+  "info.satsendring.lenketekst": "nav.no/briller-til-barn (opnast i ny side)",
+  "felles.duMåBekreftefølgende": "Du må stadfesta følgjande"
 }

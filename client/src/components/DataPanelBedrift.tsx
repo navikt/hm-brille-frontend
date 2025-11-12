@@ -1,8 +1,8 @@
-import { Panel } from '@navikt/ds-react'
+import { Box } from '@navikt/ds-react'
 import styled from 'styled-components'
 import { enhet } from '../enhet'
 
-export const DataPanelBedrift = styled(Panel)`
+export const DataPanelBedrift = styled(Box.New)`
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: 3em;
@@ -11,7 +11,10 @@ export const DataPanelBedrift = styled(Panel)`
   align-items: center;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  margin: var(--ax-space-20);
+  padding-inline: 1rem;
+  margin: var(--a-spacing-5);
+  border: 1px solid black;
+
 
   @media ${enhet.mobil} {
     grid-template-columns: 1fr;

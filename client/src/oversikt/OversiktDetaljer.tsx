@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
-import { Button, Panel, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from '@navikt/ds-react'
+import { Button, Box, Heading, Loader, Alert, Modal, BodyLong, Label, Link } from '@navikt/ds-react'
 import React, { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import {
@@ -17,7 +17,6 @@ import { Nullable, OversiktDetaljerResponse, SlettetAvType } from '../types'
 import { useGet } from '../useGet'
 import styled from 'styled-components'
 import { Dato } from '../components/Dato'
-import { Knapper } from '../components/Knapper'
 import { beløp } from '../beløp'
 import { Trans, useTranslation } from 'react-i18next'
 import { http } from '../http'
@@ -116,17 +115,17 @@ export function OversiktDetaljer() {
                   )}
                 </div>
               </div>
-              <Panel border={false} style={{ marginTop: '1rem' }}>
+              <Box.New background="default" padding="4" marginBlock="4 0" borderRadius="large">
                 <div style={{ textAlign: 'right' }}>
                   <Label>{t('oversikt.krav_detaljer.mottatt')}</Label> <Dato verdi={data.opprettet} />
                 </div>
                 {!data.utbetalingsdato && !data.utbetalingsstatus && !data.slettet && (
-                  <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                  <Alert variant="info" size="medium" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.ikke_utbetalt')}
                   </Alert>
                 )}
                 {data.slettet && (
-                  <Alert variant="warning" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                  <Alert variant="warning" size="medium" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {data.slettetAvType === SlettetAvType.INNSENDER
                       ? t('oversikt.utbetalingsstatus.slettet.innsender')
                       : t('oversikt.utbetalingsstatus.slettet.nav_admin')}{' '}
@@ -134,12 +133,12 @@ export function OversiktDetaljer() {
                   </Alert>
                 )}
                 {!data.slettet && data.utbetalingsdato && (
-                  <Alert variant="success" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                  <Alert variant="success" size="medium" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.utbetalt')} <Dato verdi={data.utbetalingsdato} />.
                   </Alert>
                 )}
                 {!data.slettet && !data.utbetalingsdato && data.utbetalingsstatus && (
-                  <Alert variant="info" size="medium" fullWidth style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                  <Alert variant="info" size="medium" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
                     {t('oversikt.utbetalingsstatus.utbetales')}
                   </Alert>
                 )}
@@ -223,10 +222,14 @@ export function OversiktDetaljer() {
                     })}
                   </Heading>
                 </div>
-              </Panel>
+              </Box.New>
               <Modal
                 open={modalDeleteOpen}
                 aria-label="Slett krav dialog"
+                header={{
+                  heading: !data.utbetalingsdato ? t('oversikt.slett_modal.overskrift') : t('oversikt.slett_modal.allerede_utbetalt_overskrift'),
+                  closeButton: false
+                }}
                 onClose={() => {
                   setModalDeleteOpen(false)
                   logSlettKravAvbrutt()
@@ -234,10 +237,7 @@ export function OversiktDetaljer() {
               >
                 <Modal.Body>
                   {!data.utbetalingsdato && (
-                    <main>
-                      <Heading spacing level="1" size="large">
-                        {t('oversikt.slett_modal.overskrift')}
-                      </Heading>
+                    <div>
                       <BodyLong spacing>{t('oversikt.slett_modal.ingress')}</BodyLong>
                       <Heading level="2" size="medium">
                         {t('oversikt.slett_modal.konsekvenser')}
@@ -253,38 +253,14 @@ export function OversiktDetaljer() {
                       </ul>
 
                       {modalSlettFeil && (
-                        <Alert variant="error" fullWidth style={{ marginBottom: '1rem' }}>
+                        <Alert variant="error" style={{ marginBottom: '1rem' }}>
                           {t('oversikt.slett_modal.slett_feilet')}
                         </Alert>
                       )}
-
-                      <Knapper>
-                        <Button
-                          icon={<TrashIcon aria-hidden />}
-                          variant="danger"
-                          onClick={(e) => slettKrav(data.id)}
-                          disabled={modalSlettButtonDisabled}
-                          loading={modalSlettButtonDisabled}
-                        >
-                          {t('oversikt.slett_modal.knapp_slett')}
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          onClick={() => {
-                            setModalDeleteOpen(false)
-                            logSlettKravAvbrutt()
-                          }}
-                        >
-                          {t('oversikt.slett_modal.knapp_lukk')}
-                        </Button>
-                      </Knapper>
-                    </main>
+                    </div>
                   )}
                   {data.utbetalingsdato && (
-                    <main>
-                      <Heading spacing level="1" size="large">
-                        {t('oversikt.slett_modal.allerede_utbetalt_overskrift')}
-                      </Heading>
+                    <div>
                       <BodyLong spacing>{t('oversikt.slett_modal.allerede_utbetalt_beskrivelse1')}</BodyLong>
                       <BodyLong spacing>
                         <Trans t={t} i18nKey="oversikt.slett_modal.allerede_utbetalt_beskrivelse2">
@@ -313,14 +289,38 @@ export function OversiktDetaljer() {
                           <></>
                         </Trans>
                       </BodyLong>
-                      <Knapper>
-                        <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
-                          {t('oversikt.slett_modal.knapp_lukk')}
-                        </Button>
-                      </Knapper>
-                    </main>
+                    </div>
                   )}
                 </Modal.Body>
+                <Modal.Footer>
+                  {!data.utbetalingsdato && (
+                    <>
+                      <Button
+                        icon={<TrashIcon aria-hidden />}
+                        variant="danger"
+                        onClick={(e) => slettKrav(data.id)}
+                        disabled={modalSlettButtonDisabled}
+                        loading={modalSlettButtonDisabled}
+                      >
+                        {t('oversikt.slett_modal.knapp_slett')}
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          setModalDeleteOpen(false)
+                          logSlettKravAvbrutt()
+                        }}
+                      >
+                        {t('oversikt.slett_modal.knapp_lukk')}
+                      </Button>
+                    </>
+                  )}
+                  {data.utbetalingsdato && (
+                    <Button variant="secondary" onClick={() => setModalDeleteOpen(false)}>
+                      {t('oversikt.slett_modal.knapp_lukk')}
+                    </Button>
+                  )}
+                </Modal.Footer>
               </Modal>
             </>
           )}

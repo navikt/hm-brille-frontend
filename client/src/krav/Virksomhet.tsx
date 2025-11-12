@@ -1,7 +1,6 @@
-import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Box, Button, Heading } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { Data } from '../components/Data'
-import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
@@ -33,7 +32,7 @@ export function Virksomhet(props: VirksomhetProps) {
 
   return (
     <>
-      <DataPanel>
+      <Box.New background='neutral-soft' marginBlock="0 5" padding="4" borderRadius="large">
         <Heading level="3" size="small">
           <Buildings2Icon /> {`${navn}`}
         </Heading>
@@ -41,7 +40,7 @@ export function Virksomhet(props: VirksomhetProps) {
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           {adresse && <Datum label="krav.ledetekst_adresse">{adresse}</Datum>}
         </Data>
-      </DataPanel>
+      </Box.New>
       <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<FloppydiskIcon aria-hidden />}>
         {t('krav.knapp_bruk')}
       </Button>

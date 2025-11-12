@@ -1,21 +1,12 @@
 import React from 'react'
-import { BodyLong, Heading, LinkPanel, List, Panel } from '@navikt/ds-react'
-import { useNavigate } from 'react-router-dom'
+import { BodyLong, Box, Heading, LinkCard, List } from '@navikt/ds-react'
+import { Link } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import { LenkeMedLogging } from './components/LenkeMedLogging'
-import styled from 'styled-components'
 import { InnsendteKravIkon, SendKravIkon } from './resources/ikoner/Ikon'
 import { useApplicationContext } from './state/ApplicationContext'
 
-const Grid = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--ax-space-32);
-  align-items: center;
-`
-
 export function Forside() {
-  const navigate = useNavigate()
   const { t } = useTranslation()
 
   // Ikke husk krav hvis man går tilbake til forsiden (selv om man ikke bruker avbryt-knappen)
@@ -28,50 +19,42 @@ export function Forside() {
         <Heading level="1" size="xlarge" style={{ textAlign: 'center' }}>
           {t('forside.overskrift')}
         </Heading>
-        <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
-          <LinkPanel
-            tabIndex={0}
-            onClick={() => navigate('/krav')}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                navigate('/krav')
-              }
-            }}
-            border={false}
-          >
-            <Grid>
-              <SendKravIkon />
-              <div>
-                <LinkPanel.Title>{t('forside.overskrift_send_krav')}</LinkPanel.Title>
-                <LinkPanel.Description>{t('forside.overskrift_send_krav.beskrivelse')}</LinkPanel.Description>
-              </div>
-            </Grid>
-          </LinkPanel>
+        <div style={{ marginTop: "2rem" }}>
+          <LinkCard tabIndex={0}>
+            <Box.New asChild borderRadius="large">
+              <LinkCard.Icon>
+                <SendKravIkon />
+              </LinkCard.Icon>
+            </Box.New>
+            <LinkCard.Title>
+              <LinkCard.Anchor asChild>
+                <Link to="/krav"> {t('forside.overskrift_send_krav')} </Link>
+              </LinkCard.Anchor>
+            </LinkCard.Title>
+            <LinkCard.Description>
+              {t('forside.overskrift_send_krav.beskrivelse')}
+            </LinkCard.Description>
+          </LinkCard>
         </div>
-        <div style={{ cursor: 'pointer', marginTop: '2rem' }}>
-          <LinkPanel
-            tabIndex={0}
-            onClick={() => navigate('/oversikt')}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                navigate('/oversikt')
-              }
-            }}
-            border={false}
-          >
-            <Grid>
-              <InnsendteKravIkon />
-              <div>
-                <LinkPanel.Title>{t('forside.overskrift_innsendte_krav')}</LinkPanel.Title>
-                <LinkPanel.Description>
-                  {t('forside.overskrift_innsendte_krav.beskrivelse1')} <br />{' '}
-                  {t('forside.overskrift_innsendte_krav.beskrivelse2')}
-                </LinkPanel.Description>
-              </div>
-            </Grid>
-          </LinkPanel>
+        <div style={{ marginTop: "2rem" }}>
+          <LinkCard tabIndex={0}>
+            <Box.New asChild borderRadius="large">
+              <LinkCard.Icon>
+                <InnsendteKravIkon />
+              </LinkCard.Icon>
+            </Box.New>
+            <LinkCard.Title>
+              <LinkCard.Anchor asChild>
+                <Link to="/oversikt">{t('forside.overskrift_innsendte_krav')}</Link>
+              </LinkCard.Anchor>
+            </LinkCard.Title>
+            <LinkCard.Description>
+              {t('forside.overskrift_innsendte_krav.beskrivelse1')} <br />{' '}
+              {t('forside.overskrift_innsendte_krav.beskrivelse2')}
+            </LinkCard.Description>
+          </LinkCard>
         </div>
-        <Panel style={{ marginTop: '2rem' }}>
+        <Box.New marginBlock="8 0" background='default' padding="4" borderRadius="xlarge" borderWidth='1' borderColor='neutral-subtleA'>
           <Heading level="2" size="large" spacing={true} style={{ textAlign: 'center', marginBottom: '2rem' }}>
             {t('forside.overskrift_om_ordningen')}
           </Heading>
@@ -90,7 +73,7 @@ export function Forside() {
               <></>
             </Trans>
           </BodyLong>
-        </Panel>
+        </Box.New>
       </main>
     </div>
   )
