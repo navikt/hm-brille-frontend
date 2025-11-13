@@ -10,13 +10,12 @@ import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
 import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
-import { DATO_FOR_LANSERING, validator, validering } from '../validering'
+import { validator, validering } from '../validering'
 import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
-import { DatePicker, useDatepicker } from '@navikt/ds-react'
+import { useDatepicker } from '@navikt/ds-react'
 import { Bestillingsdato } from './Bestillingsdato'
 import styled from 'styled-components'
-import { enhet } from '../enhet'
 
 export interface KravFormData {
   brillestyrke: Brilleseddel
@@ -138,7 +137,7 @@ export function KravForm() {
 const Grid = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  gap: var(--a-spacing-3);
-  padding-top: var(--a-spacing-3);
+  gap: var(--ax-space-12);
+  padding-top: var(--ax-space-12);
   align-items: start;
 `

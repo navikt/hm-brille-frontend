@@ -1,4 +1,4 @@
-import { Panel } from '@navikt/ds-react'
+import { Box } from '@navikt/ds-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -12,7 +12,7 @@ export function Banner(props: BannerProps) {
 
   return (
     <BannerContainer>
-      <BannerPanel>{props.children}</BannerPanel>
+      <Box.New background='neutral-soft' padding="4" width="100%" style={{ textAlign: 'center' }}>{props.children}</Box.New>
     </BannerContainer>
   )
 }
@@ -22,15 +22,9 @@ export const BannerContainer = styled.div`
   place-items: center;
 `
 
-export const BannerPanel = styled(Panel)`
-  background-color: var(--a-gray-50);
-  text-align: center;
-  width: 100vw;
-`
-
 export const FeilBanner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: var(--a-spacing-2);
+  margin-top: var(--ax-space-8);
 `

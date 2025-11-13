@@ -81,7 +81,7 @@ export function KravKvittering() {
 
 const Knapperad = styled.div`
   display: flex;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
   @media print {
     display: none;
   }

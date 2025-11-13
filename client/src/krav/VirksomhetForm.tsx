@@ -80,12 +80,12 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
 export const VirksomhetPanel = styled.div`
   display: flex;
   align-items: center;
-  gap: var(--a-spacing-5);
+  gap: var(--ax-space-20);
 `
 
 const SøkContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: var(--a-spacing-3);
+  gap: var(--ax-space-12);
   align-items: flex-end;
 `

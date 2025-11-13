@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react'
+import { Box, Heading } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
@@ -80,12 +80,12 @@ export function Krav() {
         />
       </Avstand>
       {!harValgtVirksomhet ? (
-        <Panel>
+        <Box.New padding="4" borderRadius="large">
           <Heading level="2" size="medium" spacing>
             {t('krav.overskrift_foretak')}
           </Heading>
           <VirksomhetForm tidligereBrukteVirksomheter={tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner} />
-        </Panel>
+        </Box.New>
       ) : (
         <>
           <Bedrift
@@ -101,7 +101,7 @@ export function Krav() {
               }))
             }}
           />
-          <Panel style={{ marginTop: '2rem' }}>
+          <Box.New marginBlock="8" padding="4">
             <Heading level="2" size="medium" spacing>
               {t('krav.overskrift_om_barnet')}
             </Heading>
@@ -123,7 +123,7 @@ export function Krav() {
                   <IkkeFunnet />
                 </Avstand>
               ))}
-          </Panel>
+          </Box.New>
         </>
       )}
     </KravSteg>

@@ -2,7 +2,7 @@ import { BodyLong, BodyShort, Button, Heading, Label } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { DataPanelBedrift } from '../components/DataPanelBedrift'
-import { Buldings2Icon } from '@navikt/aksel-icons'
+import { Buildings2Icon } from '@navikt/aksel-icons'
 
 export interface BedriftProps {
   orgnr?: string
@@ -35,7 +35,7 @@ export function Bedrift(props: BedriftProps) {
           {t('krav.knapp_velg_annen_virksomhet')}
         </Button>
       </div>
-      <Buldings2Icon fontSize="3rem" style={{ marginRight: '3rem' }} />
+      <Buildings2Icon fontSize="3rem" style={{ marginRight: '3rem' }} />
     </DataPanelBedrift>
   )
 }

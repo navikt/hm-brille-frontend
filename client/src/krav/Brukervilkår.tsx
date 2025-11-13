@@ -1,4 +1,4 @@
-import { BodyLong, Button, ConfirmationPanel, Heading, Loader } from '@navikt/ds-react'
+import { BodyLong, Button, Checkbox, CheckboxGroup, Heading, Loader } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
@@ -16,16 +16,24 @@ export interface BrukervilkårProps {
 export function Brukervilkår(props: BrukervilkårProps) {
   const { loading, onGodta } = props
   const { t } = useTranslation()
-
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm<{ godtatt: boolean }>({
     defaultValues: {
       godtatt: false,
     },
   })
+  const godtatt = watch('godtatt')
+
+  let dataColor = 'warning'
+  if (errors.godtatt?.message) {
+    dataColor = 'danger'
+  } else if (godtatt) {
+    dataColor = 'success'
+  }
 
   if (loading) {
     return (
@@ -64,13 +72,19 @@ export function Brukervilkår(props: BrukervilkårProps) {
               return value || t('brukervilkår.validering_godtatt')
             },
           }}
-          render={({ field }) => (
-            <ConfirmationPanel
-              error={errors.godtatt?.message}
-              label={t('brukervilkår.ledetekst_godtatt')}
-              checked={field.value}
-              {...field}
-            />
+          render={({ field: { value, onChange, onBlur } }) => (
+            <div data-color={dataColor}>
+              <div className="aksel-confirmation-panel__inner">
+                <CheckboxGroup legend={t('felles.duMåBekreftefølgende')} hideLegend error={errors.godtatt?.message}>
+                  <Checkbox
+                    onBlur={onBlur}
+                    checked={value}
+                    onChange={onChange}>
+                    {t('brukervilkår.ledetekst_godtatt')}
+                  </Checkbox>
+                </CheckboxGroup>
+              </div>
+            </div>
           )}
         />
         <Avstand marginBottom={5} />

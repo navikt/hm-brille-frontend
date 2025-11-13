@@ -1,12 +1,11 @@
-import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Box, Button, Heading } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { Data } from '../components/Data'
-import { DataPanel } from '../components/DataPanel'
 import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
 import React from 'react'
-import { Buldings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
+import { Buildings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
 
 export interface VirksomhetProps {
   virksomhet: VirksomhetResponse
@@ -33,15 +32,15 @@ export function Virksomhet(props: VirksomhetProps) {
 
   return (
     <>
-      <DataPanel>
+      <Box.New background='neutral-soft' marginBlock="0 5" padding="4" borderRadius="large">
         <Heading level="3" size="small">
-          <Buldings2Icon /> {`${navn}`}
+          <Buildings2Icon /> {`${navn}`}
         </Heading>
         <Data>
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           {adresse && <Datum label="krav.ledetekst_adresse">{adresse}</Datum>}
         </Data>
-      </DataPanel>
+      </Box.New>
       <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<FloppydiskIcon aria-hidden />}>
         {t('krav.knapp_bruk')}
       </Button>
