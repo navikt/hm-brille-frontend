@@ -1,4 +1,4 @@
-import { Box, Heading } from '@navikt/ds-react'
+import { Alert, Box, Heading } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
@@ -13,15 +13,14 @@ import type {
 import { useGet } from '../useGet'
 import { usePost } from '../usePost'
 import { logSkjemaStartet } from '../utils/amplitude'
-import { Barn } from './Barn'
+import { Barn } from './Barn/Barn'
 import { Brukervilkår } from './Brukervilkår'
 import { HentBarnForm } from './HentBarnForm'
 import { IkkeFunnet } from './IkkeFunnet'
 import { KravForm } from './KravForm'
 import { KravSteg } from './KravSteg'
 import { VirksomhetForm } from './VirksomhetForm'
-import { Bedrift } from './Bedrift'
-import { Endringsvarsel } from '@navikt/hm-react-components'
+import { Bedrift } from './Bedrift/Bedrift'
 
 export function Krav() {
   const { t } = useTranslation()
@@ -72,12 +71,10 @@ export function Krav() {
     <KravSteg>
       <ScrollToTop />
       <Avstand marginBottom={5}>
-        <Endringsvarsel
-          tittel={t('info.satsendring.tittel')}
-          tekst={t('info.satsendring.tekst')}
-          lenketekst={t('info.satsendring.lenketekst')}
-          lenke="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye"
-        />
+        <Alert inline variant="info">
+          <Heading size="small">{t('info.satsendring.tittel')}</Heading>
+          {t('info.satsendring.tekst')} <a href="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye">{t('info.satsendring.lenketekst')}</a>
+        </Alert>
       </Avstand>
       {!harValgtVirksomhet ? (
         <Box.New padding="4" borderRadius="large">

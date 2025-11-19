@@ -1,10 +1,8 @@
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, HStack, TextField } from '@navikt/ds-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
-import { Tekstfelt } from '../components/Tekstfelt'
 import { http } from '../http'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Virksomhet as VirksomhetType, VirksomhetResponse } from '../types'
@@ -30,13 +28,14 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
   return (
     <>
       <form role="search" onSubmit={(e) => e.preventDefault()} autoComplete="off">
-        <SøkContainer>
-          <Tekstfelt
+        <HStack gap="3" align="end">
+          <TextField
             label={t('krav.ledetekst_orgnr')}
             size="medium"
             hideLabel={false}
             value={orgnr}
             onChange={(e) => setOrgnr(e.target.value)}
+            style={{ maxWidth: '330px' }}
           />
           <Button
             onClick={async () => {
@@ -50,7 +49,7 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
           >
             {t('krav.knapp_slå_opp')}
           </Button>
-        </SøkContainer>
+        </HStack>
       </form>
 
       {virksomhet && (
@@ -64,28 +63,15 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
             {t('krav.tidligere_brukte_virksomheter')}
           </Heading>
           {tidligereBrukteVirksomheter.map((it) => (
-            <VirksomhetPanel key={it.orgnr}>
+            <HStack key={it.orgnr} align="center" gap="5">
               <Button variant="tertiary" type="button" onClick={() => velgVirksomhet(it)}>
                 {t('krav.knapp_bruk')}
               </Button>
               <BodyLong>{`${organisasjonsnummer(it.orgnr)} ${it.navn}`}</BodyLong>
-            </VirksomhetPanel>
+            </HStack>
           ))}
         </Avstand>
       )}
     </>
   )
 }
-
-export const VirksomhetPanel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: var(--ax-space-20);
-`
-
-const SøkContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: var(--ax-space-12);
-  align-items: flex-end;
-`

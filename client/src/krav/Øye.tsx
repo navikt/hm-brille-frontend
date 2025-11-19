@@ -1,8 +1,6 @@
-import { Heading, Select } from '@navikt/ds-react'
+import { Heading, HGrid, Select } from '@navikt/ds-react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-import { enhet } from '../enhet'
 import type { Brilleseddel } from '../types'
 import { MAX_SFÆRE, MAX_STYRKE, MAX_SYLINDER, MIN_STYRKE } from './config'
 import { FormatertStyrke } from './FormatertStyrke'
@@ -15,12 +13,12 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
     formState: { errors },
   } = useFormContext<{ brillestyrke: Brilleseddel }>()
   return (
-    <Grid>
-      <ØyeEtikett>
+    <HGrid columns={{ sm: '100%', md: '120px 180px 180px' }} gap="5" paddingBlock="3" align="start">
+      <div style={{ alignSelf: 'center' }}>
         <Heading level="3" size="small">
           {t(`krav.${type}_øye`)}
         </Heading>
-      </ØyeEtikett>
+      </div>
       <Controller
         name={`brillestyrke.${type}Sfære`}
         control={control}
@@ -69,26 +67,9 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
           </Select>
         )}
       />
-    </Grid>
+    </HGrid>
   )
 }
-
-const ØyeEtikett = styled.div`
-  justify-items: auto;
-  align-self: center;
-`
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 120px 180px 180px;
-  gap: var(--ax-space-20);
-  padding-top: var(--ax-space-12);
-  padding-bottom: var(--ax-space-12);
-  align-items: start;
-  @media ${enhet.mobil} {
-    grid-template-columns: 100%;
-  }
-`
 
 function range(start: number, stop: number, step: number = 0.25): number[] {
   const size = (stop - start) * 4 + 1

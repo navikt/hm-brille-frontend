@@ -1,11 +1,9 @@
-import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, Heading, HGrid, HStack } from '@navikt/ds-react'
 import React, { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
-import styled from 'styled-components'
 import { Avstand } from '../components/Avstand'
 import { Beløp } from '../components/Beløp'
-import { Data } from '../components/Data'
 import { Dato } from '../components/Dato'
 import { Datum } from '../components/Datum'
 import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
@@ -54,7 +52,7 @@ export function KravKvittering() {
         <Heading level="2" size="medium">
           {t('krav.overskrift_kvittering')}
         </Heading>
-        <Data>
+        <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           <Datum label="krav.ledetekst_opprettet_dato">
             <Dato verdi={opprettet}></Dato>
@@ -67,22 +65,14 @@ export function KravKvittering() {
           </Datum>
           <Datum label="krav.ledetekst_deres_referansenr">{bestillingsreferanse}</Datum>
           <Datum label="krav.ledetekst_navs_referansenr">{id}</Datum>
-        </Data>
-        <Knapperad>
+        </HGrid>
+        <HStack gap="4" className='no-print'>
           <Button variant="secondary" onClick={handlePrint} icon={<PrinterSmallIcon aria-hidden />}>
             {t('krav.knapp_skriv_ut_kvittering')}
           </Button>
           <LenkeMedLogging href={baseUrl('/')}>{t('krav.lenke_til_forsiden')}</LenkeMedLogging>
-        </Knapperad>
+        </HStack>
       </KravSteg>
     </div>
   )
 }
-
-const Knapperad = styled.div`
-  display: flex;
-  gap: var(--ax-space-16);
-  @media print {
-    display: none;
-  }
-`

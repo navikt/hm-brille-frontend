@@ -1,0 +1,5 @@
+.barnGrid {
+  @media (max-width: 480px) {
+    justify-items: center;
+  }
+}

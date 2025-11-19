@@ -1,7 +1,6 @@
 import { Search } from '@navikt/ds-react'
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import { validator, validering } from '../validering'
 
 export interface HentBarnFormData {
@@ -31,24 +30,18 @@ export function HentBarnForm(props: HentBarnFormProps) {
           validate: validator(validering.fnr, t('krav.validering_fnr_ugyldig')),
         }}
         render={({ field }) => (
-          <Søkefelt>
-            <Search
-              label={t('krav.ledetekst_barnets_fnr')}
-              hideLabel={false}
-              maxLength={11}
-              size="medium"
-              error={errors.fnr?.message}
-              {...field}
-            >
-              <Search.Button type="submit" loading={isSubmitting} />
-            </Search>
-          </Søkefelt>
+          <Search
+            label={t('krav.ledetekst_barnets_fnr')}
+            hideLabel={false}
+            maxLength={11}
+            size="medium"
+            error={errors.fnr?.message}
+            {...field}
+          >
+            <Search.Button type="submit" loading={isSubmitting} />
+          </Search>
         )}
       />
     </form>
   )
 }
-
-const Søkefelt = styled.div`
-  //max-width: 330px;
-`

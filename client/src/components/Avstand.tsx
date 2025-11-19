@@ -1,5 +1,4 @@
-import type { ReactNode } from 'react'
-import styled from 'styled-components'
+import type { CSSProperties, ReactNode } from 'react'
 
 export interface AvstandProps {
   children?: ReactNode | undefined
@@ -18,34 +17,30 @@ export interface AvstandProps {
 
 export function Avstand(props: AvstandProps) {
   const { children, centered, ...rest } = props
+  const style = getSpacingStyle(rest, centered)
+
   return (
-    <Box aria-hidden={!children} $centered={centered} {...rest}>
+    <div aria-hidden={!children} style={style}>
       {children}
-    </Box>
+    </div>
   )
 }
 
-type MarginPadding = Omit<AvstandProps, 'centered' | 'children'> & {
-  $centered?: boolean
-}
+type MarginPadding = Omit<AvstandProps, 'centered' | 'children'>
 
-const Box = styled.div<MarginPadding>`
-  ${spacer}
-  ${(props) => ({ textAlign: props.$centered ? 'center' : 'unset' })}
-`
-
-export function spacer(props: MarginPadding) {
+function getSpacingStyle(props: MarginPadding, centered?: boolean): CSSProperties {
   return {
     margin: props.margin,
-    'margin-top': spacingVar(props.marginTop),
-    'margin-right': spacingVar(props.marginRight),
-    'margin-bottom': spacingVar(props.marginBottom),
-    'margin-left': spacingVar(props.marginLeft),
+    marginTop: spacingVar(props.marginTop),
+    marginRight: spacingVar(props.marginRight),
+    marginBottom: spacingVar(props.marginBottom),
+    marginLeft: spacingVar(props.marginLeft),
     padding: props.padding,
-    'padding-top': spacingVar(props.paddingTop),
-    'padding-right': spacingVar(props.paddingRight),
-    'padding-bottom': spacingVar(props.paddingBottom),
-    'padding-left': spacingVar(props.paddingLeft),
+    paddingTop: spacingVar(props.paddingTop),
+    paddingRight: spacingVar(props.paddingRight),
+    paddingBottom: spacingVar(props.paddingBottom),
+    paddingLeft: spacingVar(props.paddingLeft),
+    textAlign: centered ? 'center' : 'unset',
   }
 }
 

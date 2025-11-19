@@ -1,8 +1,7 @@
-import { Button } from '@navikt/ds-react'
+import { Button, HStack } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Knapper } from '../components/Knapper'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { OpprettKravRequest, OpprettKravResponse, Vilkårsgrunnlag } from '../types'
 import { usePost } from '../usePost'
@@ -33,7 +32,7 @@ export function SendInnKrav(props: SendInnKravProps) {
   }, [sendInnKravData])
 
   return (
-    <Knapper>
+    <HStack gap="3" justify="start" marginBlock="4 0">
       <Button
         loading={sendInnKravLoading}
         onClick={async () => {
@@ -50,6 +49,6 @@ export function SendInnKrav(props: SendInnKravProps) {
         {t('krav.knapp_send_inn_kravet')}
       </Button>
       <AvbrytKrav />
-    </Knapper>
+    </HStack>
   )
 }

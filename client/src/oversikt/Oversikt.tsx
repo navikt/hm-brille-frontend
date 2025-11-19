@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { OversiktResponse } from '../types'
 import { Dato } from '../components/Dato'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styles from './Oversikt.module.css'
 
 function useQuery() {
   const { search } = useLocation()
@@ -120,7 +120,7 @@ export function Oversikt() {
             </div>
             {data.numberOfPages > 1 && (
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <PaginationCentering>
+                <div className={styles.paginationContainer}>
                   <Pagination
                     size="medium"
                     page={currPage}
@@ -130,7 +130,7 @@ export function Oversikt() {
                     siblingCount={1}
                     prevNextTexts
                   />
-                </PaginationCentering>
+                </div>
               </div>
             )}
           </>
@@ -139,13 +139,3 @@ export function Oversikt() {
     </div>
   )
 }
-
-const PaginationCentering = styled.div`
-  ul.navds-pagination__list {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  button.navds-pagination--invisible {
-    display: none;
-  }
-`

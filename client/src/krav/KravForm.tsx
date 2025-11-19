@@ -1,12 +1,10 @@
-import { Alert, Button, Heading, HelpText } from '@navikt/ds-react'
+import { Alert, Button, Heading, HelpText, HGrid, HStack, TextField } from '@navikt/ds-react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Avstand } from '../components/Avstand'
 import { hotjar_event, HotjarTrigger } from '../components/hotjar-trigger'
-import { Knapper } from '../components/Knapper'
-import { Tekstfelt } from '../components/Tekstfelt'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { Brilleseddel } from '../types'
 import { logSkjemastegFullfoert, SkjemaSteg } from '../utils/amplitude'
@@ -15,7 +13,6 @@ import { AvbrytKrav } from './AvbrytKrav'
 import { BrillestyrkeForm } from './BrillestyrkeForm'
 import { useDatepicker } from '@navikt/ds-react'
 import { Bestillingsdato } from './Bestillingsdato'
-import styled from 'styled-components'
 
 export interface KravFormData {
   brillestyrke: Brilleseddel
@@ -77,12 +74,13 @@ export function KravForm() {
               <Bestillingsdato />
             </Avstand>
             <Avstand marginBottom={8}>
-              <Tekstfelt
+              <TextField
                 id="brillepris"
                 label={t('krav.ledetekst_brillepris')}
                 description={t('krav.ledetekst_brillepris_desc')}
                 htmlSize={15}
                 error={errors.brillepris?.message}
+                style={{ maxWidth: '330px' }}
                 {...methods.register('brillepris', {
                   required: t('krav.validering_brillepris_påkrevd'),
                   validate: validator(validering.beløp, t('krav.validering_brillepris_ugyldig')),
@@ -97,18 +95,19 @@ export function KravForm() {
               )}
             </Avstand>
             <Avstand marginBottom={10}>
-              <Tekstfelt
+              <TextField
                 id="bestillingsreferanse"
                 label={
-                  <Grid>
+                  <HGrid columns="auto auto" gap="3" paddingBlock="3 0">
                     {t('krav.ledetekst_deres_referansenr')}
                     <HelpText title="Hvor kommer dette fra?" placement="right">
                       {t('krav.hjelpetekst_referansenr')}
                     </HelpText>
-                  </Grid>
+                  </HGrid>
                 }
                 description={t('krav.ledetekst_bestillingsreferanse_desc')}
                 error={errors.bestillingsreferanse?.message}
+                style={{ maxWidth: '330px' }}
                 {...methods.register('bestillingsreferanse', {
                   required: t('krav.validering_bestillingsreferanse_påkrevd'),
                   validate: validator(
@@ -121,23 +120,15 @@ export function KravForm() {
                 })}
               />
             </Avstand>
-            <Knapper>
+            <HStack gap="3" justify="start" marginBlock="4 0">
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
                 {t('krav.knapp_beregn')}
               </Button>
               <AvbrytKrav />
-            </Knapper>
+            </HStack>
           </Avstand>
         </form>
       </FormProvider>
     </>
   )
 }
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: var(--ax-space-12);
-  padding-top: var(--ax-space-12);
-  align-items: start;
-`

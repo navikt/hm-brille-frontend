@@ -1,6 +1,4 @@
 import React from 'react'
-
-import styled from 'styled-components'
 import { DocPencilIcon, FilesIcon } from '@navikt/aksel-icons'
 
 export interface IkonProps {
@@ -11,17 +9,24 @@ export interface IkonProps {
 
 export interface IkonBakgrunnProps {
   size: number
+  children: React.ReactNode
 }
 
-export const IkonBakgrunn = styled.div<IkonBakgrunnProps>`
-  background: #99dead;
-  width: ${(props) => props.size || '40'}px;
-  height: ${(props) => props.size || '40'}px;
-  border-radius: ${(props) => props.size || '40'}px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
+export const IkonBakgrunn: React.FC<IkonBakgrunnProps> = ({ size, children }) => (
+  <div
+    style={{
+      background: '#99dead',
+      width: `${size}px`,
+      height: `${size}px`,
+      borderRadius: `${size}px`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    {children}
+  </div>
+)
 
 export const InnsendteKravIkon: React.FC<IkonProps> = ({ bgSize = 62, iconSize = 32 }) => (
   <IkonBakgrunn size={bgSize}>

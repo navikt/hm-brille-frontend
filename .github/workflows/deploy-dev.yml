@@ -8,7 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
-      - darkside
+      - styleMigration
 
 jobs:
   build:

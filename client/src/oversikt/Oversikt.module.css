@@ -1,0 +1,8 @@
+.paginationContainer :global(ul.aksel-pagination__list) {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.paginationContainer :global(button.aksel-pagination--invisible) {
+  display: none;
+}

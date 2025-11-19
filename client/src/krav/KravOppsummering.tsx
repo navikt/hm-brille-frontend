@@ -1,12 +1,10 @@
-import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, HGrid, HStack, Loader } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { beløp } from '../beløp'
 import { Avstand } from '../components/Avstand'
-import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
-import { LoaderContainer } from '../components/LoaderContainer'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { useApplicationContext } from '../state/ApplicationContext'
 import { SatsType, VilkårsgrunnlagRequest, VilkårsgrunnlagResponse, VilkårsgrunnlagResultat } from '../types'
@@ -47,11 +45,11 @@ export function KravOppsummering() {
 
   if (vilkårsvurderingLoading) {
     return (
-      <LoaderContainer>
+      <HStack justify="center">
         <Avstand paddingBottom={5} paddingTop={5}>
           <Loader />
         </Avstand>
-      </LoaderContainer>
+      </HStack>
     )
   }
   if (!vilkårsvurdering) {
@@ -70,15 +68,15 @@ export function KravOppsummering() {
       <Heading level="2" size="medium">
         {t('krav.overskrift_barn')}
       </Heading>
-      <Data>
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
         <Datum label="krav.ledetekst_fnr">{appState.barnFnr}</Datum>
         <Datum label="krav.ledetekst_navn">{appState.barnNavn}</Datum>
         <Datum label="krav.ledetekst_alder">{appState.barnAlder}</Datum>
-      </Data>
+      </HGrid>
       <Heading level="2" size="medium">
         {t('krav.overskrift_brillestyrke')}
       </Heading>
-      <Data>
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
         <Datum label="krav.ledetekst_høyre_sfære">
           <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære" />
         </Datum>
@@ -91,17 +89,17 @@ export function KravOppsummering() {
         <Datum label="krav.ledetekst_venstre_sylinder">
           <FormatertStyrke verdi={appState.brillestyrke.venstreSylinder} type="sylinder" />
         </Datum>
-      </Data>
+      </HGrid>
       <Heading level="2" size="medium">
         {t('krav.overskrift_annet')}
       </Heading>
-      <Data>
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
         <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(appState.orgnr)}</Datum>
         <Datum label="krav.ledetekst_orgnavn">{appState.orgNavn}</Datum>
         <Datum label="krav.ledetekst_bestillingsdato_alt">{format(appState.bestillingsdato!!, 'dd.MM.yyyy')}</Datum>
         <Datum label="krav.ledetekst_brillepris_alt">{appState.brillepris}</Datum>
         <Datum label="krav.ledetekst_bestillingsreferanse">{appState.bestillingsreferanse}</Datum>
-      </Data>
+      </HGrid>
       <Avstand paddingBottom={5} paddingTop={5}>
         {vilkårsvurdering.sats === SatsType.INGEN && !vilkårsvurdering.kravFraFørFraInnsender ? (
           <Alert variant="warning">

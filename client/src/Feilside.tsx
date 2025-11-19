@@ -1,6 +1,5 @@
 import { Button, BodyShort, Heading, ReadMore, Link } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import { AppLink } from './components/AppLink'
 import { Avstand } from './components/Avstand'
 import { hentUtviklerinformasjon } from './error'
@@ -16,15 +15,16 @@ export function Feilside(props: FeilsideProps) {
   const { status, error, erInnsendingFeil } = props
   const { t } = useTranslation()
   const utviklerinformasjon = hentUtviklerinformasjon(error)
+
   return (
     <main>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="1" size="large" spacing>
           {t(
             overskrift[status] ||
-              (erInnsendingFeil === true
-                ? 'feilside.feil.teknisk_feil_innsending.tittel'
-                : 'feilside.feil.teknisk_feil.tittel')
+            (erInnsendingFeil === true
+              ? 'feilside.feil.teknisk_feil_innsending.tittel'
+              : 'feilside.feil.teknisk_feil.tittel')
           )}
         </Heading>
         <Avstand marginTop={8}>
@@ -37,11 +37,11 @@ export function Feilside(props: FeilsideProps) {
       {utviklerinformasjon && (
         <Avstand marginTop={12} paddingLeft={2} paddingRight={2}>
           <ReadMore header={t('feilside.informasjon_til_utviklere.tittel')} defaultOpen={true}>
-            <Code>
+            <pre style={{ whiteSpace: 'pre-wrap', fontSize: '75%' }}>
               {t('feilside.informasjon_til_utviklere.datotid')}: {new Date().toISOString()}.{'\n'}
               {t('feilside.informasjon_til_utviklere.status')}: {status}.{'\n'}
               {utviklerinformasjon}
-            </Code>
+            </pre>
           </ReadMore>
         </Avstand>
       )}
@@ -124,12 +124,3 @@ const overskrift: Record<number, string> = {
   401: 'feilside.feil.ikke_logget_inn.tittel',
   404: 'feilside.feil.ikke_funnet.tittel',
 }
-
-const Feilkode = styled.small`
-  font-weight: normal;
-`
-
-const Code = styled.pre`
-  white-space: pre-wrap;
-  font-size: 75%;
-`
