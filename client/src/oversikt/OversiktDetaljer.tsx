@@ -59,7 +59,7 @@ export function OversiktDetaljer() {
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
 
   return (
-    <div className="gray-background">
+    <div className="gray-background" ref={printRef}>
       <ScrollToTop />
       <main>
         {!error && !data && (

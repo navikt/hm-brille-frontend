@@ -13,10 +13,10 @@ export interface BedriftProps {
 
 export function Bedrift(props: BedriftProps) {
   const { t } = useTranslation()
-  const { orgnr, orgNavn, orgAdresse } = props
+  const { orgnr, orgNavn } = props
 
   return (
-    <Box.New margin="5" paddingInline="4" paddingBlock="6" borderRadius="large" marginBlock="0 5" width={{ xs: "95%", sm: "auto" }} borderWidth="1">
+    <Box.New marginInline="5" paddingInline="4" paddingBlock="6" borderRadius="large" marginBlock="0 5" width={{ xs: "95%", sm: "auto" }} borderWidth="1">
       <HGrid columns={{ xs: "1fr", sm: "1fr auto" }} gap="12" align='center' className={styles.bedriftGrid}>
         <div>
           <div style={{ marginLeft: '0.6rem' }}>

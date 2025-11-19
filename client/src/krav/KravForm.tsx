@@ -98,7 +98,7 @@ export function KravForm() {
               <TextField
                 id="bestillingsreferanse"
                 label={
-                  <HGrid columns="auto auto" gap="3" align="start" paddingBlock="3 0">
+                  <HGrid columns="auto auto" gap="3" paddingBlock="3 0">
                     {t('krav.ledetekst_deres_referansenr')}
                     <HelpText title="Hvor kommer dette fra?" placement="right">
                       {t('krav.hjelpetekst_referansenr')}
