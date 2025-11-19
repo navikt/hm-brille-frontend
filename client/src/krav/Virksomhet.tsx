@@ -1,6 +1,5 @@
-import { Alert, BodyLong, Box, Button, Heading } from '@navikt/ds-react'
+import { Alert, BodyLong, Box, Button, Heading, HGrid } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
-import { Data } from '../components/Data'
 import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
@@ -36,10 +35,10 @@ export function Virksomhet(props: VirksomhetProps) {
         <Heading level="3" size="small">
           <Buildings2Icon /> {`${navn}`}
         </Heading>
-        <Data>
+        <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           {adresse && <Datum label="krav.ledetekst_adresse">{adresse}</Datum>}
-        </Data>
+        </HGrid>
       </Box.New>
       <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<FloppydiskIcon aria-hidden />}>
         {t('krav.knapp_bruk')}

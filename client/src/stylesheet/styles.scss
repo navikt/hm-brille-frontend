@@ -2,3 +2,9 @@
   min-height: 100%;
   background-color: var(--ax-neutral-100);
 }
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}

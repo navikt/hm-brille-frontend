@@ -1,10 +1,8 @@
-import { BodyLong, Button, Checkbox, CheckboxGroup, Heading, Loader } from '@navikt/ds-react'
+import { BodyLong, Button, Checkbox, CheckboxGroup, Heading, HStack, Loader } from '@navikt/ds-react'
 import { Controller, useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
-import { Knapper } from '../components/Knapper'
 import { LenkeMedLogging } from '../components/LenkeMedLogging'
-import { LoaderContainer } from '../components/LoaderContainer'
 import { KravSteg } from './KravSteg'
 
 export interface BrukervilkårProps {
@@ -37,11 +35,11 @@ export function Brukervilkår(props: BrukervilkårProps) {
 
   if (loading) {
     return (
-      <LoaderContainer>
+      <HStack justify="center">
         <Avstand paddingBottom={5} paddingTop={5}>
           <Loader />
         </Avstand>
-      </LoaderContainer>
+      </HStack>
     )
   }
 
@@ -88,7 +86,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
           )}
         />
         <Avstand marginBottom={5} />
-        <Knapper>
+        <HStack gap="3" justify="start" marginBlock="4 0">
           <Button type="submit" loading={isSubmitting}>
             {t('brukervilkår.knapp_godta')}
           </Button>
@@ -101,7 +99,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
           >
             {t('brukervilkår.knapp_avbryt')}
           </Button>
-        </Knapper>
+        </HStack>
       </form>
     </KravSteg>
   )
