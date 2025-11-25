@@ -2,4 +2,4 @@ module hm-brille-frontend
 
 go 1.25.1
 
-require github.com/navikt/hotbff v0.0.0-20251017082313-b08710c21fdc
+require github.com/navikt/hotbff v0.0.0-20251124203156-1402230b3a3d
