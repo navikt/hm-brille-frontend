@@ -1,7 +1,7 @@
 import { BodyLong, BodyShort, Box, Button, HGrid, Label } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { organisasjonsnummer } from '../../components/organisasjonsnummer'
-import { Buldings2Icon } from '@navikt/aksel-icons'
+import { Buildings2Icon } from '@navikt/aksel-icons'
 import styles from './Bedrift.module.css'
 
 export interface BedriftProps {
@@ -36,7 +36,7 @@ export function Bedrift(props: BedriftProps) {
             {t('krav.knapp_velg_annen_virksomhet')}
           </Button>
         </div>
-        <Buldings2Icon fontSize="3rem" style={{ marginRight: '3rem' }} />
+        <Buildings2Icon fontSize="3rem" style={{ marginRight: '3rem' }} />
       </HGrid>
     </Box.New>
   )
