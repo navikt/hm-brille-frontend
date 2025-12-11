@@ -4,7 +4,7 @@ import { Datum } from '../components/Datum'
 import { organisasjonsnummer } from '../components/organisasjonsnummer'
 import { VirksomhetResponse } from '../types'
 import React from 'react'
-import { Buildings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
+import { Buldings2Icon, FloppydiskIcon } from '@navikt/aksel-icons'
 
 export interface VirksomhetProps {
   virksomhet: VirksomhetResponse
@@ -33,7 +33,7 @@ export function Virksomhet(props: VirksomhetProps) {
     <>
       <Box.New background='neutral-soft' marginBlock="0 5" padding="4" borderRadius="large">
         <Heading level="3" size="small">
-          <Buildings2Icon /> {`${navn}`}
+          <Buldings2Icon /> {`${navn}`}
         </Heading>
         <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>

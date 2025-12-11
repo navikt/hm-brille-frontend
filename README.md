@@ -20,13 +20,70 @@ på dette. Dersom vilkårsprøving gir støtte så får optiker mulighet til å 
 
 Overordnet dokumentasjon av brillestøtte finnes [her](doc/%C3%98kosystem.md)
 
-## Bygg og lokal kjøring
+Koden er delt i to separate moduler:
 
-Appen bygges med Vite og kjøres lokalt med Vite dev server:
+- `server` – Go-backend
+- `client` – React-frontend
 
-```npm install```
+## Kom i gang
 
-```npm run dev```
+### Forutsetninger
+
+- Node ≥ 20
+- Go (for serveren)
+
+### PNPM
+
+Prosjektet bruker **pnpm** som pakkehåndterer. Hvis du:
+
+- aldri har brukt pnpm før, eller
+- har klonet repoet tidligere da det brukte npm
+
+gjør følgende først:
+
+```bash
+corepack enable
+```
+
+Deretter, én gang etter at du har hentet ned pnpm-endringene:
+
+```bash
+# i prosjektroten
+rm -rf node_modules package-lock.json
+pnpm install
+
+# i client
+cd client
+rm -rf node_modules package-lock.json
+pnpm install
+```
+
+Etter dette holder det med:
+
+- `pnpm install` i rot når du får nye root-avhengigheter
+- `cd client && pnpm install` når `client/package.json` endrer seg
+
+### Client
+
+For å kjøre frontend lokalt:
+
+```bash
+cd client
+pnpm run dev
+```
 
 MockSeviceWorker brukes for å mocke API-kall lokalt og i labs, se [browser.ts](./client/src/mocks/browser.ts).
 
+### Server
+
+Installer Go:
+
+```bash
+brew install go
+```
+
+
+## Deploy
+
+Ved push til main kjøres det deploy til dev-gcp. Appen er tilgjenglig
+på [https://brille.intern.dev.nav.no/hjelpemidler/barnebriller](https://brille.intern.dev.nav.no/hjelpemidler/barnebriller).

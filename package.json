@@ -2,25 +2,28 @@
   "name": "hm-brille-frontend",
   "private": true,
   "version": "1.0.0",
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3"
   },
   "scripts": {
-    "postinstall": "npm --prefix client install && npm --prefix server install",
-    "dev": "npm run --prefix client dev",
-    "start": "npm run --prefix server start",
-    "test:client": "npm run --prefix client test",
-    "test:server": "npm run --prefix server test",
+    "postinstall": "pnpm --prefix client install && go install -C server ./...",
+    "dev": "pnpm run --prefix client dev",
+    "test:client": "pnpm run --prefix client test",
+    "test:server": "go test -C server ./...",
     "test": "run-p test:*",
-    "build:client": "npm run --prefix client build",
-    "build:server": "npm run --prefix server build",
+    "build:client": "pnpm run --prefix client build",
+    "build:server": "go build -C server ./...",
     "build": "run-p build:*",
-    "clean:client": "npm run --prefix client clean",
-    "clean:server": "npm run --prefix server clean",
+    "clean:client": "pnpm run --prefix client clean",
+    "clean:server": "go clean -C server",
     "clean": "run-p clean:*",
-    "prettier": "npm run --prefix client prettier"
+    "prettier": "pnpm run --prefix client prettier"
   },
   "dependencies": {
     "@navikt/aksel-icons": "^4.7.2",
