@@ -1,15 +1,20 @@
 FROM node:lts-alpine AS node
+ENV HUSKY=0
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack prepare pnpm@10 --activate
+
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
-RUN npm config set @navikt:registry=https://npm.pkg.github.com
+    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
+RUN pnpm config set @navikt:registry=https://npm.pkg.github.com
 
 # build client
 FROM node AS client-builder
 WORKDIR /app
-COPY client/package.json client/package-lock.json ./
-RUN npm ci
+COPY client/package.json client/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY client .
-RUN npm run build
+RUN pnpm run build
 
 # build server
 FROM golang:1.25.1-alpine AS server-builder

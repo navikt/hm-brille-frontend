@@ -8,7 +8,7 @@ on:
       - 'CODEOWNERS'
     branches:
       - main
-      - styleMigration
+      - npm_til_pnpm
 
 jobs:
   build:
