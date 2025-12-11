@@ -8,11 +8,14 @@ importers:
 
   .:
     dependencies:
+      '@navikt/aksel-icons':
+        specifier: 7.35.0
+        version: 7.35.0
       '@navikt/ds-css':
-        specifier: ^7.33.0
+        specifier: ^7.35.0
         version: 7.35.1
       '@navikt/ds-react':
-        specifier: ^7.33.0
+        specifier: ^7.35.0
         version: 7.35.1(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/fnrvalidator':
         specifier: ^2.1.5
@@ -561,6 +564,9 @@ packages:
     resolution: {integrity: sha512-EFd6cVbHsgLa6wa4RljGj6Wk75qoHxUSyc5asLyyPSyuhIcdS2Q3Phw6ImS1q+CkALthJRShiYfKANcQMuMqsQ==}
     engines: {node: '>=18'}
 
+  '@navikt/aksel-icons@7.35.0':
+    resolution: {integrity: sha512-k3nyJqDeP08OEg54vImzo9hL/ZNzCuIqaxwKw9POrl/vD5f4JeobVO3kZE0PyuGK3+zkcQFIGLHVWA4RMSTbeg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.35.0/7068430eff75ea06c6b047441e881cbfe05418c5}
+
   '@navikt/aksel-icons@7.35.1':
     resolution: {integrity: sha512-O+hpKCF278r37YqAUW2ZGf7Cy9ZEwMANWNEMcIiFdOLpnwaLr8Jy08kbRTC7hQmftvIFBmCeeEH+nw+jXfIUMg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.35.1/83a5150571dd3c01d44e5f20320e56734ace3dc2}
 
@@ -573,9 +579,6 @@ packages:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   '@navikt/ds-tokens@7.35.1':
     resolution: {integrity: sha512-A9a9qJSgj/TKtNdn/n+tkCpaMIuYkBYzAEn+KvAkV5RVaOCQB9P7pJsgm62ZZh2UdT1Ytv3Hh9DY3YeUeCArhA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.35.1/c6e84a9e9939fdf8e9c638b6bf9d3de136d95afe}
@@ -3037,6 +3040,8 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
+  '@navikt/aksel-icons@7.35.0': {}
+
   '@navikt/aksel-icons@7.35.1': {}
 
   '@navikt/ds-css@7.35.1': {}
@@ -3047,13 +3052,12 @@ snapshots:
       '@floating-ui/react-dom': 2.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@navikt/aksel-icons': 7.35.1
       '@navikt/ds-tokens': 7.35.1
+      '@types/react': 18.3.27
       clsx: 2.1.1
       date-fns: 4.1.0
       react: 18.3.1
       react-day-picker: 9.7.0(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.27
 
   '@navikt/ds-tokens@7.35.1': {}
 
