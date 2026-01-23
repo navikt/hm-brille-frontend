@@ -3,7 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "packageManager": "pnpm@10.25.0",
   "scripts": {
     "dev": "vite",
     "test": "vitest run --dir src",
@@ -30,7 +29,7 @@
     "react-helmet-async": "^2.0.3",
     "react-hook-form": "^7.43.9",
     "react-i18next": "^11.18.4",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.30.3",
     "react-to-print": "^2.14.7",
     "sass": "^1.51.0",
     "swr": "^1.3.0",
@@ -38,7 +37,7 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^8.17.1",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/amplitude-js": "^8.16.2",
@@ -51,7 +50,7 @@
     "@types/react-helmet": "^6.1.2",
     "@types/uuid": "^8.3.4",
     "@vitejs/plugin-react": "^4.1.0",
-    "cypress": "^13.3.2",
+    "cypress": "^15.9.0",
     "msw": "^2.5.2",
     "mustache": "^4.2.0",
     "prettier": "^2.7.1",
@@ -62,5 +61,10 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash": ">=4.17.23"
+    }
   }
 }
