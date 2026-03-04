@@ -54,7 +54,7 @@
     "msw": "^2.5.2",
     "mustache": "^4.2.0",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^6.0.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.2",
     "vitest": "^4.0.10"
@@ -64,7 +64,11 @@
   },
   "pnpm": {
     "overrides": {
-      "lodash": ">=4.17.23"
+      "lodash": "^4.17.23",
+      "systeminformation": "^5.31.0",
+      "minimatch": "^3.1.4",
+      "qs": "^6.14.2",
+      "rollup": "^4.59.0"
     }
   }
 }
