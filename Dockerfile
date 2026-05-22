@@ -4,15 +4,14 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
-RUN pnpm config set @navikt:registry=https://npm.pkg.github.com
-
 # build client
 FROM node AS client-builder
 WORKDIR /app
 COPY client/package.json client/pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    echo "@navikt:registry=https://npm.pkg.github.com" >> .npmrc && \
+    echo "//npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)" >> .npmrc && \
+    pnpm install --frozen-lockfile
 COPY client .
 RUN pnpm run build
 
