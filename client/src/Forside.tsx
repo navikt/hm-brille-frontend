@@ -19,7 +19,12 @@ export function Forside() {
         <Heading level="1" size="xlarge" style={{ textAlign: 'center' }}>
           {t('forside.overskrift')}
         </Heading>
-        <div style={{ marginTop: "2rem" }}>
+        {/*<Avstand marginBottom={5}>
+          <Alert variant="warning">
+            Vi opplever for tiden driftsproblemer som et resultat av problemer hos Norsk Helsenett.
+          </Alert>
+        </Avstand>*/}
+        <div style={{ marginTop: '2rem' }}>
           <LinkCard tabIndex={0}>
             <Box.New asChild borderRadius="large">
               <LinkCard.Icon>
@@ -31,12 +36,10 @@ export function Forside() {
                 <Link to="/krav"> {t('forside.overskrift_send_krav')} </Link>
               </LinkCard.Anchor>
             </LinkCard.Title>
-            <LinkCard.Description>
-              {t('forside.overskrift_send_krav.beskrivelse')}
-            </LinkCard.Description>
+            <LinkCard.Description>{t('forside.overskrift_send_krav.beskrivelse')}</LinkCard.Description>
           </LinkCard>
         </div>
-        <div style={{ marginTop: "2rem" }}>
+        <div style={{ marginTop: '2rem' }}>
           <LinkCard tabIndex={0}>
             <Box.New asChild borderRadius="large">
               <LinkCard.Icon>
@@ -54,7 +57,14 @@ export function Forside() {
             </LinkCard.Description>
           </LinkCard>
         </div>
-        <Box.New marginBlock="8 0" background='default' padding="4" borderRadius="xlarge" borderWidth='1' borderColor='neutral-subtleA'>
+        <Box.New
+          marginBlock="8 0"
+          background="default"
+          padding="4"
+          borderRadius="xlarge"
+          borderWidth="1"
+          borderColor="neutral-subtleA"
+        >
           <Heading level="2" size="large" spacing={true} style={{ textAlign: 'center', marginBottom: '2rem' }}>
             {t('forside.overskrift_om_ordningen')}
           </Heading>
