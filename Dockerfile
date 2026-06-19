@@ -7,7 +7,7 @@ RUN corepack enable
 # build client
 FROM node AS client-builder
 WORKDIR /app
-COPY client/package.json client/pnpm-lock.yaml ./
+COPY client/package.json client/pnpm-lock.yaml client/pnpm-workspace.yaml ./
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     echo "@navikt:registry=https://npm.pkg.github.com" >> .npmrc && \
     echo "//npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)" >> .npmrc && \

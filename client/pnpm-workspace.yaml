@@ -8,3 +8,9 @@ onlyBuiltDependencies:
 
 minimumReleaseAgeExclude:
   - '@navikt/*'
+
+allowBuilds:
+  '@parcel/watcher': false
+  cypress: true
+  esbuild: true
+  msw: true

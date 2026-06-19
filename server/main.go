@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 
 	"github.com/navikt/hotbff"
@@ -16,7 +17,7 @@ var (
 
 func init() {
 	if useMSW {
-		idp = ""
+		idp = idp
 	}
 }
 
@@ -43,12 +44,12 @@ func main() {
 			"/api/": &proxy.Options{
 				Target:      os.Getenv("BRILLE_API_BASE_URL"),
 				StripPrefix: false,
-				IDP:         texas.TokenX,
 				IDPTarget:   os.Getenv("BRILLE_API_TARGET_AUDIENCE"),
 			},
 		},
 		IDP:     idp,
 		EnvKeys: []string{},
 	}
-	hotbff.Start(opts)
+	mux := http.NewServeMux()
+	hotbff.Start(mux, opts)
 }
