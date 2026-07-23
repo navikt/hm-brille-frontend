@@ -9,7 +9,7 @@ import { baseUrl, http } from './http'
 import './i18n'
 import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
-import './stylesheet/styles.scss'
+import './stylesheet/styles.css'
 import { initSentry } from './utils/sentry'
 import "./main.css"
 
