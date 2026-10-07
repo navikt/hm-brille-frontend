@@ -28,7 +28,7 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
   return (
     <>
       <form role="search" onSubmit={(e) => e.preventDefault()} autoComplete="off">
-        <HStack gap="3" align="end">
+        <HStack gap="space-12" align="end">
           <TextField
             label={t('krav.ledetekst_orgnr')}
             size="medium"
@@ -63,7 +63,7 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
             {t('krav.tidligere_brukte_virksomheter')}
           </Heading>
           {tidligereBrukteVirksomheter.map((it) => (
-            <HStack key={it.orgnr} align="center" gap="5">
+            <HStack key={it.orgnr} align="center" gap="space-20">
               <Button variant="tertiary" type="button" onClick={() => velgVirksomhet(it)}>
                 {t('krav.knapp_bruk')}
               </Button>
@@ -73,5 +73,5 @@ export function VirksomhetForm(props: TidligereBrukteVirksomheterProps) {
         </Avstand>
       )}
     </>
-  )
+  );
 }

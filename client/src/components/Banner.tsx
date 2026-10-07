@@ -7,7 +7,5 @@ interface BannerProps {
 
 export function Banner(props: BannerProps) {
 
-  return (
-    <Box.New background='neutral-soft' padding="4" width="100%" style={{ textAlign: 'center' }}>{props.children}</Box.New>
-  )
+  return (<Box background='neutral-soft' padding="space-16" width="100%" style={{ textAlign: 'center' }}>{props.children}</Box>);
 }

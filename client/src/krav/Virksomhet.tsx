@@ -31,15 +31,15 @@ export function Virksomhet(props: VirksomhetProps) {
 
   return (
     <>
-      <Box.New background='neutral-soft' marginBlock="0 5" padding="4" borderRadius="large">
+      <Box background="neutral-soft" marginBlock="space-0 space-20" padding="space-16" borderRadius="8">
         <Heading level="3" size="small">
           <Buildings2Icon /> {`${navn}`}
         </Heading>
-        <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+        <HGrid columns={{ xs: 'block', sm: '190px auto' }} gap="space-4" marginBlock="space-16">
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           {adresse && <Datum label="krav.ledetekst_adresse">{adresse}</Datum>}
         </HGrid>
-      </Box.New>
+      </Box>
       <Button variant="primary" onClick={() => onLagre({ orgnr, navn })} icon={<FloppydiskIcon aria-hidden />}>
         {t('krav.knapp_bruk')}
       </Button>

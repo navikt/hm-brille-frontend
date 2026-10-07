@@ -1,4 +1,4 @@
-import '@navikt/ds-css/darkside'
+import '@navikt/ds-css'
 import { Theme } from '@navikt/ds-react'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
@@ -11,7 +11,7 @@ import { initMSW } from './mocks/initMSW'
 import { initAmplitude } from './utils/amplitude'
 import './stylesheet/styles.css'
 import { initSentry } from './utils/sentry'
-import "./main.css"
+import './main.css'
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {

@@ -12,7 +12,7 @@ describe('i18n', () => {
         return item
           .replace(/'([^']*)'.*/, '$1')
           .replace(/(\n)/, '')
-          .replace(/'/g, '')
+          .replace(/'/g, '');
       })
 
       allTranslationsUsed.shift()

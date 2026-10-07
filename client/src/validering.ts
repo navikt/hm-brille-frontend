@@ -12,7 +12,7 @@ export const validering = {
     return isValid(dato.tilDate(verdi))
   },
   beløp(verdi: string): boolean {
-    return /^\d+(,\d{1,2})?$/.test(verdi)
+    return /^\d+(,\d{1,2})?$/.test(verdi);
   },
   ikkeIFremtiden(verdi: Date, nå: Date): boolean {
     return isBefore(verdi, nå)
@@ -28,7 +28,7 @@ export const validering = {
     return isAfter(verdi, seksMånederSiden)
   },
   bestillingsreferanse(verdi: string): boolean {
-    return /^[A-Za-å\d-_/]+$/.test(verdi) && verdi.length <= 100
+    return /^[A-Za-å\d-_/]+$/.test(verdi) && verdi.length <= 100;
   },
 }
 

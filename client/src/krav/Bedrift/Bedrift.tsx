@@ -16,8 +16,16 @@ export function Bedrift(props: BedriftProps) {
   const { orgnr, orgNavn } = props
 
   return (
-    <Box.New marginInline="5" paddingInline="4" paddingBlock="6" borderRadius="large" marginBlock="0 5" width={{ xs: "95%", sm: "auto" }} borderWidth="1">
-      <HGrid columns={{ xs: "1fr", sm: "1fr auto" }} gap="12" align='center' className={styles.bedriftGrid}>
+    <Box
+      marginInline="space-20"
+      paddingInline="space-16"
+      paddingBlock="space-24"
+      borderRadius="8"
+      marginBlock="space-0 space-20"
+      width={{ xs: '95%', sm: 'auto' }}
+      borderWidth="1"
+    >
+      <HGrid columns={{ xs: '1fr', sm: '1fr auto' }} gap="space-48" align="center" className={styles.bedriftGrid}>
         <div>
           <div style={{ marginLeft: '0.6rem' }}>
             <BodyShort spacing style={{ fontSize: '1.2rem' }}>
@@ -38,6 +46,6 @@ export function Bedrift(props: BedriftProps) {
         </div>
         <Buildings2Icon fontSize="3rem" style={{ marginRight: '3rem' }} />
       </HGrid>
-    </Box.New>
+    </Box>
   )
 }

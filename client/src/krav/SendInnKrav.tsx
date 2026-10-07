@@ -32,7 +32,7 @@ export function SendInnKrav(props: SendInnKravProps) {
   }, [sendInnKravData])
 
   return (
-    <HStack gap="3" justify="start" marginBlock="4 0">
+    <HStack gap="space-12" justify="start" marginBlock="space-16 space-0">
       <Button
         loading={sendInnKravLoading}
         onClick={async () => {
@@ -50,5 +50,5 @@ export function SendInnKrav(props: SendInnKravProps) {
       </Button>
       <AvbrytKrav />
     </HStack>
-  )
+  );
 }

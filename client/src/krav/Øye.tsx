@@ -13,7 +13,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
     formState: { errors },
   } = useFormContext<{ brillestyrke: Brilleseddel }>()
   return (
-    <HGrid columns={{ sm: '100%', md: '120px 180px 180px' }} gap="5" paddingBlock="3" align="start">
+    <HGrid columns={{ sm: '100%', md: '120px 180px 180px' }} gap="space-20" paddingBlock="space-12" align="start">
       <div style={{ alignSelf: 'center' }}>
         <Heading level="3" size="small">
           {t(`krav.${type}_øye`)}
@@ -68,7 +68,7 @@ export function Øye(props: { type: 'venstre' | 'høyre' }) {
         )}
       />
     </HGrid>
-  )
+  );
 }
 
 function range(start: number, stop: number, step: number = 0.25): number[] {

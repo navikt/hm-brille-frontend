@@ -1,4 +1,5 @@
 import { BodyLong, Button, Checkbox, CheckboxGroup, Heading, HStack, Loader } from '@navikt/ds-react'
+import type { AkselColor } from '@navikt/ds-react/types/theme'
 import { Controller, useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import { Avstand } from '../components/Avstand'
@@ -26,7 +27,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
   })
   const godtatt = watch('godtatt')
 
-  let dataColor = 'warning'
+  let dataColor: AkselColor = 'warning'
   if (errors.godtatt?.message) {
     dataColor = 'danger'
   } else if (godtatt) {
@@ -74,10 +75,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
             <div data-color={dataColor}>
               <div className="aksel-confirmation-panel__inner">
                 <CheckboxGroup legend={t('felles.duMåBekreftefølgende')} hideLegend error={errors.godtatt?.message}>
-                  <Checkbox
-                    onBlur={onBlur}
-                    checked={value}
-                    onChange={onChange}>
+                  <Checkbox onBlur={onBlur} checked={value} onChange={onChange}>
                     {t('brukervilkår.ledetekst_godtatt')}
                   </Checkbox>
                 </CheckboxGroup>
@@ -86,7 +84,7 @@ export function Brukervilkår(props: BrukervilkårProps) {
           )}
         />
         <Avstand marginBottom={5} />
-        <HStack gap="3" justify="start" marginBlock="4 0">
+        <HStack gap="space-12" justify="start" marginBlock="space-16 space-0">
           <Button type="submit" loading={isSubmitting}>
             {t('brukervilkår.knapp_godta')}
           </Button>

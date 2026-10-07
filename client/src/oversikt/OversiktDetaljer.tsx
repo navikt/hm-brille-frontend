@@ -72,11 +72,7 @@ export function OversiktDetaljer() {
         )}
         {!error && data && (
           <>
-            <Heading
-              level="1"
-              size="large"
-              style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}
-            >
+            <Heading level="1" size="large" style={{ display: 'inline-block', marginRight: '1rem', margin: '0.1em 0' }}>
               {t('oversikt.krav_detaljer.overskrift')} {data.barnsNavn}
             </Heading>
             <div
@@ -89,12 +85,7 @@ export function OversiktDetaljer() {
               }}
             >
               <div className="no-print">
-                <Button
-                  icon={<PrinterSmallIcon aria-hidden />}
-                  variant="secondary"
-                  size="medium"
-                  onClick={handlePrint}
-                >
+                <Button icon={<PrinterSmallIcon aria-hidden />} variant="secondary" size="medium" onClick={handlePrint}>
                   {t('oversikt.krav_detaljer.meny.utskrift')}
                 </Button>
                 {!data.slettet && !data.utbetalingsdato && !data.utbetalingsstatus && (
@@ -112,7 +103,7 @@ export function OversiktDetaljer() {
                 )}
               </div>
             </div>
-            <Box.New background="default" padding="4" marginBlock="4 0" borderRadius="large">
+            <Box background="default" padding="space-16" marginBlock="space-16 space-0" borderRadius="8">
               <div style={{ textAlign: 'right' }}>
                 <Label>{t('oversikt.krav_detaljer.mottatt')}</Label> <Dato verdi={data.opprettet} />
               </div>
@@ -143,7 +134,7 @@ export function OversiktDetaljer() {
                 <Heading level="2" size="medium">
                   {t('krav.overskrift_foretaket')}
                 </Heading>
-                <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+                <HGrid columns={{ xs: 'block', sm: '190px auto' }} gap="space-4" marginBlock="space-16">
                   <DatumHelper label={t('krav.ledetekst_orgnavn')}>{data.orgnavn}</DatumHelper>
                   <DatumHelper label={t('krav.ledetekst_orgnr')}>{data.orgnr}</DatumHelper>
                 </HGrid>
@@ -153,7 +144,7 @@ export function OversiktDetaljer() {
                 <Heading level="2" size="medium">
                   {t('krav.overskrift_barn')}
                 </Heading>
-                <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+                <HGrid columns={{ xs: 'block', sm: '190px auto' }} gap="space-4" marginBlock="space-16">
                   <DatumHelper label={t('krav.ledetekst_navn')}>{data.barnsNavn}</DatumHelper>
                   <DatumHelper label={t('krav.ledetekst_fnr')}>{data.barnsFnr}</DatumHelper>
                   <DatumHelper label={t('krav.ledetekst_alder')}>{data.barnsAlder} år</DatumHelper>
@@ -164,7 +155,7 @@ export function OversiktDetaljer() {
                 <Heading level="2" size="medium">
                   {t('krav.overskrift_brillestyrke')}
                 </Heading>
-                <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+                <HGrid columns={{ xs: 'block', sm: '190px auto' }} gap="space-4" marginBlock="space-16">
                   <DatumHelper label={t('krav.ledetekst_høyre_sfære')}>
                     {data.høyreSfære.toFixed(2).replace('.', ',')}
                   </DatumHelper>
@@ -184,7 +175,7 @@ export function OversiktDetaljer() {
                 <Heading level="2" size="medium">
                   {t('krav.overskrift_om_brillen')}
                 </Heading>
-                <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+                <HGrid columns={{ xs: 'block', sm: '190px auto' }} gap="space-4" marginBlock="space-16">
                   <DatumHelper label={t('krav.ledetekst_bestillingsdato_alt')}>
                     <Dato verdi={data.bestillingsdato} />
                   </DatumHelper>
@@ -219,13 +210,15 @@ export function OversiktDetaljer() {
                   })}
                 </Heading>
               </div>
-            </Box.New>
+            </Box>
             <Modal
               open={modalDeleteOpen}
               aria-label="Slett krav dialog"
               header={{
-                heading: !data.utbetalingsdato ? t('oversikt.slett_modal.overskrift') : t('oversikt.slett_modal.allerede_utbetalt_overskrift'),
-                closeButton: false
+                heading: !data.utbetalingsdato
+                  ? t('oversikt.slett_modal.overskrift')
+                  : t('oversikt.slett_modal.allerede_utbetalt_overskrift'),
+                closeButton: false,
               }}
               onClose={() => {
                 setModalDeleteOpen(false)
@@ -293,8 +286,9 @@ export function OversiktDetaljer() {
                 {!data.utbetalingsdato && (
                   <>
                     <Button
+                      data-color="danger"
                       icon={<TrashIcon aria-hidden />}
-                      variant="danger"
+                      variant="primary"
                       onClick={(e) => slettKrav(data.id)}
                       disabled={modalSlettButtonDisabled}
                       loading={modalSlettButtonDisabled}

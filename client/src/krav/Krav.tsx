@@ -73,16 +73,19 @@ export function Krav() {
       <Avstand marginBottom={5}>
         <Alert inline variant="info">
           <Heading size="small">{t('info.satsendring.tittel')}</Heading>
-          {t('info.satsendring.tekst')} <a href="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye">{t('info.satsendring.lenketekst')}</a>
+          {t('info.satsendring.tekst')}{' '}
+          <a href="https://www.nav.no/samarbeidspartner/briller-til-barn#hvor-mye">
+            {t('info.satsendring.lenketekst')}
+          </a>
         </Alert>
       </Avstand>
       {!harValgtVirksomhet ? (
-        <Box.New padding="4" borderRadius="large">
+        <Box padding="space-16" borderRadius="8">
           <Heading level="2" size="medium" spacing>
             {t('krav.overskrift_foretak')}
           </Heading>
           <VirksomhetForm tidligereBrukteVirksomheter={tidligereBrukteVirksomheter?.tidligereBrukteOrganisasjoner} />
-        </Box.New>
+        </Box>
       ) : (
         <>
           <Bedrift
@@ -98,7 +101,7 @@ export function Krav() {
               }))
             }}
           />
-          <Box.New marginBlock="8" padding="4">
+          <Box marginBlock="space-32" padding="space-16">
             <Heading level="2" size="medium" spacing>
               {t('krav.overskrift_om_barnet')}
             </Heading>
@@ -120,7 +123,7 @@ export function Krav() {
                   <IkkeFunnet />
                 </Avstand>
               ))}
-          </Box.New>
+          </Box>
         </>
       )}
     </KravSteg>

@@ -52,7 +52,7 @@ export function KravKvittering() {
         <Heading level="2" size="medium">
           {t('krav.overskrift_kvittering')}
         </Heading>
-        <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+        <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="space-4" marginBlock="space-16">
           <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(orgnr)}</Datum>
           <Datum label="krav.ledetekst_opprettet_dato">
             <Dato verdi={opprettet}></Dato>
@@ -66,7 +66,7 @@ export function KravKvittering() {
           <Datum label="krav.ledetekst_deres_referansenr">{bestillingsreferanse}</Datum>
           <Datum label="krav.ledetekst_navs_referansenr">{id}</Datum>
         </HGrid>
-        <HStack gap="4" className='no-print'>
+        <HStack gap="space-16" className='no-print'>
           <Button variant="secondary" onClick={handlePrint} icon={<PrinterSmallIcon aria-hidden />}>
             {t('krav.knapp_skriv_ut_kvittering')}
           </Button>
@@ -74,5 +74,5 @@ export function KravKvittering() {
         </HStack>
       </KravSteg>
     </div>
-  )
+  );
 }

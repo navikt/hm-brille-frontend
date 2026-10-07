@@ -26,11 +26,11 @@ export function Forside() {
         </Avstand>*/}
         <div style={{ marginTop: '2rem' }}>
           <LinkCard tabIndex={0}>
-            <Box.New asChild borderRadius="large">
+            <Box asChild borderRadius="8">
               <LinkCard.Icon>
                 <SendKravIkon />
               </LinkCard.Icon>
-            </Box.New>
+            </Box>
             <LinkCard.Title>
               <LinkCard.Anchor asChild>
                 <Link to="/krav"> {t('forside.overskrift_send_krav')} </Link>
@@ -41,11 +41,11 @@ export function Forside() {
         </div>
         <div style={{ marginTop: '2rem' }}>
           <LinkCard tabIndex={0}>
-            <Box.New asChild borderRadius="large">
+            <Box asChild borderRadius="8">
               <LinkCard.Icon>
                 <InnsendteKravIkon />
               </LinkCard.Icon>
-            </Box.New>
+            </Box>
             <LinkCard.Title>
               <LinkCard.Anchor asChild>
                 <Link to="/oversikt">{t('forside.overskrift_innsendte_krav')}</Link>
@@ -57,11 +57,11 @@ export function Forside() {
             </LinkCard.Description>
           </LinkCard>
         </div>
-        <Box.New
-          marginBlock="8 0"
+        <Box
+          marginBlock="space-32 space-0"
           background="default"
-          padding="4"
-          borderRadius="xlarge"
+          padding="space-16"
+          borderRadius="12"
           borderWidth="1"
           borderColor="neutral-subtleA"
         >
@@ -70,10 +70,17 @@ export function Forside() {
           </Heading>
           <BodyLong spacing={true}>{t('forside.overskrift_om_ordningen.beskrivelse1')}</BodyLong>
 
-          <List as="ul" size="small" title={t('forside.overskrift_om_ordningen.abonnement1')}>
-            <List.Item>{t('forside.overskrift_om_ordningen.abonnement2')}</List.Item>
-            <List.Item>{t('forside.overskrift_om_ordningen.abonnement3')}</List.Item>
-          </List>
+          <div>
+            <Heading as="h3" size="xsmall">
+              {t('forside.overskrift_om_ordningen.abonnement1')}
+            </Heading>
+            <Box marginBlock="space-12" asChild>
+              <List data-aksel-migrated-v8 as="ul" size="small">
+                <List.Item>{t('forside.overskrift_om_ordningen.abonnement2')}</List.Item>
+                <List.Item>{t('forside.overskrift_om_ordningen.abonnement3')}</List.Item>
+              </List>
+            </Box>
+          </div>
           <BodyLong spacing={true}>
             <Trans t={t} i18nKey="forside.overskrift_om_ordningen.beskrivelse2">
               <></>
@@ -83,7 +90,7 @@ export function Forside() {
               <></>
             </Trans>
           </BodyLong>
-        </Box.New>
+        </Box>
       </main>
     </div>
   )

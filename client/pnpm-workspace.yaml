@@ -14,3 +14,7 @@ allowBuilds:
   cypress: true
   esbuild: true
   msw: true
+
+overrides:
+  decode-uri-component@<=0.4.2: ^0.5.0
+  react-router@>=6.0.0 <7.18.0: ^7.18.0

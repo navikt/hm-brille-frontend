@@ -98,7 +98,7 @@ export function KravForm() {
               <TextField
                 id="bestillingsreferanse"
                 label={
-                  <HGrid columns="auto auto" gap="3" paddingBlock="3 0">
+                  <HGrid columns="auto auto" gap="space-12" paddingBlock="space-12 space-0">
                     {t('krav.ledetekst_deres_referansenr')}
                     <HelpText title="Hvor kommer dette fra?" placement="right">
                       {t('krav.hjelpetekst_referansenr')}
@@ -120,7 +120,7 @@ export function KravForm() {
                 })}
               />
             </Avstand>
-            <HStack gap="3" justify="start" marginBlock="4 0">
+            <HStack gap="space-12" justify="start" marginBlock="space-16 space-0">
               <Button variant="primary" type="submit" loading={methods.formState.isSubmitting}>
                 {t('krav.knapp_beregn')}
               </Button>
@@ -130,5 +130,5 @@ export function KravForm() {
         </form>
       </FormProvider>
     </>
-  )
+  );
 }

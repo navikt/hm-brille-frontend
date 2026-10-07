@@ -68,7 +68,7 @@ export function KravOppsummering() {
       <Heading level="2" size="medium">
         {t('krav.overskrift_barn')}
       </Heading>
-      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="space-4" marginBlock="space-16">
         <Datum label="krav.ledetekst_fnr">{appState.barnFnr}</Datum>
         <Datum label="krav.ledetekst_navn">{appState.barnNavn}</Datum>
         <Datum label="krav.ledetekst_alder">{appState.barnAlder}</Datum>
@@ -76,7 +76,7 @@ export function KravOppsummering() {
       <Heading level="2" size="medium">
         {t('krav.overskrift_brillestyrke')}
       </Heading>
-      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="space-4" marginBlock="space-16">
         <Datum label="krav.ledetekst_høyre_sfære">
           <FormatertStyrke verdi={appState.brillestyrke.høyreSfære} type="sfære" />
         </Datum>
@@ -93,7 +93,7 @@ export function KravOppsummering() {
       <Heading level="2" size="medium">
         {t('krav.overskrift_annet')}
       </Heading>
-      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="1" marginBlock="4">
+      <HGrid columns={{ xs: "block", sm: "190px auto" }} gap="space-4" marginBlock="space-16">
         <Datum label="krav.ledetekst_orgnr">{organisasjonsnummer(appState.orgnr)}</Datum>
         <Datum label="krav.ledetekst_orgnavn">{appState.orgNavn}</Datum>
         <Datum label="krav.ledetekst_bestillingsdato_alt">{format(appState.bestillingsdato!!, 'dd.MM.yyyy')}</Datum>
@@ -163,5 +163,5 @@ export function KravOppsummering() {
       </Avstand>
       {kanSøke && <SendInnKrav vilkårsgrunnlag={vilkårsgrunnlag} />}
     </KravSteg>
-  )
+  );
 }

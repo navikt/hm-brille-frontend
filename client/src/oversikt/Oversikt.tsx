@@ -55,7 +55,7 @@ export function Oversikt() {
                 <li>{t('oversikt.intro.pnkt2')}</li>
               </ul>
             </GuidePanel>
-            <Box.New>
+            <Box>
               <ul
                 style={{
                   listStyleType: 'none',
@@ -82,21 +82,21 @@ export function Oversikt() {
                         <LinkCard.Footer>
                           {it.slettet && (
                             <div style={{ marginTop: '0.5rem' }}>
-                              <Tag variant="warning" size="small">
+                              <Tag data-color="warning" variant="outline" size="small">
                                 {t('oversikt.slettet')} <Dato verdi={it.slettet}></Dato>
                               </Tag>
                             </div>
                           )}
                           {!it.slettet && it.utbetalingsdato && (
                             <div style={{ marginTop: '0.5rem' }}>
-                              <Tag variant="success" size="small">
+                              <Tag data-color="success" variant="outline" size="small">
                                 {t('oversikt.utbetalt')} <Dato verdi={it.utbetalingsdato}></Dato>
                               </Tag>
                             </div>
                           )}
                           {!it.slettet && !it.utbetalingsdato && it.utbetalingsstatus && (
                             <div style={{ marginTop: '0.5rem' }}>
-                              <Tag variant="info" size="small">
+                              <Tag data-color="info" variant="outline" size="small">
                                 {t('oversikt.utbetales')}
                               </Tag>
                             </div>
@@ -105,10 +105,10 @@ export function Oversikt() {
                       </LinkCard>
                       {/* <hr style={{ margin: '0.5rem var(--ax-space-16)' }} /> Virker ikke som at denne trengs lenger med nye LinkCards som splittes tydeligere*/}
                     </li>
-                  )
+                  );
                 })}
               </ul>
-            </Box.New>
+            </Box>
             <div style={{ textAlign: 'right', margin: '1rem 0 2rem' }}>
               <Detail>
                 {t('oversikt.pagination', {
@@ -137,5 +137,5 @@ export function Oversikt() {
         )}
       </main>
     </div>
-  )
+  );
 }
