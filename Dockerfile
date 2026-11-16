@@ -2,7 +2,7 @@ FROM node:lts-alpine AS node
 ENV HUSKY=0
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN npm install --global corepack@0.36.0 && corepack enable
 
 # build client
 FROM node AS client-builder
